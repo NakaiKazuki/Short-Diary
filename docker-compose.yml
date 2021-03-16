@@ -4,6 +4,7 @@ services:
     image: mysql:8.0
     env_file:
       - ./environments/db.env
+      - ./environments/ruby.env
     volumes:
       - db-data:/var/lib/mysql
     ports:
@@ -25,18 +26,18 @@ services:
     depends_on:
       - db
 
-  # front:
-  #   build:
-  #     context: ./frontend
-  #   environment::
-  #     - CHOKIDAR_USEPOLLING=true # ホットリロードしたい場合はコメントアウト
-  #   volumes:
-  #     - ./frontend:/frontend
-  #   ports:
-  #     - 3000:3000
-  #   command: bash -c "yarn install && yarn start"
-  #   depends_on:
-  #     - back
+  front:
+    build:
+      context: ./frontend
+    environment:
+      - CHOKIDAR_USEPOLLING=true # ホットリロードしたい場合はコメントアウト
+    volumes:
+      - ./frontend:/frontend
+    ports:
+      - 3000:3000
+    command: bash -c "yarn install && yarn start"
+    depends_on:
+      - back
 
   nginx:
     build:
@@ -48,7 +49,7 @@ services:
       - 80:80
     depends_on:
       - back
-      # - front
+      - front
 
   # chrome:
   #   image: selenium/standalone-chrome
