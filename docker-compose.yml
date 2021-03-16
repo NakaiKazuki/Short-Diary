@@ -39,15 +39,15 @@ services:
 
   nginx:
     build:
-      context: ./containers/nginx
+      context: ./nginx
     volumes:
-      - public-data:/uber-eats-like/public
-      - tmp-data:/uber-eats-like/tmp
+      - public-data:/Short-Diary/public
+      - tmp-data:/Short-Diary/tmp
     ports:
       - 80:80
     depends_on:
       - back
-      - front
+      # - front
 
   # chrome:
   #   image: selenium/standalone-chrome

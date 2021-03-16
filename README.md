@@ -1,1 +1,1 @@
-"# Short-Diary" 
+"# Short-Diary"
