@@ -28,7 +28,7 @@ services:
 
   front:
     build:
-      context: ./frontend
+      context: ./containers/frontend
     environment:
       - CHOKIDAR_USEPOLLING=true # ホットリロードしたい場合はコメントアウト
     volumes:
@@ -41,7 +41,7 @@ services:
 
   nginx:
     build:
-      context: ./nginx
+      context: ./containers/nginx
     volumes:
       - public-data:/Short-Diary/public
       - tmp-data:/Short-Diary/tmp
