@@ -8,7 +8,7 @@ ruby '3.0.0'
 gem 'bootsnap', require: false
 gem 'mysql2'
 gem 'puma'
-gem 'rack-cors'
+gem 'rack-cors' # apiモードで使うのに必要なやつ
 gem 'rails', '~> 6.1.3'
 
 # ここから追加gem
