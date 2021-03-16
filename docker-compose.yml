@@ -1,0 +1,64 @@
+version: '3'
+services:
+  db:
+    image: mysql:8.0
+    env_file:
+      - ./environments/db.env
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password
+
+  back:
+    build:
+      context: .
+    env_file:
+      - ./environments/db.env
+    volumes:
+      - .:/Short-Diary
+      - public-data:/Short-Diary/public
+      - tmp-data:/Short-Diary/tmp
+    tty: true
+    command: bash -c "bundle exec pumactl start"
+    depends_on:
+      - db
+
+  # front:
+  #   build:
+  #     context: ./frontend
+  #   environment::
+  #     - CHOKIDAR_USEPOLLING=true # ホットリロードしたい場合はコメントアウト
+  #   volumes:
+  #     - ./frontend:/frontend
+  #   ports:
+  #     - 3000:3000
+  #   command: bash -c "yarn install && yarn start"
+  #   depends_on:
+  #     - back
+
+  nginx:
+    build:
+      context: ./containers/nginx
+    volumes:
+      - public-data:/uber-eats-like/public
+      - tmp-data:/uber-eats-like/tmp
+    ports:
+      - 80:80
+    depends_on:
+      - back
+      - front
+
+  # chrome:
+  #   image: selenium/standalone-chrome
+  #   logging:
+  #     driver: none
+  #   ports:
+  #     - 4444:4444
+  #   depends_on:
+  #     - nginx
+
+volumes:
+  db-data:
+  public-data:
+  tmp-data:
