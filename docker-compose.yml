@@ -15,6 +15,7 @@ services:
       context: .
     env_file:
       - ./environments/db.env
+      - ./environments/ruby.env
     volumes:
       - .:/Short-Diary
       - public-data:/Short-Diary/public

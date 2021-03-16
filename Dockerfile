@@ -1,4 +1,4 @@
-FROM ruby:2.7.2
+FROM ruby:3.0.0
 
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
@@ -25,7 +25,7 @@ COPY Gemfile $APP_ROOT/Gemfile
 COPY Gemfile.lock $APP_ROOT/Gemfile.lock
 
 RUN gem install bundler
-RUN bundle install
+RUN bundle update
 
 COPY . $APP_ROOT
 RUN mkdir -p tmp/sockets
