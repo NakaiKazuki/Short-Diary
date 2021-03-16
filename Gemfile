@@ -44,7 +44,7 @@ group :development do
   gem 'spring'
 
   # ここから追加gem
-  # モデルのカラム内容を分かりやすく
+  # モデルの内容を分かりやすく
   gem 'annotate'
 
   # エラー画面を見やすく
