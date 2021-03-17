@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class V1::Auth::OmniauthCallbacksController < DeviseTokenAuth::RegistrationsController
+class Api::V1::Auth::OmniauthCallbacksController < DeviseTokenAuth::OmniauthCallbacksController
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
 
@@ -16,7 +16,7 @@ class V1::Auth::OmniauthCallbacksController < DeviseTokenAuth::RegistrationsCont
   #   super
   # end
 
-  # GET|POST /V1::Auth::Users/auth/twitter/callback
+  # GET|POST /Api::V1::Auth::Users/auth/twitter/callback
   # def failure
   #   super
   # end

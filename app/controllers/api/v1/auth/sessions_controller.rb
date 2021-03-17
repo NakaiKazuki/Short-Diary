@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class V1::Auth::SessionsController < DeviseTokenAuth::RegistrationsController
+class Api::V1::Auth::SessionsController < DeviseTokenAuth::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
