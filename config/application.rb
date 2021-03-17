@@ -38,5 +38,19 @@ module ShortDiary
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # 以下追加
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
+    config.i18n.default_locale = :ja # デフォルトのlocaleを日本語(:ja)にする
+
+    # 以下の記述を追記する(設定必須)
+    config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.{rb,yml}').to_s]
+
+    config.middleware.use Rack::Attack
+
+    config.generators do |g|
+      g.test_framework :rspec
+    end
   end
 end

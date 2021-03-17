@@ -10,69 +10,44 @@ gem 'mysql2'
 gem 'puma'
 gem 'rack-cors' # apiモードで使うのに必要なやつ
 gem 'rails', '~> 6.1.3'
-
-# ここから追加gem
-# 取り敢えず入れとく
-gem 'autoprefixer-rails'
-gem 'fast_blank'
-
-# Userのあれこれ
-gem 'devise'
-gem 'devise_token_auth'
-
-# 画像
-gem 'mini_magick'
-
-# 日本語化
-gem 'rails-i18n'
-# 追加gemここまで
+gem 'autoprefixer-rails' # 取り敢えず入れとく
+gem 'fast_blank' # 取り敢えず入れとく
+gem 'devise' # User関連
+gem 'devise_token_auth' # User関連
+gem 'mini_magick' # 画像
+gem 'rails-i18n' # 日本語化
+gem 'devise-i18n' # 日本語化
+gem 'rack-attack' # F5アタック対策
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  # ここから追加gem
-  # セキュリティ云々を指摘してくれる
-  gem 'brakeman', require: false
-
-  # テスト用
-  gem 'factory_bot_rails'
-  gem 'rspec-rails'
-  # 追加gemここまで
+  gem 'brakeman', require: false # セキュリティ云々を指摘してくれる
+  gem 'factory_bot_rails' # テスト用
+  gem 'rspec-rails' # テスト用
 end
 
 group :development do
   gem 'listen'
   gem 'spring'
-
-  # ここから追加gem
-  # モデルの内容を分かりやすく
-  gem 'annotate'
-
+  gem 'annotate' # モデルの内容を分かりやすく
   # エラー画面を見やすく
-  gem 'better_errors'
-  gem 'binding_of_caller'
-
-  # メール確認用
-  gem 'letter_opener'
-  gem 'letter_opener_web'
-
-  # rubocop関連
-  gem 'rubocop', require: false
-  gem 'rubocop-performance', require: false
-  gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec'
-  # 追加gemここまで
+  gem 'better_errors' # エラー画面を見やすく
+  gem 'binding_of_caller' # エラー画面を見やすく
+  gem 'letter_opener'# メール確認用
+  gem 'letter_opener_web'# メール確認用
+  gem 'rubocop', require: false # rubocop関連
+  gem 'rubocop-performance', require: false # rubocop関連
+  gem 'rubocop-rails', require: false # rubocop関連
+  gem 'rubocop-rspec' # rubocop関連
 end
 
 group :test do
-  # dockerではお掃除が必要
-  gem 'database_cleaner'
+  gem 'database_cleaner' # DockerではDBのお掃除が必要
 end
 
 group :production do
-  # awsのs3使用
-  gem 'aws-sdk-s3', require: false
-  # 何人アクセスしたかとか分析してくれるやつ
-  gem 'google-analytics-rails'
+  gem 'aws-sdk-s3', require: false # awsのs3使用
+  gem 'google-analytics-rails' # 何人アクセスしたかとか分析してくれるやつ
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
