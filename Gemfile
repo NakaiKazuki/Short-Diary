@@ -10,7 +10,6 @@ gem 'mysql2'
 gem 'puma'
 gem 'rack-cors' # apiモードで使うのに必要なやつ
 gem 'rails', '~> 6.1.3'
-gem 'autoprefixer-rails' # 取り敢えず入れとく
 gem 'fast_blank' # 取り敢えず入れとく
 gem 'devise' # User関連
 gem 'devise_token_auth' # User関連
