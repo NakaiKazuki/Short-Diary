@@ -22,6 +22,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'brakeman', require: false # セキュリティ云々を指摘してくれる
   gem 'factory_bot_rails' # テスト用
+  gem "faker" # テスト用
   gem 'rspec-rails' # テスト用
 end
 
@@ -29,7 +30,6 @@ group :development do
   gem 'listen'
   gem 'spring'
   gem 'annotate' # モデルの内容を分かりやすく
-  # エラー画面を見やすく
   gem 'better_errors' # エラー画面を見やすく
   gem 'binding_of_caller' # エラー画面を見やすく
   gem 'letter_opener'# メール確認用
@@ -46,7 +46,7 @@ end
 
 group :production do
   gem 'aws-sdk-s3', require: false # awsのs3使用
-  gem 'google-analytics-rails' # 何人アクセスしたかとか分析してくれるやつ
+  # gem 'google-analytics-rails' # 何人アクセスしたかとか分析してくれるやつ
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

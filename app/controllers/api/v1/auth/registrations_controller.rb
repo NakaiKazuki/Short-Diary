@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
+class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -59,4 +59,13 @@ class V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsControll
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  private
+  def sign_up_params
+    params.permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def account_update_params
+    params.permit(:name, :email)
+  end
 end

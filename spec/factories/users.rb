@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -36,30 +34,24 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
-class User < ActiveRecord::Base
-  # Devise
-  include DeviseTokenAuth::Concerns::User
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :confirmable, :timeoutable, :trackable
-          # :lockable
-  # 未使用:trackable and :omniauthables
+FactoryBot.define do
+  factory :user, class: 'User' do
+    name { Faker::Name.name }
+    sequence(:email) { |n| "#{n}_" + Faker::Internet.email }
+    password { 'password' }
+    password_confirmation { 'password' }
+    confirmed_at { Time.current }
 
-  # 登録前にメールアドレスを小文字に変換
-  before_save :downcase_email
-
-  # バリデーション
-  validates :email,
-    presence: true,
-    length: { maximum: 255 }
-
-  validates :name,
-    presence: true,
-    length: { maximum: 50 }
-
-  private
-    # 登録前にメールアドレスを小文字に変換
-    def downcase_email
-      email.downcase!
+    trait :non_activate do
+      confirmed_at { nil }
     end
+
+    trait :other_email do
+      email { 'another@example.com' }
+    end
+
+    trait :account_freeze do
+      locked_at { Time.current }
+    end
+  end
 end

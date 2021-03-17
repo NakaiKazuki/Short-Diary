@@ -4,6 +4,10 @@ ja:
       models:
         user:
           attributes:
+            name:
+              blank: "が入力されていません。"
+              too_long: "は%{count}文字以下に設定して下さい。"
+              invalid: "は有効でありません。"
             email:
               taken: "は既に使用されています。"
               blank: "が入力されていません。"

@@ -40,17 +40,31 @@ module ShortDiary
     config.api_only = true
 
     # 以下追加
+    # 日本語対応と時間の設定
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
-    config.i18n.default_locale = :ja # デフォルトのlocaleを日本語(:ja)にする
-
-    # 以下の記述を追記する(設定必須)
+    config.i18n.default_locale = :ja
     config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.{rb,yml}').to_s]
 
+    # rack-attack 使えるようにする
     config.middleware.use Rack::Attack
 
+    # フラッシュ使えるようにする
+    config.middleware.use ActionDispatch::Flash
+
     config.generators do |g|
-      g.test_framework :rspec
+      g.template_engine false
+      g.javascripts false
+      g.stylesheets false
+      g.helper false
+      g.test_framework :rspec,
+      fixtures: true,
+      fixture_replacement: :factory_bot,
+      view_specs: false,
+      routing_specs: false,
+      helper_specs: false,
+      controller_specs: false,
+      request_specs: true
     end
   end
 end
