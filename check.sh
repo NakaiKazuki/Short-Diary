@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
 
-rubocop
+bundle exec rubocop
 
-brakeman -6 -A -w1
+bundle exec brakeman -6 -A -w1
 
-# rspec
+# bundle exec rspec
