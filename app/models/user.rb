@@ -17,7 +17,6 @@
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string(255)
 #  name                   :string(255)      default(""), not null
-#  nickname               :string(255)
 #  provider               :string(255)      default("email"), not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -37,16 +36,14 @@
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
 class User < ActiveRecord::Base
+  # 登録前にメールアドレスを小文字に変換
+  before_save :downcase_email
   # Devise
   include DeviseTokenAuth::Concerns::User
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :confirmable, :timeoutable, :trackable
-          # :lockable
-  # 未使用:trackable and :omniauthables
-
-  # 登録前にメールアドレスを小文字に変換
-  before_save :downcase_email
+         :recoverable, :rememberable, :trackable, :validatable,
+         :confirmable, :timeoutable
+        #  :lockable, :omniauthables
 
   # バリデーション
   validates :email,

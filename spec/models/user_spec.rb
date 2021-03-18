@@ -15,7 +15,6 @@
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string(255)
 #  name                   :string(255)      default(""), not null
-#  nickname               :string(255)
 #  provider               :string(255)      default("email"), not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -45,6 +44,23 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "name" do
+    it "空白は無効" do
+      user.name = " "
+      expect(user).to be_invalid
+    end
+
+    it "51文字以上は無効" do
+      user.name = "a" * 51
+      expect(user).to be_invalid
+    end
+
+    it "50文字以下は有効" do
+      user.name = "a" * 50
+      expect(user).to  be_valid
+    end
+  end
+
   describe 'email' do
     it '空白は無効' do
       user.email = ' '
@@ -61,7 +77,7 @@ RSpec.describe User, type: :model do
       expect(user).to be_valid
     end
 
-    describe '無効なアドレス' do
+    describe '無効なメールアドレス' do
       invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
                              foo@bar_baz.com foo@bar+baz.com foo@example..com]
       invalid_addresses.each do |invalid_address|
@@ -72,7 +88,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    describe '有効なアドレス' do
+    describe '有効なメールアドレス' do
       valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
                            first.last@foo.jp alice+bob@baz.cn]
       valid_addresses.each do |valid_address|
@@ -111,23 +127,6 @@ RSpec.describe User, type: :model do
     it '6文字以上は有効' do
       user.password = user.password_confirmation = 'a' * 6
       expect(user).to be_valid
-    end
-  end
-
-  describe "name" do
-    it "空白は無効" do
-      user.name = " "
-      expect(user).to be_invalid
-    end
-
-    it "51文字以上は無効" do
-      user.name = "a" * 51
-      expect(user).to be_invalid
-    end
-
-    it "50文字以下は有効" do
-      user.name = "a" * 50
-      expect(user).to  be_valid
     end
   end
 end
