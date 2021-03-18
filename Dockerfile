@@ -25,7 +25,7 @@ COPY Gemfile $APP_ROOT/Gemfile
 COPY Gemfile.lock $APP_ROOT/Gemfile.lock
 
 RUN gem install bundler
-RUN bundle update
+RUN bundle install
 
 COPY . $APP_ROOT
 RUN mkdir -p tmp/sockets

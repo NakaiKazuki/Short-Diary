@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  # 下記一行を追加
   include DeviseTokenAuth::Concerns::SetUserByToken
-  # CSRF対策
-  protect_from_forgery with: :null_session
 end

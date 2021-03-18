@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
+  before_action :sign_up_params, only: [:create]
+  before_action :account_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new
@@ -62,10 +62,10 @@ class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsCon
 
   private
   def sign_up_params
-    params.permit(:name, :email, :password, :password_confirmation)
+    params.permit(:name, :email, :image, :password, :password_confirmation)
   end
 
   def account_update_params
-    params.permit(:name, :email)
+    params.permit(:name, :email, :image, :password, :password_confirmation)
   end
 end

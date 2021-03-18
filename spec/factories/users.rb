@@ -15,7 +15,6 @@
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string(255)
 #  name                   :string(255)      default(""), not null
-#  nickname               :string(255)
 #  provider               :string(255)      default("email"), not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -40,18 +39,18 @@ FactoryBot.define do
     sequence(:email) { |n| "#{n}_" + Faker::Internet.email }
     password { 'password' }
     password_confirmation { 'password' }
-    confirmed_at { Time.current }
+    # confirmed_at { Time.current }
 
-    trait :non_activate do
-      confirmed_at { nil }
-    end
+    # trait :non_activate do
+    #   confirmed_at { nil }
+    # end
 
-    trait :other_email do
-      email { 'another@example.com' }
-    end
+    # trait :other_email do
+    #   email { 'another@example.com' }
+    # end
 
-    trait :account_freeze do
-      locked_at { Time.current }
-    end
+    # trait :account_freeze do
+    #   locked_at { Time.current }
+    # end
   end
 end
