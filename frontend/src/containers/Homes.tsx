@@ -26,7 +26,7 @@ const ContentsWrapper = styled.div`
 const HeadingWrapper = styled.h1`
   position: relative;
   padding: 0.5em;
-  background: deepskyblue;
+  background: limegreen;
   color: white;
   &:before {
     position: absolute;
