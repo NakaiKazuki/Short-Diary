@@ -1,12 +1,12 @@
 import React, { VFC } from 'react';
 import styled from 'styled-components';
-import {AppBar, Toolbar} from '@material-ui/core'
-import Button from '@material-ui/core/Button'
-import { Link } from "react-router-dom";
+import { AppBar, Toolbar, Button } from '@material-ui/core'
+import { Link } from 'react-router-dom';
+
 // images
 import MainLogo from '../images/logo.png';
 
-// // css
+// css
 const MainLogoImage = styled.img`
   height: 2.5rem;
 `;
@@ -23,7 +23,7 @@ export const Header:VFC = () => {
            <MainLogoImage src={MainLogo} alt="main logo" />
         </Link>
         <ButtonWrapper>
-          <Button variant="contained"  color="primary">
+          <Button variant="contained" color="primary">
             ログイン
           </Button>
         </ButtonWrapper>

@@ -52,7 +52,7 @@ const ButtonsWrapper = styled.span`
   justify-content: space-evenly;
 `;
 
-export  const Homes:VFC = () => {
+export const Homes:VFC = () => {
   return(
     <Fragment>
       <Header />
