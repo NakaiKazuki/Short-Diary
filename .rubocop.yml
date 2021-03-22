@@ -83,6 +83,7 @@ Metrics/BlockLength:
     - 'spec/**/*'
     - 'app/views/**/*.jbuilder'
     - 'lib/tasks/dev.rake'
+    - 'config/environments/*'
 
 Metrics/ClassLength:
   CountComments: false
@@ -173,3 +174,15 @@ Style/RegexpLiteral:
 # https://rubocop.readthedocs.io/en/stable/cops_style/#styleslicingwithrange
 Style/SlicingWithRange:
   Enabled: true
+
+# 追加
+Style/GlobalStdStream:
+  Exclude:
+    - 'config/environments/production.rb'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Rails/LexicallyScopedActionFilter:
+  Exclude:
+    - 'app/controllers/api/v1/auth/*'
+# ここまで

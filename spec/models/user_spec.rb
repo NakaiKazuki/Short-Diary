@@ -44,20 +44,20 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "name" do
-    it "空白は無効" do
-      user.name = " "
+  describe 'name' do
+    it '空白は無効' do
+      user.name = ' '
       expect(user).to be_invalid
     end
 
-    it "51文字以上は無効" do
-      user.name = "a" * 51
+    it '51文字以上は無効' do
+      user.name = 'a' * 51
       expect(user).to be_invalid
     end
 
-    it "50文字以下は有効" do
-      user.name = "a" * 50
-      expect(user).to  be_valid
+    it '50文字以下は有効' do
+      user.name = 'a' * 50
+      expect(user).to be_valid
     end
   end
 

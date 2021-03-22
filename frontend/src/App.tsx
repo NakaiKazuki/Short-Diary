@@ -6,15 +6,16 @@ import {
 } from "react-router-dom";
 
 // components
-import { Homes } from './containers/Homes';
+import { Home } from './containers/Home';
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route
+          data-testid="homeContainer"
           exact path="/" >
-          < Homes />
+          < Home />
         </Route>
       </Switch>
     </Router>

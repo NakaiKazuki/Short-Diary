@@ -17,13 +17,13 @@ const ButtonWrapper = styled.div`
 
 export const Header:VFC = () => {
   return (
-    <AppBar position="fixed" color="inherit">
+    <AppBar data-testid="header" position="fixed" color="inherit">
       <Toolbar>
-        <Link to ={ '/' } >
+        <Link data-testid="homeLink" to ={ '/' } >
            <MainLogoImage src={MainLogo} alt="main logo" />
         </Link>
         <ButtonWrapper>
-          <Button variant="contained" color="primary">
+          <Button data-testid="loginButton" variant="contained" color="primary">
             ログイン
           </Button>
         </ButtonWrapper>

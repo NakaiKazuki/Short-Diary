@@ -52,7 +52,7 @@ const ButtonsWrapper = styled.span`
   justify-content: space-evenly;
 `;
 
-export const Homes:VFC = () => {
+export const Home:VFC = () => {
   return(
     <Fragment>
       <Header />
@@ -68,10 +68,10 @@ export const Homes:VFC = () => {
             Short Diaryを使って日記を付けよう！
           </ParagraphWrapper>
           <ButtonsWrapper>
-            <Button size="large" variant="contained" color="primary">
+            <Button data-testid="signUpButton" size="large" variant="contained" color="primary">
               新規登録
             </Button>
-            <Button size="large" variant="outlined" color="primary">
+            <Button data-testid="guestLoginButton" size="large" variant="outlined" color="primary">
               ゲストログイン
             </Button>
           </ButtonsWrapper>

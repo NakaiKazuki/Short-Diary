@@ -1,10 +1,9 @@
 version: '3'
 services:
   db:
-    image: mysql:8.0
+    image: mysql:8.0.22
     env_file:
       - ./environments/db.env
-      - ./environments/ruby.env
     volumes:
       - db-data:/var/lib/mysql
     ports:
@@ -29,8 +28,8 @@ services:
   front:
     build:
       context: ./containers/frontend
-    environment:
-      - CHOKIDAR_USEPOLLING=true # ホットリロードで使用したい場合はコメントアウト
+    # environment:
+    #   - CHOKIDAR_USEPOLLING=true # ホットリロードで使用したい場合はコメントアウト
     volumes:
       - ./frontend:/frontend
     ports:

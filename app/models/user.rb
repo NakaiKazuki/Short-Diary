@@ -35,7 +35,7 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   # 登録前にメールアドレスを小文字に変換
   before_save :downcase_email
   # Devise
@@ -47,14 +47,15 @@ class User < ActiveRecord::Base
 
   # バリデーション
   validates :email,
-    presence: true,
-    length: { maximum: 255 }
+            presence: true,
+            length: { maximum: 255 }
 
   validates :name,
-    presence: true,
-    length: { maximum: 50 }
+            presence: true,
+            length: { maximum: 50 }
 
   private
+
     # 登録前にメールアドレスを小文字に変換
     def downcase_email
       email.downcase!
