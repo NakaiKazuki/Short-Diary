@@ -7,12 +7,20 @@ import { FormSubmit, FormItem } from './Forms/Users';
 // 型
 interface SignupDialogProps {
   isOpen: boolean;
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
   onClose(): void;
   onClickSignUp(): void;
 }
 
 export const SignupDialog: VFC<SignupDialogProps> = ({
   isOpen,
+  name,
+  email,
+  password,
+  passwordConfirmation,
   onClickSignUp,
   onClose,
 }) => {
@@ -31,6 +39,7 @@ export const SignupDialog: VFC<SignupDialogProps> = ({
         label="Name"
         type="text"
         placeholder="名前"
+        value={name}
         data-testid="nameArea"
       />
 
@@ -38,6 +47,7 @@ export const SignupDialog: VFC<SignupDialogProps> = ({
         label="Email"
         type="email"
         placeholder="メールアドレス（例：email@example.com）"
+        value={email}
         data-testid="emailArea"
       />
 
@@ -45,6 +55,7 @@ export const SignupDialog: VFC<SignupDialogProps> = ({
         label="Password"
         type="password"
         placeholder="パスワード（6文字以上）"
+        value={password}
         data-testid="passwordArea"
       />
 
@@ -52,6 +63,7 @@ export const SignupDialog: VFC<SignupDialogProps> = ({
         label="確認用Password"
         type="password"
         placeholder="パスワード（再入力）"
+        value={passwordConfirmation}
         data-testid="passwordConfirmationArea"
        />
 
