@@ -28,12 +28,13 @@ services:
   front:
     build:
       context: ./containers/frontend
-    # environment:
-    #   - CHOKIDAR_USEPOLLING=true # ホットリロードで使用したい場合はコメントアウト
+    environment:
+      - CHOKIDAR_USEPOLLING=true # ホットリロードで使用したい場合はコメントアウト
     volumes:
       - ./frontend:/frontend
     ports:
       - 3000:3000
+    tty: true
     command: bash -c "yarn install && yarn start"
     depends_on:
       - back

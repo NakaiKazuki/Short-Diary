@@ -13,7 +13,6 @@ function App() {
     <Router>
       <Switch>
         <Route
-          data-testid="homeContainer"
           exact path="/" >
           < Home />
         </Route>

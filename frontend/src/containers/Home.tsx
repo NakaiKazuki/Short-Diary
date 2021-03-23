@@ -1,6 +1,5 @@
-import React, { Fragment, VFC } from 'react';
+import React, { VFC, Fragment, useState ,useEffect } from 'react';
 import styled from 'styled-components';
-import { Button } from '@material-ui/core';
 // import { Link } from "react-router-dom";
 
 // images
@@ -8,7 +7,14 @@ import HomeBackGround from '../images/homebackground.jpg';
 
 // components
 import { Header } from '../components/Header';
+import { SignupDialog } from '../components/SignUpDialog'
+import { LoginDialog } from '../components/LoginDialog'
+import { BaseButton } from '../components/shared_style';
 
+// apis
+import { fetchHome } from '../apis/home'
+
+// css
 const HomeWrapper = styled.div`
   width: 100vw;
   height: 100vh;
@@ -52,11 +58,67 @@ const ButtonsWrapper = styled.span`
   justify-content: space-evenly;
 `;
 
+// 新規登録 ゲストボタン共通スタイル
+const HomeButton = styled(BaseButton)`
+  height: 4vh;
+  width: 10rem;
+  border-style: none;
+  border-radius: 3%;
+  letter-spacing:0.2rem;
+  color: white;
+`;
+
+const SignUpButtonWrapper = styled(HomeButton)`
+  background-color: royalblue;
+`;
+
+const LoginButtonWrapper = styled(HomeButton)`
+  background-color: limegreen;
+`;
+
+// 型
+interface InitialStateProps {
+  isOpenSignUpDialog: boolean;
+  isOpenLoginDialog: boolean;
+}
+
 export const Home:VFC = () => {
+  useEffect(() => {
+    fetchHome()
+    .then((data) =>
+      console.log(data)
+    )
+  }, [])
+
+  const initialState: InitialStateProps = {
+    isOpenSignUpDialog: false,
+    isOpenLoginDialog: false,
+  }
+
+  const [state, setState] = useState(initialState);
+
+  const loginDialogOpenHandler = ():void => {
+    setState({
+      ...state,
+      isOpenLoginDialog: true,
+    })
+  };
+
+  const submitSignUpHandler = ():void => {
+    console.log('登録ボタンが押された！');
+  };
+
+  const submitLoginHandler = ():void => {
+    console.log('ログインボタンが押された！');
+  };
+
+
   return(
     <Fragment>
-      <Header />
-      <HomeWrapper>
+      <Header
+        loginDialogOpenHandler={() => loginDialogOpenHandler()}
+      />
+      <HomeWrapper data-testid="homeContainer">
         <ContentsWrapper>
           <HeadingWrapper>
             毎日の出来事を記録しよう
@@ -68,15 +130,44 @@ export const Home:VFC = () => {
             Short Diaryを使って日記を付けよう！
           </ParagraphWrapper>
           <ButtonsWrapper>
-            <Button data-testid="signUpButton" size="large" variant="contained" color="primary">
-              新規登録
-            </Button>
-            <Button data-testid="guestLoginButton" size="large" variant="outlined" color="primary">
+            <SignUpButtonWrapper
+              type="button"
+              data-testid="signUpButton"
+              onClick={() => setState({
+                ...state,
+                isOpenSignUpDialog: true,
+              })}
+            >
+              ユーザー登録
+            </SignUpButtonWrapper>
+            <LoginButtonWrapper type="submit" data-testid="guestLoginButton">
               ゲストログイン
-            </Button>
+            </LoginButtonWrapper>
           </ButtonsWrapper>
         </ContentsWrapper>
       </HomeWrapper>
+      {
+        state.isOpenSignUpDialog &&
+          <SignupDialog
+            isOpen={state.isOpenSignUpDialog}
+            onClickSignUp = {() => submitSignUpHandler()}
+            onClose={() => setState({
+              ...state,
+              isOpenSignUpDialog: false,
+            })}
+          />
+      }
+      {
+        state.isOpenLoginDialog &&
+          <LoginDialog
+            isOpen={state.isOpenLoginDialog}
+            onClickLogin = {() => submitLoginHandler()}
+            onClose={() => setState({
+              ...state,
+              isOpenLoginDialog: false,
+            })}
+          />
+      }
     </Fragment>
   )
 }

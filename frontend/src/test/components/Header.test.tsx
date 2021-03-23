@@ -1,11 +1,9 @@
 import React from "react";
 import { Router } from "react-router-dom";
-import { render ,cleanup} from "@testing-library/react";
-import "@testing-library/jest-dom";
+import { render , screen, cleanup} from "@testing-library/react";
 import { createMemoryHistory } from "history";
+import '@testing-library/jest-dom';
 import { Header } from '../../components/Header';
-
-afterEach(cleanup);
 
 // Helper function
 const renderWithRouter = (component: any) => {
@@ -15,25 +13,23 @@ const renderWithRouter = (component: any) => {
   };
 };
 
-describe("Header component", () => {
-  test("Headerが表示されている", () => {
-    const { container, getByTestId } = renderWithRouter(<Header />);
+beforeEach(() => {
+  const loginDialogOpenHandler = jest.fn();
+  renderWithRouter(<Header loginDialogOpenHandler={loginDialogOpenHandler} />);
+})
 
-    const header = getByTestId("header");
-    expect(container).toContainElement(header);
-  });
+afterEach(cleanup);
 
-  test("ホーム画面へのリンクがある", () => {
-    const { container, getByTestId } = renderWithRouter(<Header />);
+describe("Header コンポーネント", () => {
+  test("ホーム画面へのリンク", () => {
+    const HomeLink = screen.getByTestId("homeLink");
 
-    const HomeLink = getByTestId("homeLink");
-    expect(container).toContainElement(HomeLink);
+    expect(HomeLink ).toBeTruthy();
   })
 
-  test("ログインボタンがある", () => {
-    const { container, getByTestId } = renderWithRouter(<Header />);
+  test("ログインボタン", () => {
+    const loginButton = screen.getByTestId("loginButton");
 
-    const loginButton = getByTestId("loginButton");
-    expect(container).toContainElement(loginButton);
+    expect(loginButton).toHaveAttribute('type', 'button')
   })
 });

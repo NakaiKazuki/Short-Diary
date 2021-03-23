@@ -1,10 +1,11 @@
 import React from "react";
 import { Router } from "react-router-dom";
-import { render ,cleanup} from "@testing-library/react";
+import { render , screen,cleanup} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { createMemoryHistory } from "history";
 import App from '../App';
-afterEach(cleanup);
+
+
 // Helper function
 const renderWithRouter = (component: any) => {
   const history = createMemoryHistory();
@@ -13,11 +14,13 @@ const renderWithRouter = (component: any) => {
   };
 };
 
-describe('App', () => {
-  test("Home containerへのRouteがある", () =>{
-    const { container, getByTestId } = renderWithRouter(<App />);
+afterEach(cleanup);
 
-    const home = getByTestId("homeContainer");
-    expect(container).toContainElement(home);
+describe('App', () => {
+  test("Homeコンポーネント", () =>{
+    renderWithRouter(<App />);
+    const home = screen.getByTestId("homeContainer");
+
+    expect(home).toBeTruthy();
   });
 });

@@ -30,9 +30,11 @@ group :development do
   gem 'annotate' # モデルの内容を分かりやすく
   gem 'better_errors' # エラー画面を見やすく
   gem 'binding_of_caller' # エラー画面を見やすく
+  gem 'bullet' # N+1問題を検出
   gem 'letter_opener' # メール確認用
   gem 'letter_opener_web' # メール確認用
   gem 'listen'
+  gem 'rails_best_practices', require: false # railsのベストプラクティスに則っているかをチェック
   gem 'rubocop', require: false # rubocop関連
   gem 'rubocop-performance', require: false # rubocop関連
   gem 'rubocop-rails', require: false # rubocop関連
