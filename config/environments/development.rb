@@ -66,9 +66,9 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   # 追加
-  BetterErrors::Middleware.allow_ip! "0.0.0.0/0"
+  BetterErrors::Middleware.allow_ip! '0.0.0.0/0'
 
   config.action_mailer.default_url_options = { host: IPSocket.getaddress(Socket.gethostname),
-    port: 3000 }
+                                               port: 3000 }
   config.action_mailer.delivery_method = :letter_opener_web
 end

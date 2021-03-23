@@ -6,9 +6,6 @@
 #
 #  id                     :bigint           not null, primary key
 #  allow_password_change  :boolean          default(FALSE)
-#  confirmation_sent_at   :datetime
-#  confirmation_token     :string(255)
-#  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string(255)
 #  email                  :string(255)      default(""), not null
@@ -24,37 +21,36 @@
 #  sign_in_count          :integer          default(0), not null
 #  tokens                 :text(65535)
 #  uid                    :string(255)      default(""), not null
-#  unconfirmed_email      :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
 # Indexes
 #
-#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   # 登録前にメールアドレスを小文字に変換
   before_save :downcase_email
   # Devise
-  include DeviseTokenAuth::Concerns::User
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :timeoutable
-        #  :lockable, :omniauthables
+         :recoverable, :rememberable, :validatable,
+         :trackable, :timeoutable
+  #  :confirmable, :lockable, :omniauthables
+  include DeviseTokenAuth::Concerns::User
 
   # バリデーション
   validates :email,
-    presence: true,
-    length: { maximum: 255 }
+            presence: true,
+            length: { maximum: 255 }
 
   validates :name,
-    presence: true,
-    length: { maximum: 50 }
+            presence: true,
+            length: { maximum: 50 }
 
   private
+
     # 登録前にメールアドレスを小文字に変換
     def downcase_email
       email.downcase!

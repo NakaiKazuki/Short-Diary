@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 // components
-import { Homes } from './containers/Homes';
+import { Home } from './containers/Home';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       <Switch>
         <Route
           exact path="/" >
-          < Homes />
+          < Home />
         </Route>
       </Switch>
     </Router>

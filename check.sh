@@ -5,4 +5,4 @@ bundle exec rubocop
 
 bundle exec brakeman -6 -A -w1
 
-# bundle exec rspec
+bundle exec rspec

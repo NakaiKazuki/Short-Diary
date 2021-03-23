@@ -4,9 +4,6 @@
 #
 #  id                     :bigint           not null, primary key
 #  allow_password_change  :boolean          default(FALSE)
-#  confirmation_sent_at   :datetime
-#  confirmation_token     :string(255)
-#  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string(255)
 #  email                  :string(255)      default(""), not null
@@ -22,13 +19,11 @@
 #  sign_in_count          :integer          default(0), not null
 #  tokens                 :text(65535)
 #  uid                    :string(255)      default(""), not null
-#  unconfirmed_email      :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
 # Indexes
 #
-#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
@@ -44,20 +39,20 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "name" do
-    it "空白は無効" do
-      user.name = " "
+  describe 'name' do
+    it '空白は無効' do
+      user.name = ' '
       expect(user).to be_invalid
     end
 
-    it "51文字以上は無効" do
-      user.name = "a" * 51
+    it '51文字以上は無効' do
+      user.name = 'a' * 51
       expect(user).to be_invalid
     end
 
-    it "50文字以下は有効" do
-      user.name = "a" * 50
-      expect(user).to  be_valid
+    it '50文字以下は有効' do
+      user.name = 'a' * 50
+      expect(user).to be_valid
     end
   end
 

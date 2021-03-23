@@ -1,10 +1,9 @@
 version: '3'
 services:
   db:
-    image: mysql:8.0
+    image: mysql:8.0.22
     env_file:
       - ./environments/db.env
-      - ./environments/ruby.env
     volumes:
       - db-data:/var/lib/mysql
     ports:
@@ -35,6 +34,7 @@ services:
       - ./frontend:/frontend
     ports:
       - 3000:3000
+    tty: true
     command: bash -c "yarn install && yarn start"
     depends_on:
       - back
