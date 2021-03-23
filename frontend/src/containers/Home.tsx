@@ -80,6 +80,12 @@ const LoginButtonWrapper = styled(HomeButton)`
 interface InitialStateProps {
   isOpenSignUpDialog: boolean;
   isOpenLoginDialog: boolean;
+  signUpName: string;
+  signUpEmail: string;
+  signUpPassword: string;
+  signUpPasswordConfirmation: string;
+  loginEmail: string;
+  loginPassword: string;
 }
 
 export const Home:VFC = () => {
@@ -93,10 +99,17 @@ export const Home:VFC = () => {
   const initialState: InitialStateProps = {
     isOpenSignUpDialog: false,
     isOpenLoginDialog: false,
+    signUpName: "valueテスト",
+    signUpEmail: "email",
+    signUpPassword: "password",
+    signUpPasswordConfirmation: "password",
+    loginEmail: "",
+    loginPassword: "",
   }
 
   const [state, setState] = useState(initialState);
 
+  // Headerにあるログインボタンクリックでモーダルを開く
   const loginDialogOpenHandler = ():void => {
     setState({
       ...state,
@@ -104,14 +117,15 @@ export const Home:VFC = () => {
     })
   };
 
+  // 新規ユーザーの登録情報をApiへ送信
   const submitSignUpHandler = ():void => {
     console.log('登録ボタンが押された！');
   };
 
+  // ユーザーのログイン情報をApiへ送信
   const submitLoginHandler = ():void => {
     console.log('ログインボタンが押された！');
   };
-
 
   return(
     <Fragment>
@@ -150,6 +164,10 @@ export const Home:VFC = () => {
         state.isOpenSignUpDialog &&
           <SignupDialog
             isOpen={state.isOpenSignUpDialog}
+            name={state.signUpName}
+            email={state.signUpEmail}
+            password={state.signUpPassword}
+            passwordConfirmation={state.signUpPasswordConfirmation}
             onClickSignUp = {() => submitSignUpHandler()}
             onClose={() => setState({
               ...state,
@@ -161,6 +179,8 @@ export const Home:VFC = () => {
         state.isOpenLoginDialog &&
           <LoginDialog
             isOpen={state.isOpenLoginDialog}
+            email={state.loginEmail}
+            password={state.loginPassword}
             onClickLogin = {() => submitLoginHandler()}
             onClose={() => setState({
               ...state,

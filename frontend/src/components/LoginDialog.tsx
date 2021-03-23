@@ -7,12 +7,16 @@ import { FormDialog, FormSubmit, FormItem } from './Forms/Users';
 // 型
 interface LoginDialogProps {
   isOpen: boolean;
+  email: string;
+  password: string;
   onClose(): void;
   onClickLogin(): void;
 }
 
 export const LoginDialog: VFC<LoginDialogProps> = ({
   isOpen,
+  email,
+  password,
   onClickLogin,
   onClose,
 }) => {
@@ -29,6 +33,7 @@ export const LoginDialog: VFC<LoginDialogProps> = ({
         label="Email"
         type="email"
         placeholder="メールアドレス"
+        value={email}
         data-testid="emailArea"
       />
 
@@ -36,6 +41,7 @@ export const LoginDialog: VFC<LoginDialogProps> = ({
         label="Password"
         type="password"
         placeholder="パスワード"
+        value={password}
         data-testid="passwordArea"
       />
 
