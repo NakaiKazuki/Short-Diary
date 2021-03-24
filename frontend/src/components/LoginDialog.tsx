@@ -1,14 +1,19 @@
-import React, { VFC } from 'react';
-import { DialogActions, DialogTitle} from '@material-ui/core';
+import React, { VFC, ChangeEvent} from 'react';
+import { Dialog, DialogActions} from '@material-ui/core';
 
 // components
-import { FormDialog, FormSubmit, FormItem } from './Forms/Users';
+import { FormTitle, FormItem, FormSubmit } from './Forms/Users';
 
 // 型
+interface formInputProps{
+  value: string;
+  onChange(e: ChangeEvent<HTMLInputElement>): void;
+}
+
 interface LoginDialogProps {
   isOpen: boolean;
-  email: string;
-  password: string;
+  email: formInputProps;
+  password: formInputProps;
   onClose(): void;
   onClickLogin(): void;
 }
@@ -21,38 +26,35 @@ export const LoginDialog: VFC<LoginDialogProps> = ({
   onClose,
 }) => {
   return (
-    <FormDialog
+    <Dialog
       open={isOpen}
       onClose={onClose}
       fullWidth
       data-testid="loginDialog"
     >
-    <DialogTitle>ログイン</DialogTitle>
+    <FormTitle>ログイン</FormTitle>
 
       <FormItem
         label="Email"
         type="email"
         placeholder="メールアドレス"
-        value={email}
         data-testid="emailArea"
+        {...email}
       />
-
       <FormItem
         label="Password"
         type="password"
         placeholder="パスワード"
-        value={password}
         data-testid="passwordArea"
+        {...password}
       />
-
       <DialogActions>
         <FormSubmit
           onClick={() => onClickLogin()}
+          value="Login!"
           data-testid="formSubmit"
-        >
-          Login!
-        </FormSubmit>
+        />
       </DialogActions>
-    </FormDialog>
+    </Dialog>
   );
 }

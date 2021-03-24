@@ -1,11 +1,25 @@
 import React from "react";
 import { render , screen, cleanup} from "@testing-library/react";
 import { SignupDialog } from '../../components/SignUpDialog';
+import { useInput } from '../../customHooks'
 
 beforeEach(() => {
+  const name = useInput("");
+  const email = useInput("");
+  const password = useInput("");
+  const Confirmation = useInput("");
   const onClickSignUp = jest.fn();
   const onClose = jest.fn();
-  render(<SignupDialog isOpen={true} onClickSignUp={onClickSignUp} onClose={onClose} />);
+
+  render(<SignupDialog
+          isOpen={true}
+          name={name}
+          email={email}
+          password={password}
+          passwordConfirmation={Confirmation}
+          onClickSignUp={onClickSignUp}
+          onClose={onClose}
+        />);
 })
 
 afterEach(cleanup);

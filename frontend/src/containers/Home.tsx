@@ -1,18 +1,23 @@
 import React, { VFC, Fragment, useState ,useEffect } from 'react';
 import styled from 'styled-components';
-// import { Link } from "react-router-dom";
 
 // images
 import HomeBackGround from '../images/homebackground.jpg';
 
 // components
 import { Header } from '../components/Header';
-import { SignupDialog } from '../components/SignUpDialog'
-import { LoginDialog } from '../components/LoginDialog'
+import { SignupDialog } from '../components/SignUpDialog';
+import { LoginDialog } from '../components/LoginDialog';
 import { BaseButton } from '../components/shared_style';
 
+// customHooks
+import { useInput } from '../customHooks'
+
 // apis
-import { fetchHome } from '../apis/home'
+import { fetchHome } from '../apis/home';
+import { postRegistration } from '../apis/users/registrations';
+import { postSession } from '../apis/users/sessions';
+
 
 // css
 const HomeWrapper = styled.div`
@@ -53,7 +58,7 @@ const ParagraphWrapper = styled.p`
 `;
 
 const ButtonsWrapper = styled.span`
-  margin: 10% 0 0 10%;
+  margin-top: 10%;
   display: flex;
   justify-content: space-evenly;
 `;
@@ -80,15 +85,11 @@ const LoginButtonWrapper = styled(HomeButton)`
 interface InitialStateProps {
   isOpenSignUpDialog: boolean;
   isOpenLoginDialog: boolean;
-  signUpName: string;
-  signUpEmail: string;
-  signUpPassword: string;
-  signUpPasswordConfirmation: string;
-  loginEmail: string;
-  loginPassword: string;
 }
 
 export const Home:VFC = () => {
+  document.title = "Short Diary";
+
   useEffect(() => {
     fetchHome()
     .then((data) =>
@@ -96,21 +97,23 @@ export const Home:VFC = () => {
     )
   }, [])
 
+  // フォーム欄で入力するために必要な変数
+  const signUpName = useInput("");
+  const signUpEmail = useInput("");
+  const signUpPassword = useInput("");
+  const signUpPasswordConfirmation = useInput("");
+  const loginEmail = useInput("");
+  const loginPassword = useInput("");
+
+  // モーダルを表示するためのState
   const initialState: InitialStateProps = {
     isOpenSignUpDialog: false,
     isOpenLoginDialog: false,
-    signUpName: "valueテスト",
-    signUpEmail: "email",
-    signUpPassword: "password",
-    signUpPasswordConfirmation: "password",
-    loginEmail: "",
-    loginPassword: "",
   }
-
   const [state, setState] = useState(initialState);
 
-  // Headerにあるログインボタンクリックでモーダルを開く
-  const loginDialogOpenHandler = ():void => {
+  // Headerコンポーネントのボタンクリックでログインフォーム開く
+  const loginDialogOpenHandler = (): void => {
     setState({
       ...state,
       isOpenLoginDialog: true,
@@ -118,13 +121,27 @@ export const Home:VFC = () => {
   };
 
   // 新規ユーザーの登録情報をApiへ送信
-  const submitSignUpHandler = ():void => {
-    console.log('登録ボタンが押された！');
+  const signUpHandler = (): void => {
+    postRegistration({
+      name: signUpName.value,
+      email: signUpEmail.value,
+      password: signUpPassword.value,
+      password_confirmation: signUpPasswordConfirmation.value,
+    })
+    .then((data) =>
+     console.log(data)
+    )
   };
 
   // ユーザーのログイン情報をApiへ送信
-  const submitLoginHandler = ():void => {
-    console.log('ログインボタンが押された！');
+  const loginHandler = (): void => {
+    postSession({
+      email: loginEmail.value,
+      password: loginPassword.value,
+    })
+    .then((data) =>
+     console.log(data)
+    )
   };
 
   return(
@@ -164,11 +181,11 @@ export const Home:VFC = () => {
         state.isOpenSignUpDialog &&
           <SignupDialog
             isOpen={state.isOpenSignUpDialog}
-            name={state.signUpName}
-            email={state.signUpEmail}
-            password={state.signUpPassword}
-            passwordConfirmation={state.signUpPasswordConfirmation}
-            onClickSignUp = {() => submitSignUpHandler()}
+            name={signUpName}
+            email={signUpEmail}
+            password={signUpPassword}
+            passwordConfirmation={signUpPasswordConfirmation}
+            onClickSignUp = {() => signUpHandler()}
             onClose={() => setState({
               ...state,
               isOpenSignUpDialog: false,
@@ -179,9 +196,9 @@ export const Home:VFC = () => {
         state.isOpenLoginDialog &&
           <LoginDialog
             isOpen={state.isOpenLoginDialog}
-            email={state.loginEmail}
-            password={state.loginPassword}
-            onClickLogin = {() => submitLoginHandler()}
+            email={loginEmail}
+            password={loginPassword}
+            onClickLogin = {() => loginHandler()}
             onClose={() => setState({
               ...state,
               isOpenLoginDialog: false,
