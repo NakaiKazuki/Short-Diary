@@ -24,7 +24,8 @@ services:
     command: bash -c "bundle exec pumactl start"
     depends_on:
       - db
-
+    ports:
+      - 3001:3001
   front:
     build:
       context: ./containers/frontend

@@ -35,7 +35,7 @@ class User < ApplicationRecord
   before_save :downcase_email
   # Devise
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
+         :recoverable, :validatable, :rememberable,
          :trackable, :timeoutable
   #  :confirmable, :lockable, :omniauthables
   include DeviseTokenAuth::Concerns::User

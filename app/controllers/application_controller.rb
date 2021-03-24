@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-class ApplicationController < ActionController::API
-  # 下記一行を追加
+class ApplicationController < ActionController::Base
   include DeviseTokenAuth::Concerns::SetUserByToken
 end

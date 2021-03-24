@@ -1,16 +1,21 @@
-import React, { VFC } from 'react';
-import { Dialog, DialogActions, DialogTitle} from '@material-ui/core';
+import React, { VFC, ChangeEvent } from 'react';
+import { Dialog, DialogActions} from '@material-ui/core';
 
 // components
-import { FormSubmit, FormItem } from './Forms/Users';
+import { FormTitle, FormItem, FormSubmit } from './Forms/Users';
 
 // 型
+interface formItemProps{
+  value: string;
+  onChange(e: ChangeEvent<HTMLInputElement>): void;
+}
+
 interface SignupDialogProps {
   isOpen: boolean;
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
+  name: formItemProps;
+  email: formItemProps;
+  password: formItemProps;
+  passwordConfirmation: formItemProps;
   onClose(): void;
   onClickSignUp(): void;
 }
@@ -33,13 +38,13 @@ export const SignupDialog: VFC<SignupDialogProps> = ({
       data-testid="signUpDialog"
     >
 
-    <DialogTitle>新規登録</DialogTitle>
+    <FormTitle>新規登録</FormTitle>
       <FormItem
         autoFocus
         label="Name"
         type="text"
         placeholder="名前"
-        value={name}
+        {...name}
         data-testid="nameArea"
       />
 
@@ -47,7 +52,7 @@ export const SignupDialog: VFC<SignupDialogProps> = ({
         label="Email"
         type="email"
         placeholder="メールアドレス（例：email@example.com）"
-        value={email}
+        {...email}
         data-testid="emailArea"
       />
 
@@ -55,7 +60,7 @@ export const SignupDialog: VFC<SignupDialogProps> = ({
         label="Password"
         type="password"
         placeholder="パスワード（6文字以上）"
-        value={password}
+        {...password}
         data-testid="passwordArea"
       />
 
@@ -63,17 +68,16 @@ export const SignupDialog: VFC<SignupDialogProps> = ({
         label="確認用Password"
         type="password"
         placeholder="パスワード（再入力）"
-        value={passwordConfirmation}
+        {...passwordConfirmation}
         data-testid="passwordConfirmationArea"
        />
 
       <DialogActions>
         <FormSubmit
           onClick={() => onClickSignUp()}
+          value="この内容で登録"
           data-testid="formSubmit"
-        >
-          この内容で登録
-        </FormSubmit>
+        />
       </DialogActions>
     </Dialog>
   );

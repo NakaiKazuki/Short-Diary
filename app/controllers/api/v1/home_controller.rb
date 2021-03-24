@@ -1,8 +1,8 @@
 class Api::V1::HomeController < ApplicationController
   def home
-    # return unless user_signed_in?
-    home = '通信できてんで'
+    return unless user_signed_in?
 
+    home = '通信できてんんで'
     render json: {
       home: home
     }, status: :ok
