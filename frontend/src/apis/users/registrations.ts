@@ -8,7 +8,27 @@ interface ParamsProps {
   password_confirmation: string;
 }
 
-export const postRegistration = (params:ParamsProps) => {
+interface DataProps {
+  id: number;
+  provider: string;
+  uid: string;
+  allow_password_change: boolean;
+  name: string;
+  email: string;
+  image: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+interface ErrorsProps {
+  name?: Array<string>;
+  email?: Array<string>;
+  password?: Array<string>;
+  password_confirmation?: Array<string>;
+  response: {status: number};
+}
+
+export const postRegistration = (params:ParamsProps):Promise<DataProps | ErrorsProps> => {
   return axios.post(registration,
     {
       name: params.name,
