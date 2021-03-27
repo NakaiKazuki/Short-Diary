@@ -7,14 +7,13 @@ ruby '3.0.0'
 
 gem 'bootsnap', require: false
 gem 'devise' # User関連
-# gem 'devise-i18n' # 日本語化
 gem 'devise_token_auth' # User関連
 gem 'fast_blank' # 取り敢えず入れとく
 gem 'mini_magick' # 画像
 gem 'mysql2'
 gem 'puma'
 gem 'rack-attack' # F5アタック対策
-gem 'rack-cors' # apiモードで使うのに必要なやつ
+gem 'rack-cors' # apiで使うのに必要なやつ
 gem 'rails', '~> 6.1.3'
 gem 'rails-i18n' # 日本語化
 

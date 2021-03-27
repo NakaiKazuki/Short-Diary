@@ -68,7 +68,6 @@ Rails.application.configure do
   # 追加
   BetterErrors::Middleware.allow_ip! '0.0.0.0/0'
 
-  config.action_mailer.default_url_options = { host: IPSocket.getaddress(Socket.gethostname),
-                                               port: 3000 }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000}
   config.action_mailer.delivery_method = :letter_opener_web
 end

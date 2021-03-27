@@ -1,5 +1,6 @@
-import React, { VFC, Fragment, useState } from 'react';
+import React, { VFC, Fragment, useState, useReducer } from 'react';
 import { useForm ,Controller} from 'react-hook-form';
+import {useHistory} from "react-router-dom";
 import styled from 'styled-components';
 
 // components
@@ -12,7 +13,14 @@ import { FormTitleWrapper, FormLabelWrapper ,FormItemsWrapper,
 import { postRegistration } from '../apis/users/registrations';
 
 // responses
-import { HTTP_STATUS_CODE } from '../constants';
+import { HTTP_STATUS_CODE, REQUEST_STATE } from '../constants';
+
+// reducers
+import {
+  initialState,
+  signUpActionTypes,
+  signUpReducer,
+} from '../reducers/signUp';
 
 // css
 const SignUpWrapper = styled.div`
@@ -20,14 +28,16 @@ const SignUpWrapper = styled.div`
 `;
 
 // 型
-interface UserInfoProps{
+// Formから送信される情報
+interface FormValues{
   name: string;
   email: string;
   password: string;
   password_confirmation: string;
 }
 
-interface ApiErrorsProps {
+// エラーメッセージ
+interface ApiErrors {
   name?: Array<string>;
   email?: Array<string>;
   password?: Array<string>;
@@ -36,28 +46,49 @@ interface ApiErrorsProps {
 }
 
 export const SignUp:VFC = () => {
+  const history = useHistory();
+  const { handleSubmit, errors, control } = useForm<FormValues>();
+  const [apiError, setErrorMessage] = useState<ApiErrors>();
+  const [state, dispatch] = useReducer(signUpReducer, initialState);
 
-  const { handleSubmit, errors, control } = useForm<UserInfoProps>();
-  let [apiError, setErrorMessage] = useState<ApiErrorsProps>();
-
-  const onSubmit = (userInfo: UserInfoProps) => {
+  const onSubmit = (formValues: FormValues) => {
+    dispatch({ type: signUpActionTypes.POSTING});
     postRegistration({
-      name: userInfo.name,
-      email: userInfo.email,
-      password: userInfo.password,
-      password_confirmation: userInfo.password_confirmation,
+      name: formValues.name,
+      email: formValues.email,
+      password: formValues.password,
+      password_confirmation: formValues.password_confirmation,
     })
-    .then(data =>
-     console.log(data)
-    )
+    .then(data => {
+      dispatch({ type: signUpActionTypes.POST_SUCCESS });
+      console.log(data);
+      history.push("/")
+    })
     .catch(e => {
       if (e.response.status === HTTP_STATUS_CODE.VALIDATION_FAILED) {
-        setErrorMessage(apiError = e.response.data.errors)
+        dispatch({ type: signUpActionTypes.POST_INITIAL });
+        setErrorMessage(e.response.data.errors)
       } else {
         throw e;
       }
-    })
+    });
   };
+
+  const onSubmitLabel = () => {
+    switch (state.postState) {
+      case REQUEST_STATE.LOADING:
+        return "送信中...";
+      case REQUEST_STATE.OK:
+        return "送信が完了しました";
+      default:
+        return "Sign Up!";
+    }
+  };
+
+  // 送信中とエラーなく送信完了した場合はtrueを返す
+  const isDisabled = () => {
+    return state.postState === REQUEST_STATE.LOADING || state.postState === REQUEST_STATE.OK
+  }
 
   return(
     <Fragment>
@@ -89,7 +120,7 @@ export const SignUp:VFC = () => {
             <FormErrorMessageWrapper>1文字以上、255文字以内で入力してください</FormErrorMessageWrapper>
           }
           {apiError?.email && apiError.email.map((message: string, index: number) =>
-            <FormErrorMessageWrapper key={index}>{`メールアドレス${message}`}</FormErrorMessageWrapper>
+            <FormErrorMessageWrapper key={`email-${index}`}>{`メールアドレス${message}`}</FormErrorMessageWrapper>
           )}
           <Controller
             name="email"
@@ -128,7 +159,7 @@ export const SignUp:VFC = () => {
             <FormErrorMessageWrapper>パスワードと同じ内容を入力してください</FormErrorMessageWrapper>
           }
           {apiError?.password_confirmation && apiError.password_confirmation.map((message: string, index: number) =>
-            <FormErrorMessageWrapper key={index}>{`確認用パスワード${message}`}</FormErrorMessageWrapper>
+            <FormErrorMessageWrapper key={`password_confirmation-${index}`}>{`確認用パスワード${message}`}</FormErrorMessageWrapper>
           )}
           <Controller
             name="password_confirmation"
@@ -143,7 +174,7 @@ export const SignUp:VFC = () => {
               />
             }
           />
-          <FormSubmitWrapper type="submit" disabled={false}>Sign Up!</FormSubmitWrapper>
+          <FormSubmitWrapper type="submit" disabled={isDisabled()}>{onSubmitLabel()}</FormSubmitWrapper>
         </FormItemsWrapper>
       </SignUpWrapper>
     </Fragment>

@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { session } from '../../urls/index';
 
-interface ParamsProps {
+interface Params {
   email: string;
   password: string;
 }
 
-export const postSession = (params: ParamsProps) => {
+export const postSession = (params: Params) => {
   return axios.post(session,
     {
       email: params.email,

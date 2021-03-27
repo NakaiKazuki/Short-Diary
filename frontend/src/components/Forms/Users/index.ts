@@ -5,7 +5,7 @@ import { BaseButton } from '../../shared_style';
 export const FormTitleWrapper = styled.h1`
   text-align: center;
   color: royalblue;
-  letter-spacing: 0.1rem;
+  letter-spacing: .1rem;
 `;
 
 export const FormItemsWrapper = styled.form`
@@ -34,7 +34,7 @@ export const FormSubmitWrapper = styled(BaseButton)`
 `;
 
 export const FormErrorMessageWrapper = styled.p`
-  margin: 0.6rem auto auto auto;
+  margin: .6rem auto auto auto;
   color: red;
   font-size: .9rem;
 `;
