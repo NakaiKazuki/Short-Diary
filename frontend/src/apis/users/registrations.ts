@@ -20,15 +20,21 @@ interface DataProps {
   updated_at: string;
 }
 
-interface ErrorsProps {
+interface ErrorDataProps {
   name?: Array<string>;
   email?: Array<string>;
   password?: Array<string>;
   password_confirmation?: Array<string>;
-  response: {status: number};
+  full_messages: Array<string>;
 }
 
-export const postRegistration = (params:ParamsProps):Promise<DataProps | ErrorsProps> => {
+interface ErrorProps {
+  response:{
+    status: number;
+    data: ErrorDataProps;
+  }
+}
+export const postRegistration = (params:ParamsProps):Promise<DataProps | ErrorProps> => {
   return axios.post(registration,
     {
       name: params.name,

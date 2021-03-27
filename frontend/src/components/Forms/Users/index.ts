@@ -20,7 +20,7 @@ export const FormLabelWrapper = styled.label`
   opacity: .7;
 `;
 export const FormItemWrapper = styled(TextField)`
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
 `;
 
 export const FormSubmitWrapper = styled(BaseButton)`
@@ -34,5 +34,7 @@ export const FormSubmitWrapper = styled(BaseButton)`
 `;
 
 export const FormErrorMessageWrapper = styled.p`
+  margin: 0.6rem auto auto auto;
   color: red;
+  font-size: .9rem;
 `;

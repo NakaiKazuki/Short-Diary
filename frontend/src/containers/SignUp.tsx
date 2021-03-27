@@ -1,4 +1,4 @@
-import React, { VFC, Fragment } from 'react';
+import React, { VFC, Fragment, useState } from 'react';
 import { useForm ,Controller} from 'react-hook-form';
 import styled from 'styled-components';
 
@@ -10,8 +10,10 @@ import { FormTitleWrapper, FormLabelWrapper ,FormItemsWrapper,
 
 // apis
 import { postRegistration } from '../apis/users/registrations';
+
 // responses
 import { HTTP_STATUS_CODE } from '../constants';
+
 // css
 const SignUpWrapper = styled.div`
   margin-top: 12vh;
@@ -23,19 +25,20 @@ interface UserInfoProps{
   email: string;
   password: string;
   password_confirmation: string;
-
 }
 
-interface ErrorsProps {
+interface ApiErrorsProps {
   name?: Array<string>;
   email?: Array<string>;
   password?: Array<string>;
   password_confirmation?: Array<string>;
-  response: {status: number};
+  full_messages: Array<string>;
 }
 
 export const SignUp:VFC = () => {
-  const { handleSubmit, getValues , errors, control } = useForm();
+
+  const { handleSubmit, errors, control } = useForm<UserInfoProps>();
+  let [apiError, setErrorMessage] = useState<ApiErrorsProps>();
 
   const onSubmit = (userInfo: UserInfoProps) => {
     postRegistration({
@@ -44,18 +47,17 @@ export const SignUp:VFC = () => {
       password: userInfo.password,
       password_confirmation: userInfo.password_confirmation,
     })
-    .then((data) =>
+    .then(data =>
      console.log(data)
     )
-    .catch((e: ErrorsProps ) => {
+    .catch(e => {
       if (e.response.status === HTTP_STATUS_CODE.VALIDATION_FAILED) {
-        console.log(e.response)
+        setErrorMessage(apiError = e.response.data.errors)
       } else {
         throw e;
       }
     })
   };
-
 
   return(
     <Fragment>
@@ -64,14 +66,14 @@ export const SignUp:VFC = () => {
         <FormTitleWrapper>Sign Up</FormTitleWrapper>
         <FormItemsWrapper onSubmit={handleSubmit(onSubmit)}>
           <FormLabelWrapper>Name:</FormLabelWrapper>
-          {errors.name && errors.name.type === "required" && (
-            <FormErrorMessageWrapper>名前を入力してください</FormErrorMessageWrapper>
-          )}
+          {errors.name &&
+            <FormErrorMessageWrapper>1文字以上、50文字以内で入力してください</FormErrorMessageWrapper>
+          }
           <Controller
             name="name"
             control={control}
             defaultValue=""
-            rules={{ required: true }}
+            rules={{ required: true, maxLength: 50 }}
             as={
               <FormItemWrapper
                 autoFocus
@@ -83,14 +85,17 @@ export const SignUp:VFC = () => {
           />
 
           <FormLabelWrapper>Email:</FormLabelWrapper>
-          {errors.email && errors.email.type === "required" && (
-            <FormErrorMessageWrapper>メールアドレスを入力してください</FormErrorMessageWrapper>
+          {errors.email &&
+            <FormErrorMessageWrapper>1文字以上、255文字以内で入力してください</FormErrorMessageWrapper>
+          }
+          {apiError?.email && apiError.email.map((message: string, index: number) =>
+            <FormErrorMessageWrapper key={index}>{`メールアドレス${message}`}</FormErrorMessageWrapper>
           )}
           <Controller
             name="email"
             control={control}
             defaultValue=""
-            rules={{ required: true }}
+            rules={{ required: true , maxLength: 255}}
             as={
               <FormItemWrapper
                 type="email"
@@ -100,18 +105,15 @@ export const SignUp:VFC = () => {
             }
           />
 
-          <FormLabelWrapper>パスワード（6文字以上）:</FormLabelWrapper>
-          {errors.password && errors.password.type === "required" && (
-            <FormErrorMessageWrapper>パスワードを入力してください</FormErrorMessageWrapper>
-          )}
-          {errors.password && errors.password.type === "minLength" && (
-            <FormErrorMessageWrapper>パスワードは6文字以上で登録してください</FormErrorMessageWrapper>
-          )}
+          <FormLabelWrapper>パスワード(6文字以上):</FormLabelWrapper>
+          {errors.password &&
+            <FormErrorMessageWrapper>6文字以上、128文字以内で入力してください</FormErrorMessageWrapper>
+          }
           <Controller
             name="password"
             control={control}
             defaultValue=""
-            rules={{ required: true ,minLength: 6 }}
+            rules={{ required: true,minLength: 6, maxLength: 128}}
             as={
               <FormItemWrapper
                 type="password"
@@ -121,18 +123,18 @@ export const SignUp:VFC = () => {
             }
           />
 
-          <FormLabelWrapper>確認用パスワード</FormLabelWrapper>
-          {errors.password_confirmation && errors.password_confirmation.type === "required" && (
-            <FormErrorMessageWrapper>確認用パスワードを入力してください</FormErrorMessageWrapper>
-          )}
-          {errors.password_confirmation && errors.password_confirmation.type === "validate" && (
-            <FormErrorMessageWrapper>パスワードと一致していません</FormErrorMessageWrapper>
+          <FormLabelWrapper>確認用パスワード:</FormLabelWrapper>
+          {errors.password &&
+            <FormErrorMessageWrapper>パスワードと同じ内容を入力してください</FormErrorMessageWrapper>
+          }
+          {apiError?.password_confirmation && apiError.password_confirmation.map((message: string, index: number) =>
+            <FormErrorMessageWrapper key={index}>{`確認用パスワード${message}`}</FormErrorMessageWrapper>
           )}
           <Controller
             name="password_confirmation"
             control={control}
             defaultValue=""
-            rules={{required: true, validate: value => value === getValues("password") }}
+            rules={{required: true, minLength: 6}}
             as={
               <FormItemWrapper
                 type="password"
@@ -141,8 +143,7 @@ export const SignUp:VFC = () => {
               />
             }
           />
-
-          <FormSubmitWrapper type="submit">Sign Up!</FormSubmitWrapper>
+          <FormSubmitWrapper type="submit" disabled={false}>Sign Up!</FormSubmitWrapper>
         </FormItemsWrapper>
       </SignUpWrapper>
     </Fragment>

@@ -7,7 +7,7 @@ ruby '3.0.0'
 
 gem 'bootsnap', require: false
 gem 'devise' # User関連
-gem 'devise-i18n' # 日本語化
+# gem 'devise-i18n' # 日本語化
 gem 'devise_token_auth' # User関連
 gem 'fast_blank' # 取り敢えず入れとく
 gem 'mini_magick' # 画像
