@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { registration} from '../../urls/index';
 
-interface ParamsProps {
+interface Params {
   name: string;
   email: string;
   password: string;
   password_confirmation: string;
 }
 
-export const postRegistration = (params:ParamsProps) => {
+
+export const postRegistration = (params:Params)=> {
   return axios.post(registration,
     {
       name: params.name,

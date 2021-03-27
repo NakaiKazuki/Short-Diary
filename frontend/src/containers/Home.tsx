@@ -1,4 +1,5 @@
-import React, { VFC, Fragment, useState ,useEffect } from 'react';
+import React, { VFC, Fragment ,useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 // images
@@ -6,18 +7,9 @@ import HomeBackGround from '../images/homebackground.jpg';
 
 // components
 import { Header } from '../components/Header';
-import { SignupDialog } from '../components/SignUpDialog';
-import { LoginDialog } from '../components/LoginDialog';
 import { BaseButton } from '../components/shared_style';
-
-// customHooks
-import { useInput } from '../customHooks'
-
 // apis
 import { fetchHome } from '../apis/home';
-import { postRegistration } from '../apis/users/registrations';
-import { postSession } from '../apis/users/sessions';
-
 
 // css
 const HomeWrapper = styled.div`
@@ -30,14 +22,17 @@ const HomeWrapper = styled.div`
 `;
 
 const ContentsWrapper = styled.div`
-  padding: 10% 10% 0 20%;
+  margin-top: 15vh;
   display: inline-block;
+  @media screen and (min-width: 481px) {
+    margin-left: 10vw;
+  };
 `;
 
 const HeadingWrapper = styled.h1`
   position: relative;
-  padding: 0.5em;
-  background: limegreen;
+  padding: 0.5rem;
+  background: royalblue;
   color: white;
   &:before {
     position: absolute;
@@ -65,12 +60,13 @@ const ButtonsWrapper = styled.span`
 
 // 新規登録 ゲストボタン共通スタイル
 const HomeButton = styled(BaseButton)`
-  height: 4vh;
+  height: 2.5rem;
   width: 10rem;
   border-style: none;
   border-radius: 3%;
   letter-spacing:0.2rem;
   color: white;
+  font-size: 0.95rem;
 `;
 
 const SignUpButtonWrapper = styled(HomeButton)`
@@ -81,15 +77,7 @@ const LoginButtonWrapper = styled(HomeButton)`
   background-color: limegreen;
 `;
 
-// 型
-interface InitialStateProps {
-  isOpenSignUpDialog: boolean;
-  isOpenLoginDialog: boolean;
-}
-
 export const Home:VFC = () => {
-  document.title = "Short Diary";
-
   useEffect(() => {
     fetchHome()
     .then((data) =>
@@ -97,58 +85,9 @@ export const Home:VFC = () => {
     )
   }, [])
 
-  // フォーム欄で入力するために必要な変数
-  const signUpName = useInput("");
-  const signUpEmail = useInput("");
-  const signUpPassword = useInput("");
-  const signUpPasswordConfirmation = useInput("");
-  const loginEmail = useInput("");
-  const loginPassword = useInput("");
-
-  // モーダルを表示するためのState
-  const initialState: InitialStateProps = {
-    isOpenSignUpDialog: false,
-    isOpenLoginDialog: false,
-  }
-  const [state, setState] = useState(initialState);
-
-  // Headerコンポーネントのボタンクリックでログインフォーム開く
-  const loginDialogOpenHandler = (): void => {
-    setState({
-      ...state,
-      isOpenLoginDialog: true,
-    })
-  };
-
-  // 新規ユーザーの登録情報をApiへ送信
-  const signUpHandler = (): void => {
-    postRegistration({
-      name: signUpName.value,
-      email: signUpEmail.value,
-      password: signUpPassword.value,
-      password_confirmation: signUpPasswordConfirmation.value,
-    })
-    .then((data) =>
-     console.log(data)
-    )
-  };
-
-  // ユーザーのログイン情報をApiへ送信
-  const loginHandler = (): void => {
-    postSession({
-      email: loginEmail.value,
-      password: loginPassword.value,
-    })
-    .then((data) =>
-     console.log(data)
-    )
-  };
-
   return(
     <Fragment>
-      <Header
-        loginDialogOpenHandler={() => loginDialogOpenHandler()}
-      />
+      <Header/>
       <HomeWrapper data-testid="homeContainer">
         <ContentsWrapper>
           <HeadingWrapper>
@@ -161,50 +100,23 @@ export const Home:VFC = () => {
             Short Diaryを使って日記を付けよう！
           </ParagraphWrapper>
           <ButtonsWrapper>
-            <SignUpButtonWrapper
-              type="button"
-              data-testid="signUpButton"
-              onClick={() => setState({
-                ...state,
-                isOpenSignUpDialog: true,
-              })}
+            <Link
+              to={'/signup'}
+              data-testid="signUpLink"
             >
-              ユーザー登録
-            </SignUpButtonWrapper>
+              <SignUpButtonWrapper
+                type="button"
+                data-testid="signUpButton"
+              >
+                ユーザー登録
+              </SignUpButtonWrapper>
+            </Link>
             <LoginButtonWrapper type="submit" data-testid="guestLoginButton">
               ゲストログイン
             </LoginButtonWrapper>
           </ButtonsWrapper>
         </ContentsWrapper>
       </HomeWrapper>
-      {
-        state.isOpenSignUpDialog &&
-          <SignupDialog
-            isOpen={state.isOpenSignUpDialog}
-            name={signUpName}
-            email={signUpEmail}
-            password={signUpPassword}
-            passwordConfirmation={signUpPasswordConfirmation}
-            onClickSignUp = {() => signUpHandler()}
-            onClose={() => setState({
-              ...state,
-              isOpenSignUpDialog: false,
-            })}
-          />
-      }
-      {
-        state.isOpenLoginDialog &&
-          <LoginDialog
-            isOpen={state.isOpenLoginDialog}
-            email={loginEmail}
-            password={loginPassword}
-            onClickLogin = {() => loginHandler()}
-            onClose={() => setState({
-              ...state,
-              isOpenLoginDialog: false,
-            })}
-          />
-      }
     </Fragment>
   )
 }

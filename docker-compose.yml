@@ -10,7 +10,7 @@ services:
       - 3306:3306
     command: --default-authentication-plugin=mysql_native_password
 
-  back:
+  api:
     build:
       context: .
     env_file:
@@ -24,8 +24,7 @@ services:
     command: bash -c "bundle exec pumactl start"
     depends_on:
       - db
-    ports:
-      - 3001:3001
+
   front:
     build:
       context: ./containers/frontend
@@ -33,12 +32,13 @@ services:
       - CHOKIDAR_USEPOLLING=true # ホットリロードで使用したい場合はコメントアウト
     volumes:
       - ./frontend:/frontend
+      - ./frontend/node_modules:/frontend/node_modules
     ports:
       - 3000:3000
     tty: true
     command: bash -c "yarn install && yarn start"
     depends_on:
-      - back
+      - api
 
   nginx:
     build:
@@ -49,7 +49,7 @@ services:
     ports:
       - 80:80
     depends_on:
-      - back
+      - api
       - front
 
   # chrome:

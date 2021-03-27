@@ -14,8 +14,7 @@ const renderWithRouter = (component: any) => {
 };
 
 beforeEach(() => {
-  const loginDialogOpenHandler = jest.fn();
-  renderWithRouter(<Header loginDialogOpenHandler={loginDialogOpenHandler} />);
+  renderWithRouter(<Header/>);
 })
 
 afterEach(cleanup);

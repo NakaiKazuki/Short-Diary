@@ -1,25 +1,40 @@
-import { DialogTitle, TextField} from '@material-ui/core';
 import styled from 'styled-components';
-
-// components
+import { TextField } from '@material-ui/core'
 import { BaseButton } from '../../shared_style';
 
-
-export const FormTitle = styled(DialogTitle)`
-  margin: 2% 0 0.5% 2%;
+export const FormTitleWrapper = styled.h1`
+  text-align: center;
+  color: royalblue;
+  letter-spacing: .1rem;
 `;
 
-// ユーザーが入力欄
-export const FormItem = styled(TextField)`
-  margin:0 10% 1rem 10%;
+export const FormItemsWrapper = styled.form`
+  margin: 0 auto;
+  width:80vw;
+  @media screen and (min-width: 980px) {
+    width:30vw;
+  };
 `;
 
-// 送信ボタン
-export const FormSubmit = styled(BaseButton)`
+export const FormLabelWrapper = styled.label`
+  opacity: .7;
+`;
+export const FormItemWrapper = styled(TextField)`
+  margin-bottom: 1.2rem;
+`;
+
+export const FormSubmitWrapper = styled(BaseButton)`
+  margin: 1.5rem auto 0 auto;
   background-color: royalblue;
   color: white;
   border-style: none;
-  margin: 1.5rem 9%;
   width: 100%;
-  height: 4vh;
+  height: 3rem;
+  font-size: 1.1rem;
+`;
+
+export const FormErrorMessageWrapper = styled.p`
+  margin: .6rem auto auto auto;
+  color: red;
+  font-size: .9rem;
 `;

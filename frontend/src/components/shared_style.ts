@@ -9,6 +9,10 @@ export const BaseButton = styled.button`
   :focus {
     outline: 0;
   }
+  :disabled {
+    background-color: gray;
+    color: white;
+  }
 `;
 
 // 角丸なボタン

@@ -31,14 +31,15 @@
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
 class User < ApplicationRecord
-  # 登録前にメールアドレスを小文字に変換
-  before_save :downcase_email
   # Devise
   devise :database_authenticatable, :registerable,
-         :recoverable, :validatable, :rememberable,
-         :trackable, :timeoutable
-  #  :confirmable, :lockable, :omniauthables
+  :recoverable, :validatable, :rememberable,
+  :trackable, :timeoutable
+  #  ,:confirmable, :lockable, :omniauthables
   include DeviseTokenAuth::Concerns::User
+
+  # 登録前にメールアドレスを小文字に変換
+  before_save :downcase_email
 
   # バリデーション
   validates :email,
@@ -48,7 +49,6 @@ class User < ApplicationRecord
   validates :name,
             presence: true,
             length: { maximum: 50 }
-
   private
 
     # 登録前にメールアドレスを小文字に変換

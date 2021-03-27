@@ -7,6 +7,8 @@ import {
 
 // components
 import { Home } from './containers/Home';
+import { SignUp } from './containers/SignUp';
+import { Login } from './containers/Login';
 
 function App() {
   return (
@@ -15,6 +17,14 @@ function App() {
         <Route
           exact path="/" >
           < Home />
+        </Route>
+        <Route
+          exact path="/signup" >
+          < SignUp />
+        </Route>
+        <Route
+          exact path="/login" >
+          < Login />
         </Route>
       </Switch>
     </Router>
