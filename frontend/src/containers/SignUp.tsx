@@ -57,7 +57,7 @@ export const SignUp:VFC = () => {
   const { handleSubmit, errors, control } = useForm<IFormValues>();
   const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
-  const onSubmit = (formValues: IFormValues) => {
+  const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: signUpActionTypes.POSTING});
     postRegistration({
       name: formValues.name,

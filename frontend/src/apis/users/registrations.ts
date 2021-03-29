@@ -19,7 +19,7 @@ export const postRegistration = (params: IParams) => {
     }
     )
     .then(res => {
-      return;
+      return res;
     })
     .catch(e => { throw e; })
 };
