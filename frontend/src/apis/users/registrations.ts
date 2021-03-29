@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { registration} from '../../urls/index';
 
-interface Params {
+interface IParams {
   name: string;
   email: string;
   password: string;
@@ -9,7 +9,7 @@ interface Params {
 }
 
 
-export const postRegistration = (params:Params)=> {
+export const postRegistration = (params: IParams) => {
   return axios.post(registration,
     {
       name: params.name,
@@ -19,7 +19,7 @@ export const postRegistration = (params:Params)=> {
     }
     )
     .then(res => {
-      return res.data;
+      return;
     })
     .catch(e => { throw e; })
 };

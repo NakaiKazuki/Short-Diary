@@ -1,31 +1,31 @@
 import { REQUEST_STATE } from "../constants";
 
 // 型
-interface InitialState {
+interface IInitialState {
   postState: string;
 }
 
-interface SignUpActionTypes {
+interface ISignUpActionTypes {
   POST_INITIAL: string;
   POSTING: string;
   POST_SUCCESS: string;
 }
 
-interface Action {
+interface IAction {
   type: string;
 }
 
-export const initialState: InitialState = {
+export const initialState: IInitialState = {
   postState: REQUEST_STATE.INITIAL,
 };
 
-export const signUpActionTypes: SignUpActionTypes = {
+export const signUpActionTypes: ISignUpActionTypes = {
   POST_INITIAL: "INITIAL",
   POSTING: "POSTING",
   POST_SUCCESS: "POST_SUCCESS",
 };
 
-export const signUpReducer = (state:InitialState, action: Action ): InitialState => {
+export const signUpReducer = (state: IInitialState, action: IAction ): IInitialState => {
   switch (action.type) {
     case signUpActionTypes.POST_INITIAL:
       return {

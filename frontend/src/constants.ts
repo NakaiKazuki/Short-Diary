@@ -1,10 +1,21 @@
-export const REQUEST_STATE = {
+interface IREQUEST_STATE {
+  INITIAL: string;
+  LOADING: string;
+  OK: string;
+}
+
+interface IHTTP_STATUS_CODE {
+  DATA_UNDEFINED: number;
+  VALIDATION_FAILED: number;
+}
+
+export const REQUEST_STATE: IREQUEST_STATE = {
   INITIAL: 'INITIAL',
   LOADING: 'LOADING',
   OK: 'OK',
 }
 
-export const HTTP_STATUS_CODE = {
-  // NOT_ACCEPTABLE: 406,
+export const HTTP_STATUS_CODE: IHTTP_STATUS_CODE = {
+  DATA_UNDEFINED: 401,
   VALIDATION_FAILED: 422,
 }

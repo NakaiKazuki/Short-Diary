@@ -8,7 +8,7 @@ export const FormTitleWrapper = styled.h1`
   letter-spacing: .1rem;
 `;
 
-export const FormItemsWrapper = styled.form`
+export const FormWrapper = styled.form`
   margin: 0 auto;
   width:80vw;
   @media screen and (min-width: 980px) {

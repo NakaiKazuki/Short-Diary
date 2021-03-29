@@ -1,16 +1,22 @@
-import React, { VFC, Fragment ,useEffect } from 'react';
+import React, { VFC, Fragment ,useEffect, useContext} from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
+import {useHistory} from "react-router-dom";
 // images
 import HomeBackGround from '../images/homebackground.jpg';
 
 // components
 import { Header } from '../components/Header';
 import { BaseButton } from '../components/shared_style';
+
 // apis
 import { fetchHome } from '../apis/home';
+import { deleteSession } from '../apis/users/sessions';
+// helpers
+import { isSignedIn } from '../helpers';
 
+//contexts
+import { CurrentUserContext } from '../contexts/CurrentUser';
 // css
 const HomeWrapper = styled.div`
   width: 100vw;
@@ -63,7 +69,6 @@ const HomeButton = styled(BaseButton)`
   height: 2.5rem;
   width: 10rem;
   border-style: none;
-  border-radius: 3%;
   letter-spacing:0.2rem;
   color: white;
   font-size: 0.95rem;
@@ -78,16 +83,31 @@ const LoginButtonWrapper = styled(HomeButton)`
 `;
 
 export const Home:VFC = () => {
+  const { currentUser ,setCurrentUser} = useContext(CurrentUserContext);
+  const history = useHistory();
+
   useEffect(() => {
     fetchHome()
     .then((data) =>
       console.log(data)
     )
-  }, [])
+  },[currentUser]);
+
+  const signOut = () =>{
+    deleteSession(currentUser!.headers)
+    .then((res) => {
+      setCurrentUser(undefined)
+      console.log(res);
+      history.push("/");
+    })
+    .catch(e => {
+      throw e;
+    });
+  }
 
   return(
     <Fragment>
-      <Header/>
+      <Header isSignedIn={isSignedIn(currentUser)} signOut={signOut} />
       <HomeWrapper data-testid="homeContainer">
         <ContentsWrapper>
           <HeadingWrapper>
