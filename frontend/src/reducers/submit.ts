@@ -5,7 +5,7 @@ interface IInitialState {
   postState: string;
 }
 
-interface IGuestLoginActionTypes {
+interface ISubmitActionTypes {
   POST_INITIAL: string;
   POSTING: string;
   POST_SUCCESS: string;
@@ -19,25 +19,25 @@ export const initialState: IInitialState = {
   postState: REQUEST_STATE.INITIAL,
 };
 
-export const guestLoginActionTypes: IGuestLoginActionTypes = {
+export const submitActionTypes: ISubmitActionTypes = {
   POST_INITIAL: "INITIAL",
   POSTING: "POSTING",
   POST_SUCCESS: "POST_SUCCESS",
 };
 
-export const guestLoginReducer = (state: IInitialState, action: IAction ): IInitialState => {
+export const submitReducer = (state: IInitialState, action: IAction ): IInitialState => {
   switch (action.type) {
-    case guestLoginActionTypes.POST_INITIAL:
+    case submitActionTypes.POST_INITIAL:
       return {
         ...state,
         postState: REQUEST_STATE.INITIAL,
       };
-    case guestLoginActionTypes.POSTING:
+    case submitActionTypes.POSTING:
       return {
         ...state,
         postState: REQUEST_STATE.LOADING,
       };
-    case guestLoginActionTypes.POST_SUCCESS:
+    case submitActionTypes.POST_SUCCESS:
       return {
         ...state,
         postState: REQUEST_STATE.OK,
@@ -45,4 +45,4 @@ export const guestLoginReducer = (state: IInitialState, action: IAction ): IInit
     default:
       throw new Error();
   }
-}
+};

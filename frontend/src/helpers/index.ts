@@ -1,21 +1,9 @@
-interface IHeader {
-  accessToken: string;
-  client: string;
-  uid: string;
-}
+import { onSubmitLabel, isDisabled } from "./button";
+import { isSignedIn, signOutHandler } from "./session";
 
-interface IData {
-  id: number;
-  name: string;
-  email: string;
-  image: string | null;
-}
-
-interface ICurrentUser {
-  data: IData;
-  headers: IHeader;
-}
-
-export const isSignedIn = (currentUser: ICurrentUser | undefined) :boolean => {
-  return  currentUser?.headers != null;
+export {
+  onSubmitLabel,
+  isDisabled,
+  isSignedIn,
+  signOutHandler,
 };

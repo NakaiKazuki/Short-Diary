@@ -8,7 +8,6 @@ interface IParams {
   password_confirmation: string;
 }
 
-
 export const postRegistration = (params: IParams) => {
   return axios.post(registration,
     {
@@ -16,10 +15,6 @@ export const postRegistration = (params: IParams) => {
       email: params.email,
       password: params.password,
       password_confirmation: params.password_confirmation,
-    }
-    )
-    .then(res => {
-      return res;
     })
     .catch(e => { throw e; })
 };
