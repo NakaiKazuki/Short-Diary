@@ -1,26 +1,31 @@
-import React, { VFC, Fragment, useState, useReducer } from 'react';
+import React, { VFC, Fragment, useState, useReducer,useContext } from 'react';
 import { useForm ,Controller} from 'react-hook-form';
 import {useHistory} from "react-router-dom";
+import { CurrentUserContext } from '../contexts/CurrentUser'
 import styled from 'styled-components';
 
 // components
-import { Header } from '../components/Header';
-import { FormTitleWrapper, FormLabelWrapper ,FormItemsWrapper,
+import { FormTitleWrapper, FormLabelWrapper ,FormWrapper,
          FormItemWrapper, FormSubmitWrapper,FormErrorMessageWrapper}
          from '../components/Forms/Users';
+import { Header } from '../components/Header';
 
 // apis
 import { postRegistration } from '../apis/users/registrations';
-
-// responses
-import { HTTP_STATUS_CODE, REQUEST_STATE } from '../constants';
-
+import { deleteSession } from '../apis/users/sessions';
 // reducers
 import {
   initialState,
   signUpActionTypes,
   signUpReducer,
 } from '../reducers/signUp';
+
+// helpers
+import { isSignedIn } from '../helpers';
+
+// responses
+import { HTTP_STATUS_CODE, REQUEST_STATE } from '../constants';
+
 
 // css
 const SignUpWrapper = styled.div`
@@ -29,7 +34,7 @@ const SignUpWrapper = styled.div`
 
 // 型
 // Formから送信される情報
-interface FormValues{
+interface IFormValues{
   name: string;
   email: string;
   password: string;
@@ -37,7 +42,7 @@ interface FormValues{
 }
 
 // エラーメッセージ
-interface ApiErrors {
+interface IApiErrors {
   name?: Array<string>;
   email?: Array<string>;
   password?: Array<string>;
@@ -47,11 +52,12 @@ interface ApiErrors {
 
 export const SignUp:VFC = () => {
   const history = useHistory();
-  const { handleSubmit, errors, control } = useForm<FormValues>();
-  const [apiError, setErrorMessage] = useState<ApiErrors>();
+  const [apiError, setErrorMessage] = useState<IApiErrors | undefined>(undefined);
   const [state, dispatch] = useReducer(signUpReducer, initialState);
+  const { handleSubmit, errors, control } = useForm<IFormValues>();
+  const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
-  const onSubmit = (formValues: FormValues) => {
+  const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: signUpActionTypes.POSTING});
     postRegistration({
       name: formValues.name,
@@ -61,20 +67,23 @@ export const SignUp:VFC = () => {
     })
     .then(data => {
       dispatch({ type: signUpActionTypes.POST_SUCCESS });
-      console.log(data);
-      history.push("/")
+      setCurrentUser({
+        ...currentUser,
+        currentUser: data,
+      });
+      history.push("/");
     })
     .catch(e => {
       if (e.response.status === HTTP_STATUS_CODE.VALIDATION_FAILED) {
         dispatch({ type: signUpActionTypes.POST_INITIAL });
-        setErrorMessage(e.response.data.errors)
+        setErrorMessage(e.response.data.errors);
       } else {
         throw e;
       }
     });
   };
 
-  const onSubmitLabel = () => {
+  const onSubmitLabel = (): string => {
     switch (state.postState) {
       case REQUEST_STATE.LOADING:
         return "送信中...";
@@ -82,20 +91,31 @@ export const SignUp:VFC = () => {
         return "送信が完了しました";
       default:
         return "Sign Up!";
-    }
+    };
   };
 
-  // 送信中とエラーなく送信完了した場合はtrueを返す
-  const isDisabled = () => {
-    return state.postState === REQUEST_STATE.LOADING || state.postState === REQUEST_STATE.OK
+  const signOut = (): void =>{
+    deleteSession(currentUser!.headers)
+    .then(() => {
+      setCurrentUser(undefined)
+      history.push("/");
+    })
+    .catch(e => {
+      throw e;
+    });
   }
+
+  // 送信中とエラーなく送信完了した場合はtrueを返す
+  const isDisabled = (): boolean => {
+    return state.postState === REQUEST_STATE.LOADING || state.postState === REQUEST_STATE.OK
+  };
 
   return(
     <Fragment>
-      <Header/>
+      <Header isSignedIn={isSignedIn(currentUser)} signOut={signOut} />
       <SignUpWrapper>
         <FormTitleWrapper>Sign Up</FormTitleWrapper>
-        <FormItemsWrapper onSubmit={handleSubmit(onSubmit)}>
+        <FormWrapper onSubmit={handleSubmit(onSubmit)}>
           <FormLabelWrapper>Name:</FormLabelWrapper>
           {errors.name &&
             <FormErrorMessageWrapper>1文字以上、50文字以内で入力してください</FormErrorMessageWrapper>
@@ -175,7 +195,7 @@ export const SignUp:VFC = () => {
             }
           />
           <FormSubmitWrapper type="submit" disabled={isDisabled()}>{onSubmitLabel()}</FormSubmitWrapper>
-        </FormItemsWrapper>
+        </FormWrapper>
       </SignUpWrapper>
     </Fragment>
   )

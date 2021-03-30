@@ -3,6 +3,7 @@ import styled from 'styled-components';
 // ボタンの元となるコンポーネント
 export const BaseButton = styled.button`
   cursor: pointer;
+  border-radius: .25rem;
   :hover {
     opacity: 0.9;
   }

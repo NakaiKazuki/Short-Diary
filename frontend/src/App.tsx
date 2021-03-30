@@ -5,6 +5,9 @@ import {
   Route,
 } from "react-router-dom";
 
+// cotexts
+import {CurrentUserProvider} from './contexts/CurrentUser';
+
 // components
 import { Home } from './containers/Home';
 import { SignUp } from './containers/SignUp';
@@ -13,6 +16,7 @@ import { Login } from './containers/Login';
 function App() {
   return (
     <Router>
+      <CurrentUserProvider>
       <Switch>
         <Route
           exact path="/" >
@@ -27,6 +31,7 @@ function App() {
           < Login />
         </Route>
       </Switch>
+      </CurrentUserProvider>
     </Router>
   );
 }

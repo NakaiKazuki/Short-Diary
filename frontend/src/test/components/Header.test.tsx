@@ -14,7 +14,7 @@ const renderWithRouter = (component: any) => {
 };
 
 beforeEach(() => {
-  renderWithRouter(<Header/>);
+  renderWithRouter(<Header isSignedIn={true}/>);
 })
 
 afterEach(cleanup);
