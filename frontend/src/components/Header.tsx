@@ -43,10 +43,10 @@ const LogoutButton = styled(SessionButton)`
 
 interface IHeader {
   isSignedIn : boolean;
-  signOut(): void;
+  handleSignOut(): void;
 }
 
-export const Header:VFC<IHeader> = ({ isSignedIn ,signOut}) => {
+export const Header:VFC<IHeader> = ({ isSignedIn , handleSignOut}) => {
   return (
     <AppBar data-testid="header" position="fixed" color="inherit">
       <Toolbar>
@@ -55,7 +55,7 @@ export const Header:VFC<IHeader> = ({ isSignedIn ,signOut}) => {
         </Link>
         {
           isSignedIn ?
-          <LogoutButton type="button" onClick={() => signOut()}>Logout</LogoutButton>
+          <LogoutButton type="button" onClick={() => handleSignOut()}>Logout</LogoutButton>
         :
         <SessionLink
           to={'/login'}

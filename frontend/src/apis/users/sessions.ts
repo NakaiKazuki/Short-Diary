@@ -6,7 +6,7 @@ interface IParams {
   password: string;
 }
 
-interface IUserHeader {
+interface ICurrentUserHeader {
   accessToken: string;
   client: string;
   uid: string;
@@ -17,30 +17,19 @@ export const createSession = (params: IParams) => {
     {
       email: params.email,
       password: params.password,
-    }
-    )
-    .then(res => {
-      return res;
     })
     .catch(e => { throw e; })
 };
 
-export const deleteSession = (userHeaders: IUserHeader) => {
+export const deleteSession = (currentUserHeaders: ICurrentUserHeader) => {
   return axios.delete(signOut,
     {
-      headers: userHeaders,
-    }
-    )
-    .then(res => {
-      return res;
+      headers: currentUserHeaders,
     })
     .catch(e => { throw e; })
 };
 
 export const newGuestSession = () => {
   return axios.post(guestSignIn)
-    .then(res => {
-      return res;
-    })
-    .catch(e => { throw e; })
+  .catch(e => { throw e; })
 };
