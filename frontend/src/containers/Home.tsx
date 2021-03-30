@@ -1,4 +1,4 @@
-import React, { VFC, Fragment ,useEffect, useContext} from 'react';
+import React, { VFC, Fragment ,useEffect, useContext, useReducer} from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {useHistory} from "react-router-dom";
@@ -11,12 +11,23 @@ import { BaseButton } from '../components/shared_style';
 
 // apis
 import { fetchHome } from '../apis/home';
-import { deleteSession } from '../apis/users/sessions';
+import { deleteSession ,newGuestSession} from '../apis/users/sessions';
 // helpers
 import { isSignedIn } from '../helpers';
 
 //contexts
 import { CurrentUserContext } from '../contexts/CurrentUser';
+
+// reducers
+import {
+  initialState,
+  guestLoginActionTypes,
+  guestLoginReducer,
+} from '../reducers/guestLogin';
+
+// responses
+import { REQUEST_STATE } from '../constants';
+
 // css
 const HomeWrapper = styled.div`
   width: 100vw;
@@ -78,12 +89,13 @@ const SignUpButtonWrapper = styled(HomeButton)`
   background-color: royalblue;
 `;
 
-const LoginButtonWrapper = styled(HomeButton)`
+const GuestLoginWrapper = styled(HomeButton)`
   background-color: limegreen;
 `;
 
 export const Home:VFC = () => {
   const { currentUser ,setCurrentUser} = useContext(CurrentUserContext);
+  const [state, dispatch] = useReducer(guestLoginReducer, initialState);
   const history = useHistory();
 
   useEffect(() => {
@@ -104,6 +116,39 @@ export const Home:VFC = () => {
       throw e;
     });
   }
+
+  const onGuestLogin = (): void => {
+    dispatch({ type: guestLoginActionTypes.POSTING});
+    newGuestSession()
+    .then(res => {
+      dispatch({ type: guestLoginActionTypes.POST_SUCCESS });
+      setCurrentUser({
+        ...currentUser,
+        ...res.data,
+        headers: res.headers,
+      })
+      history.push("/")
+    })
+    .catch(e => {
+      throw e;
+    });
+  };
+
+  const onButtonLabel = (): string => {
+    switch (state.postState) {
+      case REQUEST_STATE.LOADING:
+        return "送信中...";
+      case REQUEST_STATE.OK:
+        return "送信完了!";
+      default:
+        return "ゲストログイン";
+    };
+  };
+
+  // 送信中とエラーなく送信完了した場合はtrueを返す
+  const isDisabled = (): boolean => {
+    return state.postState === REQUEST_STATE.LOADING || state.postState === REQUEST_STATE.OK
+  };
 
   return(
     <Fragment>
@@ -131,9 +176,15 @@ export const Home:VFC = () => {
                 ユーザー登録
               </SignUpButtonWrapper>
             </Link>
-            <LoginButtonWrapper type="submit" data-testid="guestLoginButton">
-              ゲストログイン
-            </LoginButtonWrapper>
+
+            <GuestLoginWrapper
+              type="button"
+              onClick={() => onGuestLogin()}
+              disabled={isDisabled()}
+              data-testid="guestLoginButton">
+              {onButtonLabel()}
+            </GuestLoginWrapper>
+
           </ButtonsWrapper>
         </ContentsWrapper>
       </HomeWrapper>

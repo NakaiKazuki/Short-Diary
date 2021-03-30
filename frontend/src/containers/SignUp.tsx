@@ -88,7 +88,7 @@ export const SignUp:VFC = () => {
       case REQUEST_STATE.LOADING:
         return "送信中...";
       case REQUEST_STATE.OK:
-        return "送信が完了しました";
+        return "送信完了!";
       default:
         return "Sign Up!";
     };
