@@ -33,8 +33,8 @@
 class User < ApplicationRecord
   # Devise
   devise :database_authenticatable, :registerable,
-  :recoverable, :validatable, :rememberable,
-  :trackable, :timeoutable
+         :recoverable, :validatable, :rememberable,
+         :trackable, :timeoutable
   #  ,:confirmable, :lockable, :omniauthables
   include DeviseTokenAuth::Concerns::User
 
@@ -49,6 +49,15 @@ class User < ApplicationRecord
   validates :name,
             presence: true,
             length: { maximum: 50 }
+
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |user|
+      user.name = 'ゲストユーザ'
+      user.password = SecureRandom.urlsafe_base64
+      # user.confirmed_at = Time.current # メール認証使用時はコメントアウト
+    end
+  end
+
   private
 
     # 登録前にメールアドレスを小文字に変換

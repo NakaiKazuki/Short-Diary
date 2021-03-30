@@ -11,8 +11,9 @@ import { FormTitleWrapper, FormLabelWrapper ,FormWrapper,
 import { Header } from '../components/Header';
 
 // apis
-import { postSession } from '../apis/users/sessions';
+import { createSession } from '../apis/users/sessions';
 import { deleteSession } from '../apis/users/sessions';
+
 // reducers
 import {
   initialState,
@@ -51,7 +52,7 @@ export const Login:VFC = () => {
 
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: loginActionTypes.POSTING});
-    postSession({
+    createSession({
       email: formValues.email,
       password: formValues.password,
     })
@@ -79,7 +80,7 @@ export const Login:VFC = () => {
       case REQUEST_STATE.LOADING:
         return "送信中...";
       case REQUEST_STATE.OK:
-        return "送信が完了しました";
+        return "送信完了!";
       default:
         return "Login!";
     };
@@ -149,7 +150,10 @@ export const Login:VFC = () => {
             }
           />
 
-          <FormSubmitWrapper type="submit" disabled={isDisabled()}>{onSubmitLabel()}</FormSubmitWrapper>
+          <FormSubmitWrapper
+            type="submit"
+            disabled={isDisabled()}>{onSubmitLabel()}
+          </FormSubmitWrapper>
 
         </FormWrapper>
       </LoginWrapper>

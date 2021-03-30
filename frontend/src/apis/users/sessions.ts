@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { sign_in,sign_out } from '../../urls/index';
+import { signIn,signOut,guestSignIn } from '../../urls/index';
 
-interface IPostParams {
+interface IParams {
   email: string;
   password: string;
 }
@@ -12,8 +12,8 @@ interface IUserHeader {
   uid: string;
 }
 
-export const postSession = (params: IPostParams) => {
-  return axios.post(sign_in,
+export const createSession = (params: IParams) => {
+  return axios.post(signIn,
     {
       email: params.email,
       password: params.password,
@@ -26,11 +26,19 @@ export const postSession = (params: IPostParams) => {
 };
 
 export const deleteSession = (userHeaders: IUserHeader) => {
-  return axios.delete(sign_out,
+  return axios.delete(signOut,
     {
       headers: userHeaders,
     }
     )
+    .then(res => {
+      return res;
+    })
+    .catch(e => { throw e; })
+};
+
+export const newGuestSession = () => {
+  return axios.post(guestSignIn)
     .then(res => {
       return res;
     })
