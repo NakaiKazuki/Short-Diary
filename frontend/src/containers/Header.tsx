@@ -1,12 +1,25 @@
-import React, { VFC } from 'react';
+import React, { VFC, useContext} from 'react';
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import { AppBar, Toolbar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+
+//contexts
+import { CurrentUserContext } from '../contexts/CurrentUser';
+
 // images
 import MainLogo from '../images/logo.png';
 
 // components
-import { BaseButton } from './shared_style';
+import { BaseButton } from '../components/shared_style';
+
+// helpers
+import {
+  isSignedIn,
+} from '../helpers';
+
+// apis
+import { deleteSession } from '../apis/users/sessions';
 
 const MainLogoImage = styled.img`
   height: 2.5rem;
@@ -41,12 +54,23 @@ const LogoutButton = styled(SessionButton)`
   }
 `;
 
-interface IHeader {
-  isSignedIn : boolean;
-  handleSignOut(): void;
-}
+export const Header:VFC = () => {
+  const history = useHistory();
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
-export const Header:VFC<IHeader> = ({ isSignedIn , handleSignOut}) => {
+  // ユーザのログアウト処理
+  const signOutHandler = (): void =>
+  {
+    deleteSession(currentUser!.headers)
+    .then(() => {
+      setCurrentUser(undefined)
+      history.push("/");
+    })
+    .catch(e => {
+      throw e;
+    });
+  };
+
   return (
     <AppBar data-testid="header" position="fixed" color="inherit">
       <Toolbar>
@@ -54,8 +78,8 @@ export const Header:VFC<IHeader> = ({ isSignedIn , handleSignOut}) => {
            <MainLogoImage src={MainLogo} alt="main logo" />
         </Link>
         {
-          isSignedIn ?
-          <LogoutButton type="button" onClick={() => handleSignOut()}>Logout</LogoutButton>
+          isSignedIn(currentUser) ?
+          <LogoutButton type="button" onClick={ () => signOutHandler()}>Logout</LogoutButton>
         :
         <SessionLink
           to={'/login'}

@@ -5,8 +5,7 @@ import {
   FormSubmitWrapper, FormErrorMessageWrapper} from './styles';
 
 // component
-import { SignUpForm } from './SignUpForm';
-import { LoginForm } from './LoginForm';
+import { SharedForm } from './SharedForm';
 import { FormItem } from './FormItem';
 
 export {
@@ -16,5 +15,5 @@ export {
   FormItemWrapper,
   FormSubmitWrapper,
   FormErrorMessageWrapper,
-  SignUpForm,LoginForm,FormItem,
+  SharedForm,FormItem,
  };

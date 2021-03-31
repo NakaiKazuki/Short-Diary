@@ -9,6 +9,7 @@ import {
 import {CurrentUserProvider} from './contexts/CurrentUser';
 
 // components
+import { Header } from './containers/Header';
 import { Home } from './containers/Home';
 import { SignUp } from './containers/SignUp';
 import { Login } from './containers/Login';
@@ -17,20 +18,21 @@ function App() {
   return (
     <Router>
       <CurrentUserProvider>
-      <Switch>
-        <Route
-          exact path="/" >
-          < Home />
-        </Route>
-        <Route
-          exact path="/signup" >
-          < SignUp />
-        </Route>
-        <Route
-          exact path="/login" >
-          < Login />
-        </Route>
-      </Switch>
+        <Header/>
+        <Switch>
+          <Route
+            exact path="/" >
+            < Home />
+          </Route>
+          <Route
+            exact path="/signup" >
+            < SignUp />
+          </Route>
+          <Route
+            exact path="/login" >
+            < Login />
+          </Route>
+        </Switch>
       </CurrentUserProvider>
     </Router>
   );

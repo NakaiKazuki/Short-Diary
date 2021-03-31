@@ -3,7 +3,7 @@ import { Router } from "react-router-dom";
 import { render , screen, cleanup} from "@testing-library/react";
 import { createMemoryHistory } from "history";
 import '@testing-library/jest-dom';
-import { Header } from '../../components/Header';
+import { Header } from '../../containers/Header';
 
 // Helper function
 const renderWithRouter = (component: any) => {
@@ -14,8 +14,7 @@ const renderWithRouter = (component: any) => {
 };
 
 beforeEach(() => {
-  const handleSignOut = jest.fn();
-  renderWithRouter(<Header isSignedIn={true} handleSignOut={() => handleSignOut} />);
+  renderWithRouter(<Header/>);
 })
 
 afterEach(cleanup);

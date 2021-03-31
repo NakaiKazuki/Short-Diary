@@ -5,8 +5,7 @@ import { CurrentUserContext } from '../contexts/CurrentUser';
 import styled from 'styled-components';
 
 // components
-import { LoginForm} from '../components/Forms/Users';
-import { Header } from '../components/Header';
+import { SharedForm } from '../components/Forms';
 
 // apis
 import { createSession } from '../apis/users/sessions';
@@ -20,14 +19,15 @@ import {
 
 // helpers
 import {
-  isSignedIn,
   onSubmitLabel,
   isDisabled,
-  signOutHandler } from '../helpers';
+} from '../helpers';
 
 // responses
 import { HTTP_STATUS_CODE } from '../constants';
 
+// formitemsinfo
+import { formItemsInfo } from '../formItemsInfo/login'
 
 // css
 const LoginWrapper = styled.div`
@@ -54,7 +54,6 @@ export const Login:VFC = () => {
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { handleSubmit, errors, control } = useForm<IFormValues>();
-
 
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING});
@@ -83,20 +82,15 @@ export const Login:VFC = () => {
 
   return(
     <Fragment>
-      <Header
-        isSignedIn={isSignedIn(currentUser)}
-        handleSignOut={() => signOutHandler(currentUser!.headers,setCurrentUser,history)}
-      />
       <LoginWrapper>
-      <LoginForm
+        <SharedForm
+          formTitle={"Login"}
+          formItemsInfo={formItemsInfo(errors, control, apiErrors)}
           ClickSubmit={() => handleSubmit(onSubmit)}
           isDisabled={() => isDisabled(state.postState)}
           onSubmitLabel={() => onSubmitLabel(state.postState, "Login!")}
-          errors={errors}
-          control={control}
-          apiErrors={apiErrors}
         />
       </LoginWrapper>
     </Fragment>
-  )
+  );
 }

@@ -5,9 +5,7 @@ import { CurrentUserContext } from '../contexts/CurrentUser'
 import styled from 'styled-components';
 
 // components
-import { SignUpForm } from '../components/Forms/Users';
-
-import { Header } from '../components/Header';
+import { SharedForm } from '../components/Forms';
 
 // apis
 import { postRegistration } from '../apis/users/registrations';
@@ -21,14 +19,15 @@ import {
 
 // helpers
 import {
-  isSignedIn,
   onSubmitLabel,
   isDisabled,
-  signOutHandler } from '../helpers';
+} from '../helpers';
 
 // responses
 import { HTTP_STATUS_CODE } from '../constants';
 
+// formitemsinfo
+import { formItemsInfo } from '../formItemsInfo/signup'
 
 // css
 const SignUpWrapper = styled.div`
@@ -88,18 +87,13 @@ export const SignUp:VFC = () => {
 
   return(
     <Fragment>
-      <Header
-        isSignedIn={isSignedIn(currentUser)}
-        handleSignOut={() => signOutHandler(currentUser!.headers,setCurrentUser,history)}
-      />
       <SignUpWrapper>
-        <SignUpForm
+        <SharedForm
+          formTitle={"Sign Up"}
+          formItemsInfo={formItemsInfo(errors, control, apiErrors)}
           ClickSubmit={() => handleSubmit(onSubmit)}
           isDisabled={() => isDisabled(state.postState)}
-          onSubmitLabel={() => onSubmitLabel(state.postState, "Sign Up!")}
-          errors={errors}
-          control={control}
-          apiErrors={apiErrors}
+          onSubmitLabel={() => onSubmitLabel(state.postState, "SignUp!")}
         />
       </SignUpWrapper>
     </Fragment>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { TextField } from '@material-ui/core'
-import { BaseButton } from '../../shared_style';
+import { BaseButton } from '../shared_style';
 
 export const FormTitleWrapper = styled.h1`
   text-align: center;
