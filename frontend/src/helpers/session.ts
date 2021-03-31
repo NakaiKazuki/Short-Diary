@@ -3,7 +3,7 @@ import { deleteSession } from '../apis/users/sessions';
 
 // 型
 interface IHeader {
-  accessToken: string;
+  "access-token": string;
   client: string;
   uid: string;
 }

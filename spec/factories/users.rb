@@ -48,4 +48,11 @@ FactoryBot.define do
     #   locked_at { Time.current }
     # end
   end
+  factory :guest, class: 'User' do
+    name { 'ゲストユーザ' }
+    email { 'guest@example.com' }
+    password { 'password' }
+    password_confirmation { 'password' }
+    # confirmed_at { Time.current }
+  end
 end

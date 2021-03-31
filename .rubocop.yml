@@ -23,7 +23,6 @@ AllCops:
     - 'bin/**/*'
     - 'db/**/*'
     - 'tmp/**/*'
-    - 'node_modules/**/*'
     - 'lib/tasks/auto_annotate_models.rake'
 
 Rails:
@@ -81,8 +80,6 @@ Metrics/BlockLength:
     - 'Guardfile'
     - 'config/routes.rb'
     - 'spec/**/*'
-    - 'app/views/**/*.jbuilder'
-    - 'lib/tasks/dev.rake'
     - 'config/environments/*'
 
 Metrics/ClassLength:
@@ -100,7 +97,6 @@ Metrics/ModuleLength:
 Naming/FileName:
   Exclude:
     - 'Gemfile'
-    - 'Guardfile'
 
 Naming/MethodParameterName:
   AllowedNames: [e]
