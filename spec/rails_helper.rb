@@ -73,7 +73,17 @@ RSpec.configure do |config|
   #---Database Cleaner設定---
   # テスト全体が始まる前に実行
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean_with :truncation
+  end
+  # exampleが始まるごとに実行
+  # strategyがtransactionなので、トランザクションを張る
+  config.before do
+    DatabaseCleaner.start
+  end
+  # exampleが終わるごとに実行
+  # strategyがtransactionなので、rollbackする
+  config.after do
+    DatabaseCleaner.clean
   end
 end

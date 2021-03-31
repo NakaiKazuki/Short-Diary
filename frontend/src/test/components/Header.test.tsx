@@ -14,7 +14,8 @@ const renderWithRouter = (component: any) => {
 };
 
 beforeEach(() => {
-  renderWithRouter(<Header isSignedIn={true}/>);
+  const handleSignOut = jest.fn();
+  renderWithRouter(<Header isSignedIn={true} handleSignOut={() => handleSignOut} />);
 })
 
 afterEach(cleanup);

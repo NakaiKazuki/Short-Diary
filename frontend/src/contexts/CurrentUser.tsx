@@ -1,7 +1,7 @@
 import { createContext,useState,VFC } from 'react';
 
 interface IHeader {
-  accessToken: string;
+  "access-token": string;
   client: string;
   uid: string;
 }

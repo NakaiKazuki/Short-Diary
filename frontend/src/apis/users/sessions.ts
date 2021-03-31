@@ -7,7 +7,7 @@ interface IParams {
 }
 
 interface ICurrentUserHeader {
-  accessToken: string;
+  "access-token": string;
   client: string;
   uid: string;
 }
