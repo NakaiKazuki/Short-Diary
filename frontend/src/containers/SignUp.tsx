@@ -1,14 +1,21 @@
-import React, { VFC, Fragment, useState, useReducer,useContext } from 'react';
+import React, { VFC, useState, useReducer,useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import {useHistory} from "react-router-dom";
-import { CurrentUserContext } from '../contexts/CurrentUser'
 import styled from 'styled-components';
 
+// contexts
+import { CurrentUserContext } from '../contexts/CurrentUser'
 // components
-import { SharedForm } from '../components/Forms';
+import { SharedForm } from '../components/Forms/SharedForm';
 
 // apis
 import { postRegistration } from '../apis/users/registrations';
+
+// responses
+import { HTTP_STATUS_CODE } from '../constants';
+
+// formitemsinfo
+import { SignUpFormInfo } from '../formInfo';
 
 // reducers
 import {
@@ -23,11 +30,6 @@ import {
   isDisabled,
 } from '../helpers';
 
-// responses
-import { HTTP_STATUS_CODE } from '../constants';
-
-// formitemsinfo
-import { formItemsInfo } from '../formItemsInfo/signup'
 
 // css
 const SignUpWrapper = styled.div`
@@ -86,16 +88,14 @@ export const SignUp:VFC = () => {
   };
 
   return(
-    <Fragment>
-      <SignUpWrapper>
-        <SharedForm
-          formTitle={"Sign Up"}
-          formItemsInfo={formItemsInfo(errors, control, apiErrors)}
-          ClickSubmit={() => handleSubmit(onSubmit)}
-          isDisabled={() => isDisabled(state.postState)}
-          onSubmitLabel={() => onSubmitLabel(state.postState, "SignUp!")}
-        />
-      </SignUpWrapper>
-    </Fragment>
+    <SignUpWrapper>
+      <SharedForm
+        formTitle={"Sign Up"}
+        formInfo={SignUpFormInfo(errors, control, apiErrors)}
+        ClickSubmit={() => handleSubmit(onSubmit)}
+        isDisabled={() => isDisabled(state.postState)}
+        onSubmitLabel={() => onSubmitLabel(state.postState, "SignUp!")}
+      />
+    </SignUpWrapper>
   );
 }

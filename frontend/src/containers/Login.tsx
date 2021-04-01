@@ -1,14 +1,21 @@
-import React, { VFC, Fragment, useState, useReducer, useContext } from 'react';
+import React, { VFC, useState , useReducer, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import {useHistory} from "react-router-dom";
-import { CurrentUserContext } from '../contexts/CurrentUser';
 import styled from 'styled-components';
 
+//contexts
+import { CurrentUserContext } from '../contexts/CurrentUser';
 // components
-import { SharedForm } from '../components/Forms';
+import { SharedForm } from '../components/Forms/SharedForm';
 
 // apis
 import { createSession } from '../apis/users/sessions';
+
+// responses
+import { HTTP_STATUS_CODE } from '../constants';
+
+// formitemsinfo
+import { LoginFormInfo } from '../formInfo';
 
 // reducers
 import {
@@ -23,11 +30,6 @@ import {
   isDisabled,
 } from '../helpers';
 
-// responses
-import { HTTP_STATUS_CODE } from '../constants';
-
-// formitemsinfo
-import { formItemsInfo } from '../formItemsInfo/login'
 
 // css
 const LoginWrapper = styled.div`
@@ -81,16 +83,14 @@ export const Login:VFC = () => {
   };
 
   return(
-    <Fragment>
-      <LoginWrapper>
-        <SharedForm
-          formTitle={"Login"}
-          formItemsInfo={formItemsInfo(errors, control, apiErrors)}
-          ClickSubmit={() => handleSubmit(onSubmit)}
-          isDisabled={() => isDisabled(state.postState)}
-          onSubmitLabel={() => onSubmitLabel(state.postState, "Login!")}
-        />
-      </LoginWrapper>
-    </Fragment>
+    <LoginWrapper>
+      <SharedForm
+        formTitle={"Login"}
+        formInfo={LoginFormInfo(errors, control, apiErrors)}
+        ClickSubmit={() => handleSubmit(onSubmit)}
+        isDisabled={() => isDisabled(state.postState)}
+        onSubmitLabel={() => onSubmitLabel(state.postState, "Login!")}
+      />
+    </LoginWrapper>
   );
 }

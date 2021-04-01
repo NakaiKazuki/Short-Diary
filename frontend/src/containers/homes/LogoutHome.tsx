@@ -1,4 +1,4 @@
-import React, { VFC, Fragment ,useEffect, useContext, useReducer} from 'react';
+import React, { VFC, useEffect, useContext, useReducer} from 'react';
 import { Link } from 'react-router-dom';
 import {useHistory} from "react-router-dom";
 
@@ -126,40 +126,38 @@ export const LogoutHome: VFC = () => {
   };
 
   return(
-    <Fragment>
-      <HomeWrapper data-testid="homeContainer">
-        <ContentsWrapper>
-          <HeadingWrapper>
-            毎日の出来事を記録しよう
-          </HeadingWrapper>
-          <ParagraphWrapper>
-            日記を付けたいけど、文章を書くのは面倒だと思ったことはありませんか？<br />
-            Short Diaryでは日々の日記を一言二言の内容で書くことで、<br />
-            メモ感覚で日記をつけることができます。<br />
-            Short Diaryを使って日記を付けよう！
-          </ParagraphWrapper>
-          <ButtonsWrapper>
-            <Link
-              to={'/signup'}
-              data-testid="signUpLink"
-            >
-              <SignUpButtonWrapper
-                type="button"
-                data-testid="signUpButton"
-              >
-                ユーザー登録
-              </SignUpButtonWrapper>
-            </Link>
-            <GuestLoginWrapper
+    <HomeWrapper data-testid="homeContainer">
+      <ContentsWrapper>
+        <HeadingWrapper>
+          毎日の出来事を記録しよう
+        </HeadingWrapper>
+        <ParagraphWrapper>
+          日記を付けたいけど、文章を書くのは面倒だと思ったことはありませんか？<br />
+          Short Diaryでは日々の日記を一言二言の内容で書くことで、<br />
+          メモ感覚で日記をつけることができます。<br />
+          Short Diaryを使って日記を付けよう！
+        </ParagraphWrapper>
+        <ButtonsWrapper>
+          <Link
+            to={'/signup'}
+            data-testid="signUpLink"
+          >
+            <SignUpButtonWrapper
               type="button"
-              onClick ={guestLoginHandler}
-              disabled={isDisabled(state.postState)}
-              data-testid="guestLoginButton">
-              {onSubmitLabel(state.postState, "ゲストログイン")}
-            </GuestLoginWrapper>
-          </ButtonsWrapper>
-        </ContentsWrapper>
-      </HomeWrapper>
-    </Fragment>
+              data-testid="signUpButton"
+            >
+              ユーザー登録
+            </SignUpButtonWrapper>
+          </Link>
+          <GuestLoginWrapper
+            type="button"
+            onClick ={guestLoginHandler}
+            disabled={isDisabled(state.postState)}
+            data-testid="guestLoginButton">
+            {onSubmitLabel(state.postState, "ゲストログイン")}
+          </GuestLoginWrapper>
+        </ButtonsWrapper>
+      </ContentsWrapper>
+    </HomeWrapper>
   );
 }
