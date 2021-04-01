@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 //contexts
 import { CurrentUserContext } from '../contexts/CurrentUser';
+
 // components
 import { SharedForm } from '../components/Forms/SharedForm';
 
@@ -14,7 +15,7 @@ import { createSession } from '../apis/users/sessions';
 // responses
 import { HTTP_STATUS_CODE } from '../constants';
 
-// formitemsinfo
+// forminfo
 import { LoginFormInfo } from '../formInfo';
 
 // reducers

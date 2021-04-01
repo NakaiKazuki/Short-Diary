@@ -7,19 +7,17 @@ import { Link } from 'react-router-dom';
 //contexts
 import { CurrentUserContext } from '../contexts/CurrentUser';
 
-// images
-import MainLogo from '../images/logo.png';
-
 // components
 import { BaseButton } from '../components/shared_style';
 
 // helpers
-import {
-  isSignedIn,
-} from '../helpers';
+import { isSignedIn } from '../helpers';
 
 // apis
 import { deleteSession } from '../apis/users/sessions';
+
+// images
+import MainLogo from '../images/logo.png';
 
 const MainLogoImage = styled.img`
   height: 2.5rem;

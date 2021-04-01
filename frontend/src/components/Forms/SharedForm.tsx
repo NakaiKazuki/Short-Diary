@@ -5,6 +5,9 @@ import { BaseButton } from '../shared_style';
 // components
 import { FormItem } from './FormItem';
 
+// 型
+import { IObject } from '../../formInfo';
+
 // css
 const FormTitleWrapper = styled.h1`
   text-align: center;
@@ -31,9 +34,11 @@ const FormSubmitWrapper = styled(BaseButton)`
 `;
 
 // 型
+type TFormInfo<T> = [T,T, ...T[]];
+
 interface ISharedFormProps {
   formTitle: string;
-  formInfo: any;
+  formInfo: TFormInfo<IObject>;
   ClickSubmit(): any;
   isDisabled(): boolean;
   onSubmitLabel(): string;
@@ -51,8 +56,8 @@ export const SharedForm:VFC<ISharedFormProps> = ({
       <FormTitleWrapper>{formTitle}</FormTitleWrapper>
       <FormWrapper onSubmit={ClickSubmit()}>
         {
-          formInfo.map((obj: any, index: number) => {
-            return <div key={`ItemArea-${index}`}>
+          formInfo.map((obj: IObject, index: number) => {
+            return <Fragment key={`ItemArea-${index}`}>
               <FormItem
                 errorsProperty={obj.errorsProperty}
                 control={obj.control}
@@ -64,7 +69,7 @@ export const SharedForm:VFC<ISharedFormProps> = ({
                 typeAttribute={obj.typeAttribute}
                 rules={obj.rules}
               />
-            </div>
+            </Fragment>
           })
         }
         <FormSubmitWrapper

@@ -9,8 +9,7 @@ import { LoginHome } from './homes/LoginHome';
 
 // helpers
 import {
-  isSignedIn,
-} from '../helpers';
+ isSignedIn } from '../helpers';
 
 export const Home:VFC = () => {
   const { currentUser } = useContext(CurrentUserContext);
