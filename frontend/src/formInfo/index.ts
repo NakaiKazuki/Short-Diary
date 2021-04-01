@@ -5,7 +5,7 @@ interface IRurles {
   minLength?: number;
 }
 
-export interface IObject {
+interface IObject {
   errorsProperty: string;
   control: any;
   apiErrorProperty: Array<string> | undefined;
@@ -73,7 +73,7 @@ export const SignUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiE
       typeAttribute: "password",
       rules: {required: true, minLength: 6, maxLength: 128},
     }
-  ]
+  ];
 };
 
 // Loginページのフォーム欄を表示するために必要な情報群
@@ -108,5 +108,5 @@ export const LoginFormInfo = (errors: any, control: any, apiErrors: ILoginApiErr
       typeAttribute: "password",
       rules: { required: true, minLength: 6, maxLength: 128}
     },
-  ]
+  ];
 };

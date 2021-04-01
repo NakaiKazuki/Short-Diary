@@ -9,7 +9,7 @@ interface ICurrentUserData {
   id: number;
   name: string;
   email: string;
-  image: string | null;
+  // image: string | null; // 使うようになったらコメントアウト
 }
 
 interface ICurrentUser {

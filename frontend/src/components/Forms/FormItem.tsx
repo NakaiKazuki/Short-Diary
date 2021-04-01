@@ -3,9 +3,6 @@ import { Controller } from 'react-hook-form';
 import { TextField } from '@material-ui/core'
 import styled from 'styled-components';
 
-// 型
-import { IObject as FormItemProps } from '../../formInfo';
-
 // css
 const FormLabelWrapper = styled.label`
   opacity: .7;
@@ -21,7 +18,26 @@ const FormErrorMessageWrapper = styled.p`
   font-size: .9rem;
 `;
 
-export const FormItem:VFC<FormItemProps> = ({
+// 型
+interface IRurles {
+  required: boolean;
+  maxLength: number;
+  minLength?: number;
+}
+
+interface IFormItemProps {
+  errorsProperty: string;
+  control: any;
+  apiErrorProperty: Array<string> | undefined;
+  formLabel: string;
+  errorMessage: string;
+  apiMessagePropertyName: string;
+  nameAttribute: string;
+  typeAttribute: string;
+  rules: IRurles;
+}
+
+export const FormItem:VFC<IFormItemProps> = ({
   errorsProperty,
   control,
   apiErrorProperty,

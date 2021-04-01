@@ -19,6 +19,7 @@ import { deleteSession } from '../apis/users/sessions';
 // images
 import MainLogo from '../images/logo.png';
 
+// css
 const MainLogoImage = styled.img`
   height: 2.5rem;
 `;

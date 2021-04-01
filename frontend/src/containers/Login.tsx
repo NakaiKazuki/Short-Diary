@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { CurrentUserContext } from '../contexts/CurrentUser';
 
 // components
-import { SharedForm } from '../components/Forms/SharedForm';
+import { SharedFormArea, SharedFormSubmit } from '../components/Forms';
 
 // apis
 import { createSession } from '../apis/users/sessions';
@@ -31,6 +31,10 @@ import {
   isDisabled,
 } from '../helpers';
 
+import {
+  FormTitleWrapper,
+  FormWrapper,
+} from '../components/Forms/style';
 
 // css
 const LoginWrapper = styled.div`
@@ -85,13 +89,16 @@ export const Login:VFC = () => {
 
   return(
     <LoginWrapper>
-      <SharedForm
-        formTitle={"Login"}
-        formInfo={LoginFormInfo(errors, control, apiErrors)}
-        ClickSubmit={() => handleSubmit(onSubmit)}
-        isDisabled={() => isDisabled(state.postState)}
-        onSubmitLabel={() => onSubmitLabel(state.postState, "Login!")}
-      />
+      <FormTitleWrapper>Sign Up</FormTitleWrapper>
+      <FormWrapper onSubmit={handleSubmit(onSubmit)}>
+        <SharedFormArea
+          formInfo={LoginFormInfo(errors, control, apiErrors)}
+        />
+        <SharedFormSubmit
+          isDisabled={() => isDisabled(state.postState)}
+          onSubmitLabel={() => onSubmitLabel(state.postState, "Login!")}
+        />
+      </FormWrapper>
     </LoginWrapper>
   );
 }
