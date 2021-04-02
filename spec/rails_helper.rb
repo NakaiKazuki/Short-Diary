@@ -68,7 +68,7 @@ RSpec.configure do |config|
   # ここから追加
   # ---FactoryBot Devise追加---
   config.include FactoryBot::Syntax::Methods
-  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include AuthorizationSpecHelper, type: :request
 
   #---Database Cleaner設定---
   # テスト全体が始まる前に実行

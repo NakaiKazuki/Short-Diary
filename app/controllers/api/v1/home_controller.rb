@@ -2,9 +2,9 @@ class Api::V1::HomeController < ApplicationController
   def home
     return render json: {}, status: :ok unless user_signed_in?
 
-    home = "#{current_user.name}がログインしてんで"
+    dirays = current_user.diaries.all
     render json: {
-      home: home
+      dirays: dirays
     }, status: :ok
   end
 end

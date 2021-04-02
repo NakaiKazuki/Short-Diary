@@ -10,10 +10,8 @@ import { CurrentUserContext } from '../contexts/CurrentUser'
 import {
   SharedFormArea,
   SharedFormSubmit,
-  FormLinkListWrapper,
-  FormLinkList,
-  FormLinkItem,
-  FormLink } from '../components/Forms';
+  SharedFormLinks,
+} from '../components/Forms';
 
 // apis
 import { postRegistration } from '../apis/users/registrations';
@@ -75,6 +73,13 @@ export const SignUp:VFC = () => {
   const { handleSubmit, errors, control } = useForm<IFormValues>();
   const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
+  const linkInfo = [
+    {
+      url: '/login',
+      text: 'アカウントをお持ちの方はこちら',
+    }
+  ];
+
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING});
     postRegistration({
@@ -92,7 +97,7 @@ export const SignUp:VFC = () => {
       history.push("/");
     })
     .catch(e => {
-      if (e.response.status === HTTP_STATUS_CODE.VALIDATION_FAILED) {
+      if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
         dispatch({ type: submitActionTypes.POST_INITIAL });
         setErrorMessage(e.response.data.errors);
       } else {
@@ -113,13 +118,9 @@ export const SignUp:VFC = () => {
           onSubmitLabel={() => onSubmitLabel(state.postState, "SignUp!")}
         />
       </FormWrapper>
-      <FormLinkListWrapper>
-        <FormLinkList>
-          <FormLinkItem>
-            <FormLink to={'/login'} >アカウントをお持ちの方はこちら</FormLink>
-          </FormLinkItem>
-        </FormLinkList>
-      </FormLinkListWrapper>
+      <SharedFormLinks
+        linkInfo={linkInfo}
+      />
     </SignUpWrapper>
   );
 }
