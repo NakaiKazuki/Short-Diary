@@ -1,6 +1,12 @@
-import React, { VFC, useContext} from 'react';
-import { useHistory,Link } from "react-router-dom";
-import { AppBar, Toolbar } from '@material-ui/core';
+import React, {
+  VFC,
+  useContext} from 'react';
+import {
+  useHistory,
+  Link } from "react-router-dom";
+import {
+  AppBar,
+  Toolbar } from '@material-ui/core';
 import styled from 'styled-components';
 
 //contexts

@@ -1,4 +1,8 @@
-import React, { VFC, useState , useReducer, useContext } from 'react';
+import React, {
+  VFC,
+  useState ,
+  useReducer,
+  useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
@@ -20,7 +24,9 @@ import { createSession } from '../apis/users/sessions';
 import { HTTP_STATUS_CODE } from '../constants';
 
 // forminfo
-import { LoginFormInfo } from '../formInfo';
+import {
+  LoginFormInfo,
+  LoginLinkInfo } from '../formInfo';
 
 // reducers
 import {
@@ -69,13 +75,6 @@ export const Login:VFC = () => {
   const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { handleSubmit, errors, control } = useForm<IFormValues>();
 
-  const linkInfo = [
-    {
-      url: '/signup',
-      text: 'アカウントが無い方はこちら',
-    }
-  ];
-
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING});
     createSession({
@@ -114,7 +113,7 @@ export const Login:VFC = () => {
         />
       </FormWrapper>
       <SharedFormLinks
-        linkInfo={linkInfo}
+        linkInfo={LoginLinkInfo}
       />
     </LoginWrapper>
   );

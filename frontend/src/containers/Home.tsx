@@ -1,4 +1,7 @@
-import React, { VFC, Fragment , useContext} from 'react';
+import React, {
+  VFC,
+  Fragment,
+  useContext} from 'react';
 
 //contexts
 import { CurrentUserContext } from '../contexts/CurrentUser';

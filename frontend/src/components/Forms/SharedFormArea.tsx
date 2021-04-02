@@ -1,4 +1,6 @@
-import React, { VFC, Fragment } from 'react';
+import React, {
+  VFC,
+  Fragment } from 'react';
 
 // components
 import { FormItem } from './FormItem';

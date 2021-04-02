@@ -20,7 +20,9 @@ import { postRegistration } from '../apis/users/registrations';
 import { HTTP_STATUS_CODE } from '../constants';
 
 // formitemsinfo
-import { SignUpFormInfo } from '../formInfo';
+import {
+  SignUpFormInfo,
+  signUpLinkInfo } from '../formInfo';
 
 // reducers
 import {
@@ -73,13 +75,6 @@ export const SignUp:VFC = () => {
   const { handleSubmit, errors, control } = useForm<IFormValues>();
   const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
-  const linkInfo = [
-    {
-      url: '/login',
-      text: 'アカウントをお持ちの方はこちら',
-    }
-  ];
-
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING});
     postRegistration({
@@ -119,7 +114,7 @@ export const SignUp:VFC = () => {
         />
       </FormWrapper>
       <SharedFormLinks
-        linkInfo={linkInfo}
+        linkInfo={signUpLinkInfo}
       />
     </SignUpWrapper>
   );

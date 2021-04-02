@@ -1,5 +1,8 @@
 import axios from 'axios';
-import { signIn,signOut,guestSignIn } from '../../urls/index';
+import {
+  signIn,
+  signOut,
+  guestSignIn } from '../../urls/index';
 
 interface IParams {
   email: string;
