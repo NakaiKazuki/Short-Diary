@@ -1,9 +1,8 @@
 import { onSubmitLabel, isDisabled } from "./button";
-import { isSignedIn, signOutHandler } from "./session";
+import { isSignedIn } from "./session";
 
 export {
   onSubmitLabel,
   isDisabled,
   isSignedIn,
-  signOutHandler,
 };

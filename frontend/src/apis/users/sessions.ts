@@ -6,7 +6,7 @@ interface IParams {
   password: string;
 }
 
-interface ICurrentUserHeader {
+interface ICurrentUserHeaders {
   "access-token": string;
   client: string;
   uid: string;
@@ -21,7 +21,7 @@ export const createSession = (params: IParams) => {
     .catch(e => { throw e; })
 };
 
-export const deleteSession = (currentUserHeaders: ICurrentUserHeader) => {
+export const deleteSession = (currentUserHeaders: ICurrentUserHeaders) => {
   return axios.delete(signOut,
     {
       headers: currentUserHeaders,

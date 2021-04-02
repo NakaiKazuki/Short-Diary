@@ -1,7 +1,7 @@
 import { createContext,useState,VFC } from 'react';
 
-interface IHeader {
-  "access-token": string;
+interface IHeaders {
+  'access-token': string;
   client: string;
   uid: string;
 }
@@ -10,12 +10,12 @@ interface IData {
   id: number;
   name: string;
   email: string;
-  image: string | null;
+  // image: string | null;　// 使うようになったらコメントアウト
 }
 
 interface ICurrentUser {
   data: IData;
-  headers: IHeader;
+  headers: IHeaders;
 }
 
 interface ICurrentUserContext {

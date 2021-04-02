@@ -1,15 +1,28 @@
-import React, { VFC, Fragment, useState, useReducer, useContext } from 'react';
+import React, { VFC, useState , useReducer, useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import {useHistory} from "react-router-dom";
-import { CurrentUserContext } from '../contexts/CurrentUser';
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 
+//contexts
+import { CurrentUserContext } from '../contexts/CurrentUser';
+
 // components
-import { LoginForm} from '../components/Forms/Users';
-import { Header } from '../components/Header';
+import {
+  SharedFormArea,
+  SharedFormSubmit,
+  FormLinkListWrapper,
+  FormLinkList,
+  FormLinkItem,
+  FormLink } from '../components/Forms';
 
 // apis
 import { createSession } from '../apis/users/sessions';
+
+// responses
+import { HTTP_STATUS_CODE } from '../constants';
+
+// forminfo
+import { LoginFormInfo } from '../formInfo';
 
 // reducers
 import {
@@ -20,18 +33,21 @@ import {
 
 // helpers
 import {
-  isSignedIn,
   onSubmitLabel,
   isDisabled,
-  signOutHandler } from '../helpers';
+} from '../helpers';
 
-// responses
-import { HTTP_STATUS_CODE } from '../constants';
-
+import {
+  FormTitleWrapper,
+  FormWrapper,
+} from '../components/Forms/style';
 
 // css
 const LoginWrapper = styled.div`
-  margin-top: 12vh;
+  width: 100vw;
+  height: 80vh;
+  margin-top: 6.6vh;
+  padding-top: 5.4vh;
 `;
 
 // 型
@@ -54,7 +70,6 @@ export const Login:VFC = () => {
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { handleSubmit, errors, control } = useForm<IFormValues>();
-
 
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING});
@@ -82,21 +97,24 @@ export const Login:VFC = () => {
   };
 
   return(
-    <Fragment>
-      <Header
-        isSignedIn={isSignedIn(currentUser)}
-        handleSignOut={() => signOutHandler(currentUser!.headers,setCurrentUser,history)}
-      />
-      <LoginWrapper>
-      <LoginForm
-          ClickSubmit={() => handleSubmit(onSubmit)}
+    <LoginWrapper>
+      <FormTitleWrapper>Login</FormTitleWrapper>
+      <FormWrapper onSubmit={handleSubmit(onSubmit)}>
+        <SharedFormArea
+          formInfo={LoginFormInfo(errors, control, apiErrors)}
+        />
+        <SharedFormSubmit
           isDisabled={() => isDisabled(state.postState)}
           onSubmitLabel={() => onSubmitLabel(state.postState, "Login!")}
-          errors={errors}
-          control={control}
-          apiErrors={apiErrors}
         />
-      </LoginWrapper>
-    </Fragment>
-  )
+      </FormWrapper>
+      <FormLinkListWrapper>
+        <FormLinkList>
+          <FormLinkItem>
+            <FormLink to={'/signup'} >アカウントが無い方はこちら</FormLink>
+          </FormLinkItem>
+        </FormLinkList>
+      </FormLinkListWrapper>
+    </LoginWrapper>
+  );
 }

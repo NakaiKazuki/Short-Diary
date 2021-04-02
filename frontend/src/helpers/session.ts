@@ -1,42 +1,23 @@
-// apis
-import { deleteSession } from '../apis/users/sessions';
-
 // 型
-interface IHeader {
-  "access-token": string;
+interface ICurrentUserHeaders {
+  'access-token': string;
   client: string;
   uid: string;
 }
 
-interface IData {
+interface ICurrentUserData {
   id: number;
   name: string;
   email: string;
-  image: string | null;
+  // image: string | null; // 使うようになったらコメントアウト
 }
 
 interface ICurrentUser {
-  data: IData;
-  headers: IHeader;
+  data: ICurrentUserData;
+  headers: ICurrentUserHeaders;
 }
 
 // ユーザがログインしていたらtrueを返す (ログインしていないと持っていない情報で判定している)
 export const isSignedIn = (currentUser: ICurrentUser | undefined): boolean =>
   currentUser?.headers != null;
 ;
-
-// ユーザのログアウト処理
-export const signOutHandler = (
-  userHeaders: IHeader,
-  fc: React.Dispatch<React.SetStateAction<any>>,
-  history: any): void =>
-{
-  deleteSession(userHeaders)
-  .then(() => {
-    fc(undefined)
-    history.push("/");
-  })
-  .catch(e => {
-    throw e;
-  });
-};
