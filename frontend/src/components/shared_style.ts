@@ -16,11 +16,11 @@ export const BaseButton = styled.button`
   }
 `;
 
-// 角丸なボタン
-export const RoundButton = styled(BaseButton)`
-  width: 2.7rem;
-  height: 2.7rem;
-  border-radius: 50%;
-  border: none;
-  background-color: royalblue;
-`;
+// // 角丸なボタン
+// export const RoundButton = styled(BaseButton)`
+//   width: 2.7rem;
+//   height: 2.7rem;
+//   border-radius: 50%;
+//   border: none;
+//   background-color: royalblue;
+// `;

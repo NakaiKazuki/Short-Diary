@@ -1,19 +1,21 @@
 // 共通で利用
 interface IRurles {
   required: boolean;
-  maxLength: number;
   minLength?: number;
+  maxLength: number;
 }
 
 interface IObject {
-  errorsProperty: string;
-  control: any;
-  apiErrorProperty: Array<string> | undefined;
   formLabel: string;
+  errorsProperty: string;
   errorMessage: string;
+  apiErrorProperty: Array<string> | undefined;
   apiMessagePropertyName: string;
   nameAttribute: string;
   typeAttribute: string;
+  control: any;
+  defaultValue: string;
+  autoFocus: boolean;
   rules: IRurles;
 }
 
@@ -30,47 +32,55 @@ type TReturnSignUp = [IObject, IObject, IObject, IObject];
 export const SignUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiErrors | undefined): TReturnSignUp => {
   return [
     {
-      errorsProperty: errors.name,
-      control: control,
-      apiErrorProperty: apiErrors?.name,
       formLabel: "Name:",
+      errorsProperty: errors.name,
       errorMessage: "1文字以上、50文字以内で入力してください",
+      apiErrorProperty: apiErrors?.name,
       apiMessagePropertyName: "名前",
       nameAttribute: "name",
       typeAttribute: "text",
+      control: control,
+      defaultValue: "",
+      autoFocus: true,
       rules: { required: true, maxLength: 50 },
     },
     {
-      errorsProperty: errors.email,
-      control: control,
-      apiErrorProperty: apiErrors?.email,
       formLabel: "Email:",
+      errorsProperty: errors.email,
       errorMessage: "1文字以上、255文字以内で入力してください",
+      apiErrorProperty: apiErrors?.email,
       apiMessagePropertyName:"メールアドレス",
       nameAttribute: "email",
       typeAttribute: "email",
+      control: control,
+      defaultValue: "",
+      autoFocus: false,
       rules:{ required: true , maxLength: 255},
     },
     {
-      errorsProperty: errors.password,
-      control: control,
-      apiErrorProperty:  apiErrors?.password,
       formLabel: "パスワード: ",
+      errorsProperty: errors.password,
       errorMessage: "正しいパスワードを入力してください",
+      apiErrorProperty:  apiErrors?.password,
       apiMessagePropertyName: "パスワード",
       nameAttribute: "password",
       typeAttribute: "password",
+      control: control,
+      defaultValue: "",
+      autoFocus: false,
       rules: { required: true,minLength: 6, maxLength: 128},
     },
     {
-      errorsProperty: errors.password_confirmation,
-      control: control,
-      apiErrorProperty:  apiErrors?.password_confirmation,
       formLabel: "確認用パスワード:",
+      errorsProperty: errors.password_confirmation,
       errorMessage: "パスワードと同じ内容を入力してください",
+      apiErrorProperty:  apiErrors?.password_confirmation,
       apiMessagePropertyName: "確認用パスワード",
       nameAttribute: "password_confirmation",
       typeAttribute: "password",
+      control: control,
+      defaultValue: "",
+      autoFocus: false,
       rules: {required: true, minLength: 6, maxLength: 128},
     }
   ];
@@ -87,25 +97,29 @@ type TReturnLogin = [IObject, IObject];
 export const LoginFormInfo = (errors: any, control: any, apiErrors: ILoginApiErrors | undefined): TReturnLogin => {
   return [
     {
-      errorsProperty: errors.email,
-      control: control,
-      apiErrorProperty: apiErrors?.email,
       formLabel: "Email:",
+      errorsProperty: errors.email,
       errorMessage: "登録したメールアドレスを入力してください",
+      apiErrorProperty: apiErrors?.email,
       apiMessagePropertyName:"メールアドレス",
       nameAttribute: "email",
       typeAttribute: "email",
+      control: control,
+      defaultValue: "",
+      autoFocus: true,
       rules:{ required: true , maxLength: 255}
     },
     {
-      errorsProperty: errors.password,
-      control: control,
-      apiErrorProperty:  apiErrors?.password,
       formLabel: "パスワード: ",
+      errorsProperty: errors.password,
       errorMessage: "正しいパスワードを入力してください",
+      apiErrorProperty:  apiErrors?.password,
       apiMessagePropertyName: "パスワード",
       nameAttribute: "password",
       typeAttribute: "password",
+      control: control,
+      defaultValue: "",
+      autoFocus: false,
       rules: { required: true, minLength: 6, maxLength: 128}
     },
   ];

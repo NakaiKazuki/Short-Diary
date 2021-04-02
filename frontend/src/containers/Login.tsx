@@ -1,13 +1,19 @@
 import React, { VFC, useState , useReducer, useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 
 //contexts
 import { CurrentUserContext } from '../contexts/CurrentUser';
 
 // components
-import { SharedFormArea, SharedFormSubmit } from '../components/Forms';
+import {
+  SharedFormArea,
+  SharedFormSubmit,
+  FormLinkListWrapper,
+  FormLinkList,
+  FormLinkItem,
+  FormLink } from '../components/Forms';
 
 // apis
 import { createSession } from '../apis/users/sessions';
@@ -38,7 +44,7 @@ import {
 
 // css
 const LoginWrapper = styled.div`
-  margin-top: 12vh;
+  padding-top: 12vh;
 `;
 
 // 型
@@ -89,7 +95,7 @@ export const Login:VFC = () => {
 
   return(
     <LoginWrapper>
-      <FormTitleWrapper>Sign Up</FormTitleWrapper>
+      <FormTitleWrapper>Login</FormTitleWrapper>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <SharedFormArea
           formInfo={LoginFormInfo(errors, control, apiErrors)}
@@ -99,6 +105,16 @@ export const Login:VFC = () => {
           onSubmitLabel={() => onSubmitLabel(state.postState, "Login!")}
         />
       </FormWrapper>
+      <FormLinkListWrapper>
+        <FormLinkList>
+          <FormLinkItem>
+            <FormLink to={'/signup'} >アカウントが無い方はこちら</FormLink>
+          </FormLinkItem>
+          <FormLinkItem>
+            <FormLink to={'/signup'} >アカウントが無あああああああああああああ</FormLink>
+          </FormLinkItem>
+        </FormLinkList>
+      </FormLinkListWrapper>
     </LoginWrapper>
   );
 }

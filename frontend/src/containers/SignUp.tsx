@@ -1,13 +1,19 @@
 import React, { VFC, useState, useReducer,useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 
 // contexts
 import { CurrentUserContext } from '../contexts/CurrentUser'
 
 // components
-import { SharedFormArea, SharedFormSubmit } from '../components/Forms';
+import {
+  SharedFormArea,
+  SharedFormSubmit,
+  FormLinkListWrapper,
+  FormLinkList,
+  FormLinkItem,
+  FormLink } from '../components/Forms';
 
 // apis
 import { postRegistration } from '../apis/users/registrations';
@@ -104,6 +110,13 @@ export const SignUp:VFC = () => {
           onSubmitLabel={() => onSubmitLabel(state.postState, "SignUp!")}
         />
       </FormWrapper>
+      <FormLinkListWrapper>
+        <FormLinkList>
+          <FormLinkItem>
+            <FormLink to={'/login'} >アカウントをお持ちの方はこちら</FormLink>
+          </FormLinkItem>
+        </FormLinkList>
+      </FormLinkListWrapper>
     </SignUpWrapper>
   );
 }

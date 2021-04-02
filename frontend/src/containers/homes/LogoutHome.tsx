@@ -1,6 +1,7 @@
 import React, { VFC, useEffect, useContext, useReducer} from 'react';
 import { Link } from 'react-router-dom';
 import {useHistory} from "react-router-dom";
+import styled from 'styled-components';
 
 //contexts
 import { CurrentUserContext } from '../../contexts/CurrentUser';
@@ -22,7 +23,6 @@ import {
   submitActionTypes,
   submitReducer,
 } from '../../reducers/submit';
-import styled from 'styled-components';
 
 // components
 import { BaseButton } from '../../components/shared_style';
@@ -31,7 +31,7 @@ import { BaseButton } from '../../components/shared_style';
 import HomeBackGround from '../../images/homebackground.jpg';
 
 // css
-const HomeWrapper = styled.div`
+const LogoutHomeWrapper = styled.div`
   width: 100vw;
   height: 100vh;
   background-image: url(${HomeBackGround});
@@ -126,7 +126,7 @@ export const LogoutHome: VFC = () => {
   };
 
   return(
-    <HomeWrapper data-testid="homeContainer">
+    <LogoutHomeWrapper data-testid="homeContainer">
       <ContentsWrapper>
         <HeadingWrapper>
           毎日の出来事を記録しよう
@@ -158,6 +158,6 @@ export const LogoutHome: VFC = () => {
           </GuestLoginWrapper>
         </ButtonsWrapper>
       </ContentsWrapper>
-    </HomeWrapper>
+    </LogoutHomeWrapper>
   );
 }

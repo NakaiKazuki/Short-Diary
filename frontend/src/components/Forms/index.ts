@@ -1,4 +1,12 @@
-import { SharedFormArea } from './SharedFormArea'
-import { SharedFormSubmit } from './SharedFormSubmit'
+import { SharedFormArea } from './SharedFormArea';
+import { SharedFormSubmit } from './SharedFormSubmit';
+import { FormLinkListWrapper,FormLinkList, FormLinkItem, FormLink } from './style';
 
-export { SharedFormArea , SharedFormSubmit}
+export {
+  SharedFormArea,
+  SharedFormSubmit,
+  FormLinkListWrapper,
+  FormLinkList,
+  FormLinkItem,
+  FormLink
+};

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
 import { BaseButton } from '../shared_style';
-
 // css
 export const FormTitleWrapper = styled.h1`
   text-align: center;
@@ -10,9 +10,9 @@ export const FormTitleWrapper = styled.h1`
 
 export const FormWrapper = styled.form`
   margin: 0 auto;
-  width:80vw;
+  width: 80vw;
   @media screen and (min-width: 980px) {
-    width:30vw;
+    width: 30vw;
   };
 `;
 
@@ -24,4 +24,33 @@ export const FormSubmitWrapper = styled(BaseButton)`
   width: 100%;
   height: 3rem;
   font-size: 1.1rem;
+`;
+
+export const FormLinkListWrapper = styled.div`
+  text-align: center;
+`;
+
+export const FormLinkList = styled.ul`
+  display: inline-block;
+  text-align: left;
+  list-style: none;
+`;
+
+export const FormLinkItem = styled.li`
+  margin-top: 1rem;
+`;
+
+export const FormLink = styled(Link)`
+  cursor: pointer;
+  display: block;
+  padding: 0.5rem;
+  border: .0125rem solid royalblue;
+  border-radius: .25rem;
+  color: royalblue;
+  background-color: white;
+  text-decoration: none;
+  :hover {
+    background-color: royalblue;
+    color: white;
+  }
 `;

@@ -1,6 +1,6 @@
 // 型
 interface ICurrentUserHeaders {
-  "access-token": string;
+  'access-token': string;
   client: string;
   uid: string;
 }

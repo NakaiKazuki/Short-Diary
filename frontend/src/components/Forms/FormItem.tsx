@@ -26,26 +26,30 @@ interface IRurles {
 }
 
 interface IFormItemProps {
-  errorsProperty: string;
-  control: any;
-  apiErrorProperty: Array<string> | undefined;
   formLabel: string;
+  errorsProperty: string;
   errorMessage: string;
+  apiErrorProperty: Array<string> | undefined;
   apiMessagePropertyName: string;
   nameAttribute: string;
   typeAttribute: string;
+  control: any;
+  defaultValue: string;
+  autoFocus: boolean;
   rules: IRurles;
 }
 
 export const FormItem:VFC<IFormItemProps> = ({
-  errorsProperty,
-  control,
-  apiErrorProperty,
   formLabel,
+  errorsProperty,
   errorMessage,
+  apiErrorProperty,
   apiMessagePropertyName,
   nameAttribute,
   typeAttribute,
+  control,
+  defaultValue,
+  autoFocus,
   rules,
 }) => {
   return (
@@ -54,17 +58,18 @@ export const FormItem:VFC<IFormItemProps> = ({
       {errorsProperty &&
         <FormErrorMessageWrapper>{errorMessage}</FormErrorMessageWrapper>
       }
-      {apiErrorProperty && apiErrorProperty.map((message: string, index: number) =>
+      {apiErrorProperty?.map((message: string, index: number) =>
         <FormErrorMessageWrapper key={`${nameAttribute}-${index}`}>{`${apiMessagePropertyName}${message}`}</FormErrorMessageWrapper>
       )}
       <Controller
         name={nameAttribute}
         control={control}
-        defaultValue=""
+        defaultValue={defaultValue}
         rules={ rules }
         as={
           <FormInputWrapper
             type={typeAttribute}
+            autoFocus={autoFocus}
             fullWidth
             data-testid={`${nameAttribute}Area`}
           />

@@ -1,12 +1,17 @@
 import React, { VFC ,useEffect, useContext } from 'react';
 // import { Link } from 'react-router-dom';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 
 // contexts
 import { CurrentUserContext } from '../../contexts/CurrentUser';
 
 // apis
 import { fetchHome } from '../../apis/home';
+
+// css
+const LoginHomeWrapper = styled.div`
+  padding-top: 12vh;
+`;
 
 export const LoginHome: VFC = () => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -18,6 +23,8 @@ export const LoginHome: VFC = () => {
   },[currentUser]);
 
   return (
-    <h1> ログインユーザ専用のホームでしてよ！</h1>
+    <LoginHomeWrapper>
+      <h1>Loginしてますねぇ</h1>
+    </LoginHomeWrapper>
   );
 }
