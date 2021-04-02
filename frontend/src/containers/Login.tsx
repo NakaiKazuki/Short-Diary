@@ -44,7 +44,10 @@ import {
 
 // css
 const LoginWrapper = styled.div`
-  padding-top: 12vh;
+  width: 100vw;
+  height: 80vh;
+  margin-top: 6.6vh;
+  padding-top: 5.4vh;
 `;
 
 // 型
@@ -109,9 +112,6 @@ export const Login:VFC = () => {
         <FormLinkList>
           <FormLinkItem>
             <FormLink to={'/signup'} >アカウントが無い方はこちら</FormLink>
-          </FormLinkItem>
-          <FormLinkItem>
-            <FormLink to={'/signup'} >アカウントが無あああああああああああああ</FormLink>
           </FormLinkItem>
         </FormLinkList>
       </FormLinkListWrapper>

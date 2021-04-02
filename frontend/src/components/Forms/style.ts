@@ -17,7 +17,7 @@ export const FormWrapper = styled.form`
 `;
 
 export const FormSubmitWrapper = styled(BaseButton)`
-  margin: 1.5rem auto 0 auto;
+  margin: 2rem auto 0 auto;
   background-color: royalblue;
   color: white;
   border-style: none;
@@ -43,7 +43,7 @@ export const FormLinkItem = styled.li`
 export const FormLink = styled(Link)`
   cursor: pointer;
   display: block;
-  padding: 0.5rem;
+  padding: .5rem;
   border: .0125rem solid royalblue;
   border-radius: .25rem;
   color: royalblue;

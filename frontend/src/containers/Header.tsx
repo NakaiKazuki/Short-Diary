@@ -19,8 +19,13 @@ import { deleteSession } from '../apis/users/sessions';
 import MainLogo from '../images/logo.png';
 
 // css
+const AppHeader = styled(AppBar)`
+  height: 6.6vh;
+`;
+
 const MainLogoImage = styled.img`
-  height: 2.5rem;
+  height: 4.3vh;
+  padding: 1.15vh 0;
 `;
 
 const SessionLink = styled(Link)`
@@ -70,7 +75,7 @@ export const Header:VFC = () => {
   };
 
   return (
-    <AppBar data-testid="header" position="fixed" color="inherit">
+    <AppHeader data-testid="header" position="fixed" color="inherit" >
       <Toolbar>
         <Link data-testid="homeLink" to ={'/'} >
            <MainLogoImage src={MainLogo} alt="main logo" />
@@ -92,6 +97,6 @@ export const Header:VFC = () => {
         </SessionLink>
         }
       </Toolbar>
-    </AppBar>
+    </AppHeader>
   )
 }

@@ -33,7 +33,8 @@ import HomeBackGround from '../../images/homebackground.jpg';
 // css
 const LogoutHomeWrapper = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
+  margin-top: 6.6vh;
   background-image: url(${HomeBackGround});
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -50,7 +51,7 @@ const ContentsWrapper = styled.div`
 
 const HeadingWrapper = styled.h1`
   position: relative;
-  padding: 0.5rem;
+  padding: .5rem;
   background: royalblue;
   color: white;
   &:before {
@@ -82,7 +83,7 @@ const HomeButton = styled(BaseButton)`
   height: 2.5rem;
   width: 10rem;
   border-style: none;
-  letter-spacing:0.2rem;
+  letter-spacing: .2rem;
   color: white;
   font-size: 0.95rem;
 `;

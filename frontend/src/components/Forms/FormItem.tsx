@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 // css
 const FormLabelWrapper = styled.label`
+
   opacity: .7;
 `;
 

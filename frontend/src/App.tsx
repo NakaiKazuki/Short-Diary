@@ -34,6 +34,7 @@ function App() {
           </Route>
         </Switch>
       </CurrentUserProvider>
+      <footer>ここFooterな！！</footer>
     </Router>
   );
 }

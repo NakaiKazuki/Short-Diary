@@ -31,6 +31,7 @@
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
 class User < ApplicationRecord
+  has_many :diaries, dependent: :destroy
   # Devise
   devise :database_authenticatable, :registerable,
          :recoverable, :validatable, :rememberable,

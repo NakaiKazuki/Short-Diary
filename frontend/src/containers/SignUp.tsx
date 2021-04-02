@@ -44,7 +44,10 @@ import {
 
 // css
 const SignUpWrapper = styled.div`
-  margin-top: 12vh;
+  width: 100vw;
+  height: 80vh;
+  margin-top: 6.6vh;
+  padding-top: 5.4vh;
 `;
 
 // 型
