@@ -5,3 +5,21 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+User.create!(
+  id: 1,
+  name: 'ゲストーザ',
+  email: 'guest@example.com',
+  password: 'password',
+  password_confirmation: 'password',
+  image: nil
+  # confirmed_at: Time.current
+)
+
+20.times do |m|
+  Diary.create!(
+    date: Time.zone.today - m,
+    content: "サンプル投稿-#{m}",
+    created_at: Time.zone.today - m,
+    user_id: 1
+  )
+end

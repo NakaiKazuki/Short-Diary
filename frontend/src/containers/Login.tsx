@@ -10,10 +10,8 @@ import { CurrentUserContext } from '../contexts/CurrentUser';
 import {
   SharedFormArea,
   SharedFormSubmit,
-  FormLinkListWrapper,
-  FormLinkList,
-  FormLinkItem,
-  FormLink } from '../components/Forms';
+  SharedFormLinks,
+} from '../components/Forms';
 
 // apis
 import { createSession } from '../apis/users/sessions';
@@ -71,6 +69,13 @@ export const Login:VFC = () => {
   const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { handleSubmit, errors, control } = useForm<IFormValues>();
 
+  const linkInfo = [
+    {
+      url: '/signup',
+      text: 'アカウントが無い方はこちら',
+    }
+  ];
+
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING});
     createSession({
@@ -87,7 +92,7 @@ export const Login:VFC = () => {
       history.push("/")
     })
     .catch(e => {
-      if (e.response.status === HTTP_STATUS_CODE.DATA_UNDEFINED) {
+      if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
         dispatch({ type: submitActionTypes.POST_INITIAL });
         setErrorMessage(e.response.data.errors);
       } else {
@@ -108,13 +113,9 @@ export const Login:VFC = () => {
           onSubmitLabel={() => onSubmitLabel(state.postState, "Login!")}
         />
       </FormWrapper>
-      <FormLinkListWrapper>
-        <FormLinkList>
-          <FormLinkItem>
-            <FormLink to={'/signup'} >アカウントが無い方はこちら</FormLink>
-          </FormLinkItem>
-        </FormLinkList>
-      </FormLinkListWrapper>
+      <SharedFormLinks
+        linkInfo={linkInfo}
+      />
     </LoginWrapper>
   );
 }
