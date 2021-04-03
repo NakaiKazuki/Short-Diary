@@ -1,6 +1,5 @@
 import React, {
   VFC,
-  useEffect,
   useContext,
   useReducer} from 'react';
 import { Link } from 'react-router-dom';
@@ -11,7 +10,6 @@ import styled from 'styled-components';
 import { CurrentUserContext } from '../../contexts/CurrentUser';
 
 // apis
-import { fetchHome } from '../../apis/home';
 import { newGuestSession } from '../../apis/users/sessions';
 
 
@@ -105,13 +103,6 @@ export const LogoutHome: VFC = () => {
   const { currentUser ,setCurrentUser } = useContext(CurrentUserContext);
   const [ state, dispatch ] = useReducer(submitReducer, initialState);
   const history = useHistory();
-
-  useEffect((): void => {
-    fetchHome()
-    .then(data =>
-      console.log(data)
-    )
-  },[]);
 
   const guestLoginHandler = (): void => {
     dispatch({ type: submitActionTypes.POSTING});

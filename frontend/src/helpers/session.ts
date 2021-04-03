@@ -19,5 +19,5 @@ interface ICurrentUser {
 
 // ユーザがログインしていたらtrueを返す (ログインしていないと持っていない情報で判定している)
 export const isSignedIn = (currentUser: ICurrentUser | undefined): boolean =>
-  currentUser?.headers != null;
+  currentUser?.headers['access-token'] != null;
 ;

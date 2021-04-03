@@ -7,7 +7,7 @@ interface ICurrentUserHeaders {
   uid: string;
 }
 
-export const fetchHome = (currentUserHeaders: ICurrentUserHeaders | null = null): Promise<any> => {
+export const fetchHome = (currentUserHeaders: ICurrentUserHeaders): Promise<any> => {
   return axios.get(home,{
     headers: currentUserHeaders
   })
