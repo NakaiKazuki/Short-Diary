@@ -10,7 +10,6 @@
 #  current_sign_in_ip     :string(255)
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
-#  image                  :string(255)
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string(255)
 #  name                   :string(255)      default(""), not null
@@ -31,13 +30,14 @@
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
 class User < ApplicationRecord
-  has_many :diaries, dependent: :destroy
   # Devise
   devise :database_authenticatable, :registerable,
          :recoverable, :validatable, :rememberable,
          :trackable, :timeoutable
   #  ,:confirmable, :lockable, :omniauthables
   include DeviseTokenAuth::Concerns::User
+
+  has_many :diaries, dependent: :destroy
 
   # 登録前にメールアドレスを小文字に変換
   before_save :downcase_email

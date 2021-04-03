@@ -11,6 +11,7 @@ gem 'devise_token_auth' # User関連
 gem 'fast_blank' # 取り敢えず入れとく
 gem 'mini_magick' # 画像
 gem 'mysql2'
+gem 'pagy' # ページネーション
 gem 'puma'
 gem 'rack-attack' # F5アタック対策
 gem 'rack-cors' # apiで使うのに必要なやつ
@@ -18,7 +19,6 @@ gem 'rails', '~> 6.1.3'
 gem 'rails-i18n' # 日本語化
 
 group :development, :test do
-  gem 'brakeman', require: false # セキュリティ云々を指摘してくれる
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails' # テスト用
   gem 'faker' # テスト用
@@ -29,7 +29,9 @@ group :development do
   gem 'annotate' # モデルの内容を分かりやすく
   gem 'better_errors' # エラー画面を見やすく
   gem 'binding_of_caller' # エラー画面を見やすく
+  gem 'brakeman', require: false # セキュリティ云々を指摘してくれる
   gem 'bullet' # N+1問題を検出
+  gem 'bundler-audit' # ライブラリのセキュリティ云々を指摘してくれる
   gem 'letter_opener' # メール確認用
   gem 'letter_opener_web' # メール確認用
   gem 'listen'

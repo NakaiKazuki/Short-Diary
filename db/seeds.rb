@@ -11,7 +11,6 @@ User.create!(
   email: 'guest@example.com',
   password: 'password',
   password_confirmation: 'password',
-  image: nil
   # confirmed_at: Time.current
 )
 

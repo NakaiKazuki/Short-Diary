@@ -1,10 +1,12 @@
 class Api::V1::HomeController < ApplicationController
-  def home
-    # return unless user_signed_in?
+  before_action :authenticate_user!
 
+  def home
     diaries = current_user.diaries.all
+    @pagy, diaries = pagy(u.diaries.all)
     render json: {
-      diaries: diaries
-    }, status: :ok
+      diaries: diaries,
+      pagy: pagy_metadata(@pagy)
+    }, methods: [:picture_url], status: :ok
   end
 end
