@@ -43,7 +43,7 @@ const LogoutHomeWrapper = styled.div`
   background-size:cover;
 `;
 
-const ContentsWrapper = styled.div`
+const Contents = styled.div`
   margin-top: 15vh;
   display: inline-block;
   @media screen and (min-width: 481px) {
@@ -51,7 +51,7 @@ const ContentsWrapper = styled.div`
   };
 `;
 
-const HeadingWrapper = styled.h1`
+const Heading = styled.h1`
   position: relative;
   padding: .5rem;
   background: royalblue;
@@ -67,7 +67,7 @@ const HeadingWrapper = styled.h1`
   }
 `;
 
-const ParagraphWrapper = styled.p`
+const Paragraph = styled.p`
   margin: 10% 0 0 5%;
   padding: 5%;
   line-height: 1.7;
@@ -90,11 +90,11 @@ const HomeButton = styled(BaseButton)`
   font-size: 0.95rem;
 `;
 
-const SignUpButtonWrapper = styled(HomeButton)`
+const SignUpButton = styled(HomeButton)`
   background-color: royalblue;
 `;
 
-const GuestLoginWrapper = styled(HomeButton)`
+const GuestLogin = styled(HomeButton)`
   background-color: limegreen;
 `;
 
@@ -123,37 +123,37 @@ export const LogoutHome: VFC = () => {
 
   return(
     <LogoutHomeWrapper data-testid="homeContainer">
-      <ContentsWrapper>
-        <HeadingWrapper>
+      <Contents>
+        <Heading>
           毎日の出来事を記録しよう
-        </HeadingWrapper>
-        <ParagraphWrapper>
+        </Heading>
+        <Paragraph>
           日記を付けたいけど、文章を書くのは面倒だと思ったことはありませんか？<br />
           Short Diaryでは日々の日記を一言二言の内容で書くことで、<br />
           メモ感覚で日記をつけることができます。<br />
           Short Diaryを使って日記を付けよう！
-        </ParagraphWrapper>
+        </Paragraph>
         <ButtonsWrapper>
           <Link
             to={'/signup'}
             data-testid="signUpLink"
           >
-            <SignUpButtonWrapper
+            <SignUpButton
               type="button"
               data-testid="signUpButton"
             >
               ユーザー登録
-            </SignUpButtonWrapper>
+            </SignUpButton>
           </Link>
-          <GuestLoginWrapper
+          <GuestLogin
             type="button"
             onClick ={guestLoginHandler}
             disabled={isDisabled(state.postState)}
             data-testid="guestLoginButton">
             {onSubmitLabel(state.postState, "ゲストログイン")}
-          </GuestLoginWrapper>
+          </GuestLogin>
         </ButtonsWrapper>
-      </ContentsWrapper>
+      </Contents>
     </LogoutHomeWrapper>
   );
 }

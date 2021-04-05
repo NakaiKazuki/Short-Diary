@@ -14,5 +14,5 @@ export const fetchHome = (currentUserHeaders: ICurrentUserHeaders): Promise<any>
   .then(res => {
     return res.data
   })
-  .catch((e) => console.error(e))
+  .catch(e => { throw e; })
 }

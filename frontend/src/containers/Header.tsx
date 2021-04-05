@@ -16,7 +16,7 @@ import { CurrentUserContext } from '../contexts/CurrentUser';
 import { BaseButton } from '../components/shared_style';
 
 // helpers
-import { isSignedIn } from '../helpers';
+import { isLoggedIn } from '../helpers';
 
 // apis
 import { deleteSession } from '../apis/users/sessions';
@@ -40,7 +40,7 @@ const SessionLink = styled(Link)`
 `;
 
 const SessionButton = styled(BaseButton)`
-  height: 2.5rem;
+  height: 4vh;
   padding: 0 1rem;
   font-size: 1.2rem;
 `;
@@ -87,7 +87,7 @@ export const Header:VFC = () => {
            <MainLogoImage src={MainLogo} alt="main logo" />
         </Link>
         {
-          isSignedIn(currentUser) ?
+          isLoggedIn(currentUser) ?
           <LogoutButton type="button" onClick={ () => signOutHandler()}>Logout</LogoutButton>
         :
         <SessionLink

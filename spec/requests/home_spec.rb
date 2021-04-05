@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Homes', type: :request do
-  let!(:diary) { create(:diary) }
   describe 'GET /home' do
     context 'ログインしていない場合' do
       it 'returns http response 401' do

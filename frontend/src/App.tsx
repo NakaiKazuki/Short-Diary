@@ -7,7 +7,8 @@ import {
 
 // cotexts
 import {CurrentUserProvider} from './contexts/CurrentUser';
-
+// routes
+import { GuestRoute } from './routes';
 // components
 import { Header } from './containers/Header';
 import { Home } from './containers/Home';
@@ -20,18 +21,9 @@ function App() {
       <CurrentUserProvider>
         <Header/>
         <Switch>
-          <Route
-            exact path="/" >
-            < Home />
-          </Route>
-          <Route
-            exact path="/signup" >
-            < SignUp />
-          </Route>
-          <Route
-            exact path="/login" >
-            < Login />
-          </Route>
+          <Route exact path="/" component={Home} />
+          <GuestRoute exact path="/signup" children={<SignUp/>} />
+          <GuestRoute exact path="/login" children={<Login/>} />
         </Switch>
       </CurrentUserProvider>
       <footer>ここFooterな！！</footer>

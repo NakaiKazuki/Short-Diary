@@ -26,6 +26,7 @@ export const CurrentUserContext = createContext({} as ICurrentUserContext );
 
 export const CurrentUserProvider:VFC<any> = ({children}) => {
   const [currentUser, setCurrentUser] = useState(undefined);
+
   return (
     <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
       {children}

@@ -39,21 +39,23 @@ export const SharedFormArea:VFC<ISharedFormProps> = ({
     <Fragment>
       {
         formInfo.map((obj: IObject, index: number) => {
-          return <Fragment key={`ItemArea-${index}`}>
-            <FormItem
-              formLabel={obj.formLabel}
-              errorsProperty={obj.errorsProperty}
-              errorMessage={obj.errorMessage}
-              apiErrorProperty={obj.apiErrorProperty}
-              apiMessagePropertyName={obj.apiMessagePropertyName}
-              nameAttribute={obj.nameAttribute}
-              typeAttribute={obj.typeAttribute}
-              control={obj.control}
-              defaultValue={obj.defaultValue}
-              autoFocus={obj.autoFocus}
-              rules={obj.rules}
-            />
-          </Fragment>
+          return (
+            <Fragment key={`ItemArea-${index}`}>
+              <FormItem
+                  formLabel={obj.formLabel}
+                  errorsProperty={obj.errorsProperty}
+                  errorMessage={obj.errorMessage}
+                  apiErrorProperty={obj.apiErrorProperty}
+                  apiMessagePropertyName={obj.apiMessagePropertyName}
+                  nameAttribute={obj.nameAttribute}
+                  typeAttribute={obj.typeAttribute}
+                  control={obj.control}
+                  defaultValue={obj.defaultValue}
+                  autoFocus={obj.autoFocus}
+                  rules={obj.rules}
+              />
+            </Fragment>
+          )
         })
       }
     </Fragment>

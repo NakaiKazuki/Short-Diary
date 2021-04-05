@@ -11,7 +11,9 @@ import {
   SharedFormArea,
   SharedFormSubmit,
   SharedFormLinks,
-} from '../components/Forms';
+  FormTitle,
+  FormWrapper,
+} from '../components/forms/users';
 
 // apis
 import { postRegistration } from '../apis/users/registrations';
@@ -36,11 +38,6 @@ import {
   onSubmitLabel,
   isDisabled,
 } from '../helpers';
-
-import {
-  FormTitleWrapper,
-  FormWrapper,
-} from '../components/Forms/style';
 
 // css
 const SignUpWrapper = styled.div`
@@ -72,7 +69,7 @@ export const SignUp:VFC = () => {
   const history = useHistory();
   const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined>(undefined);
   const [state, dispatch] = useReducer(submitReducer, initialState);
-  const { handleSubmit, errors, control } = useForm<IFormValues>();
+  const { handleSubmit, formState:{errors}, control } = useForm<IFormValues>();
   const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   const onSubmit = (formValues: IFormValues): void => {
@@ -103,7 +100,7 @@ export const SignUp:VFC = () => {
 
   return(
     <SignUpWrapper>
-      <FormTitleWrapper>Sign Up</FormTitleWrapper>
+      <FormTitle>Sign Up</FormTitle>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <SharedFormArea
           formInfo={SignUpFormInfo(errors, control, apiErrors)}
