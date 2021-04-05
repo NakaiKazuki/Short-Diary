@@ -1,19 +1,18 @@
-import React, { VFC, Fragment } from 'react';
+import React, { VFC } from 'react';
 import { Controller } from 'react-hook-form';
-import { TextField } from '@material-ui/core'
+import { TextField, InputLabel } from '@material-ui/core'
 import styled from 'styled-components';
 
 // css
-const FormLabelWrapper = styled.label`
-
-  opacity: .7;
+const FormItemWrapper = styled.div`
+  margin-top: 1rem;
 `;
 
-const FormInputWrapper = styled(TextField)`
+const FormInput = styled(TextField)`
   margin-bottom: 1.2rem;
 `;
 
-const FormErrorMessageWrapper = styled.p`
+const FormErrorMessage = styled.p`
   margin: .6rem auto auto auto;
   color: red;
   font-size: .9rem;
@@ -54,13 +53,13 @@ export const FormItem:VFC<IFormItemProps> = ({
   rules,
 }) => {
   return (
-    <Fragment>
-      <FormLabelWrapper>{formLabel}</FormLabelWrapper>
+    <FormItemWrapper>
+      <InputLabel>{formLabel}</InputLabel>
       {errorsProperty &&
-        <FormErrorMessageWrapper>{errorMessage}</FormErrorMessageWrapper>
+        <FormErrorMessage>{errorMessage}</FormErrorMessage>
       }
       {apiErrorProperty?.map((message: string, index: number) =>
-        <FormErrorMessageWrapper key={`${nameAttribute}-${index}`}>{`${apiMessagePropertyName}${message}`}</FormErrorMessageWrapper>
+        <FormErrorMessage key={`${nameAttribute}-${index}`}>{`${apiMessagePropertyName}${message}`}</FormErrorMessage>
       )}
       <Controller
         name={nameAttribute}
@@ -68,7 +67,7 @@ export const FormItem:VFC<IFormItemProps> = ({
         defaultValue={defaultValue}
         rules={ rules }
         as={
-          <FormInputWrapper
+          <FormInput
             type={typeAttribute}
             autoFocus={autoFocus}
             fullWidth
@@ -76,6 +75,6 @@ export const FormItem:VFC<IFormItemProps> = ({
           />
         }
       />
-    </Fragment>
+    </FormItemWrapper>
   );
 }

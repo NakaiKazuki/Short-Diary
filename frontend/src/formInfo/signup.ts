@@ -86,6 +86,8 @@ export const SignUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiE
   ];
 };
 
+
+// 送信ボタン下にあるリンクの情報
 type TSignUpLinkInfo = [
   {
     url: string;

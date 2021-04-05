@@ -5,7 +5,6 @@
 #  id         :bigint           not null, primary key
 #  content    :text(65535)      not null
 #  date       :date
-#  image      :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint           not null
@@ -76,22 +75,22 @@ RSpec.describe Diary, type: :model do
     end
   end
 
-  describe 'image' do
+  describe 'picture' do
     it '5mbより大きいファイルは無効' do
-      diary.image.attach(io: File.open(Rails.root.join('spec/fixtures/images/test_6mb.jpg')),
-                         filename: 'test_6mb.jpg', content_type: 'image/jpg')
+      diary.picture.attach(io: File.open(Rails.root.join('spec/fixtures/images/test_6mb.jpg')),
+                           filename: 'test_6mb.jpg', content_type: 'image/jpg')
       expect(diary).to be_invalid
     end
 
     it '画像ファイル以外は無効' do
-      diary.image.attach(io: File.open(Rails.root.join('spec/fixtures/images/test.pdf')),
-                         filename: 'test.pdf', content_type: 'application/pdf')
+      diary.picture.attach(io: File.open(Rails.root.join('spec/fixtures/images/test.pdf')),
+                           filename: 'test.pdf', content_type: 'application/pdf')
       expect(diary).to be_invalid
     end
 
     it '5mb以下の画像ファイルは有効' do
-      diary.image.attach(io: File.open(Rails.root.join('spec/fixtures/images/test.jpg')),
-                         filename: 'test.jpg', content_type: 'image/jpg')
+      diary.picture.attach(io: File.open(Rails.root.join('spec/fixtures/images/test.jpg')),
+                           filename: 'test.jpg', content_type: 'image/jpg')
       expect(diary).to be_valid
     end
   end

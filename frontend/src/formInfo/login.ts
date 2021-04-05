@@ -57,7 +57,7 @@ export const LoginFormInfo = (errors: any, control: any, apiErrors: ILoginApiErr
   ];
 };
 
-
+// 送信ボタン下にあるリンクの情報
 type TLoginInfo = [
   {
     url: string;

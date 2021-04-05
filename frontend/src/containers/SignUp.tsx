@@ -11,7 +11,9 @@ import {
   SharedFormArea,
   SharedFormSubmit,
   SharedFormLinks,
-} from '../components/Forms';
+  FormTitle,
+  FormWrapper,
+} from '../components/forms/users';
 
 // apis
 import { postRegistration } from '../apis/users/registrations';
@@ -20,7 +22,9 @@ import { postRegistration } from '../apis/users/registrations';
 import { HTTP_STATUS_CODE } from '../constants';
 
 // formitemsinfo
-import { SignUpFormInfo } from '../formInfo';
+import {
+  SignUpFormInfo,
+  signUpLinkInfo } from '../formInfo';
 
 // reducers
 import {
@@ -34,11 +38,6 @@ import {
   onSubmitLabel,
   isDisabled,
 } from '../helpers';
-
-import {
-  FormTitleWrapper,
-  FormWrapper,
-} from '../components/Forms/style';
 
 // css
 const SignUpWrapper = styled.div`
@@ -70,15 +69,8 @@ export const SignUp:VFC = () => {
   const history = useHistory();
   const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined>(undefined);
   const [state, dispatch] = useReducer(submitReducer, initialState);
-  const { handleSubmit, errors, control } = useForm<IFormValues>();
+  const { handleSubmit, formState:{errors}, control } = useForm<IFormValues>();
   const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
-
-  const linkInfo = [
-    {
-      url: '/login',
-      text: 'アカウントをお持ちの方はこちら',
-    }
-  ];
 
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING});
@@ -108,7 +100,7 @@ export const SignUp:VFC = () => {
 
   return(
     <SignUpWrapper>
-      <FormTitleWrapper>Sign Up</FormTitleWrapper>
+      <FormTitle>Sign Up</FormTitle>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <SharedFormArea
           formInfo={SignUpFormInfo(errors, control, apiErrors)}
@@ -119,7 +111,7 @@ export const SignUp:VFC = () => {
         />
       </FormWrapper>
       <SharedFormLinks
-        linkInfo={linkInfo}
+        linkInfo={signUpLinkInfo}
       />
     </SignUpWrapper>
   );

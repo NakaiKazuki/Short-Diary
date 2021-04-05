@@ -1,4 +1,8 @@
-import React, { VFC, useState , useReducer, useContext } from 'react';
+import React, {
+  VFC,
+  useState ,
+  useReducer,
+  useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
@@ -11,7 +15,9 @@ import {
   SharedFormArea,
   SharedFormSubmit,
   SharedFormLinks,
-} from '../components/Forms';
+  FormTitle,
+  FormWrapper,
+} from '../components/forms/users';
 
 // apis
 import { createSession } from '../apis/users/sessions';
@@ -20,7 +26,9 @@ import { createSession } from '../apis/users/sessions';
 import { HTTP_STATUS_CODE } from '../constants';
 
 // forminfo
-import { LoginFormInfo } from '../formInfo';
+import {
+  LoginFormInfo,
+  LoginLinkInfo } from '../formInfo';
 
 // reducers
 import {
@@ -35,10 +43,6 @@ import {
   isDisabled,
 } from '../helpers';
 
-import {
-  FormTitleWrapper,
-  FormWrapper,
-} from '../components/Forms/style';
 
 // css
 const LoginWrapper = styled.div`
@@ -67,14 +71,7 @@ export const Login:VFC = () => {
   const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined >(undefined);
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
-  const { handleSubmit, errors, control } = useForm<IFormValues>();
-
-  const linkInfo = [
-    {
-      url: '/signup',
-      text: 'アカウントが無い方はこちら',
-    }
-  ];
+  const { handleSubmit, formState:{errors}, control } = useForm<IFormValues>();
 
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING});
@@ -103,7 +100,7 @@ export const Login:VFC = () => {
 
   return(
     <LoginWrapper>
-      <FormTitleWrapper>Login</FormTitleWrapper>
+      <FormTitle>Login</FormTitle>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <SharedFormArea
           formInfo={LoginFormInfo(errors, control, apiErrors)}
@@ -114,7 +111,7 @@ export const Login:VFC = () => {
         />
       </FormWrapper>
       <SharedFormLinks
-        linkInfo={linkInfo}
+        linkInfo={LoginLinkInfo}
       />
     </LoginWrapper>
   );

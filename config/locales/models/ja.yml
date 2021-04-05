@@ -1,0 +1,16 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザ
+      diary: 日記
+    attributes:
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: 確認用パスワード
+      diary:
+        date: 投稿日
+        content: 日記の内容
+        picture: 画像
+        user_id: ユーザID

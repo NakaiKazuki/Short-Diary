@@ -23,6 +23,6 @@ class Api::V1::DiariesController < ApplicationController
 
     def correct_user
       diary = current_user.diaries.find(params[:id])
-      render json: {}, status: :forbidden
+      render json: {}, status: :forbidden if diary.nil?
     end
 end

@@ -1,8 +1,9 @@
 import { onSubmitLabel, isDisabled } from "./button";
-import { isSignedIn } from "./session";
-
+import { isLoggedIn } from "./session";
+import { dateToday } from "./diary";
 export {
   onSubmitLabel,
   isDisabled,
-  isSignedIn,
+  isLoggedIn,
+  dateToday,
 };

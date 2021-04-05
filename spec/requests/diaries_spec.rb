@@ -1,5 +1,4 @@
 require 'rails_helper'
-include ActionController::RespondWith
 
 RSpec.describe 'Diaries', type: :request do
   let(:user) { create(:user) }
@@ -17,12 +16,12 @@ RSpec.describe 'Diaries', type: :request do
     end
 
     # 画像が追加された有効パラメータ
-    def post_information_add_image(tokens)
+    def post_information_add_picture(tokens)
       post api_v1_diaries_path, params: {
         diary: {
           date: Time.zone.today,
           content: 'テストcontent',
-          image: Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/images/test.jpg'))
+          picture: Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/images/test.jpg'))
         }
       }, headers: tokens
     end
@@ -56,19 +55,19 @@ RSpec.describe 'Diaries', type: :request do
 
       context '有効なパラメータを送信' do
         it 'Response' do
-          post_information("テストcontent", auth_tokens)
+          post_information('テストcontent', auth_tokens)
           expect(response.status).to eq(200)
         end
 
         it 'データは作成される' do
           expect {
-            post_information("テストcontent", auth_tokens)
+            post_information('テストcontent', auth_tokens)
           }.to change(Diary, :count).by(1)
         end
 
         it '画像が追加された場合でも作成される' do
           expect {
-            post_information_add_image(auth_tokens)
+            post_information_add_picture(auth_tokens)
           }.to change(Diary, :count).by(1)
         end
       end

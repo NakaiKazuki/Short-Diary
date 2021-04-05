@@ -1,23 +1,23 @@
 // 型
-interface ICurrentUserHeaders {
+interface IUserHeaders {
   'access-token': string;
   client: string;
   uid: string;
 }
 
-interface ICurrentUserData {
+interface IUserData {
   id: number;
   name: string;
   email: string;
   // image: string | null; // 使うようになったらコメントアウト
 }
 
-interface ICurrentUser {
-  data: ICurrentUserData;
-  headers: ICurrentUserHeaders;
+interface IUser {
+  data: IUserData;
+  headers: IUserHeaders;
 }
 
 // ユーザがログインしていたらtrueを返す (ログインしていないと持っていない情報で判定している)
-export const isSignedIn = (currentUser: ICurrentUser | undefined): boolean =>
-  currentUser?.headers != null;
+export const isLoggedIn = (user: IUser | undefined): boolean =>
+  user != null;
 ;
