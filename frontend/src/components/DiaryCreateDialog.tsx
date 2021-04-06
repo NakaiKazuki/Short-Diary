@@ -1,5 +1,5 @@
 import React, { VFC } from 'react';
-import { Dialog, DialogTitle, TextField} from '@material-ui/core';
+import { Dialog, DialogTitle, TextField } from '@material-ui/core';
 import { Controller } from 'react-hook-form';
 import styled from 'styled-components';
 import { BaseButton } from './shared_style';
@@ -28,8 +28,9 @@ const ContentCount = styled.span`
   font-size: 1rem;
 `;
 
+
 const FormSubmit = styled(BaseButton)`
-  margin: 2rem auto 0 auto;
+  margin-top: 2rem;
   background-color: royalblue;
   color: white;
   border-style: none;
@@ -39,13 +40,26 @@ const FormSubmit = styled(BaseButton)`
 `;
 
 // 型
+
+// エラーメッセージ
+interface IApiErrors {
+  date?: Array<string>;
+  content?: Array<string>;
+  picture?: Array<string>;
+  full_messages: Array<string>;
+}
+
+
 interface IDiaryCreateDialogProps {
   isOpen: boolean;
   control: any;
   errors: any;
-  contentCount: any;
+  contentCount: number;
+  apiErrors?: IApiErrors;
   handleSubmit(): void;
   dateToday(): string;
+  isDisabled(): boolean;
+  onSubmitLabel(): string;
   onClose(): void;
 }
 
@@ -53,9 +67,12 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
   isOpen,
   control,
   errors,
+  apiErrors,
   onClose,
   handleSubmit,
   dateToday,
+  isDisabled,
+  onSubmitLabel,
   contentCount
 }) => {
   return (
@@ -68,6 +85,9 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
       <FromTitle>日記作成</FromTitle>
       <FormWrapper onSubmit={handleSubmit}>
       <FormItemWrapper>
+        {apiErrors?.date?.map((message: string, index: number) =>
+          <FormErrorMessage key={`date-${index}`}>{`日付${message}`}</FormErrorMessage>
+        )}
         <Controller
           name={"date"}
           control={control}
@@ -86,6 +106,9 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
           {errors?.content &&
             <FormErrorMessage>1文字以上、200文字以内で入力してください</FormErrorMessage>
           }
+          {apiErrors?.content?.map((message: string, index: number) =>
+            <FormErrorMessage key={`content-${index}`}>{`日記内容${message}`}</FormErrorMessage>
+          )}
           <Controller
             name={"content"}
             control={control}
@@ -104,12 +127,26 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
               />
             }
           />
-
+          {apiErrors?.picture?.map((message: string, index: number) =>
+            <FormErrorMessage key={`写真-${index}`}>{`日記内容${message}`}</FormErrorMessage>
+          )}
+          <Controller
+            name={"picture"}
+            control={control}
+            defaultValue={""}
+            as={
+              <input
+                type={"file"}
+              />
+            }
+          />
         </FormItemWrapper>
+
         <FormSubmit
           type="submit"
+          disabled={isDisabled()}
         >
-          日記作成
+          {onSubmitLabel()}
         </FormSubmit>
       </FormWrapper>
     </Dialog>

@@ -9,3 +9,6 @@ export const registration: TUrl = DEVISE_PATH;
 export const signIn: TUrl = `${DEVISE_PATH}/sign_in`;
 export const signOut: TUrl = `${DEVISE_PATH}/sign_out`;
 export const guestSignIn: TUrl = `${DEVISE_PATH}/guest_sign_in`;
+
+// Diary関連
+export const  postDiary: TUrl =`${DEFAULT_API_LOCALHOST}/diaries`;
