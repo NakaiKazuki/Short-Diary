@@ -68,8 +68,7 @@ export const Header:VFC = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   // ユーザのログアウト処理
-  const signOutHandler = (): void =>
-  {
+  const onSignOut = (): void =>{
     deleteSession(currentUser!.headers)
     .then(() => {
       setCurrentUser(undefined)
@@ -88,7 +87,7 @@ export const Header:VFC = () => {
         </Link>
         {
           isLoggedIn(currentUser) ?
-          <LogoutButton type="button" onClick={ () => signOutHandler()}>Logout</LogoutButton>
+          <LogoutButton type="button" onClick={ () => onSignOut()}>Logout</LogoutButton>
         :
         <SessionLink
           to={'/login'}

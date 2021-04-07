@@ -55,12 +55,14 @@ interface IDiaryCreateDialogProps {
   control: any;
   errors: any;
   contentCount: number;
+  register: any;
   apiErrors?: IApiErrors;
   handleSubmit(): void;
   dateToday(): string;
   isDisabled(): boolean;
   onSubmitLabel(): string;
   onClose(): void;
+  fileChange: any;
 }
 
 export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
@@ -68,12 +70,14 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
   control,
   errors,
   apiErrors,
+  register,
   onClose,
   handleSubmit,
   dateToday,
   isDisabled,
   onSubmitLabel,
-  contentCount
+  contentCount,
+  fileChange,
 }) => {
   return (
     <Dialog
@@ -127,18 +131,16 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
               />
             }
           />
+
           {apiErrors?.picture?.map((message: string, index: number) =>
-            <FormErrorMessage key={`写真-${index}`}>{`日記内容${message}`}</FormErrorMessage>
+            <FormErrorMessage key={`picture-${index}`}>{`画像${message}`}</FormErrorMessage>
           )}
-          <Controller
-            name={"picture"}
-            control={control}
-            defaultValue={""}
-            as={
-              <input
-                type={"file"}
-              />
-            }
+          <input
+            name="picture"
+            type="file"
+            ref = {register}
+            onChange={fileChange}
+            accept="image/*,.png,.jpg,.jpeg,.gif"
           />
         </FormItemWrapper>
 

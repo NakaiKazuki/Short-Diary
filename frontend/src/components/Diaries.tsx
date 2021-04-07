@@ -55,7 +55,7 @@ const DiaryImageMessage = styled.div`
 interface IDiary {
   date: string;
   content: string;
-  picture_url: string | null;
+  picture_url: string;
   user_id: number;
 }
 

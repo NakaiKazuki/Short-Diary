@@ -104,7 +104,7 @@ export const LogoutHome: VFC = () => {
   const [ state, dispatch ] = useReducer(submitReducer, initialState);
   const history = useHistory();
 
-  const guestLoginHandler = (): void => {
+  const onGuestLoginButton = (): void => {
     dispatch({ type: submitActionTypes.POSTING});
     newGuestSession()
     .then(res => {
@@ -147,7 +147,7 @@ export const LogoutHome: VFC = () => {
           </Link>
           <GuestLogin
             type="button"
-            onClick ={guestLoginHandler}
+            onClick ={onGuestLoginButton}
             disabled={isDisabled(state.postState)}
             data-testid="guestLoginButton">
             {onSubmitLabel(state.postState, "ゲストログイン")}

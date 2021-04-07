@@ -4,11 +4,11 @@ import { postDiary } from '../urls/index';
 interface IParams {
   date: string;
   content: string;
-  picture?: string | undefined;
+  picture?: {data:string,name: string};
 }
 
 interface ICurrentUserHeaders {
-  "access-token": string;
+  'access-token': string;
   client: string;
   uid: string;
 }
@@ -16,12 +16,11 @@ interface ICurrentUserHeaders {
 export const createDiary = (currentUserHeaders: ICurrentUserHeaders, params: IParams):Promise<any> => {
   return axios.post(postDiary,
     {
-      headers: currentUserHeaders
-      // data:{
-      //   date: params.date,
-      //   content: params.content,
-      //   picture: params.picture,
-      // }
+      'access-token': currentUserHeaders['access-token'],
+      client: currentUserHeaders.client,
+      uid: currentUserHeaders.uid,
+      date: params.date,
+      content: params.content,
+      picture: params.picture? {data: params.picture!.data, name: params.picture!.name} : null,
     })
-    .catch(e => { throw e; })
 };

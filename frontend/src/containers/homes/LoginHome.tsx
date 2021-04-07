@@ -1,9 +1,10 @@
 import React, {
-  VFC ,
+  VFC,
   useState,
   useEffect,
   useContext,
-  useReducer } from 'react';
+  useReducer,
+ } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
@@ -71,11 +72,10 @@ const FormDialogButton = styled(BaseButton)`
 interface IDiary {
   date: string;
   content: string;
-  picture_url: string | null;
+  picture_url: string;
   user_id: number;
 }
 
-// エラーメッセージ
 interface IApiErrors {
   date?: Array<string>;
   content?: Array<string>;
@@ -86,19 +86,21 @@ interface IApiErrors {
 interface IInitialState {
   diaries: Array<IDiary> | undefined;
   isOpenDiaryCreateDialog: boolean;
-  apiErrors: IApiErrors| undefined;
+  apiErrors: IApiErrors | undefined;
 }
+
+type TPicture = Array<{data:string, name: string}>;
 
 // Formから送信される情報
 interface IFormValues {
   date: string;
   content: string;
-  picture?: string;
+  picture?: TPicture;
 }
 
 export const LoginHome: VFC = () => {
   const { currentUser } = useContext(CurrentUserContext);
-  const { handleSubmit, formState:{errors}, control , watch} = useForm<IFormValues>();
+  const { handleSubmit, formState:{errors}, control , watch, register} = useForm<IFormValues>();
   const [reducerState, dispatch] = useReducer(submitReducer, reducerInitialState);
   const initialState: IInitialState = {
     diaries: undefined,
@@ -113,20 +115,33 @@ export const LoginHome: VFC = () => {
     return value.length;
   };
 
+  // fileをbase64にエンコード
+  const fileChange = (event: any): void => {
+    const file = event.target.files[0];
+    if(file) {
+      const reader = new FileReader();
+      reader.onload = () => file.data = reader.result;
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // DiaryCreateDialogでFormのボタンが押されたら使うやつ
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING});
     createDiary(currentUser!.headers,
       {
         date: formValues.date,
         content: formValues.content,
-        picture: formValues.picture,
+        picture: formValues.picture? formValues.picture[0] : undefined,
       }
     )
     .then((res: any): void => {
       dispatch({ type: submitActionTypes.POST_INITIAL});
+      console.log(res.data);
       setState({
         ...state,
         diaries: res.data.diaries,
+        isOpenDiaryCreateDialog: false,
       })
     })
     .catch((e: any): void => {
@@ -134,14 +149,17 @@ export const LoginHome: VFC = () => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
         setState({
           ...state,
-          apiErrors: e.response.data.errors
-        });
+          apiErrors: e.response.data.errors,
+        })
+        console.log(e.response.data.errors)
       } else {
+        dispatch({ type: submitActionTypes.POST_INITIAL });
         throw e;
       }
     });
   };
 
+  // このコンポーネントが開かれた時にだけ実行される
   useEffect((): void => {
     fetchHome(currentUser!.headers)
     .then(data =>
@@ -158,7 +176,7 @@ export const LoginHome: VFC = () => {
       }
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[currentUser]);
+  },[]);
 
   return (
     <LoginHomeWrapper>
@@ -184,14 +202,17 @@ export const LoginHome: VFC = () => {
             handleSubmit={handleSubmit(onSubmit)}
             control={control}
             errors={errors}
-            apiErrors={state.apiErrors}
+            register={register}
             dateToday={() => dateToday()}
             contentCount={contentCount()}
+            fileChange={fileChange}
+            apiErrors={state.apiErrors}
             isDisabled={() => isDisabled(reducerState.postState)}
             onSubmitLabel={() => onSubmitLabel(reducerState.postState, "日記作成")}
             onClose={() => setState({
               ...state,
               isOpenDiaryCreateDialog: false,
+              apiErrors: undefined,
             })}
           />
         }
