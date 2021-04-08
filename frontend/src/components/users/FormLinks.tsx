@@ -40,11 +40,11 @@ interface IlinkInfo {
   text: string;
 }
 
-interface ISHaredFormLinks {
+interface IFormLinks {
   linkInfo: Array<IlinkInfo>;
 }
 
-export const SharedFormLinks:VFC<ISHaredFormLinks> = ({
+export const FormLinks:VFC<IFormLinks> = ({
   linkInfo
 }) => {
   return(

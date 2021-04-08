@@ -1,8 +1,8 @@
 import React, { VFC } from 'react';
 import styled from 'styled-components';
-import { BaseButton } from '../../shared_style';
+import { BaseButton } from '../shared_style';
 
-const FormSubmit = styled(BaseButton)`
+const FormSubmitWrapper = styled(BaseButton)`
   margin: 2rem auto 0 auto;
   background-color: royalblue;
   color: white;
@@ -12,20 +12,20 @@ const FormSubmit = styled(BaseButton)`
   font-size: 1.1rem;
 `;
 // 型
-interface ISharedSubmit {
+interface ISubmit {
   isDisabled(): boolean;
   onSubmitLabel(): string;
 }
 
-export const SharedFormSubmit: VFC<ISharedSubmit> = ({
+export const FormSubmit: VFC<ISubmit> = ({
   isDisabled,
   onSubmitLabel,
 }) => {
   return(
-    <FormSubmit
+    <FormSubmitWrapper
       type="submit"
       disabled={isDisabled()}>
       {onSubmitLabel()}
-    </FormSubmit>
+    </FormSubmitWrapper>
   );
 }

@@ -12,12 +12,12 @@ import { CurrentUserContext } from '../contexts/CurrentUser';
 
 // components
 import {
-  SharedFormArea,
-  SharedFormSubmit,
-  SharedFormLinks,
+  FormArea,
+  FormSubmit,
+  FormLinks,
   FormTitle,
   FormWrapper,
-} from '../components/forms/users';
+} from '../components/users';
 
 // apis
 import { createSession } from '../apis/users/sessions';
@@ -102,15 +102,15 @@ export const Login:VFC = () => {
     <LoginWrapper>
       <FormTitle>Login</FormTitle>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
-        <SharedFormArea
+        <FormArea
           formInfo={LoginFormInfo(errors, control, apiErrors)}
         />
-        <SharedFormSubmit
+        <FormSubmit
           isDisabled={() => isDisabled(state.postState)}
           onSubmitLabel={() => onSubmitLabel(state.postState, "Login!")}
         />
       </FormWrapper>
-      <SharedFormLinks
+      <FormLinks
         linkInfo={LoginLinkInfo}
       />
     </LoginWrapper>

@@ -5,12 +5,12 @@ import styled from 'styled-components';
 
 // components
 import {
-  SharedFormArea,
-  SharedFormSubmit,
-  SharedFormLinks,
+  FormArea,
+  FormSubmit,
+  FormLinks,
   FormTitle,
   FormWrapper,
-} from '../components/forms/users';
+} from '../components/users';
 
 // apis
 import { postRegistration } from '../apis/users/registrations';
@@ -94,15 +94,15 @@ export const SignUp:VFC = () => {
     <SignUpWrapper>
       <FormTitle>Sign Up</FormTitle>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
-        <SharedFormArea
+        <FormArea
           formInfo={SignUpFormInfo(errors, control, apiErrors)}
         />
-        <SharedFormSubmit
+        <FormSubmit
           isDisabled={() => isDisabled(state.postState)}
           onSubmitLabel={() => onSubmitLabel(state.postState, "SignUp!")}
         />
       </FormWrapper>
-      <SharedFormLinks
+      <FormLinks
         linkInfo={signUpLinkInfo}
       />
     </SignUpWrapper>
