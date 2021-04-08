@@ -1,13 +1,8 @@
-import {
-  SignUpFormInfo,
-  signUpLinkInfo } from './signup';
-import {
-  LoginFormInfo,
-  LoginLinkInfo } from './login';
-
 export {
   SignUpFormInfo,
-  signUpLinkInfo,
+  signUpLinkInfo
+} from './signup';
+export {
   LoginFormInfo,
   LoginLinkInfo
-}
+} from './login';

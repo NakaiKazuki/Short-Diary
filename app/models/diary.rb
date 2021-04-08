@@ -33,10 +33,6 @@ class Diary < ApplicationRecord
             presence: true
   validate :validate_picture
 
-  # def self.resize_picture(picture)
-  #   picture.variant(resize: '300x300').processed
-  # end
-
   def picture_url
     # 紐づいている画像のURLを取得する
     picture.attached? ? url_for(picture) : nil
@@ -49,7 +45,7 @@ class Diary < ApplicationRecord
     if !picture.content_type.in?(%('image/jpeg image/jpg image/png image/gif'))
       errors.add(:picture, 'はjpeg, jpg, png, gif以外の投稿ができません')
     elsif picture.blob.byte_size > 5.megabytes
-      errors.add(:picture, 'のサイズが5MBを超えています')
+      errors.add(:picture, 'の最大サイズは5MBです')
     end
   end
 end

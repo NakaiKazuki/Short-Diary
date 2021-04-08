@@ -41,6 +41,9 @@ const LogoutHomeWrapper = styled.div`
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size:cover;
+  @media screen and (max-width: 480px) {
+    height: auto;
+  };
 `;
 
 const Contents = styled.div`
@@ -104,7 +107,7 @@ export const LogoutHome: VFC = () => {
   const [ state, dispatch ] = useReducer(submitReducer, initialState);
   const history = useHistory();
 
-  const guestLoginHandler = (): void => {
+  const onGuestLoginButton = (): void => {
     dispatch({ type: submitActionTypes.POSTING});
     newGuestSession()
     .then(res => {
@@ -147,7 +150,7 @@ export const LogoutHome: VFC = () => {
           </Link>
           <GuestLogin
             type="button"
-            onClick ={guestLoginHandler}
+            onClick ={onGuestLoginButton}
             disabled={isDisabled(state.postState)}
             data-testid="guestLoginButton">
             {onSubmitLabel(state.postState, "ゲストログイン")}

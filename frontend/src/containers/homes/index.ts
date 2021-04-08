@@ -1,4 +1,2 @@
-import { LogoutHome } from './LogoutHome';
-import { LoginHome } from './LoginHome';
-
-export { LogoutHome, LoginHome };
+export { LogoutHome } from './LogoutHome';
+export { LoginHome } from './LoginHome';

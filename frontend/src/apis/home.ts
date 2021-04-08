@@ -2,7 +2,7 @@ import axios from 'axios';
 import { home } from '../urls/index';
 
 interface ICurrentUserHeaders {
-  "access-token": string;
+  'access-token': string;
   client: string;
   uid: string;
 }
