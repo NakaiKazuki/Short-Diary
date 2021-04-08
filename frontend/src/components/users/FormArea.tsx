@@ -28,11 +28,11 @@ interface IObject {
 
 type TFormInfo<T> = [T,T, ...T[]];
 
-interface ISharedFormProps {
+interface IFormProps {
   formInfo: TFormInfo<IObject>;
 }
 
-export const SharedFormArea:VFC<ISharedFormProps> = ({
+export const FormArea:VFC<IFormProps> = ({
   formInfo,
 }) => {
   return(
