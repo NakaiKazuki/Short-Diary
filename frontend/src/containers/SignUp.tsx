@@ -1,10 +1,7 @@
-import React, { VFC, useState, useReducer,useContext } from 'react';
+import React, { VFC, useState, useReducer } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
-
-// contexts
-import { CurrentUserContext } from '../contexts/CurrentUser'
 
 // components
 import {
@@ -70,7 +67,6 @@ export const SignUp:VFC = () => {
   const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined>(undefined);
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const { handleSubmit, errors, control } = useForm<IFormValues>();
-  const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING});
@@ -80,13 +76,9 @@ export const SignUp:VFC = () => {
       password: formValues.password,
       password_confirmation: formValues.password_confirmation,
     })
-    .then(data => {
+    .then(() => {
       dispatch({ type: submitActionTypes.POST_SUCCESS });
-      setCurrentUser({
-        ...currentUser,
-        currentUser: data,
-      });
-      history.push("/");
+      history.push("/login");
     })
     .catch(e => {
       if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {

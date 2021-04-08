@@ -15,7 +15,7 @@ User.create!(
   # confirmed_at: Time.current
 )
 
-20.times do |m|
+50.times do |m|
   Diary.create!(
     date: Time.zone.today - m,
     content: "サンプル投稿-#{m}",

@@ -1,5 +1,6 @@
 import React, {
   VFC,
+  Fragment,
   useState,
   useEffect,
   useContext,
@@ -12,12 +13,13 @@ import styled from 'styled-components';
 import { CurrentUserContext } from '../../contexts/CurrentUser';
 
 // apis
-import { fetchHome } from '../../apis/home';
+import { fetchHome, getDiaies } from '../../apis/home';
 
 // components
 import { BaseButton } from '../../components/shared_style';
 import { Diaries } from '../../components/Diaries';
 import { DiaryCreateDialog } from '../../components/DiaryCreateDialog';
+import { PagenationArea } from '../../components/PagenationArea';
 
 // responses
 import { HTTP_STATUS_CODE } from '../../constants';
@@ -42,13 +44,14 @@ import {
 // css
 const LoginHomeWrapper = styled.div`
   width: 90vw;
+  height: auto;
   margin: 6.6vh auto 0 auto;
   padding-top: 2rem;
 `;
 
 const Heading = styled.h1`
   text-align: center;
-  color: green;
+  color: royalblue;
 `;
 
 const FormDialogButton = styled(BaseButton)`
@@ -83,10 +86,16 @@ interface IApiErrors {
   full_messages: Array<string>;
 }
 
+interface IPagy {
+  page: number;
+  pages: number;
+}
+
 interface IInitialState {
   diaries: Array<IDiary> | undefined;
   isOpenDiaryCreateDialog: boolean;
   apiErrors: IApiErrors | undefined;
+  pagy: IPagy| undefined;
 }
 
 type TPicture = Array<{data:string, name: string}>;
@@ -106,22 +115,22 @@ export const LoginHome: VFC = () => {
     diaries: undefined,
     isOpenDiaryCreateDialog: false,
     apiErrors: undefined,
+    pagy: undefined,
   }
   const [state, setState] = useState(initialState);
 
   // DiaryCreateDialogで入力されたcontentの文字数を返す
-  const inputContent = watch("content","");
-  const contentCount = () => inputContent.length;
+  const contentCount = ():number => watch("content","").length;
 
   // DiaryCreateDialogで選択されたfile名を返す()
-  const InputPicture = watch("picture");
-  const setFileName = () =>{
+  const setFileName = ():string =>{
+    const InputPicture:TPicture | undefined = watch("picture");
     if(InputPicture && InputPicture![0] != null){
       return InputPicture![0].name.slice(0, 20);
     } else{
       return "画像を追加する";
     }
-  }
+  };
 
   // fileをbase64にエンコード
   const fileChange = (event: any): void => {
@@ -145,12 +154,12 @@ export const LoginHome: VFC = () => {
     )
     .then((res: any): void => {
       dispatch({ type: submitActionTypes.POST_INITIAL});
-      console.log(res.data);
       setState({
         ...state,
         diaries: res.data.diaries,
         isOpenDiaryCreateDialog: false,
       })
+      console.log(res.data)
     })
     .catch((e: any): void => {
       if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
@@ -159,12 +168,30 @@ export const LoginHome: VFC = () => {
           ...state,
           apiErrors: e.response.data.errors,
         })
-        console.log(e.response.data.errors)
       } else {
         dispatch({ type: submitActionTypes.POST_INITIAL });
         throw e;
       }
     });
+  };
+
+  // ページネションのページ番号が選択されたら、その番号に応じてデータを受け取る
+  const onPageChange = (page: number): void => {
+    getDiaies(currentUser!.headers,page)
+    .then(data => {
+      setState({
+        ...state,
+        diaries: data.diaries,
+        pagy: data.pagy,
+      })
+    })
+    .catch(e => {
+      if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED){
+        console.log("ユーザがログインしてへんで！");
+      } else {
+        throw e
+      }
+    })
   };
 
   // このコンポーネントが開かれた時にだけ実行される
@@ -174,10 +201,10 @@ export const LoginHome: VFC = () => {
       setState({
         ...state,
         diaries: data.diaries,
+        pagy: data.pagy,
       })
-      console.log(data)
-    }
-    )
+      console.log(data.pagy)
+    })
     .catch(e => {
       if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED){
         console.log("ユーザがログインしてへんで！");
@@ -198,10 +225,16 @@ export const LoginHome: VFC = () => {
         日記を作成する
       </FormDialogButton>
         {
-          state.diaries != null ?
+          state.diaries != null  && state.pagy != null ?
+          <Fragment>
+            <PagenationArea
+              pagy={state.pagy}
+              onPageChange={(page: number):void => onPageChange(page)}
+            />
             <Diaries
               diaries={state.diaries}
             />
+          </Fragment>
         :
         <li>値がないよ</li>
         }
@@ -213,14 +246,14 @@ export const LoginHome: VFC = () => {
             control={control}
             errors={errors}
             register={register}
-            dateToday={() => dateToday()}
-            contentCount={contentCount}
+            dateToday={():string => dateToday()}
+            contentCount={():number => contentCount()}
             fileChange={fileChange}
             apiErrors={state.apiErrors}
-            isDisabled={() => isDisabled(reducerState.postState)}
-            onSubmitLabel={() => onSubmitLabel(reducerState.postState, "日記作成")}
-            setFileName={() => setFileName()}
-            onClose={() => setState({
+            isDisabled={():boolean => isDisabled(reducerState.postState)}
+            onSubmitLabel={():string => onSubmitLabel(reducerState.postState, "日記作成")}
+            setFileName={():string => setFileName()}
+            onClose={():void => setState({
               ...state,
               isOpenDiaryCreateDialog: false,
               apiErrors: undefined,
