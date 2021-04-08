@@ -1,6 +1,9 @@
 import React, { VFC } from 'react';
 import styled from 'styled-components';
 
+// components
+import { PictureIcon } from './Icons';
+
 // css
 const DiariesWrapper = styled.ul`
 padding-inline-start: 0;
@@ -13,9 +16,9 @@ padding-inline-start: 0;
 const DiaryItemWrapper = styled.li`
   margin-top: .5rem;
   list-style: none;
-  height: 20vh;
-  width: 17%;
-  border: .0125rem solid royalblue;
+  height: 17vh;
+  width: 18%;
+  border: .0125rem solid limegreen;
   position: relative;
   @media screen and (min-width:481px) {
     margin-left: 1rem;
@@ -24,6 +27,7 @@ const DiaryItemWrapper = styled.li`
     width: 44%;
   }
   @media screen and (max-width:480px) {
+    height: 10rem;
     width: 100%;
   }
   :hover{
@@ -31,23 +35,25 @@ const DiaryItemWrapper = styled.li`
   }
 `;
 
-const DiaryDate = styled.p`
+const Paragraph = styled.p`
+  padding:  0 1rem;
+`;
+
+const DiaryDate = styled.span`
   font-family: cursive, Century;
   font-style: italic;
-  color: darkorange;
-  padding:  0 1rem;
+  text-align: center;
+  color: mediumblue;
+`;
+
+const ImageIconArea = styled(PictureIcon)`
+  float: right;
+  color: royalblue;
 `;
 
 const DiaryContent = styled.div`
   white-space: pre-line;
   word-wrap: break-word;
-  padding:  0 1rem;
-`;
-
-const DiaryImageMessage = styled.div`
-  font-size: .8rem;
-  position: absolute;
-  bottom: 0;
   padding:  0 1rem;
 `;
 
@@ -72,7 +78,13 @@ export const Diaries: VFC<DiariesProps> = ({
         diaries.map((obj: IDiary, index: number) => {
         return(
           <DiaryItemWrapper key={`diary-${index}`}>
-            <DiaryDate>{obj.date}</DiaryDate>
+            <Paragraph>
+              <DiaryDate>{obj.date}</DiaryDate>
+              {
+                obj.picture_url &&
+                <ImageIconArea />
+              }
+            </Paragraph>
             <DiaryContent>
               {
                 obj.content.length <= 50 ?
@@ -81,10 +93,6 @@ export const Diaries: VFC<DiariesProps> = ({
                 `${obj.content.slice(0, 50)}...`
               }
             </DiaryContent>
-            {
-              obj.picture_url &&
-              <DiaryImageMessage>画像があります</DiaryImageMessage>
-            }
           </DiaryItemWrapper>
         )
         })

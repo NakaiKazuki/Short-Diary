@@ -69,7 +69,7 @@ export const SignUp:VFC = () => {
   const history = useHistory();
   const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined>(undefined);
   const [state, dispatch] = useReducer(submitReducer, initialState);
-  const { handleSubmit, formState:{errors}, control } = useForm<IFormValues>();
+  const { handleSubmit, errors, control } = useForm<IFormValues>();
   const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   const onSubmit = (formValues: IFormValues): void => {

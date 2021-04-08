@@ -1,4 +1,2 @@
-import { GuestRoute } from './GuestRoute';
-import { PrivateRoute } from './PrivateRoute';
-
-export {GuestRoute, PrivateRoute }
+export { GuestRoute } from './GuestRoute';
+export { PrivateRoute } from './PrivateRoute';

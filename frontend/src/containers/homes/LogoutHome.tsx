@@ -41,6 +41,9 @@ const LogoutHomeWrapper = styled.div`
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size:cover;
+  @media screen and (max-width: 480px) {
+    height: auto;
+  };
 `;
 
 const Contents = styled.div`

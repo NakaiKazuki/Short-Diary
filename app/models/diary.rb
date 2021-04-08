@@ -45,7 +45,7 @@ class Diary < ApplicationRecord
     if !picture.content_type.in?(%('image/jpeg image/jpg image/png image/gif'))
       errors.add(:picture, 'はjpeg, jpg, png, gif以外の投稿ができません')
     elsif picture.blob.byte_size > 5.megabytes
-      errors.add(:picture, 'のサイズを5MB以下にして再度投稿してください')
+      errors.add(:picture, 'の最大サイズは5MBです')
     end
   end
 end

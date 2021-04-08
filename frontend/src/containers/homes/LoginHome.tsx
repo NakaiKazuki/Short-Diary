@@ -48,19 +48,19 @@ const LoginHomeWrapper = styled.div`
 
 const Heading = styled.h1`
   text-align: center;
+  color: green;
 `;
 
 const FormDialogButton = styled(BaseButton)`
   height: 2.5rem;
   width: 10rem;
-  border: .0125rem solid royalblue;
+  border: .0125rem solid green;
   letter-spacing: .2rem;
-  color: white;
   font-size: 0.95rem;
-  background-color: royalblue;
+  background-color: green;
+  color: white;
   :hover {
-    background-color: white;
-    color: royalblue;
+    opacity: .8;
   }
   @media screen and (max-width:480px) {
     width: 100%;
@@ -100,7 +100,7 @@ interface IFormValues {
 
 export const LoginHome: VFC = () => {
   const { currentUser } = useContext(CurrentUserContext);
-  const { handleSubmit, formState:{errors}, control , watch, register} = useForm<IFormValues>();
+  const { handleSubmit, errors, control , watch, register} = useForm<IFormValues>();
   const [reducerState, dispatch] = useReducer(submitReducer, reducerInitialState);
   const initialState: IInitialState = {
     diaries: undefined,
@@ -109,11 +109,19 @@ export const LoginHome: VFC = () => {
   }
   const [state, setState] = useState(initialState);
 
-  // Dialogのcontent欄の入力値を数える
-  const contentCount = () => {
-    const value = watch("content","");
-    return value.length;
-  };
+  // DiaryCreateDialogで入力されたcontentの文字数を返す
+  const inputContent = watch("content","");
+  const contentCount = () => inputContent.length;
+
+  // DiaryCreateDialogで選択されたfile名を返す()
+  const InputPicture = watch("picture");
+  const setFileName = () =>{
+    if(InputPicture && InputPicture![0] != null){
+      return InputPicture![0].name.slice(0, 20);
+    } else{
+      return "画像を追加する";
+    }
+  }
 
   // fileをbase64にエンコード
   const fileChange = (event: any): void => {
@@ -162,11 +170,13 @@ export const LoginHome: VFC = () => {
   // このコンポーネントが開かれた時にだけ実行される
   useEffect((): void => {
     fetchHome(currentUser!.headers)
-    .then(data =>
+    .then(data =>{
       setState({
         ...state,
         diaries: data.diaries,
       })
+      console.log(data)
+    }
     )
     .catch(e => {
       if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED){
@@ -204,11 +214,12 @@ export const LoginHome: VFC = () => {
             errors={errors}
             register={register}
             dateToday={() => dateToday()}
-            contentCount={contentCount()}
+            contentCount={contentCount}
             fileChange={fileChange}
             apiErrors={state.apiErrors}
             isDisabled={() => isDisabled(reducerState.postState)}
             onSubmitLabel={() => onSubmitLabel(reducerState.postState, "日記作成")}
+            setFileName={() => setFileName()}
             onClose={() => setState({
               ...state,
               isOpenDiaryCreateDialog: false,

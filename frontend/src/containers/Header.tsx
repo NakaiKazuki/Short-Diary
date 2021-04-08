@@ -26,11 +26,11 @@ import MainLogo from '../images/logo.png';
 
 // css
 const AppHeader = styled(AppBar)`
-  height: 6.6vh;
+  height:auto;
 `;
 
 const MainLogoImage = styled.img`
-  height: 4.3vh;
+  height: 2.5rem;
   padding: 1.15vh 0;
 `;
 
@@ -40,7 +40,7 @@ const SessionLink = styled(Link)`
 `;
 
 const SessionButton = styled(BaseButton)`
-  height: 4vh;
+  height: 2.5rem;
   padding: 0 1rem;
   font-size: 1.2rem;
 `;
