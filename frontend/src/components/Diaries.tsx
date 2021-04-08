@@ -66,11 +66,11 @@ interface IDiary {
 }
 
 interface DiariesProps {
-  diaries: Array<IDiary>,
+  diaries: Array<IDiary>;
 }
 
 export const Diaries: VFC<DiariesProps> = ({
-  diaries
+  diaries,
 }) => {
   return(
     <DiariesWrapper>
@@ -90,7 +90,7 @@ export const Diaries: VFC<DiariesProps> = ({
                 obj.content.length <= 50 ?
                   obj.content
                 :
-                `${obj.content.slice(0, 50)}...`
+                `${obj.content.slice(0, 50)}......`
               }
             </DiaryContent>
           </DiaryItemWrapper>

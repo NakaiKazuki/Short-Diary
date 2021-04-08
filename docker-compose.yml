@@ -20,6 +20,7 @@ services:
       - .:/Short-Diary
       - public-data:/Short-Diary/public
       - tmp-data:/Short-Diary/tmp
+      - storage-data:/Short-Diary/storage
     tty: true
     command: bash -c "bundle exec pumactl start"
     depends_on:
@@ -65,3 +66,4 @@ volumes:
   db-data:
   public-data:
   tmp-data:
+  storage-data:
