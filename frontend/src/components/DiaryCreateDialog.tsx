@@ -10,6 +10,7 @@ import { AddPictureIcon } from './Icons';
 const FormItemWrapper = styled.div`
   margin-top: 1rem;
 `;
+
 const FormWrapper = styled.form`
   padding: 0 10% 5% 10%;
 `;
@@ -55,9 +56,11 @@ const InputFileLabel = styled.label`
     cursor: pointer;
   }
 `;
+
 const FileNameArea = styled.span`
   margin-left: .6rem;
 `;
+
 const InputFileArea = styled.input`
   display: none;
 `;
@@ -77,13 +80,13 @@ interface IDiaryCreateDialogProps {
   errors: any;
   register: any;
   apiErrors?: IApiErrors;
-  contentCount(): number;
+  contentCount: number;
+  onSubmitLabel: string;
+  isDisabled: boolean;
+  dateToday: string;
+  setFileName: string | undefined;
   handleSubmit(): void;
-  onSubmitLabel(): string;
-  isDisabled(): boolean;
-  dateToday(): string;
-  fileChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
-  setFileName(): string | undefined;
+  onFileChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
   onClose(): void;
 }
 
@@ -94,12 +97,12 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
   register,
   apiErrors,
   contentCount,
-  handleSubmit,
   onSubmitLabel,
   isDisabled,
   dateToday,
-  fileChange,
   setFileName,
+  handleSubmit,
+  onFileChange,
   onClose,
 }) => {
   return (
@@ -118,7 +121,7 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
         <Controller
           name={"date"}
           control={control}
-          defaultValue={dateToday()}
+          defaultValue={dateToday}
           rules={{ required: true }}
           as={
             <TextField
@@ -150,7 +153,7 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
                 placeholder="200文字以内で日記の内容を入力してください"
                 multiline
                 fullWidth
-                helperText = {<ContentCount>{contentCount()}/200</ContentCount>}
+                helperText = {<ContentCount>{contentCount}/200</ContentCount>}
               />
             }
           />
@@ -160,12 +163,12 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
           )}
           <InputFileLabel>
             <AddPictureIcon/>
-            <FileNameArea>{setFileName()}</FileNameArea>
+            <FileNameArea>{setFileName}</FileNameArea>
             <InputFileArea
               name="picture"
               type="file"
               ref={register}
-              onChange={fileChange}
+              onChange={onFileChange}
               accept="image/*,.png,.jpg,.jpeg,.gif"
             />
           </InputFileLabel>
@@ -173,9 +176,9 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
 
         <FormSubmit
           type="submit"
-          disabled={isDisabled()}
+          disabled={isDisabled}
         >
-          {onSubmitLabel()}
+          {onSubmitLabel}
         </FormSubmit>
       </FormWrapper>
     </Dialog>

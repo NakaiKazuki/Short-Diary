@@ -54,27 +54,29 @@ export const FormItem:VFC<IFormItemProps> = ({
 }) => {
   return (
     <FormItemWrapper>
-      <InputLabel>{formLabel}</InputLabel>
-      {errorsProperty &&
-        <FormErrorMessage>{errorMessage}</FormErrorMessage>
-      }
-      {apiErrorProperty?.map((message: string, index: number) =>
-        <FormErrorMessage key={`${nameAttribute}-${index}`}>{`${apiMessagePropertyName}${message}`}</FormErrorMessage>
-      )}
-      <Controller
-        name={nameAttribute}
-        control={control}
-        defaultValue={defaultValue}
-        rules={ rules }
-        as={
-          <FormInput
-            type={typeAttribute}
-            autoFocus={autoFocus}
-            fullWidth
-            data-testid={`${nameAttribute}Area`}
-          />
+      <InputLabel>
+        {formLabel}
+        {errorsProperty &&
+          <FormErrorMessage>{errorMessage}</FormErrorMessage>
         }
-      />
+        {apiErrorProperty?.map((message: string, index: number) =>
+          <FormErrorMessage key={`${nameAttribute}-${index}`}>{`${apiMessagePropertyName}${message}`}</FormErrorMessage>
+        )}
+        <Controller
+          name={nameAttribute}
+          control={control}
+          defaultValue={defaultValue}
+          rules={ rules }
+          as={
+            <FormInput
+              type={typeAttribute}
+              autoFocus={autoFocus}
+              fullWidth
+              data-testid={`${nameAttribute}Area`}
+            />
+          }
+        />
+      </InputLabel>
     </FormItemWrapper>
   );
 }

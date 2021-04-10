@@ -98,8 +98,8 @@ export const SignUp:VFC = () => {
           formInfo={SignUpFormInfo(errors, control, apiErrors)}
         />
         <FormSubmit
-          isDisabled={() => isDisabled(state.postState)}
-          onSubmitLabel={() => onSubmitLabel(state.postState, "SignUp!")}
+          isDisabled={isDisabled(state.postState)}
+          onSubmitLabel={onSubmitLabel(state.postState, "SignUp!")}
         />
       </FormWrapper>
       <FormLinks

@@ -13,6 +13,7 @@ interface IData {
 }
 
 interface ICurrentUser {
+  id: number;
   data: IData;
   headers: IHeaders;
 }
