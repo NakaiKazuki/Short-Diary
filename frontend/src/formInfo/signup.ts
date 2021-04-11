@@ -4,27 +4,29 @@ interface IRurles {
   minLength?: number;
   maxLength: number;
 }
-
+type TApiError = Array<string>;
 interface IObject {
   formLabel: string;
   errorsProperty: string;
   errorMessage: string;
-  apiErrorProperty: Array<string> | undefined;
+  apiErrorProperty: TApiError | undefined;
   apiMessagePropertyName: string;
   nameAttribute: string;
   typeAttribute: string;
   control: any;
   defaultValue: string;
+  autoComplete: string;
   autoFocus: boolean;
   rules: IRurles;
 }
 
 // SignUpページのフォーム欄を表示するために必要な情報群
+
 interface ISignUpApiErrors {
-  name?: Array<string>;
-  email?: Array<string>;
-  password?: Array<string>;
-  password_confirmation?: Array<string>;
+  name?: TApiError;
+  email?: TApiError;
+  password?: TApiError;
+  password_confirmation?: TApiError;
 }
 
 type TReturnSignUp = [IObject, IObject, IObject, IObject];
@@ -41,6 +43,7 @@ export const SignUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiE
       typeAttribute: "text",
       control: control,
       defaultValue: "",
+      autoComplete: "username",
       autoFocus: true,
       rules: { required: true, maxLength: 50 },
     },
@@ -54,6 +57,7 @@ export const SignUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiE
       typeAttribute: "email",
       control: control,
       defaultValue: "",
+      autoComplete: "email",
       autoFocus: false,
       rules:{ required: true , maxLength: 255},
     },
@@ -67,6 +71,7 @@ export const SignUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiE
       typeAttribute: "password",
       control: control,
       defaultValue: "",
+      autoComplete: "new-password",
       autoFocus: false,
       rules: { required: true,minLength: 6, maxLength: 128},
     },
@@ -80,6 +85,7 @@ export const SignUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiE
       typeAttribute: "password",
       control: control,
       defaultValue: "",
+      autoComplete: "new-password",
       autoFocus: false,
       rules: {required: true, minLength: 6, maxLength: 128},
     }

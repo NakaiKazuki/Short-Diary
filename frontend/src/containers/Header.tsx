@@ -87,7 +87,7 @@ export const Header:VFC = () => {
         </Link>
         {
           isLoggedIn(currentUser) ?
-          <LogoutButton type="button" onClick={ () => onSignOut()}>Logout</LogoutButton>
+          <LogoutButton type="button" onClick={onSignOut}>Logout</LogoutButton>
         :
         <SessionLink
           to={'/login'}

@@ -11,8 +11,8 @@
 #
 # Indexes
 #
-#  index_diaries_on_user_id           (user_id)
-#  index_diaries_on_user_id_and_date  (user_id,date)
+#  index_diaries_on_date_and_user_id_and_created_at  (date,user_id,created_at)
+#  index_diaries_on_user_id                          (user_id)
 #
 # Foreign Keys
 #

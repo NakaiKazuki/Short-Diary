@@ -35,6 +35,7 @@ interface IFormItemProps {
   typeAttribute: string;
   control: any;
   defaultValue: string;
+  autoComplete: string;
   autoFocus: boolean;
   rules: IRurles;
 }
@@ -49,6 +50,7 @@ export const FormItem:VFC<IFormItemProps> = ({
   typeAttribute,
   control,
   defaultValue,
+  autoComplete,
   autoFocus,
   rules,
 }) => {
@@ -71,6 +73,7 @@ export const FormItem:VFC<IFormItemProps> = ({
             <FormInput
               type={typeAttribute}
               autoFocus={autoFocus}
+              autoComplete={autoComplete}
               fullWidth
               data-testid={`${nameAttribute}Area`}
             />

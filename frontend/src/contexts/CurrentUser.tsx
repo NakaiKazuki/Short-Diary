@@ -20,7 +20,7 @@ interface ICurrentUser {
 
 interface ICurrentUserContext {
   currentUser: ICurrentUser | undefined;
-  setCurrentUser: React.Dispatch<React.SetStateAction<any>>;
+  setCurrentUser: React.Dispatch<React.SetStateAction<undefined>>;
 };
 
 export const CurrentUserContext = createContext({} as ICurrentUserContext );

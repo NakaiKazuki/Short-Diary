@@ -11,8 +11,8 @@
 #
 # Indexes
 #
-#  index_diaries_on_user_id           (user_id)
-#  index_diaries_on_user_id_and_date  (user_id,date)
+#  index_diaries_on_date_and_user_id_and_created_at  (date,user_id,created_at)
+#  index_diaries_on_user_id                          (user_id)
 #
 # Foreign Keys
 #
@@ -38,14 +38,15 @@ class Diary < ApplicationRecord
     picture.attached? ? url_for(picture) : nil
   end
 
+  private
   # 画像の拡張子とサイズの制限をしている
-  def validate_picture
-    return unless picture.attached?
+    def validate_picture
+      return unless picture.attached?
 
-    if !picture.content_type.in?(%('image/jpeg image/jpg image/png image/gif'))
-      errors.add(:picture, 'はjpeg, jpg, png, gif以外の投稿ができません')
-    elsif picture.blob.byte_size > 5.megabytes
-      errors.add(:picture, 'の最大サイズは5MBです')
+      if !picture.content_type.in?(%('image/jpeg image/jpg image/png image/gif'))
+        errors.add(:picture, 'はjpeg, jpg, png, gif以外の投稿ができません')
+      elsif picture.blob.byte_size > 5.megabytes
+        errors.add(:picture, 'の最大サイズは5MBです')
+      end
     end
-  end
 end

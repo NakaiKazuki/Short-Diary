@@ -54,12 +54,13 @@ interface IFormValues{
 }
 
 // エラーメッセージ
+type TApiError = Array<string>;
 interface IApiErrors {
-  name?: Array<string>;
-  email?: Array<string>;
-  password?: Array<string>;
-  password_confirmation?: Array<string>;
-  full_messages: Array<string>;
+  name?: TApiError;
+  email?: TApiError;
+  password?: TApiError;
+  password_confirmation?: TApiError;
+  full_messages: TApiError;
 }
 
 export const SignUp:VFC = () => {

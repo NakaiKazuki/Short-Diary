@@ -2,7 +2,7 @@ import React, { VFC } from 'react';
 import styled from 'styled-components';
 
 // components
-import { PictureIcon } from './Icons';
+import { PictureIcon } from '../Icons';
 
 // css
 const DiariesWrapper = styled.ul`
@@ -69,12 +69,12 @@ interface IDiary {
 
 interface DiariesProps {
   diaries: Array<IDiary>;
-  onDiaryDialogOpen(diary: IDiary): void;
+  onOpenDiaryDialog(diary: IDiary): void;
 }
 
-export const Diaries: VFC<DiariesProps> = ({
+export const DiaryIndex: VFC<DiariesProps> = ({
   diaries,
-  onDiaryDialogOpen,
+  onOpenDiaryDialog,
 }) => {
   return(
     <DiariesWrapper>
@@ -83,7 +83,7 @@ export const Diaries: VFC<DiariesProps> = ({
         return(
           <DiaryWrapper
             key={`diary-${index}`}
-            onClick={() => onDiaryDialogOpen(diary)}
+            onClick={() => onOpenDiaryDialog(diary)}
           >
             <Paragraph>
               <DiaryDate>{diary.date}</DiaryDate>

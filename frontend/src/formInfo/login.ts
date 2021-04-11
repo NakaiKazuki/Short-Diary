@@ -4,24 +4,27 @@ interface IRurles {
   maxLength: number;
 }
 
+type TApiError = Array<string>;
+
 interface IObject {
   formLabel: string;
   errorsProperty: string;
   errorMessage: string;
-  apiErrorProperty: Array<string> | undefined;
+  apiErrorProperty: TApiError | undefined;
   apiMessagePropertyName: string;
   nameAttribute: string;
   typeAttribute: string;
   control: any;
   defaultValue: string;
+  autoComplete: string;
   autoFocus: boolean;
   rules: IRurles;
 }
 
 // Loginページのフォーム欄を表示するために必要な情報群
 interface ILoginApiErrors {
-  email?: Array<string>;
-  password?: Array<string>;
+  email?: TApiError;
+  password?: TApiError;
 }
 
 type TReturnLogin = [IObject, IObject];
@@ -38,6 +41,7 @@ export const LoginFormInfo = (errors: any, control: any, apiErrors: ILoginApiErr
       typeAttribute: "email",
       control: control,
       defaultValue: "",
+      autoComplete: "email",
       autoFocus: true,
       rules:{ required: true , maxLength: 255}
     },
@@ -51,6 +55,7 @@ export const LoginFormInfo = (errors: any, control: any, apiErrors: ILoginApiErr
       typeAttribute: "password",
       control: control,
       defaultValue: "",
+      autoComplete: "current-password",
       autoFocus: false,
       rules: { required: true, minLength: 6, maxLength: 128}
     },
