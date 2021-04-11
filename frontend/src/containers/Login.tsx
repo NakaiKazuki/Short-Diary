@@ -60,10 +60,12 @@ interface IFormValues {
 }
 
 // エラーメッセージ
+type TApiError = Array<string>;
+
 interface IApiErrors {
-  email?: Array<string>;
-  password?: Array<string>;
-  full_messages: Array<string>;
+  email?: TApiError;
+  password?: TApiError;
+  full_messages: TApiError;
 }
 
 export const Login:VFC = () => {
@@ -106,8 +108,8 @@ export const Login:VFC = () => {
           formInfo={LoginFormInfo(errors, control, apiErrors)}
         />
         <FormSubmit
-          isDisabled={() => isDisabled(state.postState)}
-          onSubmitLabel={() => onSubmitLabel(state.postState, "Login!")}
+          isDisabled={isDisabled(state.postState)}
+          onSubmitLabel={onSubmitLabel(state.postState, "Login!")}
         />
       </FormWrapper>
       <FormLinks

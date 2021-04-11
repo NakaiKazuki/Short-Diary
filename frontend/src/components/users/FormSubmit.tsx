@@ -13,8 +13,8 @@ const FormSubmitWrapper = styled(BaseButton)`
 `;
 // 型
 interface ISubmit {
-  isDisabled(): boolean;
-  onSubmitLabel(): string;
+  isDisabled: boolean;
+  onSubmitLabel: string;
 }
 
 export const FormSubmit: VFC<ISubmit> = ({
@@ -24,8 +24,8 @@ export const FormSubmit: VFC<ISubmit> = ({
   return(
     <FormSubmitWrapper
       type="submit"
-      disabled={isDisabled()}>
-      {onSubmitLabel()}
+      disabled={isDisabled}>
+      {onSubmitLabel}
     </FormSubmitWrapper>
   );
 }

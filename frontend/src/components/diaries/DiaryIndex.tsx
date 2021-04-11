@@ -2,7 +2,7 @@ import React, { VFC } from 'react';
 import styled from 'styled-components';
 
 // components
-import { PictureIcon } from './Icons';
+import { PictureIcon } from '../Icons';
 
 // css
 const DiariesWrapper = styled.ul`
@@ -13,7 +13,7 @@ padding-inline-start: 0;
   }
 `;
 
-const DiaryItemWrapper = styled.li`
+const DiaryWrapper = styled.li`
   margin-top: .5rem;
   list-style: none;
   height: 17vh;
@@ -31,6 +31,7 @@ const DiaryItemWrapper = styled.li`
     width: 100%;
   }
   :hover{
+    background-color:#EEEEEE;
     cursor: pointer;
   }
 `;
@@ -59,6 +60,7 @@ const DiaryContent = styled.div`
 
 // 型
 interface IDiary {
+  id: number;
   date: string;
   content: string;
   picture_url: string;
@@ -67,33 +69,38 @@ interface IDiary {
 
 interface DiariesProps {
   diaries: Array<IDiary>;
+  onOpenDiaryDialog(diary: IDiary): void;
 }
 
-export const Diaries: VFC<DiariesProps> = ({
+export const DiaryIndex: VFC<DiariesProps> = ({
   diaries,
+  onOpenDiaryDialog,
 }) => {
   return(
     <DiariesWrapper>
       {
-        diaries.map((obj: IDiary, index: number) => {
+        diaries.map((diary: IDiary, index: number) => {
         return(
-          <DiaryItemWrapper key={`diary-${index}`}>
+          <DiaryWrapper
+            key={`diary-${index}`}
+            onClick={() => onOpenDiaryDialog(diary)}
+          >
             <Paragraph>
-              <DiaryDate>{obj.date}</DiaryDate>
+              <DiaryDate>{diary.date}</DiaryDate>
               {
-                obj.picture_url &&
+                diary.picture_url &&
                 <ImageIconArea />
               }
             </Paragraph>
             <DiaryContent>
               {
-                obj.content.length <= 50 ?
-                  obj.content
+                diary.content.length <= 50 ?
+                  diary.content
                 :
-                `${obj.content.slice(0, 50)}......`
+                `${diary.content.slice(0, 50)}......`
               }
             </DiaryContent>
-          </DiaryItemWrapper>
+          </DiaryWrapper>
         )
         })
       }

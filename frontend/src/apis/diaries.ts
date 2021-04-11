@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { postDiary } from '../urls/index';
+import { diary } from '../urls/index';
 
 interface IParams {
   date: string;
@@ -13,8 +13,10 @@ interface ICurrentUserHeaders {
   uid: string;
 }
 
-export const createDiary = (currentUserHeaders: ICurrentUserHeaders, params: IParams):Promise<any> => {
-  return axios.post(postDiary,
+type TDiaryId = number;
+
+export const createDiary = (currentUserHeaders: ICurrentUserHeaders, params: IParams): Promise<any> => {
+  return axios.post(diary,
     {
       'access-token': currentUserHeaders['access-token'],
       client: currentUserHeaders.client,
@@ -23,4 +25,14 @@ export const createDiary = (currentUserHeaders: ICurrentUserHeaders, params: IPa
       content: params.content,
       picture: params.picture? {data: params.picture!.data, name: params.picture!.name} : null,
     })
+    .then(res => res.data);
 };
+
+export const deleteDiary = (currentUserHeaders: ICurrentUserHeaders, page: number, diaryId: TDiaryId): Promise<any> => {
+  return axios.delete(`${diary}/${diaryId}`,
+  {
+    headers: currentUserHeaders,
+    data: {page: page},
+  })
+  .then(res => res.data);
+}

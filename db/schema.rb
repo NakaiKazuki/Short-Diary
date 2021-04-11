@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_033431) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id", "date"], name: "index_diaries_on_user_id_and_date"
+    t.index ["date", "user_id", "created_at"], name: "index_diaries_on_date_and_user_id_and_created_at"
     t.index ["user_id"], name: "index_diaries_on_user_id"
   end
 

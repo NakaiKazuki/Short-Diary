@@ -20,7 +20,12 @@ class Api::V1::DiariesController < ApplicationController
   end
 
   def destroy
-    render json: {}, status: :ok
+    @diary.destroy
+    @pagy, diaries = pagy(current_user.diaries.all, page: params[:page])
+    render json: {
+      diaries: diaries,
+      pagy: pagy_metadata(@pagy)
+    }, methods: [:picture_url], status: :ok
   end
 
   private

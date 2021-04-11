@@ -2,7 +2,6 @@ FROM ruby:3.0.1
 
 RUN apt-get update -qq && apt-get install -y \
     build-essential \
-    imagemagick \
     vim
 
 RUN apt-get clean

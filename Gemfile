@@ -9,7 +9,6 @@ gem 'bootsnap', require: false
 gem 'devise' # User関連
 gem 'devise_token_auth' # User関連
 gem 'fast_blank' # 取り敢えず入れとく
-gem 'mini_magick' # 画像
 gem 'mysql2'
 gem 'pagy' # ページネーション
 gem 'puma'

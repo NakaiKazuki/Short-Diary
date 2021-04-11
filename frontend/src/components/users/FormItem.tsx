@@ -35,6 +35,7 @@ interface IFormItemProps {
   typeAttribute: string;
   control: any;
   defaultValue: string;
+  autoComplete: string;
   autoFocus: boolean;
   rules: IRurles;
 }
@@ -49,32 +50,36 @@ export const FormItem:VFC<IFormItemProps> = ({
   typeAttribute,
   control,
   defaultValue,
+  autoComplete,
   autoFocus,
   rules,
 }) => {
   return (
     <FormItemWrapper>
-      <InputLabel>{formLabel}</InputLabel>
-      {errorsProperty &&
-        <FormErrorMessage>{errorMessage}</FormErrorMessage>
-      }
-      {apiErrorProperty?.map((message: string, index: number) =>
-        <FormErrorMessage key={`${nameAttribute}-${index}`}>{`${apiMessagePropertyName}${message}`}</FormErrorMessage>
-      )}
-      <Controller
-        name={nameAttribute}
-        control={control}
-        defaultValue={defaultValue}
-        rules={ rules }
-        as={
-          <FormInput
-            type={typeAttribute}
-            autoFocus={autoFocus}
-            fullWidth
-            data-testid={`${nameAttribute}Area`}
-          />
+      <InputLabel>
+        {formLabel}
+        {errorsProperty &&
+          <FormErrorMessage>{errorMessage}</FormErrorMessage>
         }
-      />
+        {apiErrorProperty?.map((message: string, index: number) =>
+          <FormErrorMessage key={`${nameAttribute}-${index}`}>{`${apiMessagePropertyName}${message}`}</FormErrorMessage>
+        )}
+        <Controller
+          name={nameAttribute}
+          control={control}
+          defaultValue={defaultValue}
+          rules={ rules }
+          as={
+            <FormInput
+              type={typeAttribute}
+              autoFocus={autoFocus}
+              autoComplete={autoComplete}
+              fullWidth
+              data-testid={`${nameAttribute}Area`}
+            />
+          }
+        />
+      </InputLabel>
     </FormItemWrapper>
   );
 }

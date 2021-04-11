@@ -22,6 +22,7 @@ interface IObject {
   typeAttribute: string;
   control: any;
   defaultValue: string;
+  autoComplete: string;
   autoFocus: boolean;
   rules: IRurles;
 }
@@ -51,6 +52,7 @@ export const FormArea:VFC<IFormProps> = ({
                   typeAttribute={obj.typeAttribute}
                   control={obj.control}
                   defaultValue={obj.defaultValue}
+                  autoComplete={obj.autoComplete}
                   autoFocus={obj.autoFocus}
                   rules={obj.rules}
               />

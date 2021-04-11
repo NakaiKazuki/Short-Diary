@@ -11,8 +11,8 @@
 #
 # Indexes
 #
-#  index_diaries_on_user_id           (user_id)
-#  index_diaries_on_user_id_and_date  (user_id,date)
+#  index_diaries_on_date_and_user_id_and_created_at  (date,user_id,created_at)
+#  index_diaries_on_user_id                          (user_id)
 #
 # Foreign Keys
 #
@@ -31,9 +31,9 @@ RSpec.describe Diary, type: :model do
 
     it '投稿日が新しい投稿が最初に来る' do
       date = Time.zone.today
-      create(:diary, user: user, created_at: date - 3)
-      create(:diary, user: user, created_at: date - 2)
-      create(:diary, user: user, created_at: date - 1)
+      3.times do |m|
+        create(:diary, user: user, created_at: date - m - 1)
+      end
       diary4 = create(:diary, user: user, created_at: date)
       expect(Diary.first).to eq diary4
     end

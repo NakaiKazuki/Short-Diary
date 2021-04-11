@@ -11,8 +11,6 @@ export const signOut: TUrl = `${DEVISE_PATH}/sign_out`;
 export const guestSignIn: TUrl = `${DEVISE_PATH}/guest_sign_in`;
 
 // Diary関連
-export const  postDiary: TUrl =`${DEFAULT_API_LOCALHOST}/diaries`;
-
+export const diary: TUrl =`${DEFAULT_API_LOCALHOST}/diaries`;
 // Pagination 関連のurl
-
 export const homePagination: TUrl = `${DEFAULT_API_LOCALHOST}?page=`

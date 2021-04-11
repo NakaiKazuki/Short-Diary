@@ -1,11 +1,4 @@
-import React, {
-  VFC,
-  Fragment,
-  useState,
-  useEffect,
-  useContext,
-  useReducer,
- } from 'react';
+import React, { VFC, Fragment, useState, useEffect, useContext, useReducer} from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
@@ -14,32 +7,24 @@ import { CurrentUserContext } from '../../contexts/CurrentUser';
 
 // apis
 import { fetchHome, getDiaies } from '../../apis/home';
+import { createDiary, deleteDiary } from '../../apis/diaries';
+
+// icons
+import { CreateIcon } from '../../components/Icons';
 
 // components
 import { BaseButton } from '../../components/shared_style';
-import { Diaries } from '../../components/Diaries';
-import { DiaryCreateDialog } from '../../components/DiaryCreateDialog';
 import { PagenationArea } from '../../components/PagenationArea';
+import { DiaryIndex, DiaryCreateDialog, DiaryDialog} from '../../components/diaries';
 
 // responses
 import { HTTP_STATUS_CODE } from '../../constants';
 
 // helpers
-import {
-  dateToday,
-  onSubmitLabel,
-  isDisabled,
- } from '../../helpers';
-
-// apis
-import { createDiary } from '../../apis/diaries';
+import { dateToday, onSubmitLabel, isDisabled } from '../../helpers';
 
 // reducers
-import {
-  initialState as reducerInitialState,
-  submitActionTypes,
-  submitReducer,
-} from '../../reducers/submit';
+import { initialState as reducerInitialState, submitActionTypes, submitReducer } from '../../reducers/submit';
 
 // css
 const LoginHomeWrapper = styled.div`
@@ -69,21 +54,25 @@ const FormDialogButton = styled(BaseButton)`
     width: 100%;
   }
 `;
+const IconWrapper = styled.span`
+  margin-right: 1rem;
+`;
 
 // 型
-
 interface IDiary {
+  id: number;
   date: string;
   content: string;
   picture_url: string;
   user_id: number;
 }
 
+type TApiError = Array<string>;
 interface IApiErrors {
-  date?: Array<string>;
-  content?: Array<string>;
-  picture?: Array<string>;
-  full_messages: Array<string>;
+  date?: TApiError;
+  content?: TApiError;
+  picture?: TApiError;
+  full_messages: TApiError;
 }
 
 interface IPagy {
@@ -93,123 +82,237 @@ interface IPagy {
 
 interface IInitialState {
   diaries: Array<IDiary> | undefined;
-  isOpenDiaryCreateDialog: boolean;
   apiErrors: IApiErrors | undefined;
   pagy: IPagy| undefined;
+  selectedDiary: IDiary | null;
+  isOpenDiaryCreateDialog: boolean;
+  isOpenDiaryDialog: boolean;
+  isOpenDiaryEdit: boolean;
+  anchorEl: HTMLElement | null;
 }
 
-type TPicture = Array<{data:string, name: string}>;
-
 // Formから送信される情報
+type TPicture = Array<{data:string, name: string}>;
 interface IFormValues {
   date: string;
   content: string;
   picture?: TPicture;
 }
 
+type TClickHTMLElement = React.MouseEvent<HTMLElement>;
+
 export const LoginHome: VFC = () => {
-  const { currentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { handleSubmit, errors, control , watch, register} = useForm<IFormValues>();
   const [reducerState, dispatch] = useReducer(submitReducer, reducerInitialState);
   const initialState: IInitialState = {
     diaries: undefined,
-    isOpenDiaryCreateDialog: false,
     apiErrors: undefined,
     pagy: undefined,
+    selectedDiary: null,
+    isOpenDiaryCreateDialog: false,
+    isOpenDiaryDialog: false,
+    isOpenDiaryEdit: false,
+    anchorEl: null,
   }
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState<IInitialState>(initialState);
 
-  // DiaryCreateDialogで入力されたcontentの文字数を返す
-  const contentCount = ():number => watch("content","").length;
-
-  // DiaryCreateDialogで選択されたfile名を返す()
-  const setFileName = ():string =>{
-    const InputPicture:TPicture | undefined = watch("picture");
-    if(InputPicture && InputPicture![0] != null){
-      return InputPicture![0].name.slice(0, 20);
-    } else{
-      return "画像を追加する";
-    }
-  };
-
-  // fileをbase64にエンコード
-  const fileChange = (event: any): void => {
-    const file = event.target.files[0];
-    if(file) {
-      const reader = new FileReader();
-      reader.onload = () => file.data = reader.result;
-      reader.readAsDataURL(file);
-    }
-  };
-
-  // DiaryCreateDialogでFormのボタンが押されたら使うやつ
-  const onSubmit = (formValues: IFormValues): void => {
-    dispatch({ type: submitActionTypes.POSTING});
-    createDiary(currentUser!.headers,
-      {
-        date: formValues.date,
-        content: formValues.content,
-        picture: formValues.picture? formValues.picture[0] : undefined,
-      }
-    )
-    .then((res: any): void => {
-      dispatch({ type: submitActionTypes.POST_INITIAL});
-      setState({
-        ...state,
-        diaries: res.data.diaries,
-        isOpenDiaryCreateDialog: false,
-      })
-      console.log(res.data)
-    })
-    .catch((e: any): void => {
-      if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
-        dispatch({ type: submitActionTypes.POST_INITIAL });
+  // ここからPagenationAreaで使う関数
+    // ページネションのページ番号が選択されたら、その番号に応じてデータを受け取る
+    const onPageChange = (page: number): void => {
+      getDiaies(currentUser!.headers, page)
+      .then(data => {
         setState({
           ...state,
-          apiErrors: e.response.data.errors,
+          diaries: data.diaries,
+          pagy: data.pagy,
         })
-      } else {
-        dispatch({ type: submitActionTypes.POST_INITIAL });
-        throw e;
-      }
-    });
-  };
+      })
+      .catch(e => {
+        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED){
+          setCurrentUser(undefined);
+        } else {
+          throw e
+        }
+      })
+    };
+  // ここまでPagenationAreaで使う関数
 
-  // ページネションのページ番号が選択されたら、その番号に応じてデータを受け取る
-  const onPageChange = (page: number): void => {
-    getDiaies(currentUser!.headers,page)
-    .then(data => {
+  // ここから DiaryIndexで使う関数
+    // Diaries内でユーザがクリックした日記のデータを取得し、DiaryDialogへ投げて開く
+    const onOpenDiaryDialog = (diary: IDiary): void => {
       setState({
         ...state,
-        diaries: data.diaries,
-        pagy: data.pagy,
+        selectedDiary: diary,
+        isOpenDiaryDialog: true,
       })
-    })
-    .catch(e => {
-      if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED){
-        console.log("ユーザがログインしてへんで！");
-      } else {
-        throw e
+    };
+  // ここまで DiaryIndexで使う関数
+
+  // ここからDiaryCreateDialogとDiaryEditで共通して使う関数
+    // DiaryCreateDialogで選択されたfile名を返す
+    const setFileName = ():string => {
+      const InputPicture:TPicture | undefined = watch("picture");
+      if(InputPicture && InputPicture![0] != null){
+        return InputPicture![0].name.slice(0, 20);
+      } else{
+        return "画像を追加する";
       }
-    })
-  };
+    };
+
+    // fileをbase64にエンコード
+    const onFileChange = (e: any): void => {
+      const file = e.target.files[0];
+      if(file) {
+        const reader = new FileReader();
+        reader.onload = () => file.data = (reader.result);
+        reader.readAsDataURL(file);
+      }
+    };
+  // ここまでDiaryCreateDialogとDiaryEditで共通して使うやつ
+
+  // ここから DiaryCreateDialogで使う関数
+    // CreateDialogを開く
+    const onOpenDiaryCreateDialog = (): void => {
+      setState({
+        ...state,
+        isOpenDiaryCreateDialog: true,
+      })
+    };
+
+    // CreateDialogを閉じる
+    const onCloseDiaryCreateDialog = (): void => {
+      setState({
+        ...state,
+        isOpenDiaryCreateDialog: false,
+        apiErrors: undefined,
+      })
+    };
+
+    // DiaryCreateDialogでFormのボタンが押されたらApiを叩く
+    const onCreateSubmit = (formValues: IFormValues): void => {
+      dispatch({ type: submitActionTypes.POSTING});
+      createDiary(currentUser!.headers,
+        {
+          date: formValues.date,
+          content: formValues.content,
+          picture: formValues.picture? formValues.picture[0] : undefined,
+        },
+      )
+      .then((data): void => {
+        dispatch({ type: submitActionTypes.POST_INITIAL});
+        setState({
+          ...state,
+          diaries: data.diaries,
+          isOpenDiaryCreateDialog: false,
+          pagy: data.pagy,
+        })
+      })
+      .catch((e): void => {
+        if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+          dispatch({ type: submitActionTypes.POST_INITIAL });
+          setState({
+            ...state,
+            apiErrors: e.response.data.errors,
+          })
+        } else {
+          dispatch({ type: submitActionTypes.POST_INITIAL });
+          throw e;
+        }
+      });
+    };
+  // ここまでDiaryCreateDialogで使う関数
+
+  // ここからDiaryEditで使う関数
+    const onEditSubmit = (formValues: IFormValues): void => {
+      console.log(formValues);
+    };
+  // ここまでDiaryEditで使う関数
+
+  // ここからDiaryDialogで使う関数
+    // DiaryDialog を閉じる
+    const onCloseDiaryDialog = (): void => {
+      setState({
+        ...state,
+        isOpenDiaryDialog: false,
+        isOpenDiaryEdit: false,
+      })
+    };
+  // ここまでDiaryDialogで使う関数
+
+  // ここからDiaryMenuで使う関数
+    // メニューバーを開く
+    const onMenuOpen = (e: TClickHTMLElement): void => {
+      setState({
+        ...state,
+        anchorEl: e.currentTarget,
+      })
+    };
+
+    // メニューバーを閉じる
+    const onMenuClose = (): void => {
+      setState({
+        ...state,
+        anchorEl: null,
+      })
+    };
+
+    // Dialogの内容を閲覧用に変更
+    const onDiaryShowMode = (diary: IDiary): void => {
+      setState({
+        ...state,
+        anchorEl: null,
+        isOpenDiaryEdit: false,
+      });
+    };
+
+    // Dialogの内容を編集用に変更
+    const onDiaryEditMode = (diary: IDiary): void => {
+      setState({
+        ...state,
+        anchorEl: null,
+        isOpenDiaryEdit: true,
+      });
+    };
+
+    // DiaryDialogで開かれている日記データを削除
+    const onDiaryDelete = (diary: IDiary): void => {
+      deleteDiary(currentUser!.headers, state.pagy!.page, diary.id)
+      .then((data): void => {
+        setState({
+          ...state,
+          diaries: data.diaries,
+          pagy: data.pagy,
+          anchorEl: null,
+          isOpenDiaryEdit: false,
+          isOpenDiaryDialog: false,
+        });
+      })
+      .catch((e): void => {
+        if (e.response.status === (HTTP_STATUS_CODE.FORBIDDEN || HTTP_STATUS_CODE.UNAUTHORIZED)) {
+          setCurrentUser(undefined);
+        } else {
+          throw e;
+        }
+      });
+    };
+  // ここまでDiaryMenuで使う関数
 
   // このコンポーネントが開かれた時にだけ実行される
   useEffect((): void => {
     fetchHome(currentUser!.headers)
-    .then(data =>{
+    .then((data): void => {
       setState({
         ...state,
         diaries: data.diaries,
         pagy: data.pagy,
       })
-      console.log(data.pagy)
     })
-    .catch(e => {
+    .catch((e): void => {
       if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED){
-        console.log("ユーザがログインしてへんで！");
+        setCurrentUser(undefined);
       } else {
-        throw e
+        throw e;
       }
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -218,21 +321,22 @@ export const LoginHome: VFC = () => {
   return (
     <LoginHomeWrapper>
       <Heading>Diary List</Heading>
-      <FormDialogButton onClick={() => setState({
-        ...state,
-        isOpenDiaryCreateDialog: true,
-      })}>
-        日記を作成する
+      <FormDialogButton onClick={onOpenDiaryCreateDialog}>
+        <IconWrapper>
+          <CreateIcon fontSize={"small"} />
+        </IconWrapper>
+        日記作成
       </FormDialogButton>
         {
           state.diaries != null  && state.pagy != null ?
           <Fragment>
             <PagenationArea
+              onPageChange={onPageChange}
               pagy={state.pagy}
-              onPageChange={(page: number):void => onPageChange(page)}
             />
-            <Diaries
+            <DiaryIndex
               diaries={state.diaries}
+              onOpenDiaryDialog={onOpenDiaryDialog}
             />
           </Fragment>
         :
@@ -241,23 +345,45 @@ export const LoginHome: VFC = () => {
         {
           state.isOpenDiaryCreateDialog &&
           <DiaryCreateDialog
+            apiErrors={state.apiErrors}
+            contentCount={watch("content","").length}
+            control={control}
+            dateToday={dateToday()}
+            errors={errors}
             isOpen={state.isOpenDiaryCreateDialog}
-            handleSubmit={handleSubmit(onSubmit)}
+            isDisabled={isDisabled(reducerState.postState)}
+            register={register}
+            setFileName={setFileName()}
+            onClose={onCloseDiaryCreateDialog}
+            onFileChange={onFileChange}
+            onSubmit={handleSubmit(onCreateSubmit)}
+            onSubmitLabel={onSubmitLabel(reducerState.postState, "日記作成")}
+          />
+        }
+        {
+          state.isOpenDiaryDialog && state.selectedDiary &&
+          <DiaryDialog
+            anchorEl={state.anchorEl}
+            currentUserId={currentUser!.data.id}
+            diary={state.selectedDiary}
+            isOpen={state.isOpenDiaryDialog}
+            isOpenDiaryEdit={state.isOpenDiaryEdit}
+            onClose={onCloseDiaryDialog}
+            onDiaryDelete={onDiaryDelete}
+            onDiaryShowMode={onDiaryShowMode}
+            onDiaryEditMode={onDiaryEditMode}
+            onMenuClose={onMenuClose}
+            onMenuOpen={onMenuOpen}
             control={control}
             errors={errors}
             register={register}
-            dateToday={():string => dateToday()}
-            contentCount={():number => contentCount()}
-            fileChange={fileChange}
             apiErrors={state.apiErrors}
-            isDisabled={():boolean => isDisabled(reducerState.postState)}
-            onSubmitLabel={():string => onSubmitLabel(reducerState.postState, "日記作成")}
-            setFileName={():string => setFileName()}
-            onClose={():void => setState({
-              ...state,
-              isOpenDiaryCreateDialog: false,
-              apiErrors: undefined,
-            })}
+            onSubmitLabel={onSubmitLabel(reducerState.postState, "日記編集")}
+            isDisabled={isDisabled(reducerState.postState)}
+            contentCount={watch("content","").length}
+            setFileName={setFileName()}
+            onSubmit={handleSubmit(onEditSubmit)}
+            onFileChange={onFileChange}
           />
         }
     </LoginHomeWrapper>
