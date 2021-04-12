@@ -1,9 +1,6 @@
-import React, {
-  VFC,
-  useContext,
-  useReducer} from 'react';
+import React, {VFC, useContext, useReducer} from 'react';
 import { Link } from 'react-router-dom';
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 
 //contexts

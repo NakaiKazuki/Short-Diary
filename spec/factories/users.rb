@@ -29,6 +29,7 @@
 #
 FactoryBot.define do
   factory :user, class: 'User' do
+    id { 1 }
     name { Faker::Name.name }
     sequence(:email) { |n| "#{n}_" + Faker::Internet.email }
     password { 'password' }
@@ -49,6 +50,7 @@ FactoryBot.define do
   end
 
   factory :guest, class: 'User' do
+    id { 2 }
     name { 'ゲストユーザ' }
     email { 'guest@example.com' }
     password { 'password' }

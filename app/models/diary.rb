@@ -39,6 +39,7 @@ class Diary < ApplicationRecord
   end
 
   private
+
   # 画像の拡張子とサイズの制限をしている
     def validate_picture
       return unless picture.attached?

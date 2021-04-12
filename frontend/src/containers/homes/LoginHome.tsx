@@ -240,7 +240,7 @@ export const LoginHome: VFC = () => {
     };
   // ここまでDiaryDialogで使う関数
 
-  // ここからDiaryMenuで使う関数
+  // ここからDiaryMenu(DiaryDialogに埋め込まれている)で使う関数
     // メニューバーを開く
     const onMenuOpen = (e: TClickHTMLElement): void => {
       setState({
