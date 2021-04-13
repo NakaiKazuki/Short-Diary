@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::DiariesController < ApplicationController
   before_action :authenticate_user!
   before_action :correct_user, only: %i[update destroy]
@@ -34,7 +36,6 @@ class Api::V1::DiariesController < ApplicationController
     end
   end
 
-# テストまだ
   def destroy
     @diary.destroy
     @pagy, diaries = pagy(current_user.diaries.all, page: params[:page])

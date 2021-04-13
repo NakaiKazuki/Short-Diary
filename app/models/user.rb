@@ -36,7 +36,7 @@ class User < ApplicationRecord
          :trackable, :timeoutable
   #  ,:confirmable, :lockable, :omniauthables
   include DeviseTokenAuth::Concerns::User
-
+  has_one_attached :image
   has_many :diaries, dependent: :destroy
 
   # 登録前にメールアドレスを小文字に変換

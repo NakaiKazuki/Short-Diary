@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AuthorizationSpecHelper
   def sign_in(user)
     post '/api/v1/auth/sign_in',

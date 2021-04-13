@@ -126,7 +126,7 @@ RSpec/MultipleExpectations:
   Enabled: false
 
 RSpec/NestedGroups:
-  Max: 5
+  Max: 6
 
 Style/BlockComments:
   Exclude:
@@ -178,13 +178,7 @@ Style/GlobalStdStream:
   Exclude:
     - 'config/environments/production.rb'
 
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
 Rails/LexicallyScopedActionFilter:
   Exclude:
-    - 'app/controllers/api/v1/auth/*'
-
-Style/EndOfLine:
-  EnforcedStyle: lf
-# ここまで
+    - 'app/controllers/api/**/auth/*'
+# ここまで追加

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Rack::Attack
   # DOS攻撃の制御
   throttle('req/ip', limit: 300, period: 5.minutes, &:ip)

@@ -14,6 +14,8 @@
 #  index_diaries_on_date_and_user_id_and_created_at  (date,user_id,created_at)
 #  index_diaries_on_user_id                          (user_id)
 #
+# frozen_string_literal: true
+
 # Foreign Keys
 #
 #  fk_rails_...  (user_id => users.id)
