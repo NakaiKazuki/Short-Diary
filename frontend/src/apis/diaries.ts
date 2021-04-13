@@ -28,6 +28,20 @@ export const createDiary = (currentUserHeaders: ICurrentUserHeaders, params: IPa
     .then(res => res.data);
 };
 
+export const updateDiary = (currentUserHeaders: ICurrentUserHeaders, params: IParams, page: number, diaryId: TDiaryId | undefined): Promise<any> => {
+  return axios.patch(`${diary}/${diaryId}`,
+    {
+      'access-token': currentUserHeaders['access-token'],
+      client: currentUserHeaders.client,
+      uid: currentUserHeaders.uid,
+      date: params.date,
+      content: params.content,
+      picture: params.picture? {data: params.picture!.data, name: params.picture!.name} : null,
+      page: page,
+    })
+    .then(res => res.data);
+};
+
 export const deleteDiary = (currentUserHeaders: ICurrentUserHeaders, page: number, diaryId: TDiaryId): Promise<any> => {
   return axios.delete(`${diary}/${diaryId}`,
   {

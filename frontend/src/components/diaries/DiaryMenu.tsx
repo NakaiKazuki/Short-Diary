@@ -42,6 +42,7 @@ const StyledMenu = withStyles({
 const StyledMenuItem = withStyles(() => ({
   root: {
     backgroundColor: "white",
+    color: "royalblue",
     borderRadius: 5,
     margin: "0 .5rem",
     '& .MuiListItemIcon-root': {
@@ -109,8 +110,8 @@ interface IDiaryMenuProps {
   onMenuOpen(e: TClickHTMLElement): void;
   onMenuClose(): void;
   onDiaryDelete(diary: IDiary): void;
-  onDiaryEditMode(diary: IDiary): void;
-  onDiaryShowMode(diary: IDiary): void;
+  onDiaryEditMode(): void;
+  onDiaryShowMode(): void;
 }
 
 export const DiaryMenu:VFC<IDiaryMenuProps> = ({
@@ -143,12 +144,12 @@ export const DiaryMenu:VFC<IDiaryMenuProps> = ({
               onClose={onMenuClose}
             >
               {isOpenDiaryEdit ?
-                <StyledMenuItem onClick={() => onDiaryShowMode(diary)}>
+                <StyledMenuItem onClick={() => onDiaryShowMode()}>
                   <ListItemIcon><VisibilityIcon /></ListItemIcon>
                     閲覧
                 </StyledMenuItem>
               :
-                <StyledMenuItem onClick={() => onDiaryEditMode(diary)}>
+                <StyledMenuItem onClick={() => onDiaryEditMode()}>
                   <ListItemIcon><EditIcon /></ListItemIcon>
                     編集
                 </StyledMenuItem>

@@ -40,7 +40,7 @@ interface IDiaryEditProps {
   isDisabled: boolean;
   contentCount: number;
   setFileName: string | undefined;
-  onSubmit(): void;
+  onEditSubmit(): void;
   onFileChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
 }
 
@@ -54,7 +54,7 @@ export const DiaryEdit:VFC<IDiaryEditProps> = ({
   isDisabled,
   contentCount,
   setFileName,
-  onSubmit,
+  onEditSubmit,
   onFileChange,
 }) => {
   return (
@@ -68,10 +68,11 @@ export const DiaryEdit:VFC<IDiaryEditProps> = ({
         onSubmitLabel={onSubmitLabel}
         isDisabled={isDisabled}
         contentCount={contentCount}
+        diaryId={diary.id}
         defaultDate={diary.date}
         defaultContent={diary.content}
         setFileName={setFileName}
-        onSubmit={onSubmit}
+        onSubmit={onEditSubmit}
         onFileChange={onFileChange}
       />
     </Fragment>

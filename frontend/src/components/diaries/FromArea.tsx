@@ -78,6 +78,7 @@ interface IFormAreaProps {
   onSubmitLabel: string;
   isDisabled: boolean;
   contentCount: number;
+  diaryId?: number;
   defaultDate: string;
   defaultContent: string;
   setFileName: string | undefined;
@@ -93,6 +94,7 @@ export const FormArea:VFC<IFormAreaProps> = ({
   onSubmitLabel,
   isDisabled,
   contentCount,
+  diaryId,
   defaultDate,
   defaultContent,
   setFileName,
@@ -101,6 +103,10 @@ export const FormArea:VFC<IFormAreaProps> = ({
 }) => {
   return(
     <FormWrapper onSubmit={onSubmit}>
+      {
+        diaryId &&
+        <input type="hidden" name="diaryId" ref={register({required: true})} value={diaryId} />
+      }
       <FormItemWrapper>
         {apiErrors?.date?.map((message: string, index: number) =>
           <FormErrorMessage key={`date-${index}`}>{`日付${message}`}</FormErrorMessage>
