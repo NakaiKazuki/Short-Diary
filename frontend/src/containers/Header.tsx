@@ -1,12 +1,6 @@
-import React, {
-  VFC,
-  useContext} from 'react';
-import {
-  useHistory,
-  Link } from "react-router-dom";
-import {
-  AppBar,
-  Toolbar } from '@material-ui/core';
+import React, {VFC, useContext, useState} from 'react';
+import {useHistory, Link } from "react-router-dom";
+import {AppBar, Toolbar } from '@material-ui/core';
 import styled from 'styled-components';
 
 //contexts
@@ -14,7 +8,7 @@ import { CurrentUserContext } from '../contexts/CurrentUser';
 
 // components
 import { BaseButton } from '../components/shared_style';
-
+import { UserMenu } from '../components/users/UserMenu';
 // helpers
 import { isLoggedIn } from '../helpers';
 
@@ -51,27 +45,16 @@ const LoginButton = styled(SessionButton)`
   color: white;
 `;
 
-const LogoutButton = styled(SessionButton)`
-  float: right;
-  margin: 0 0 0 auto;
-  border: .0125rem solid royalblue;
-  background-color: white;
-  color: royalblue;
-  :hover {
-    background-color: royalblue;
-    color: white;
-  }
-`;
-
 export const Header:VFC = () => {
   const history = useHistory();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-
+  const [ anchorEl, setAnchorEl ] = useState<HTMLElement | null>(null);
   // ユーザのログアウト処理
   const onSignOut = (): void =>{
     deleteSession(currentUser!.headers)
     .then(() => {
-      setCurrentUser(undefined)
+      setCurrentUser(undefined);
+      setAnchorEl(null);
       history.push("/");
     })
     .catch(e => {
@@ -87,7 +70,12 @@ export const Header:VFC = () => {
         </Link>
         {
           isLoggedIn(currentUser) ?
-          <LogoutButton type="button" onClick={onSignOut}>Logout</LogoutButton>
+          <UserMenu
+            anchorEl={anchorEl}
+            onMenuOpen={(e: React.MouseEvent<HTMLElement>): void => setAnchorEl(e.currentTarget)}
+            onMenuClose={(): void => setAnchorEl(null)}
+            onSignOut={onSignOut}
+          />
         :
         <SessionLink
           to={'/login'}

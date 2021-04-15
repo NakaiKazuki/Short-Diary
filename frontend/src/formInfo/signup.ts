@@ -31,7 +31,7 @@ interface ISignUpApiErrors {
 
 type TReturnSignUp = [IObject, IObject, IObject, IObject];
 
-export const SignUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiErrors | undefined): TReturnSignUp => {
+export const signUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiErrors | undefined): TReturnSignUp => {
   return [
     {
       formLabel: "Name:",

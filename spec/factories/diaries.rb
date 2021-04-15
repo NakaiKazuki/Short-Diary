@@ -6,7 +6,7 @@
 #
 #  id         :bigint           not null, primary key
 #  content    :text(65535)      not null
-#  date       :date
+#  date       :date             not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint           not null

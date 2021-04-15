@@ -6,9 +6,9 @@ interface IREQUEST_STATE {
 }
 
 interface IHTTP_STATUS_CODE {
-  UNAUTHORIZED: number;
-  UNPROCESSABLE: number;
-  FORBIDDEN: number;
+  UNAUTHORIZED: 401;
+  FORBIDDEN: 403;
+  UNPROCESSABLE: 422;
 }
 
 export const REQUEST_STATE: IREQUEST_STATE = {

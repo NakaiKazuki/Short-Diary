@@ -8,7 +8,7 @@
 password = SecureRandom.urlsafe_base64
 User.create!(
   id: 1,
-  name: 'ゲストーザ',
+  name: 'ゲストユーザ',
   email: 'guest@example.com',
   password: password,
   password_confirmation: password,

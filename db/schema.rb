@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2021_04_02_033431) do
   end
 
   create_table "diaries", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.date "date"
+    t.date "date", null: false
     t.text "content", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false

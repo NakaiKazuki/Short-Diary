@@ -4,16 +4,22 @@ import { MenuProps } from '@material-ui/core/Menu';
 import styled from 'styled-components';
 
 // icons
-import { MenuIcon, EditIcon, VisibilityIcon } from '../Icons';
+import { LogoutIcon,UserIcon } from '../Icons';
 
 // css
-
-const MenuIconWrapper = styled.span`
+const UserWrapper = styled.span`
+  padding: .3rem .7rem;
+  width: auto;
   margin: 0 0 0 auto;
-  padding: .6rem .6rem 0 0;
-  color: royalblue;
-  :hover{
+  border: .0125rem solid #22a398;
+  border-radius: .5rem;
+  background-color: white;
+  color: #22a398;
+  letter-spacing: .2rem;
+  :hover {
     cursor: pointer;
+    background-color: #22a398;
+    color: white;
   }
 `;
 
@@ -27,8 +33,8 @@ const StyledMenu = withStyles({
     elevation={4}
     getContentAnchorEl={null}
     anchorOrigin={{
-      vertical: 'top',
-      horizontal: 'left',
+      vertical: 'bottom',
+      horizontal: 'center',
     }}
     transformOrigin={{
       vertical: 'top',
@@ -65,41 +71,29 @@ const StyledMenuItem = withStyles(() => ({
   },
 }))(MenuItem);
 
-// 型
-interface IData {
-  id: number;
-  name: string;
-  email: string;
-}
-interface ICurrentUser {
-  id: number;
-  data: IData;
-}
 type TClickHTMLElement = React.MouseEvent<HTMLElement>;
 
 interface IDiaryMenuProps {
-  currentUser: ICurrentUser;
   anchorEl: HTMLElement | null;
   onMenuOpen(e: TClickHTMLElement): void;
   onMenuClose(): void;
-  onDiaryEditMode(): void;
-  onDiaryShowMode(): void;
+  onSignOut(): void;
 }
 
 export const UserMenu:VFC<IDiaryMenuProps> = ({
   anchorEl,
   onMenuOpen,
   onMenuClose,
-  onDiaryEditMode,
+  onSignOut,
 }) => {
   return(
     <Fragment>
-      <MenuIconWrapper
+      <UserWrapper
         aria-haspopup="true"
         onClick={onMenuOpen}
       >
-        <MenuIcon fontSize="large" />
-      </MenuIconWrapper>
+        <UserIcon viewBox="0 0 24 20"/>
+      </UserWrapper>
 
       <StyledMenu
         anchorEl={anchorEl}
@@ -107,13 +101,8 @@ export const UserMenu:VFC<IDiaryMenuProps> = ({
         open={Boolean(anchorEl)}
         onClose={onMenuClose}
       >
-        <StyledMenuItem onClick={() => console.log("編集ボタン押された")}>
-          <ListItemIcon><VisibilityIcon /></ListItemIcon>
-            User Edit
-        </StyledMenuItem>
-
-        <StyledMenuItem onClick={() => onDiaryEditMode()}>
-          <ListItemIcon><EditIcon /></ListItemIcon>
+        <StyledMenuItem onClick={onSignOut}>
+          <ListItemIcon><LogoutIcon /></ListItemIcon>
             Logout
         </StyledMenuItem>
       </StyledMenu>

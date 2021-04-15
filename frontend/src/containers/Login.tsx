@@ -27,8 +27,8 @@ import { HTTP_STATUS_CODE } from '../constants';
 
 // forminfo
 import {
-  LoginFormInfo,
-  LoginLinkInfo } from '../formInfo';
+  loginFormInfo,
+  loginLinkInfo } from '../formInfo';
 
 // reducers
 import {
@@ -105,7 +105,7 @@ export const Login:VFC = () => {
       <FormTitle>Login</FormTitle>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <FormArea
-          formInfo={LoginFormInfo(errors, control, apiErrors)}
+          formInfo={loginFormInfo(errors, control, apiErrors)}
         />
         <FormSubmit
           isDisabled={isDisabled(state.postState)}
@@ -113,7 +113,7 @@ export const Login:VFC = () => {
         />
       </FormWrapper>
       <FormLinks
-        linkInfo={LoginLinkInfo}
+        linkInfo={loginLinkInfo}
       />
     </LoginWrapper>
   );

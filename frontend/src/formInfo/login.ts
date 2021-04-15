@@ -29,7 +29,7 @@ interface ILoginApiErrors {
 
 type TReturnLogin = [IObject, IObject];
 
-export const LoginFormInfo = (errors: any, control: any, apiErrors: ILoginApiErrors | undefined): TReturnLogin => {
+export const loginFormInfo = (errors: any, control: any, apiErrors: ILoginApiErrors | undefined): TReturnLogin => {
   return [
     {
       formLabel: "Email:",
@@ -70,7 +70,7 @@ type TLoginInfo = [
   }
  ];
 
-export const LoginLinkInfo: TLoginInfo = [
+export const loginLinkInfo: TLoginInfo = [
   {
     url: '/signup',
     text: 'アカウントが無い方はこちら',
