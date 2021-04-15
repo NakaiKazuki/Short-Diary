@@ -20,7 +20,7 @@ import { HTTP_STATUS_CODE } from '../constants';
 
 // formitemsinfo
 import {
-  SignUpFormInfo,
+  signUpFormInfo,
   signUpLinkInfo } from '../formInfo';
 
 // reducers
@@ -96,7 +96,7 @@ export const SignUp:VFC = () => {
       <FormTitle>Sign Up</FormTitle>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <FormArea
-          formInfo={SignUpFormInfo(errors, control, apiErrors)}
+          formInfo={signUpFormInfo(errors, control, apiErrors)}
         />
         <FormSubmit
           isDisabled={isDisabled(state.postState)}

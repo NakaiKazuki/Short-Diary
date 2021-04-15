@@ -19,6 +19,7 @@ const DiaryWrapper = styled.li`
   height: 17vh;
   width: 18%;
   border: .0125rem solid limegreen;
+  border-radius: .5rem;
   position: relative;
   @media screen and (min-width:481px) {
     margin-left: 1rem;

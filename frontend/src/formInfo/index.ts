@@ -1,8 +1,9 @@
 export {
-  SignUpFormInfo,
+  signUpFormInfo,
   signUpLinkInfo
 } from './signup';
+
 export {
-  LoginFormInfo,
-  LoginLinkInfo
+  loginFormInfo,
+  loginLinkInfo
 } from './login';

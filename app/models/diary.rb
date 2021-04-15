@@ -4,7 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  content    :text(65535)      not null
-#  date       :date
+#  date       :date             not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint           not null
@@ -14,6 +14,11 @@
 #  index_diaries_on_date_and_user_id_and_created_at  (date,user_id,created_at)
 #  index_diaries_on_user_id                          (user_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
+
 # Foreign Keys
 #
 #  fk_rails_...  (user_id => users.id)
@@ -39,6 +44,7 @@ class Diary < ApplicationRecord
   end
 
   private
+
   # 画像の拡張子とサイズの制限をしている
     def validate_picture
       return unless picture.attached?

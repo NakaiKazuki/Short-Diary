@@ -7,7 +7,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUser';
 
 // apis
 import { fetchHome, getDiaies } from '../../apis/home';
-import { createDiary, deleteDiary } from '../../apis/diaries';
+import { createDiary, updateDiary, deleteDiary } from '../../apis/diaries';
 
 // icons
 import { CreateIcon } from '../../components/Icons';
@@ -97,6 +97,7 @@ interface IFormValues {
   date: string;
   content: string;
   picture?: TPicture;
+  diaryId?: number;
 }
 
 type TClickHTMLElement = React.MouseEvent<HTMLElement>;
@@ -132,7 +133,7 @@ export const LoginHome: VFC = () => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED){
           setCurrentUser(undefined);
         } else {
-          throw e
+          throw e;
         }
       })
     };
@@ -156,7 +157,7 @@ export const LoginHome: VFC = () => {
       if(InputPicture && InputPicture![0] != null){
         return InputPicture![0].name.slice(0, 20);
       } else{
-        return "画像を追加する";
+        return "画像を選択する";
       }
     };
 
@@ -172,32 +173,15 @@ export const LoginHome: VFC = () => {
   // ここまでDiaryCreateDialogとDiaryEditで共通して使うやつ
 
   // ここから DiaryCreateDialogで使う関数
-    // CreateDialogを開く
-    const onOpenDiaryCreateDialog = (): void => {
-      setState({
-        ...state,
-        isOpenDiaryCreateDialog: true,
-      })
-    };
-
-    // CreateDialogを閉じる
-    const onCloseDiaryCreateDialog = (): void => {
-      setState({
-        ...state,
-        isOpenDiaryCreateDialog: false,
-        apiErrors: undefined,
-      })
-    };
-
-    // DiaryCreateDialogでFormのボタンが押されたらApiを叩く
-    const onCreateSubmit = (formValues: IFormValues): void => {
-      dispatch({ type: submitActionTypes.POSTING});
-      createDiary(currentUser!.headers,
-        {
-          date: formValues.date,
-          content: formValues.content,
-          picture: formValues.picture? formValues.picture[0] : undefined,
-        },
+  // DiaryCreateDialogでFormのボタンが押されたらApiを叩く
+  const onCreateSubmit = (formValues: IFormValues): void => {
+    dispatch({ type: submitActionTypes.POSTING});
+    createDiary(currentUser!.headers,
+      {
+        date: formValues.date,
+        content: formValues.content,
+        picture: formValues.picture? formValues.picture[0] : undefined,
+      },
       )
       .then((data): void => {
         dispatch({ type: submitActionTypes.POST_INITIAL});
@@ -221,11 +205,54 @@ export const LoginHome: VFC = () => {
         }
       });
     };
-  // ここまでDiaryCreateDialogで使う関数
+    // CreateDialogを開く
+    const onOpenDiaryCreateDialog = (): void => {
+      setState({
+        ...state,
+        isOpenDiaryCreateDialog: true,
+      })
+    };
+
+    // CreateDialogを閉じる
+    const onCloseDiaryCreateDialog = (): void => {
+      setState({
+        ...state,
+        isOpenDiaryCreateDialog: false,
+        apiErrors: undefined,
+      })
+    };
+    // ここまでDiaryCreateDialogで使う関数
 
   // ここからDiaryEditで使う関数
-    const onEditSubmit = (formValues: IFormValues): void => {
-      console.log(formValues);
+  const onEditSubmit = (formValues: IFormValues): void => {
+    dispatch({ type: submitActionTypes.POSTING});
+    updateDiary(currentUser!.headers,{
+      date: formValues.date,
+      content: formValues.content,
+      picture: formValues.picture? formValues.picture[0] : undefined,
+    }, state.pagy!.page, formValues!.diaryId)
+    .then((data): void => {
+      dispatch({ type: submitActionTypes.POST_INITIAL});
+        setState({
+          ...state,
+          diaries: data.diaries,
+          pagy: data.pagy,
+          isOpenDiaryEdit: false,
+          isOpenDiaryDialog: false,
+        });
+      })
+      .catch((e): void => {
+        if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+          dispatch({ type: submitActionTypes.POST_INITIAL });
+          setState({
+            ...state,
+            apiErrors: e.response.data.errors,
+          })
+        } else {
+          dispatch({ type: submitActionTypes.POST_INITIAL });
+          throw e;
+        }
+      });
     };
   // ここまでDiaryEditで使う関数
 
@@ -240,7 +267,29 @@ export const LoginHome: VFC = () => {
     };
   // ここまでDiaryDialogで使う関数
 
-  // ここからDiaryMenuで使う関数
+  // ここからDiaryMenu(DiaryDialogに埋め込まれている)で使う関数
+      // DiaryDialogで開かれている日記データを削除
+      const onDiaryDelete = (diary: IDiary): void => {
+        deleteDiary(currentUser!.headers, state.pagy!.page, diary.id)
+        .then((data): void => {
+          setState({
+            ...state,
+            diaries: data.diaries,
+            pagy: data.pagy,
+            anchorEl: null,
+            isOpenDiaryEdit: false,
+            isOpenDiaryDialog: false,
+          });
+        })
+        .catch((e): void => {
+          if (e.response.status === (HTTP_STATUS_CODE.FORBIDDEN || HTTP_STATUS_CODE.UNAUTHORIZED)) {
+            setCurrentUser(undefined);
+          } else {
+            throw e;
+          }
+        });
+      };
+
     // メニューバーを開く
     const onMenuOpen = (e: TClickHTMLElement): void => {
       setState({
@@ -257,8 +306,8 @@ export const LoginHome: VFC = () => {
       })
     };
 
-    // Dialogの内容を閲覧用に変更
-    const onDiaryShowMode = (diary: IDiary): void => {
+    // Dialogの内容を閲覧用に変更する
+    const onDiaryShowMode = (): void => {
       setState({
         ...state,
         anchorEl: null,
@@ -266,34 +315,12 @@ export const LoginHome: VFC = () => {
       });
     };
 
-    // Dialogの内容を編集用に変更
-    const onDiaryEditMode = (diary: IDiary): void => {
+    // Dialogの内容を編集用に変更する
+    const onDiaryEditMode = (): void => {
       setState({
         ...state,
         anchorEl: null,
         isOpenDiaryEdit: true,
-      });
-    };
-
-    // DiaryDialogで開かれている日記データを削除
-    const onDiaryDelete = (diary: IDiary): void => {
-      deleteDiary(currentUser!.headers, state.pagy!.page, diary.id)
-      .then((data): void => {
-        setState({
-          ...state,
-          diaries: data.diaries,
-          pagy: data.pagy,
-          anchorEl: null,
-          isOpenDiaryEdit: false,
-          isOpenDiaryDialog: false,
-        });
-      })
-      .catch((e): void => {
-        if (e.response.status === (HTTP_STATUS_CODE.FORBIDDEN || HTTP_STATUS_CODE.UNAUTHORIZED)) {
-          setCurrentUser(undefined);
-        } else {
-          throw e;
-        }
       });
     };
   // ここまでDiaryMenuで使う関数
@@ -352,38 +379,38 @@ export const LoginHome: VFC = () => {
             errors={errors}
             isOpen={state.isOpenDiaryCreateDialog}
             isDisabled={isDisabled(reducerState.postState)}
-            register={register}
-            setFileName={setFileName()}
             onClose={onCloseDiaryCreateDialog}
             onFileChange={onFileChange}
             onSubmit={handleSubmit(onCreateSubmit)}
             onSubmitLabel={onSubmitLabel(reducerState.postState, "日記作成")}
+            register={register}
+            setFileName={setFileName()}
           />
         }
         {
           state.isOpenDiaryDialog && state.selectedDiary &&
           <DiaryDialog
             anchorEl={state.anchorEl}
+            apiErrors={state.apiErrors}
+            contentCount={watch("content",state.selectedDiary.content).length}
+            control={control}
             currentUserId={currentUser!.data.id}
             diary={state.selectedDiary}
+            errors={errors}
+            isDisabled={isDisabled(reducerState.postState)}
             isOpen={state.isOpenDiaryDialog}
             isOpenDiaryEdit={state.isOpenDiaryEdit}
             onClose={onCloseDiaryDialog}
             onDiaryDelete={onDiaryDelete}
             onDiaryShowMode={onDiaryShowMode}
             onDiaryEditMode={onDiaryEditMode}
+            onFileChange={onFileChange}
             onMenuClose={onMenuClose}
             onMenuOpen={onMenuOpen}
-            control={control}
-            errors={errors}
-            register={register}
-            apiErrors={state.apiErrors}
+            onEditSubmit={handleSubmit(onEditSubmit)}
             onSubmitLabel={onSubmitLabel(reducerState.postState, "日記編集")}
-            isDisabled={isDisabled(reducerState.postState)}
-            contentCount={watch("content","").length}
+            register={register}
             setFileName={setFileName()}
-            onSubmit={handleSubmit(onEditSubmit)}
-            onFileChange={onFileChange}
           />
         }
     </LoginHomeWrapper>

@@ -80,10 +80,10 @@ interface IDiaryDialogProps {
   diary: IDiary;
   currentUserId: number;
   anchorEl: HTMLElement | null;
-  onSubmit(): void;
+  onEditSubmit(): void;
   onDiaryDelete(diary: IDiary): void;
-  onDiaryEditMode(diary: IDiary): void;
-  onDiaryShowMode(diary: IDiary): void;
+  onDiaryEditMode(): void;
+  onDiaryShowMode(): void;
   onFileChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
   onClose(): void;
   onMenuOpen(e: TClickHTMLElement): void;
@@ -104,7 +104,7 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
   onSubmitLabel,
   contentCount,
   setFileName,
-  onSubmit,
+  onEditSubmit,
   onFileChange,
   onDiaryDelete,
   onDiaryEditMode,
@@ -143,7 +143,7 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
             isDisabled={isDisabled}
             contentCount={contentCount}
             setFileName={setFileName}
-            onSubmit={onSubmit}
+            onEditSubmit={onEditSubmit}
             onFileChange={onFileChange}
           />
         :
