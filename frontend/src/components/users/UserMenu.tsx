@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { LogoutIcon,UserIcon } from '../Icons';
 
 // css
-const UserWrapper = styled.span`
+const UserIconWrapper = styled.span`
   padding: .3rem .7rem;
   width: auto;
   margin: 0 0 0 auto;
@@ -88,12 +88,13 @@ export const UserMenu:VFC<IDiaryMenuProps> = ({
 }) => {
   return(
     <Fragment>
-      <UserWrapper
+      <UserIconWrapper
+        data-testid="userIcon"
         aria-haspopup="true"
         onClick={onMenuOpen}
       >
         <UserIcon viewBox="0 0 24 20"/>
-      </UserWrapper>
+      </UserIconWrapper>
 
       <StyledMenu
         anchorEl={anchorEl}

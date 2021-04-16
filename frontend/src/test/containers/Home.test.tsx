@@ -1,7 +1,7 @@
 import React from "react";
 import { render , screen, cleanup} from "@testing-library/react";
 import '@testing-library/jest-dom';
-import userEvent from '@testing-library/user-event';
+// import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import { Home } from '../../containers/Home';
@@ -30,20 +30,6 @@ describe('Homeコンポーネント',  () => {
   test('ゲストログインボタンがある', () => {
     const guestLoginButton = screen.getByTestId("guestLoginButton");
 
-    expect(guestLoginButton).toHaveAttribute('type', 'submit')
+    expect(guestLoginButton).toHaveAttribute('type', 'button')
   });
-
-  test('ユーザー登録ボタンクリックで新規登録モーダルを表示', () => {
-    userEvent.click(screen.getByTestId("signUpButton"));
-    const signUpDialog = screen.getByTestId("signUpDialog");
-
-    expect(signUpDialog).toBeTruthy();
-  })
-
-  test('ログインボタンクリックでログインモーダルを表示', () => {
-    userEvent.click(screen.getByTestId("loginButton"));
-    const loginDialog = screen.getByTestId("loginDialog");
-
-    expect(loginDialog).toBeTruthy();
-  })
 });

@@ -29,11 +29,15 @@ interface ISignUpApiErrors {
   password_confirmation?: TApiError;
 }
 
-type TReturnSignUp = [IObject, IObject, IObject, IObject];
+type IReturnSignUp = {
+  name: IObject;
+  email :IObject;
+  password: IObject;
+  password_confirmation: IObject};
 
-export const signUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiErrors | undefined): TReturnSignUp => {
-  return [
-    {
+export const signUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiErrors | undefined): IReturnSignUp => {
+  return {
+    name: {
       formLabel: "Name:",
       errorsProperty: errors.name,
       errorMessage: "1文字以上、50文字以内で入力してください",
@@ -47,7 +51,7 @@ export const signUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiE
       autoFocus: true,
       rules: { required: true, maxLength: 50 },
     },
-    {
+    email: {
       formLabel: "Email:",
       errorsProperty: errors.email,
       errorMessage: "1文字以上、255文字以内で入力してください",
@@ -61,7 +65,7 @@ export const signUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiE
       autoFocus: false,
       rules:{ required: true , maxLength: 255},
     },
-    {
+    password: {
       formLabel: "パスワード: ",
       errorsProperty: errors.password,
       errorMessage: "正しいパスワードを入力してください",
@@ -75,7 +79,7 @@ export const signUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiE
       autoFocus: false,
       rules: { required: true,minLength: 6, maxLength: 128},
     },
-    {
+    password_confirmation: {
       formLabel: "確認用パスワード:",
       errorsProperty: errors.password_confirmation,
       errorMessage: "パスワードと同じ内容を入力してください",
@@ -89,7 +93,7 @@ export const signUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiE
       autoFocus: false,
       rules: {required: true, minLength: 6, maxLength: 128},
     }
-  ];
+  };
 };
 
 
