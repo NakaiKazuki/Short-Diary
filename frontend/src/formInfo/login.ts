@@ -27,11 +27,14 @@ interface ILoginApiErrors {
   password?: TApiError;
 }
 
-type TReturnLogin = [IObject, IObject];
+interface IReturnLogin {
+  email: IObject;
+  password: IObject;
+}
 
-export const loginFormInfo = (errors: any, control: any, apiErrors: ILoginApiErrors | undefined): TReturnLogin => {
-  return [
-    {
+export const loginFormInfo = (errors: any, control: any, apiErrors: ILoginApiErrors | undefined): IReturnLogin => {
+  return {
+    email: {
       formLabel: "Email:",
       errorsProperty: errors.email,
       errorMessage: "登録したメールアドレスを入力してください",
@@ -45,7 +48,7 @@ export const loginFormInfo = (errors: any, control: any, apiErrors: ILoginApiErr
       autoFocus: true,
       rules:{ required: true , maxLength: 255}
     },
-    {
+    password: {
       formLabel: "パスワード: ",
       errorsProperty: errors.password,
       errorMessage: "正しいパスワードを入力してください",
@@ -59,7 +62,7 @@ export const loginFormInfo = (errors: any, control: any, apiErrors: ILoginApiErr
       autoFocus: false,
       rules: { required: true, minLength: 6, maxLength: 128}
     },
-  ];
+  };
 };
 
 // 送信ボタン下にあるリンクの情報

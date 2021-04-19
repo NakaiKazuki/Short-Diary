@@ -17,10 +17,13 @@ const renderWithRouter = (component: any) => {
 afterEach(cleanup);
 
 describe('App', () => {
-  test("Homeコンポーネント", () =>{
+  beforeEach(() => {
     renderWithRouter(<App />);
-    const home = screen.getByTestId("homeContainer");
+  })
 
-    expect(home).toBeTruthy();
+  it("Headerコンポーネント", () =>{
+    const header = screen.getByTestId("header");
+
+    expect(header).toBeTruthy();
   });
 });

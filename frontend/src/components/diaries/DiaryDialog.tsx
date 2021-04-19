@@ -73,7 +73,7 @@ interface IDiaryDialogProps {
   errors: any;
   register: any;
   apiErrors?: IApiErrors;
-  onSubmitLabel: string;
+  onSubmitText: string;
   isDisabled: boolean;
   contentCount: number;
   setFileName: string | undefined;
@@ -81,7 +81,7 @@ interface IDiaryDialogProps {
   currentUserId: number;
   anchorEl: HTMLElement | null;
   onEditSubmit(): void;
-  onDiaryDelete(diary: IDiary): void;
+  onOpenCofirmationDialog(): void;
   onDiaryEditMode(): void;
   onDiaryShowMode(): void;
   onFileChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
@@ -101,12 +101,12 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
   register,
   apiErrors,
   isDisabled,
-  onSubmitLabel,
+  onSubmitText,
   contentCount,
   setFileName,
   onEditSubmit,
   onFileChange,
-  onDiaryDelete,
+  onOpenCofirmationDialog,
   onDiaryEditMode,
   onDiaryShowMode,
   onClose,
@@ -129,7 +129,7 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
         onMenuClose={onMenuClose}
         onDiaryShowMode={onDiaryShowMode}
         onDiaryEditMode={onDiaryEditMode}
-        onDiaryDelete={onDiaryDelete}
+        onOpenCofirmationDialog={onOpenCofirmationDialog}
       />
       {
         isOpenDiaryEdit ?
@@ -139,7 +139,7 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
             errors={errors}
             register={register}
             apiErrors={apiErrors}
-            onSubmitLabel={onSubmitLabel}
+            onSubmitText={onSubmitText}
             isDisabled={isDisabled}
             contentCount={contentCount}
             setFileName={setFileName}

@@ -12,7 +12,7 @@ import { newGuestSession } from '../../apis/users/sessions';
 
 // helpers
 import {
-  onSubmitLabel,
+  onSubmitText,
   isDisabled
 } from '../../helpers';
 
@@ -122,7 +122,7 @@ export const LogoutHome: VFC = () => {
   };
 
   return(
-    <LogoutHomeWrapper data-testid="homeContainer">
+    <LogoutHomeWrapper data-testid="logoutHome">
       <Contents>
         <Heading>
           毎日の出来事を記録しよう
@@ -140,7 +140,6 @@ export const LogoutHome: VFC = () => {
           >
             <SignUpButton
               type="button"
-              data-testid="signUpButton"
             >
               ユーザー登録
             </SignUpButton>
@@ -150,7 +149,7 @@ export const LogoutHome: VFC = () => {
             onClick ={onGuestLoginButton}
             disabled={isDisabled(state.postState)}
             data-testid="guestLoginButton">
-            {onSubmitLabel(state.postState, "ゲストログイン")}
+            {onSubmitText(state.postState, "ゲストログイン")}
           </GuestLogin>
         </ButtonsWrapper>
       </Contents>

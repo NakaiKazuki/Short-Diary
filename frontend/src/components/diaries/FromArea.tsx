@@ -75,7 +75,7 @@ interface IFormAreaProps {
   errors: any;
   register: any;
   apiErrors?: IApiErrors;
-  onSubmitLabel: string;
+  onSubmitText: string;
   isDisabled: boolean;
   contentCount: number;
   diaryId?: number;
@@ -91,7 +91,7 @@ export const FormArea:VFC<IFormAreaProps> = ({
   errors,
   register,
   apiErrors,
-  onSubmitLabel,
+  onSubmitText,
   isDisabled,
   contentCount,
   diaryId,
@@ -171,7 +171,7 @@ export const FormArea:VFC<IFormAreaProps> = ({
         type="submit"
         disabled={isDisabled}
       >
-        {onSubmitLabel}
+        {onSubmitText}
       </FormSubmit>
     </FormWrapper>
   );

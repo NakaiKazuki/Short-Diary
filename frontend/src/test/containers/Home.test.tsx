@@ -1,49 +1,88 @@
 import React from "react";
 import { render , screen, cleanup} from "@testing-library/react";
-import '@testing-library/jest-dom';
-import userEvent from '@testing-library/user-event';
-import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
+import '@testing-library/jest-dom';
+import { createMemoryHistory } from "history";
 import { Home } from '../../containers/Home';
+import { CurrentUserContext } from '../../contexts/CurrentUser';
 
+interface IHeaders {
+  'access-token': string;
+  client: string;
+  uid: string;
+}
 
-const renderWithRouter = (component: any) => {
+interface IData {
+  id: number;
+  name: string;
+  email: string;
+}
+
+interface ICurrentUser {
+  data: IData;
+  headers: IHeaders;
+}
+interface IProviderProps {
+  value: {
+    currentUser: ICurrentUser | undefined;
+    setCurrentUser: jest.Mock<any, any>;
+  }
+}
+const customRender = (ui: any, { providerProps, ...renderOptions }: {providerProps: IProviderProps}) => {
   const history = createMemoryHistory();
   return {
-    ...render(<Router history={history}>{component}</Router>),
-  };
+    ...render(
+    <Router history={history}>
+      <CurrentUserContext.Provider {...providerProps}>{ui}</CurrentUserContext.Provider>
+    </Router>, renderOptions
+    )};
 };
 
-beforeEach( async () => {
-  renderWithRouter(<Home />);
-})
+const currentUser = {
+  headers: {
+    'access-token': "testtoken",
+    client: "testclient",
+    uid: "test@example.com",
+  },
+  data: {
+    id: 1,
+    name: "test",
+    email: "test@example.com",
+  },
+};
 
 afterEach(cleanup);
 
 describe('Homeコンポーネント',  () => {
-  test('ユーザー登録ボタンがある', () => {
-    const signUpButton = screen.getByTestId("signUpButton");
+  describe('ログアウト時', () => {
+    const providerProps = {
+      value:{
+        currentUser: undefined,
+        setCurrentUser: jest.fn(),
+      }
+    };
 
-    expect(signUpButton).toHaveAttribute('type', 'button')
-  });
+    it('LogoutHomeコンポーネントが開かれている', () => {
+      customRender(<Home />,{providerProps})
+      const logoutHome = screen.getByTestId("logoutHome");
 
-  test('ゲストログインボタンがある', () => {
-    const guestLoginButton = screen.getByTestId("guestLoginButton");
-
-    expect(guestLoginButton).toHaveAttribute('type', 'submit')
-  });
-
-  test('ユーザー登録ボタンクリックで新規登録モーダルを表示', () => {
-    userEvent.click(screen.getByTestId("signUpButton"));
-    const signUpDialog = screen.getByTestId("signUpDialog");
-
-    expect(signUpDialog).toBeTruthy();
+      expect(logoutHome).toBeTruthy();
+    })
   })
 
-  test('ログインボタンクリックでログインモーダルを表示', () => {
-    userEvent.click(screen.getByTestId("loginButton"));
-    const loginDialog = screen.getByTestId("loginDialog");
+  describe('ログイン時', () => {
+    const providerProps = {
+      value:{
+        currentUser: currentUser,
+        setCurrentUser: jest.fn(),
+      }
+    };
 
-    expect(loginDialog).toBeTruthy();
+    it('LoginHomeコンポーネントが開かれている', () => {
+      customRender(<Home />,{providerProps})
+      const logoinHome = screen.getByTestId("loginHome");
+
+      expect(logoinHome).toBeTruthy();
+    })
   })
 });

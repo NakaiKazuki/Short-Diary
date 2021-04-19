@@ -15,13 +15,14 @@ import { CreateIcon } from '../../components/Icons';
 // components
 import { BaseButton } from '../../components/shared_style';
 import { PagenationArea } from '../../components/PagenationArea';
+import { ConfirmationDialog } from '../../components/ConfirmationDialog';
 import { DiaryIndex, DiaryCreateDialog, DiaryDialog} from '../../components/diaries';
 
 // responses
 import { HTTP_STATUS_CODE } from '../../constants';
 
 // helpers
-import { dateToday, onSubmitLabel, isDisabled } from '../../helpers';
+import { dateToday, onSubmitText, isDisabled } from '../../helpers';
 
 // reducers
 import { initialState as reducerInitialState, submitActionTypes, submitReducer } from '../../reducers/submit';
@@ -88,6 +89,7 @@ interface IInitialState {
   isOpenDiaryCreateDialog: boolean;
   isOpenDiaryDialog: boolean;
   isOpenDiaryEdit: boolean;
+  isOpenConfirmationDialog: boolean;
   anchorEl: HTMLElement | null;
 }
 
@@ -114,6 +116,7 @@ export const LoginHome: VFC = () => {
     isOpenDiaryCreateDialog: false,
     isOpenDiaryDialog: false,
     isOpenDiaryEdit: false,
+    isOpenConfirmationDialog: false,
     anchorEl: null,
   }
   const [state, setState] = useState<IInitialState>(initialState);
@@ -268,27 +271,42 @@ export const LoginHome: VFC = () => {
   // ここまでDiaryDialogで使う関数
 
   // ここからDiaryMenu(DiaryDialogに埋め込まれている)で使う関数
-      // DiaryDialogで開かれている日記データを削除
-      const onDiaryDelete = (diary: IDiary): void => {
-        deleteDiary(currentUser!.headers, state.pagy!.page, diary.id)
-        .then((data): void => {
-          setState({
-            ...state,
-            diaries: data.diaries,
-            pagy: data.pagy,
-            anchorEl: null,
-            isOpenDiaryEdit: false,
-            isOpenDiaryDialog: false,
-          });
-        })
-        .catch((e): void => {
-          if (e.response.status === (HTTP_STATUS_CODE.FORBIDDEN || HTTP_STATUS_CODE.UNAUTHORIZED)) {
-            setCurrentUser(undefined);
-          } else {
-            throw e;
-          }
+    const onOpenCofirmationDialog = (): void => {
+      setState({
+        ...state,
+        isOpenConfirmationDialog: true,
+        anchorEl: null,
+      })
+    };
+
+    const onCloseCofirmationDialog = (): void => {
+      setState({
+        ...state,
+        isOpenConfirmationDialog: false,
+      })
+    };
+
+    // DiaryDialogで開かれている日記データを削除
+    const onDiaryDelete = (diary: IDiary): void => {
+      deleteDiary(currentUser!.headers, state.pagy!.page, diary.id)
+      .then((data): void => {
+        setState({
+          ...state,
+          diaries: data.diaries,
+          pagy: data.pagy,
+          isOpenConfirmationDialog: false,
+          isOpenDiaryEdit: false,
+          isOpenDiaryDialog: false,
         });
-      };
+      })
+      .catch((e): void => {
+        if (e.response.status === (HTTP_STATUS_CODE.FORBIDDEN || HTTP_STATUS_CODE.UNAUTHORIZED)) {
+          setCurrentUser(undefined);
+        } else {
+          throw e;
+        }
+      });
+    };
 
     // メニューバーを開く
     const onMenuOpen = (e: TClickHTMLElement): void => {
@@ -346,7 +364,7 @@ export const LoginHome: VFC = () => {
   },[]);
 
   return (
-    <LoginHomeWrapper>
+    <LoginHomeWrapper data-testid="loginHome">
       <Heading>Diary List</Heading>
       <FormDialogButton onClick={onOpenDiaryCreateDialog}>
         <IconWrapper>
@@ -382,7 +400,7 @@ export const LoginHome: VFC = () => {
             onClose={onCloseDiaryCreateDialog}
             onFileChange={onFileChange}
             onSubmit={handleSubmit(onCreateSubmit)}
-            onSubmitLabel={onSubmitLabel(reducerState.postState, "日記作成")}
+            onSubmitText={onSubmitText(reducerState.postState, "日記作成")}
             register={register}
             setFileName={setFileName()}
           />
@@ -401,16 +419,27 @@ export const LoginHome: VFC = () => {
             isOpen={state.isOpenDiaryDialog}
             isOpenDiaryEdit={state.isOpenDiaryEdit}
             onClose={onCloseDiaryDialog}
-            onDiaryDelete={onDiaryDelete}
+            onOpenCofirmationDialog={onOpenCofirmationDialog}
             onDiaryShowMode={onDiaryShowMode}
             onDiaryEditMode={onDiaryEditMode}
             onFileChange={onFileChange}
             onMenuClose={onMenuClose}
             onMenuOpen={onMenuOpen}
             onEditSubmit={handleSubmit(onEditSubmit)}
-            onSubmitLabel={onSubmitLabel(reducerState.postState, "日記編集")}
+            onSubmitText={onSubmitText(reducerState.postState, "日記編集")}
             register={register}
             setFileName={setFileName()}
+          />
+        }
+        {
+          state.isOpenConfirmationDialog && state.selectedDiary &&
+          <ConfirmationDialog
+            isOpen={state.isOpenConfirmationDialog}
+            diary={state.selectedDiary}
+            title={'削除確認'}
+            contentText={'選択した日記を削除しますか？'}
+            onDiaryDelete={onDiaryDelete}
+            onClose={onCloseCofirmationDialog}
           />
         }
     </LoginHomeWrapper>

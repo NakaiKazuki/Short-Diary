@@ -48,5 +48,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "axios-mock-adapter": "^1.19.0",
+    "babel-plugin-react-remove-properties": "^0.3.0"
   }
 }

@@ -24,7 +24,7 @@ interface ICurrentUserContext {
 
 export const CurrentUserContext = createContext({} as ICurrentUserContext );
 
-export const CurrentUserProvider:VFC<any> = ({children}) => {
+export const CurrentUserProvider:VFC<any> = ({children}):JSX.Element => {
   const [currentUser, setCurrentUser] = useState(undefined);
 
   return (

@@ -109,7 +109,7 @@ interface IDiaryMenuProps {
   isOpenDiaryEdit: boolean;
   onMenuOpen(e: TClickHTMLElement): void;
   onMenuClose(): void;
-  onDiaryDelete(diary: IDiary): void;
+  onOpenCofirmationDialog(): void;
   onDiaryEditMode(): void;
   onDiaryShowMode(): void;
 }
@@ -123,7 +123,7 @@ export const DiaryMenu:VFC<IDiaryMenuProps> = ({
   onMenuClose,
   onDiaryShowMode,
   onDiaryEditMode,
-  onDiaryDelete,
+  onOpenCofirmationDialog,
 }) => {
   return(
     <Fragment>
@@ -154,7 +154,7 @@ export const DiaryMenu:VFC<IDiaryMenuProps> = ({
                     編集
                 </StyledMenuItem>
               }
-              <StyledMenuItemDelete onClick={() => onDiaryDelete(diary)}>
+              <StyledMenuItemDelete onClick={onOpenCofirmationDialog}>
                 <ListItemIcon><DeleteIcon /></ListItemIcon>
                   削除
               </StyledMenuItemDelete>

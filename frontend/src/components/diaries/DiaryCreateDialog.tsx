@@ -28,7 +28,7 @@ interface IDiaryCreateDialogProps {
   errors: any;
   register: any;
   apiErrors?: IApiErrors;
-  onSubmitLabel: string;
+  onSubmitText: string;
   isDisabled: boolean;
   contentCount: number;
   dateToday: string;
@@ -44,7 +44,7 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
   errors,
   register,
   apiErrors,
-  onSubmitLabel,
+  onSubmitText,
   isDisabled,
   contentCount,
   dateToday,
@@ -66,7 +66,7 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
         errors={errors}
         register={register}
         apiErrors={apiErrors}
-        onSubmitLabel={onSubmitLabel}
+        onSubmitText={onSubmitText}
         isDisabled={isDisabled}
         contentCount={contentCount}
         defaultDate={dateToday}
