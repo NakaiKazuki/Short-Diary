@@ -39,7 +39,7 @@ import {
 
 // helpers
 import {
-  onSubmitLabel,
+  onSubmitText,
   isDisabled,
 } from '../helpers';
 
@@ -109,7 +109,7 @@ export const Login:VFC = () => {
         />
         <FormSubmit
           isDisabled={isDisabled(state.postState)}
-          onSubmitLabel={onSubmitLabel(state.postState, "Login!")}
+          onSubmitText={onSubmitText(state.postState, "Login!")}
         />
       </FormWrapper>
       <FormLinks

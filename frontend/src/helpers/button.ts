@@ -6,14 +6,14 @@ type TPostState = string;
 type SubmitDisplay = string;
 
 // apiとの通信状況に応じてボタンのラベルを変更する
-export const onSubmitLabel = (postState: TPostState, defaultLabel: SubmitDisplay): SubmitDisplay => {
+export const onSubmitText = (postState: TPostState, defaultText: SubmitDisplay): SubmitDisplay => {
   switch (postState) {
     case REQUEST_STATE.LOADING:
       return "送信中...";
     case REQUEST_STATE.OK:
       return "送信完了!";
     default:
-      return defaultLabel;
+      return defaultText;
   };
 };
 

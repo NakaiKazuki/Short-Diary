@@ -89,11 +89,10 @@ export const UserMenu:VFC<IDiaryMenuProps> = ({
   return(
     <Fragment>
       <UserIconWrapper
-        data-testid="userIcon"
         aria-haspopup="true"
         onClick={onMenuOpen}
       >
-        <UserIcon viewBox="0 0 24 20"/>
+        <UserIcon viewBox="0 0 24 20" data-testid="userIcon"/>
       </UserIconWrapper>
 
       <StyledMenu
@@ -101,8 +100,9 @@ export const UserMenu:VFC<IDiaryMenuProps> = ({
         keepMounted
         open={Boolean(anchorEl)}
         onClose={onMenuClose}
+        data-testid="menuBar"
       >
-        <StyledMenuItem onClick={onSignOut}>
+        <StyledMenuItem onClick={onSignOut} data-testid="logoutButton">
           <ListItemIcon><LogoutIcon /></ListItemIcon>
             Logout
         </StyledMenuItem>

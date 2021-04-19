@@ -1,6 +1,7 @@
 import React from "react";
 import { Router } from "react-router-dom";
 import { render , screen, cleanup} from "@testing-library/react";
+import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from "history";
 import '@testing-library/jest-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUser';
@@ -49,7 +50,7 @@ const currentUser = {
     name: "test",
     email: "test@example.com",
   },
-}
+};
 
 afterEach(cleanup);
 
@@ -66,13 +67,13 @@ describe("Header コンポーネント", () => {
       customRender(<Header />,{providerProps})
     })
 
-    test("ホーム画面へのリンク", () => {
+    it("ホーム画面へのリンク", () => {
       const homeLink = screen.getByTestId("homeLink");
 
       expect(homeLink ).toBeTruthy();
     })
 
-    test("ログインボタン", () => {
+    it("ログインボタン", () => {
       const loginButton = screen.getByTestId("loginButton");
 
       expect(loginButton).toHaveAttribute('type', 'button')
@@ -91,15 +92,34 @@ describe("Header コンポーネント", () => {
       customRender(<Header />,{providerProps})
     })
 
-    test("ホーム画面へのリンク", () => {
+    it("ホーム画面へのリンク", () => {
       const homeLink = screen.getByTestId("homeLink");
 
       expect(homeLink ).toBeTruthy();
     })
-    test("ユーザメニュー欄", () => {
+
+    it("ユーザアイコンが表示", () => {
       const userIcon = screen.getByTestId("userIcon");
 
       expect(userIcon).toBeTruthy();
     })
+
+    describe('MenuBar',() => {
+      beforeEach(() => {
+        userEvent.click(screen.getByTestId("userIcon"));
+      })
+
+      it("IconクリックでMenuBar表示", () => {
+        const menuBar = screen.getByTestId("menuBar")
+
+        expect(menuBar).toBeTruthy();
+      })
+
+      it("Logoutボタン", () => {
+        const logoutButton = screen.getByTestId("logoutButton")
+
+        expect(logoutButton).toBeTruthy();
+      })
+    });
   })
 });

@@ -33,13 +33,10 @@ const SessionLink = styled(Link)`
   margin: 0 0 0 auto;
 `;
 
-const SessionButton = styled(BaseButton)`
+const LoginButton = styled(BaseButton)`
   height: 2.5rem;
   padding: 0 1rem;
   font-size: 1.2rem;
-`;
-
-const LoginButton = styled(SessionButton)`
   border-style: none;
   background-color: royalblue;
   color: white;
@@ -63,9 +60,9 @@ export const Header:VFC = () => {
   };
 
   return (
-    <AppHeader position="fixed" color="inherit" >
+    <AppHeader position="fixed" color="inherit" data-testid="header" >
       <Toolbar>
-        <Link data-testid="homeLink" to ={'/'} >
+        <Link to ={'/'} data-testid="homeLink">
            <MainLogoImage src={MainLogo} alt="main logo" />
         </Link>
         {

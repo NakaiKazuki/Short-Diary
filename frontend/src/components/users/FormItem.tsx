@@ -59,10 +59,10 @@ export const FormItem:VFC<IFormItemProps> = ({
       <InputLabel>
         {formLabel}
         {errorsProperty &&
-          <FormErrorMessage>{errorMessage}</FormErrorMessage>
+          <FormErrorMessage data-testid={`${nameAttribute}ErrorMessage`}>{errorMessage}</FormErrorMessage>
         }
         {apiErrorProperty?.map((message: string, index: number) =>
-          <FormErrorMessage key={`${nameAttribute}-${index}`}>{`${apiMessagePropertyName}${message}`}</FormErrorMessage>
+          <FormErrorMessage key={`${nameAttribute}-${index}`} data-testid={`${nameAttribute}ApiError`}>{`${apiMessagePropertyName}${message}`}</FormErrorMessage>
         )}
         <Controller
           name={nameAttribute}

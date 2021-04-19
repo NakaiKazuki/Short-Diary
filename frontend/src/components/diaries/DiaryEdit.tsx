@@ -36,7 +36,7 @@ interface IDiaryEditProps {
   errors: any;
   register: any;
   apiErrors?: IApiErrors;
-  onSubmitLabel: string;
+  onSubmitText: string;
   isDisabled: boolean;
   contentCount: number;
   setFileName: string | undefined;
@@ -50,7 +50,7 @@ export const DiaryEdit:VFC<IDiaryEditProps> = ({
   errors,
   register,
   apiErrors,
-  onSubmitLabel,
+  onSubmitText,
   isDisabled,
   contentCount,
   setFileName,
@@ -65,7 +65,7 @@ export const DiaryEdit:VFC<IDiaryEditProps> = ({
         errors={errors}
         register={register}
         apiErrors={apiErrors}
-        onSubmitLabel={onSubmitLabel}
+        onSubmitText={onSubmitText}
         isDisabled={isDisabled}
         contentCount={contentCount}
         diaryId={diary.id}

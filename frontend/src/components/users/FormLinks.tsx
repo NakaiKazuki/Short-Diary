@@ -51,15 +51,17 @@ export const FormLinks:VFC<IFormLinks> = ({
     <Fragment>
     {
       linkInfo.map((obj: IlinkInfo, index: number) => {
-        return <Fragment key={`formLinkArea-${index}`}>
-          <FormLinkListWrapper>
-          <FormLinkList>
-            <FormLinkItem>
-              <FormLink to={obj.url} >{obj.text}</FormLink>
-            </FormLinkItem>
-          </FormLinkList>
-        </FormLinkListWrapper>
-        </Fragment>
+        return (
+          <Fragment key={`formLinkArea-${index}`}>
+            <FormLinkListWrapper>
+            <FormLinkList>
+              <FormLinkItem>
+                <FormLink to={obj.url} data-testid={`formLinkItem-${index}`}>{obj.text}</FormLink>
+              </FormLinkItem>
+            </FormLinkList>
+          </FormLinkListWrapper>
+          </Fragment>
+        )
       })
     }
     </Fragment>

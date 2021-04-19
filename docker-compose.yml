@@ -53,15 +53,6 @@ services:
       - api
       - front
 
-  # chrome:
-  #   image: selenium/standalone-chrome
-  #   logging:
-  #     driver: none
-  #   ports:
-  #     - 4444:4444
-  #   depends_on:
-  #     - nginx
-
 volumes:
   db-data:
   public-data:
