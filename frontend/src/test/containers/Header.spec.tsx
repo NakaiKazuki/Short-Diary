@@ -1,8 +1,8 @@
-import React from "react";
-import { Router } from "react-router-dom";
-import { render , screen, cleanup} from "@testing-library/react";
+import React from 'react';
+import { Router } from 'react-router-dom';
+import { render , screen, cleanup} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createMemoryHistory } from "history";
+import { createMemoryHistory } from 'history';
 import '@testing-library/jest-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUser';
 import { Header } from '../../containers/Header';
@@ -45,20 +45,20 @@ const customRender = (ui: any, { providerProps, ...renderOptions }: {providerPro
 
 const currentUser = {
   headers: {
-    'access-token': "testtoken",
-    client: "testclient",
-    uid: "test@example.com",
+    'access-token': 'testtoken',
+    client: 'testclient',
+    uid: 'test@example.com',
   },
   data: {
     id: 1,
-    name: "test",
-    email: "test@example.com",
+    name: 'test',
+    email: 'test@example.com',
   },
 };
 
 afterEach(cleanup);
 
-describe("Header コンポーネント", () => {
+describe('Header コンポーネント', () => {
   describe('ログアウト時', () => {
     const providerProps = {
       value:{
@@ -71,14 +71,14 @@ describe("Header コンポーネント", () => {
       customRender(<Header />,{providerProps})
     })
 
-    it("ホーム画面へのリンク", () => {
-      const homeLink = screen.getByTestId("homeLink");
+    it('ホーム画面へのリンク', () => {
+      const homeLink = screen.getByTestId('homeLink');
 
       expect(homeLink ).toBeTruthy();
     })
 
-    it("ログインボタン", () => {
-      const loginButton = screen.getByTestId("loginButton");
+    it('ログインボタン', () => {
+      const loginButton = screen.getByTestId('loginButton');
 
       expect(loginButton).toHaveAttribute('type', 'button')
     })
@@ -96,31 +96,31 @@ describe("Header コンポーネント", () => {
       customRender(<Header />,{providerProps})
     })
 
-    it("ホーム画面へのリンク", () => {
-      const homeLink = screen.getByTestId("homeLink");
+    it('ホーム画面へのリンク', () => {
+      const homeLink = screen.getByTestId('homeLink');
 
       expect(homeLink ).toBeTruthy();
     })
 
-    it("ユーザアイコンが表示", () => {
-      const userIcon = screen.getByTestId("userIcon");
+    it('ユーザアイコンが表示', () => {
+      const userIcon = screen.getByTestId('userIcon');
 
       expect(userIcon).toBeTruthy();
     })
 
     describe('MenuBar',() => {
       beforeEach(() => {
-        userEvent.click(screen.getByTestId("userIcon"));
+        userEvent.click(screen.getByTestId('userIcon'));
       })
 
-      it("IconクリックでMenuBar表示", () => {
-        const menuBar = screen.getByTestId("menuBar")
+      it('IconクリックでMenuBar表示', () => {
+        const menuBar = screen.getByTestId('menuBar')
 
         expect(menuBar).toBeTruthy();
       })
 
-      it("Logoutボタン", () => {
-        const logoutButton = screen.getByTestId("logoutButton")
+      it('Logoutボタン', () => {
+        const logoutButton = screen.getByTestId('logoutButton')
 
         expect(logoutButton).toBeTruthy();
       })

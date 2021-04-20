@@ -103,7 +103,7 @@ export const Login:VFC = () => {
   return(
     <LoginWrapper>
       <FormTitle>Login</FormTitle>
-      <FormWrapper onSubmit={handleSubmit(onSubmit)}>
+      <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid='loginForm'>
         <FormArea
           formInfo={loginFormInfo(errors, control, apiErrors)}
         />
