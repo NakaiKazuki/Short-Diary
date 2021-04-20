@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { diary } from '../urls/index';
+import { diary } from '../urls';
 
 interface IParams {
   date: string;

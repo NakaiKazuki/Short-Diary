@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { home, homePagination } from '../urls/index';
+import { home, homePagination } from '../urls';
 
 interface ICurrentUserHeaders {
   'access-token': string;

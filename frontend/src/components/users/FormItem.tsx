@@ -75,7 +75,9 @@ export const FormItem:VFC<IFormItemProps> = ({
               autoFocus={autoFocus}
               autoComplete={autoComplete}
               fullWidth
-              data-testid={`${nameAttribute}Area`}
+              inputProps={{
+                "data-testid": `${nameAttribute}Area`,
+              }}
             />
           }
         />

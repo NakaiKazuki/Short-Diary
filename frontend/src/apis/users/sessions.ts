@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   signIn,
   signOut,
-  guestSignIn } from '../../urls/index';
+  guestSignIn } from '../../urls';
 
 interface IParams {
   email: string;
