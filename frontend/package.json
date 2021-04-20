@@ -50,7 +50,6 @@
     ]
   },
   "devDependencies": {
-    "axios-mock-adapter": "^1.19.0",
-    "babel-plugin-react-remove-properties": "^0.3.0"
+    "axios-mock-adapter": "^1.19.0"
   }
 }

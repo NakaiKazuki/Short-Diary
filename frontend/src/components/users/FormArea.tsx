@@ -45,7 +45,7 @@ export const FormArea:VFC<IFormProps> = ({
       {
         formInfo.name &&
           <FormItem
-            formLabel={"Name:"}
+            formLabel={formInfo.name.formLabel}
             errorsProperty={formInfo.name.errorsProperty}
             errorMessage={formInfo.name.errorMessage}
             apiErrorProperty={formInfo.name.apiErrorProperty}

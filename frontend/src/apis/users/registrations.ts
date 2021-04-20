@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { registration} from '../../urls/index';
+import { registration} from '../../urls';
 
 interface IParams {
   name: string;

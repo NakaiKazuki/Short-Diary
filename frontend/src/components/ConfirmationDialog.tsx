@@ -31,6 +31,7 @@ color: red;
   color: white;
 }
 `;
+
 // 型
 interface IDiary {
   id: number;
@@ -39,6 +40,7 @@ interface IDiary {
   picture_url: string;
   user_id: number;
 }
+
 interface IConfirmationDialogProps {
   isOpen: boolean;
   title: string;
