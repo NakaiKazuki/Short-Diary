@@ -163,7 +163,7 @@ describe('SignUpコンポーネント', () => {
       it('送信ボタンがある', () => {
         const formSubmit = screen.getByTestId('formSubmit');
 
-        expect(formSubmit).toBeTruthy();
+        expect(formSubmit).toHaveAttribute('type', 'submit');
       })
 
       it('送信状況に応じてボタンの要素が変化 Status200', async() => {
