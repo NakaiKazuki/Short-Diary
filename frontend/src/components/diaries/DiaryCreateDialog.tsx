@@ -57,7 +57,7 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
     <Dialog
       open={isOpen}
       onClose={onClose}
-      maxWidth={"sm"}
+      maxWidth={'sm'}
       fullWidth
     >
       <FromTitle>日記作成</FromTitle>
@@ -70,7 +70,7 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
         isDisabled={isDisabled}
         contentCount={contentCount}
         defaultDate={dateToday}
-        defaultContent={""}
+        defaultContent={''}
         setFileName={setFileName}
         onSubmit={onSubmit}
         onFileChange={onFileChange}

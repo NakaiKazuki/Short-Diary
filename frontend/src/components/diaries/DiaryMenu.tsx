@@ -41,25 +41,25 @@ const StyledMenu = withStyles({
 // Material Ui のMenuItemデザイン変更
 const StyledMenuItem = withStyles(() => ({
   root: {
-    backgroundColor: "white",
-    color: "royalblue",
+    backgroundColor: 'white',
+    color: 'royalblue',
     borderRadius: 5,
-    margin: "0 .5rem",
+    margin: '0 .5rem',
     '& .MuiListItemIcon-root': {
-      color: "royalblue",
+      color: 'royalblue',
     },
     '&:hover': {
-      backgroundColor: "royalblue",
-      color: "white",
+      backgroundColor: 'royalblue',
+      color: 'white',
       '& .MuiListItemIcon-root': {
-        color: "white",
+        color: 'white',
       },
     },
     '&:focus': {
-      backgroundColor: "royalblue",
-      color: "white",
+      backgroundColor: 'royalblue',
+      color: 'white',
       '& .MuiListItemIcon-root': {
-        color: "white",
+        color: 'white',
       },
     },
   },
@@ -67,25 +67,25 @@ const StyledMenuItem = withStyles(() => ({
 
 const StyledMenuItemDelete = withStyles(() => ({
   root: {
-    backgroundColor: "white",
-    color: "red",
+    backgroundColor: 'white',
+    color: 'red',
     borderRadius: 5,
-    margin: "0 .5rem",
+    margin: '0 .5rem',
     '& .MuiListItemIcon-root': {
-      color: "red",
+      color: 'red',
     },
     '&:hover': {
-      backgroundColor: "red",
-      color: "white",
+      backgroundColor: 'red',
+      color: 'white',
       '& .MuiListItemIcon-root': {
-        color: "white",
+        color: 'white',
       },
     },
     '&:focus': {
-      backgroundColor: "red",
-      color: "white",
+      backgroundColor: 'red',
+      color: 'white',
       '& .MuiListItemIcon-root': {
-        color: "white",
+        color: 'white',
       },
     },
   },
@@ -131,10 +131,10 @@ export const DiaryMenu:VFC<IDiaryMenuProps> = ({
         diary.user_id === currentUserId &&
           <Fragment>
             <MenuIconWrapper
-              aria-haspopup="true"
+              aria-haspopup='true'
               onClick={onMenuOpen}
             >
-              <MenuIcon fontSize="large" />
+              <MenuIcon fontSize='large' />
             </MenuIconWrapper>
 
             <StyledMenu

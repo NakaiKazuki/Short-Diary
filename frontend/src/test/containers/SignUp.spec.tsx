@@ -1,11 +1,11 @@
-import React from "react";
-import { render , screen, cleanup, waitFor } from "@testing-library/react";
-import { Router } from "react-router-dom";
+import React from 'react';
+import { render , screen, cleanup, waitFor } from '@testing-library/react';
+import { Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import { createMemoryHistory } from "history";
+import { createMemoryHistory } from 'history';
 import { CurrentUserContext } from '../../contexts/CurrentUser';
 import { SignUp } from '../../containers/SignUp';
 import { registration} from '../../urls';
@@ -50,40 +50,40 @@ const mockAxios = new MockAdapter(axios);
 // 正しいForm情報
 const validInfo = [
   {
-    testId: "nameArea",
-    value: "testName",
+    testId: 'nameArea',
+    value: 'testName',
   },
   {
-    testId: "emailArea",
-    value: "test@example.com",
+    testId: 'emailArea',
+    value: 'test@example.com',
   },
   {
-    testId: "passwordArea",
-    value: "testPassword",
+    testId: 'passwordArea',
+    value: 'testPassword',
   },
   {
-    testId: "password_confirmationArea",
-    value: "testPassword",
+    testId: 'password_confirmationArea',
+    value: 'testPassword',
   },
 ];
 
 // 不正なForm情報
 const invalidInfo = [
   {
-    testId: "nameArea",
-    value: "",
+    testId: 'nameArea',
+    value: '',
   },
   {
-    testId: "emailArea",
-    value: "",
+    testId: 'emailArea',
+    value: '',
   },
   {
-    testId: "passwordArea",
-    value: "",
+    testId: 'passwordArea',
+    value: '',
   },
   {
-    testId: "password_confirmationArea",
-    value: "",
+    testId: 'password_confirmationArea',
+    value: '',
   },
 ];
 
@@ -103,13 +103,13 @@ describe('SignUpコンポーネント', () => {
 
   describe('Form欄', () => {
     it('Formがある', () => {
-      const signUpForm = screen.getByTestId("signUpForm");
+      const signUpForm = screen.getByTestId('signUpForm');
 
       expect(signUpForm).toBeTruthy();
     })
 
     describe('Form入力欄', () => {
-      const idNames = ["name", "email", "password", "password_confirmation"];
+      const idNames = ['name', 'email', 'password', 'password_confirmation'];
 
       it('各入力欄がある', () => {
         idNames.forEach(idName => expect(screen.getByTestId(`${idName}Area`)).toBeTruthy());
@@ -161,7 +161,7 @@ describe('SignUpコンポーネント', () => {
 
     describe('送信ボタン',() => {
       it('送信ボタンがある', () => {
-        const signUpSubmit = screen.getByTestId("signUpSubmit");
+        const signUpSubmit = screen.getByTestId('signUpSubmit');
 
         expect(signUpSubmit).toBeTruthy();
       })
@@ -219,9 +219,8 @@ describe('SignUpコンポーネント', () => {
     })
   })
 
-  it('別ページへのLinkが1個ある', () => {
-    const formLinkItem = screen.getByTestId("formLinkItem-0");
-
-    expect(formLinkItem).toBeTruthy();
+  it('Links', () => {
+    // ログイン画面へのリンクがある
+    expect(screen.getByTestId('formLinkItem-0')).toHaveAttribute('href', '/login');
   })
 })

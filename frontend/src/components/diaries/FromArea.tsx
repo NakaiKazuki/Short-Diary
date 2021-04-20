@@ -105,21 +105,21 @@ export const FormArea:VFC<IFormAreaProps> = ({
     <FormWrapper onSubmit={onSubmit}>
       {
         diaryId &&
-        <input type="hidden" name="diaryId" ref={register({required: true})} value={diaryId} />
+        <input type='hidden' name='diaryId' ref={register({required: true})} value={diaryId} />
       }
       <FormItemWrapper>
         {apiErrors?.date?.map((message: string, index: number) =>
           <FormErrorMessage key={`date-${index}`}>{`日付${message}`}</FormErrorMessage>
         )}
         <Controller
-          name={"date"}
+          name={'date'}
           control={control}
           defaultValue={defaultDate}
           rules={{ required: true, pattern: /(\d{4})-(\d{2})-(\d{2})/}}
           as={
             <TextField
-              label="Date"
-              type={"date"}
+              label='Date'
+              type={'date'}
             />
           }
         />
@@ -133,17 +133,17 @@ export const FormArea:VFC<IFormAreaProps> = ({
           <FormErrorMessage key={`content-${index}`}>{`日記内容${message}`}</FormErrorMessage>
         )}
         <Controller
-          name={"content"}
+          name={'content'}
           control={control}
           defaultValue={defaultContent}
           rules={{ required: true , maxLength: 200 }}
           as={
             <TextField
-              label="Content"
-              type={"textarea"}
+              label='Content'
+              type={'textarea'}
               autoFocus={true}
-              rows="8"
-              placeholder="200文字以内で日記の内容を入力してください"
+              rows='8'
+              placeholder='200文字以内で日記の内容を入力してください'
               multiline
               fullWidth
               helperText = {<ContentCount>{contentCount}/200</ContentCount>}
@@ -158,17 +158,17 @@ export const FormArea:VFC<IFormAreaProps> = ({
           <AddPictureIcon/>
           <FileNameArea>{setFileName}</FileNameArea>
           <InputFileArea
-            name="picture"
-            type="file"
+            name='picture'
+            type='file'
             ref={register}
             onChange={onFileChange}
-            accept="image/*,.png,.jpg,.jpeg,.gif"
+            accept='image/*,.png,.jpg,.jpeg,.gif'
           />
         </InputFileLabel>
       </FormItemWrapper>
 
       <FormSubmit
-        type="submit"
+        type='submit'
         disabled={isDisabled}
       >
         {onSubmitText}

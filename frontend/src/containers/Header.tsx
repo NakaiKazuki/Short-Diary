@@ -1,5 +1,5 @@
 import React, {VFC, useContext, useState} from 'react';
-import {useHistory, Link } from "react-router-dom";
+import {useHistory, Link } from 'react-router-dom';
 import {AppBar, Toolbar } from '@material-ui/core';
 import styled from 'styled-components';
 
@@ -52,7 +52,7 @@ export const Header:VFC = () => {
     .then(() => {
       setCurrentUser(undefined);
       setAnchorEl(null);
-      history.push("/");
+      history.push('/');
     })
     .catch(e => {
       throw e;
@@ -60,10 +60,10 @@ export const Header:VFC = () => {
   };
 
   return (
-    <AppHeader position="fixed" color="inherit" data-testid="header" >
+    <AppHeader position='fixed' color='inherit' data-testid='header' >
       <Toolbar>
-        <Link to ={'/'} data-testid="homeLink">
-           <MainLogoImage src={MainLogo} alt="main logo" />
+        <Link to ={'/'} data-testid='homeLink'>
+           <MainLogoImage src={MainLogo} alt='main logo' />
         </Link>
         {
           isLoggedIn(currentUser) ?
@@ -78,8 +78,8 @@ export const Header:VFC = () => {
           to={'/login'}
         >
           <LoginButton
-            type="button"
-            data-testid="loginButton"
+            type='button'
+            data-testid='loginButton'
           >
             Login
           </LoginButton>

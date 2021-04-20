@@ -9,9 +9,9 @@ type SubmitDisplay = string;
 export const onSubmitText = (postState: TPostState, defaultText: SubmitDisplay): SubmitDisplay => {
   switch (postState) {
     case REQUEST_STATE.LOADING:
-      return "送信中...";
+      return '送信中...';
     case REQUEST_STATE.OK:
-      return "送信完了!";
+      return '送信完了!';
     default:
       return defaultText;
   };

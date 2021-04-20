@@ -4,7 +4,7 @@ import React, {
   useReducer,
   useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 //contexts
@@ -88,7 +88,7 @@ export const Login:VFC = () => {
         ...res.data,
         headers: res.headers,
       })
-      history.push("/")
+      history.push('/')
     })
     .catch(e => {
       if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
@@ -109,7 +109,7 @@ export const Login:VFC = () => {
         />
         <FormSubmit
           isDisabled={isDisabled(state.postState)}
-          onSubmitText={onSubmitText(state.postState, "Login!")}
+          onSubmitText={onSubmitText(state.postState, 'Login!')}
         />
       </FormWrapper>
       <FormLinks

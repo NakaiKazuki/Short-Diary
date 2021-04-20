@@ -1,4 +1,4 @@
-import { REQUEST_STATE } from "../constants";
+import { REQUEST_STATE } from '../constants';
 
 // 型
 interface IInitialState {
@@ -20,9 +20,9 @@ export const initialState: IInitialState = {
 };
 
 export const submitActionTypes: ISubmitActionTypes = {
-  POST_INITIAL: "INITIAL",
-  POSTING: "POSTING",
-  POST_SUCCESS: "POST_SUCCESS",
+  POST_INITIAL: 'INITIAL',
+  POSTING: 'POSTING',
+  POST_SUCCESS: 'POST_SUCCESS',
 };
 
 export const submitReducer = (state: IInitialState, action: IAction ): IInitialState => {

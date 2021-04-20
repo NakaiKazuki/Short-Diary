@@ -1,8 +1,8 @@
-import React from "react";
-import { Router } from "react-router-dom";
-import { render , screen,cleanup} from "@testing-library/react";
-import "@testing-library/jest-dom";
-import { createMemoryHistory } from "history";
+import React from 'react';
+import { Router } from 'react-router-dom';
+import { render , screen,cleanup} from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { createMemoryHistory } from 'history';
 import App from '../App';
 
 
@@ -21,8 +21,8 @@ describe('App', () => {
     renderWithRouter(<App />);
   })
 
-  it("Headerコンポーネント", () =>{
-    const header = screen.getByTestId("header");
+  it('Headerコンポーネント', () =>{
+    const header = screen.getByTestId('header');
 
     expect(header).toBeTruthy();
   });

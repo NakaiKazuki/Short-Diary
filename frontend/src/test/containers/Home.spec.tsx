@@ -1,8 +1,8 @@
-import React from "react";
-import { render , screen, cleanup} from "@testing-library/react";
-import { Router } from "react-router-dom";
+import React from 'react';
+import { render , screen, cleanup} from '@testing-library/react';
+import { Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { createMemoryHistory } from "history";
+import { createMemoryHistory } from 'history';
 import { Home } from '../../containers/Home';
 import { CurrentUserContext } from '../../contexts/CurrentUser';
 
@@ -42,14 +42,14 @@ const customRender = (ui: any, { providerProps, ...renderOptions }: {providerPro
 
 const currentUser = {
   headers: {
-    'access-token': "testtoken",
-    client: "testclient",
-    uid: "test@example.com",
+    'access-token': 'testtoken',
+    client: 'testclient',
+    uid: 'test@example.com',
   },
   data: {
     id: 1,
-    name: "test",
-    email: "test@example.com",
+    name: 'test',
+    email: 'test@example.com',
   },
 };
 
@@ -66,7 +66,7 @@ describe('Homeコンポーネント',  () => {
 
     it('LogoutHomeコンポーネントが開かれている', () => {
       customRender(<Home />,{providerProps})
-      const logoutHome = screen.getByTestId("logoutHome");
+      const logoutHome = screen.getByTestId('logoutHome');
 
       expect(logoutHome).toBeTruthy();
     })
@@ -82,7 +82,7 @@ describe('Homeコンポーネント',  () => {
 
     it('LoginHomeコンポーネントが開かれている', () => {
       customRender(<Home />,{providerProps})
-      const logoinHome = screen.getByTestId("loginHome");
+      const logoinHome = screen.getByTestId('loginHome');
 
       expect(logoinHome).toBeTruthy();
     })

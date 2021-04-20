@@ -1,6 +1,6 @@
 import React, { VFC, useState, useReducer } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 // components
@@ -79,7 +79,7 @@ export const SignUp:VFC = () => {
     })
     .then(() => {
       dispatch({ type: submitActionTypes.POST_SUCCESS });
-      history.push("/login");
+      history.push('/login');
     })
     .catch(e => {
       if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
@@ -94,13 +94,13 @@ export const SignUp:VFC = () => {
   return(
     <SignUpWrapper>
       <FormTitle>Sign Up</FormTitle>
-      <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="signUpForm">
+      <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid='signUpForm'>
         <FormArea
           formInfo={signUpFormInfo(errors, control, apiErrors)}
         />
         <FormSubmit
           isDisabled={isDisabled(state.postState)}
-          onSubmitText={onSubmitText(state.postState, "SignUp!")}
+          onSubmitText={onSubmitText(state.postState, 'SignUp!')}
         />
       </FormWrapper>
       <FormLinks
