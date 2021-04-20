@@ -117,7 +117,7 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
     <Dialog
       open={isOpen}
       onClose={onClose}
-      maxWidth={"sm"}
+      maxWidth={'sm'}
       fullWidth
     >
       <DiaryMenu
@@ -155,7 +155,7 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
               {
                 diary.picture_url &&
                 <Image
-                  src={diary.picture_url} alt="日記画像"
+                  src={diary.picture_url} alt='日記画像'
                 />
               }
             </ContentImageWrapper>

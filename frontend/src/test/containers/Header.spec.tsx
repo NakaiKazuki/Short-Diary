@@ -23,12 +23,14 @@ interface ICurrentUser {
   data: IData;
   headers: IHeaders;
 }
+
 interface IProviderProps {
   value: {
     currentUser: ICurrentUser | undefined;
     setCurrentUser: jest.Mock<any, any>;
   }
 }
+
 const customRender = (ui: any, { providerProps, ...renderOptions }: {providerProps: IProviderProps}) => {
   const history = createMemoryHistory();
   return (

@@ -23,9 +23,9 @@ export const FormSubmit: VFC<ISubmit> = ({
 }) => {
   return(
     <FormSubmitWrapper
-      type="submit"
+      type='submit'
       disabled={isDisabled}
-      data-testid="signUpSubmit"
+      data-testid='signUpSubmit'
     >
       {onSubmitText}
     </FormSubmitWrapper>

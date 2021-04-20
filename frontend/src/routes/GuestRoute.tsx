@@ -1,5 +1,5 @@
 import React, { VFC, useContext } from 'react';
-import { Redirect } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 
 // contexts
 import { CurrentUserContext } from '../contexts/CurrentUser';
@@ -11,6 +11,6 @@ export const GuestRoute:VFC<any> = ({ children }) => {
   const {currentUser} = useContext(CurrentUserContext);
 
   return (
-    isLoggedIn(currentUser) ? <Redirect to="/" /> : { ...children }
+    isLoggedIn(currentUser) ? <Redirect to='/' /> : { ...children }
   );
 };

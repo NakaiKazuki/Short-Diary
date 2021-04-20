@@ -47,25 +47,25 @@ const StyledMenu = withStyles({
 // Material Ui のMenuItemデザイン変更
 const StyledMenuItem = withStyles(() => ({
   root: {
-    backgroundColor: "white",
-    color: "royalblue",
+    backgroundColor: 'white',
+    color: 'royalblue',
     borderRadius: 5,
-    margin: "0 .5rem",
+    margin: '0 .5rem',
     '& .MuiListItemIcon-root': {
-      color: "royalblue",
+      color: 'royalblue',
     },
     '&:hover': {
-      backgroundColor: "royalblue",
-      color: "white",
+      backgroundColor: 'royalblue',
+      color: 'white',
       '& .MuiListItemIcon-root': {
-        color: "white",
+        color: 'white',
       },
     },
     '&:focus': {
-      backgroundColor: "royalblue",
-      color: "white",
+      backgroundColor: 'royalblue',
+      color: 'white',
       '& .MuiListItemIcon-root': {
-        color: "white",
+        color: 'white',
       },
     },
   },
@@ -89,10 +89,10 @@ export const UserMenu:VFC<IDiaryMenuProps> = ({
   return(
     <Fragment>
       <UserIconWrapper
-        aria-haspopup="true"
+        aria-haspopup='true'
         onClick={onMenuOpen}
       >
-        <UserIcon viewBox="0 0 24 20" data-testid="userIcon"/>
+        <UserIcon viewBox='0 0 24 20' data-testid='userIcon'/>
       </UserIconWrapper>
 
       <StyledMenu
@@ -100,9 +100,9 @@ export const UserMenu:VFC<IDiaryMenuProps> = ({
         keepMounted
         open={Boolean(anchorEl)}
         onClose={onMenuClose}
-        data-testid="menuBar"
+        data-testid='menuBar'
       >
-        <StyledMenuItem onClick={onSignOut} data-testid="logoutButton">
+        <StyledMenuItem onClick={onSignOut} data-testid='logoutButton'>
           <ListItemIcon><LogoutIcon /></ListItemIcon>
             Logout
         </StyledMenuItem>
