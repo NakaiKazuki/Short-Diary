@@ -112,7 +112,9 @@ describe('SignUpコンポーネント', () => {
       const idNames = ['name', 'email', 'password', 'password_confirmation'];
 
       it('各入力欄のブロックがある', () => {
-        idNames.forEach(idName => expect(screen.getByTestId(`FormItem-${idName}`)).toBeTruthy());
+        const signUpForm = screen.getByTestId('signUpForm');
+
+        idNames.forEach(idName => expect(signUpForm).toContainElement(screen.getByTestId(`FormItem-${idName}`)));
       })
 
       it('エラーメッセージ', async() => {
@@ -153,7 +155,7 @@ describe('SignUpコンポーネント', () => {
         // ユーザが送信ボタンをクリック
         userEvent.click(screen.getByTestId('formSubmit'));
 
-        // 各項目に対応したApiエラーメッセージが表示
+        // 各項目に対応したApiからのエラーメッセージが表示
         idNames.forEach(async idName => expect(await screen.findByTestId(`${idName}ApiError`)).toBeTruthy());
       })
     })
@@ -204,8 +206,9 @@ describe('SignUpコンポーネント', () => {
         // 各項目に有効な値を入力
         validInfo.forEach(obj => userEvent.type(screen.getByTestId(obj.testId), obj.value));
 
-        // 初期値
         const formSubmit = screen.getByTestId('formSubmit');
+
+        // 初期値
         expect(formSubmit).toHaveTextContent('SignUp!');
         expect(formSubmit).not.toBeDisabled();
 

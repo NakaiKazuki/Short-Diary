@@ -71,11 +71,9 @@ const StyledMenuItem = withStyles(() => ({
   },
 }))(MenuItem);
 
-type TClickHTMLElement = React.MouseEvent<HTMLElement>;
-
 interface IDiaryMenuProps {
   anchorEl: HTMLElement | null;
-  onMenuOpen(e: TClickHTMLElement): void;
+  onMenuOpen(e: React.MouseEvent<HTMLElement>): void;
   onMenuClose(): void;
   onSignOut(): void;
 }

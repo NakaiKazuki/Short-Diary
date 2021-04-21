@@ -82,9 +82,9 @@ describe('Homeコンポーネント',  () => {
 
     it('LoginHomeコンポーネントが開かれている', () => {
       customRender(<Home />,{providerProps})
-      const logoinHome = screen.getByTestId('loginHome');
+      const loginHome = screen.getByTestId('loginHome');
 
-      expect(logoinHome).toBeTruthy();
+      expect(loginHome).toBeTruthy();
     })
   })
 });

@@ -37,7 +37,7 @@ services:
     ports:
       - 3000:3000
     tty: true
-    command: bash -c "yarn install"
+    command: bash -c "yarn install && /bin/bash"
     depends_on:
       - api
 

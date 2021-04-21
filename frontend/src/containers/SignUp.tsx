@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 // components
 import {
-  FormItems,
+  FormItem,
   FormSubmit,
   FormLinks,
   FormTitle,
@@ -68,6 +68,7 @@ export const SignUp:VFC = () => {
   const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined>(undefined);
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const { handleSubmit, errors, control } = useForm<IFormValues>();
+  const formInfo = signUpFormInfo(errors, control, apiErrors)
 
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING});
@@ -95,9 +96,22 @@ export const SignUp:VFC = () => {
     <SignUpWrapper>
       <FormTitle>Sign Up</FormTitle>
       <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid='signUpForm'>
-        <FormItems
-          formInfo={signUpFormInfo(errors, control, apiErrors)}
+        <FormItem
+          formInfo={formInfo.name}
         />
+
+        <FormItem
+          formInfo={formInfo.email}
+        />
+
+        <FormItem
+          formInfo={formInfo.password}
+        />
+
+        <FormItem
+          formInfo={formInfo.password_confirmation}
+        />
+
         <FormSubmit
           isDisabled={isDisabled(state.postState)}
           onSubmitText={onSubmitText(state.postState, 'SignUp!')}

@@ -92,8 +92,6 @@ const StyledMenuItemDelete = withStyles(() => ({
 }))(MenuItem);
 
 // 型
-type TClickHTMLElement = React.MouseEvent<HTMLElement>;
-
 interface IDiary {
   id: number;
   date: string;
@@ -107,7 +105,7 @@ interface IDiaryMenuProps {
   currentUserId: number;
   anchorEl: HTMLElement | null;
   isOpenDiaryEdit: boolean;
-  onMenuOpen(e: TClickHTMLElement): void;
+  onMenuOpen(e: React.MouseEvent<HTMLElement>): void;
   onMenuClose(): void;
   onOpenCofirmationDialog(): void;
   onDiaryEditMode(): void;

@@ -75,10 +75,10 @@ describe('LogoutHome', () =>{
     customRender(<LogoutHome />,{providerProps})
   })
 
-  it('ユーザ登録画面へのリンク', () => {
+  it('ユーザ登録画面へのリンクがある', () => {
     const signUpLink = screen.getByTestId('signUpLink');
 
-    expect(signUpLink).toBeTruthy();
+    expect(signUpLink).toHaveAttribute('href', '/signup');
   })
 
   describe('ゲストログインボタン',() =>{

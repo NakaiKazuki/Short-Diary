@@ -233,30 +233,30 @@ export const LoginHome: VFC = () => {
       date: formValues.date,
       content: formValues.content,
       picture: formValues.picture? formValues.picture[0] : undefined,
-    }, state.pagy!.page, formValues!.diaryId)
+    }, state.pagy!.page, state.selectedDiary!.id)
     .then((data): void => {
       dispatch({ type: submitActionTypes.POST_INITIAL});
+      setState({
+        ...state,
+        diaries: data.diaries,
+        pagy: data.pagy,
+        isOpenDiaryEdit: false,
+        isOpenDiaryDialog: false,
+      });
+    })
+    .catch((e): void => {
+      if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+        dispatch({ type: submitActionTypes.POST_INITIAL });
         setState({
           ...state,
-          diaries: data.diaries,
-          pagy: data.pagy,
-          isOpenDiaryEdit: false,
-          isOpenDiaryDialog: false,
-        });
-      })
-      .catch((e): void => {
-        if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
-          dispatch({ type: submitActionTypes.POST_INITIAL });
-          setState({
-            ...state,
-            apiErrors: e.response.data.errors,
-          })
-        } else {
-          dispatch({ type: submitActionTypes.POST_INITIAL });
-          throw e;
-        }
-      });
-    };
+          apiErrors: e.response.data.errors,
+        })
+      } else {
+        dispatch({ type: submitActionTypes.POST_INITIAL });
+        throw e;
+      }
+    });
+  };
   // ここまでDiaryEditで使う関数
 
   // ここからDiaryDialogで使う関数
@@ -365,7 +365,7 @@ export const LoginHome: VFC = () => {
 
   return (
     <LoginHomeWrapper data-testid="loginHome">
-      <Heading>Diary List</Heading>
+      <Heading>Diaries</Heading>
       <FormDialogButton onClick={onOpenDiaryCreateDialog}>
         <IconWrapper>
           <CreateIcon fontSize={"small"} />
@@ -385,7 +385,7 @@ export const LoginHome: VFC = () => {
             />
           </Fragment>
         :
-        <li>値がないよ</li>
+        <h1>値がないよ</h1>
         }
         {
           state.isOpenDiaryCreateDialog &&
