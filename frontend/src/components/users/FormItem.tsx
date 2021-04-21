@@ -25,7 +25,7 @@ interface IRurles {
   minLength?: number;
 }
 
-interface IFormItemProps {
+interface IFormInfoProps {
   formLabel: string;
   errorsProperty: string;
   errorMessage: string;
@@ -40,43 +40,38 @@ interface IFormItemProps {
   rules: IRurles;
 }
 
+interface IFormItemProps {
+  formInfo: IFormInfoProps;
+}
+
 export const FormItem:VFC<IFormItemProps> = ({
-  formLabel,
-  errorsProperty,
-  errorMessage,
-  apiErrorProperty,
-  apiMessagePropertyName,
-  nameAttribute,
-  typeAttribute,
-  control,
-  defaultValue,
-  autoComplete,
-  autoFocus,
-  rules,
+  formInfo
 }) => {
   return (
-    <FormItemWrapper>
+    <FormItemWrapper data-testid={`FormItem-${formInfo.nameAttribute}`}>
       <InputLabel>
-        {formLabel}
-        {errorsProperty &&
-          <FormErrorMessage data-testid={`${nameAttribute}ErrorMessage`}>{errorMessage}</FormErrorMessage>
+        {formInfo.formLabel}
+        {formInfo.errorsProperty &&
+          <FormErrorMessage data-testid={`${formInfo.nameAttribute}ErrorMessage`}>{formInfo.errorMessage}</FormErrorMessage>
         }
-        {apiErrorProperty?.map((message: string, index: number) =>
-          <FormErrorMessage key={`${nameAttribute}-${index}`} data-testid={`${nameAttribute}ApiError`}>{`${apiMessagePropertyName}${message}`}</FormErrorMessage>
+        {formInfo.apiErrorProperty?.map((message: string, index: number) =>
+          <FormErrorMessage key={`${formInfo.nameAttribute}-${index}`} data-testid={`${formInfo.nameAttribute}ApiError`}>
+            {`${formInfo.apiMessagePropertyName}${message}`}
+          </FormErrorMessage>
         )}
         <Controller
-          name={nameAttribute}
-          control={control}
-          defaultValue={defaultValue}
-          rules={ rules }
+          name={formInfo.nameAttribute}
+          control={formInfo.control}
+          defaultValue={formInfo.defaultValue}
+          rules={ formInfo.rules }
           as={
             <FormInput
-              type={typeAttribute}
-              autoFocus={autoFocus}
-              autoComplete={autoComplete}
+              type={formInfo.typeAttribute}
+              autoFocus={formInfo.autoFocus}
+              autoComplete={formInfo.autoComplete}
               fullWidth
               inputProps={{
-                'data-testid': `${nameAttribute}Area`,
+                'data-testid': `${formInfo.nameAttribute}Area`,
               }}
             />
           }

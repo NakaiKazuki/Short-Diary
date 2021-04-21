@@ -34,13 +34,13 @@ interface IProviderProps {
   }
 }
 
-const customRender = (ui: any, { providerProps, ...renderOptions }: {providerProps: IProviderProps}) => {
+const customRender = (ui: any, { providerProps }: {providerProps: IProviderProps}) => {
   const history = createMemoryHistory();
   return (
     render(
       <Router history={history}>
         <CurrentUserContext.Provider {...providerProps}>{ui}</CurrentUserContext.Provider>
-      </Router>, renderOptions
+      </Router>
     )
   );
 };
@@ -95,8 +95,8 @@ describe('Loginコンポーネント', () => {
     describe('Form入力欄', () => {
       const idNames = ['email', 'password'];
 
-      it('各入力欄がある', () => {
-        idNames.forEach(idName => expect(screen.getByTestId(`${idName}Area`)).toBeTruthy());
+      it('各入力欄のブロックがある', () => {
+        idNames.forEach(idName => expect(screen.getByTestId(`FormItem-${idName}`)).toBeTruthy());
       })
 
       it('エラーメッセージ', async() => {
