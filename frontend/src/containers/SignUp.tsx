@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 // components
 import {
-  FormArea,
+  FormItems,
   FormSubmit,
   FormLinks,
   FormTitle,
@@ -95,7 +95,7 @@ export const SignUp:VFC = () => {
     <SignUpWrapper>
       <FormTitle>Sign Up</FormTitle>
       <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid='signUpForm'>
-        <FormArea
+        <FormItems
           formInfo={signUpFormInfo(errors, control, apiErrors)}
         />
         <FormSubmit

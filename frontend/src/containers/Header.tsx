@@ -46,6 +46,7 @@ export const Header:VFC = () => {
   const history = useHistory();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [ anchorEl, setAnchorEl ] = useState<HTMLElement | null>(null);
+
   // ユーザのログアウト処理
   const onSignOut = (): void =>{
     deleteSession(currentUser!.headers)

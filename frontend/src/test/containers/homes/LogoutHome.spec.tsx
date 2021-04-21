@@ -50,14 +50,14 @@ mockAxios.onPost(guestSignIn).reply(200,
   },
 );
 
-const customRender = (ui: any, { providerProps, ...renderOptions }: {providerProps: IProviderProps}) => {
+const customRender = (ui: any, { providerProps }: {providerProps: IProviderProps}) => {
   const history = createMemoryHistory();
   return (
-      render(
-        <Router history={history}>
-          <CurrentUserContext.Provider {...providerProps}>{ui}</CurrentUserContext.Provider>
-        </Router>, renderOptions
-      )
+    render(
+      <Router history={history}>
+        <CurrentUserContext.Provider {...providerProps}>{ui}</CurrentUserContext.Provider>
+      </Router>
+    )
   );
 };
 

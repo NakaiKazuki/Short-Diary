@@ -15,7 +15,7 @@ import { CreateIcon } from '../../components/Icons';
 // components
 import { BaseButton } from '../../components/shared_style';
 import { PagenationArea } from '../../components/PagenationArea';
-import { ConfirmationDialog } from '../../components/ConfirmationDialog';
+import { ConfirmationDialog } from '../../components/diaries/ConfirmationDialog';
 import { DiaryIndex, DiaryCreateDialog, DiaryDialog} from '../../components/diaries';
 
 // responses

@@ -3,7 +3,7 @@ import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } 
 import styled from 'styled-components';
 
 // components
-import { BaseButton } from './shared_style';
+import { BaseButton } from '../shared_style';
 // css
 const ConfirmationButton = styled(BaseButton)`
   height: 2.2rem;

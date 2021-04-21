@@ -12,7 +12,7 @@ import { CurrentUserContext } from '../contexts/CurrentUser';
 
 // components
 import {
-  FormArea,
+  FormItems,
   FormSubmit,
   FormLinks,
   FormTitle,
@@ -103,8 +103,8 @@ export const Login:VFC = () => {
   return(
     <LoginWrapper>
       <FormTitle>Login</FormTitle>
-      <FormWrapper onSubmit={handleSubmit(onSubmit)}>
-        <FormArea
+      <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid='loginForm'>
+        <FormItems
           formInfo={loginFormInfo(errors, control, apiErrors)}
         />
         <FormSubmit

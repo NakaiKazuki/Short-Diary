@@ -28,13 +28,13 @@ interface IProviderProps {
     setCurrentUser: jest.Mock<any, any>;
   }
 }
-const customRender = (ui: any, { providerProps, ...renderOptions }: {providerProps: IProviderProps}) => {
+const customRender = (ui: any, { providerProps}: {providerProps: IProviderProps}) => {
   const history = createMemoryHistory();
   return (
     render(
       <Router history={history}>
         <CurrentUserContext.Provider {...providerProps}>{ui}</CurrentUserContext.Provider>
-      </Router>, renderOptions
+      </Router>
     )
   );
 };
