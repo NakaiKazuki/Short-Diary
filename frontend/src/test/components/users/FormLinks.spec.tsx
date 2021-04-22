@@ -36,13 +36,11 @@ describe('FormLinks コンポーネント', () => {
 
   it('配列の要素の数、要素の内容次第で変化する', () => {
     // linkInfo[0] によって表示される内容
-    const linkItem1 = screen.getByTestId('formLinkItem-0');
-    expect(linkItem1).toHaveAttribute('href', '/testurl1');
-    expect(linkItem1).toHaveTextContent('Test Text1');
+    linkInfo.forEach((obj, index) =>{
+      const linkItem = screen.getByTestId(`formLink-${index}`);
 
-    // linkInfo[1] によって表示される内容
-    const linkItem2 = screen.getByTestId('formLinkItem-1');
-    expect(linkItem2).toHaveAttribute('href', '/testurl2');
-    expect(linkItem2).toHaveTextContent('Test Text2');
+      expect(linkItem).toHaveAttribute(`href`, obj.url);
+      expect(linkItem).toHaveTextContent(obj.text);
+    } )
   })
 });

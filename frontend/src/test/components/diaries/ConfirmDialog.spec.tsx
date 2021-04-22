@@ -3,7 +3,6 @@ import { render , screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { ConfirmDialog } from '../../../components/diaries';
 import { dateToday } from '../../../helpers';
-afterEach(cleanup);
 
 const diary = {
   id: 1,
@@ -12,6 +11,8 @@ const diary = {
   picture_url: null,
   user_id: 1,
 };
+
+afterEach(cleanup);
 
 describe('ConfirmDialog コンポーネント', () => {
   beforeEach(() => {

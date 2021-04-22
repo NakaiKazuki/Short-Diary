@@ -9,6 +9,7 @@ import { createMemoryHistory } from 'history';
 import { CurrentUserContext } from '../../contexts/CurrentUser';
 import { Login } from '../../containers/Login';
 import { signIn } from '../../urls';
+import { loginLinkInfo as linkInfo } from '../../formInfo'
 
 interface IHeaders {
   'access-token': string;
@@ -226,7 +227,11 @@ describe('Loginコンポーネント', () => {
   })
 
   it('Links', () => {
-    // ユーザ登録画面へのリンクがある
-    expect(screen.getByTestId('formLinkItem-0')).toHaveAttribute('href', '/signup');
+    linkInfo.forEach((obj, index) =>{
+      const link = screen.getByTestId(`formLink-${index}`);
+
+      expect(link).toHaveAttribute(`href`, obj.url);
+      expect(link).toHaveTextContent(obj.text);
+    })
   })
 })

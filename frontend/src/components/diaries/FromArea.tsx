@@ -67,7 +67,6 @@ interface IApiErrors {
   date?: TApiError;
   content?: TApiError;
   picture?: TApiError;
-  full_messages: TApiError;
 }
 
 interface IFormAreaProps {

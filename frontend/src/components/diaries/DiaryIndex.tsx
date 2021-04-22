@@ -81,28 +81,29 @@ export const DiaryIndex: VFC<DiariesProps> = ({
     <DiariesWrapper>
       {
         diaries.map((diary: IDiary, index: number) => {
-        return(
-          <DiaryWrapper
-            key={`diary-${index}`}
-            onClick={() => onOpenDiaryDialog(diary)}
-          >
-            <Paragraph>
-              <DiaryDate>{diary.date}</DiaryDate>
-              {
-                diary.picture_url &&
-                <ImageIconArea />
-              }
-            </Paragraph>
-            <DiaryContent>
-              {
-                diary.content.length <= 50 ?
-                  diary.content
-                :
-                `${diary.content.slice(0, 50)}......`
-              }
-            </DiaryContent>
-          </DiaryWrapper>
-        )
+          return(
+            <DiaryWrapper
+              key={`diary-${index}`}
+              onClick={() => onOpenDiaryDialog(diary)}
+              data-testid={`diary-${index}`}
+            >
+              <Paragraph>
+                <DiaryDate data-testid={`diaryDate-${index}`}>{diary.date}</DiaryDate>
+                {
+                  diary.picture_url &&
+                  <ImageIconArea data-testid={`diaryimageIcon-${index}`} />
+                }
+              </Paragraph>
+              <DiaryContent data-testid={`diaryContent-${index}`}>
+                {
+                  diary.content.length <= 50 ?
+                    diary.content
+                  :
+                  `${diary.content.slice(0, 50)}......`
+                }
+              </DiaryContent>
+            </DiaryWrapper>
+          );
         })
       }
     </DiariesWrapper>
