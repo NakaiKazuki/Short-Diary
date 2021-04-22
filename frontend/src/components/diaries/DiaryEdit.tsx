@@ -26,7 +26,7 @@ interface IDiary {
   id: number;
   date: string;
   content: string;
-  picture_url: string;
+  picture_url: string | null;
   user_id: number;
 }
 

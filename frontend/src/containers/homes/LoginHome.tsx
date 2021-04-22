@@ -15,8 +15,7 @@ import { CreateIcon } from '../../components/Icons';
 // components
 import { BaseButton } from '../../components/shared_style';
 import { PagenationArea } from '../../components/PagenationArea';
-import { ConfirmationDialog } from '../../components/diaries/ConfirmationDialog';
-import { DiaryIndex, DiaryCreateDialog, DiaryDialog} from '../../components/diaries';
+import { DiaryIndex, DiaryCreateDialog, DiaryDialog, ConfirmDialog } from '../../components/diaries';
 
 // responses
 import { HTTP_STATUS_CODE } from '../../constants';
@@ -64,7 +63,7 @@ interface IDiary {
   id: number;
   date: string;
   content: string;
-  picture_url: string;
+  picture_url: string | null;
   user_id: number;
 }
 
@@ -89,7 +88,7 @@ interface IInitialState {
   isOpenDiaryCreateDialog: boolean;
   isOpenDiaryDialog: boolean;
   isOpenDiaryEdit: boolean;
-  isOpenConfirmationDialog: boolean;
+  isOpenConfirmDialog: boolean;
   anchorEl: HTMLElement | null;
 }
 
@@ -116,7 +115,7 @@ export const LoginHome: VFC = () => {
     isOpenDiaryCreateDialog: false,
     isOpenDiaryDialog: false,
     isOpenDiaryEdit: false,
-    isOpenConfirmationDialog: false,
+    isOpenConfirmDialog: false,
     anchorEl: null,
   }
   const [state, setState] = useState<IInitialState>(initialState);
@@ -274,7 +273,7 @@ export const LoginHome: VFC = () => {
     const onOpenCofirmationDialog = (): void => {
       setState({
         ...state,
-        isOpenConfirmationDialog: true,
+        isOpenConfirmDialog: true,
         anchorEl: null,
       })
     };
@@ -282,7 +281,7 @@ export const LoginHome: VFC = () => {
     const onCloseCofirmationDialog = (): void => {
       setState({
         ...state,
-        isOpenConfirmationDialog: false,
+        isOpenConfirmDialog: false,
       })
     };
 
@@ -294,7 +293,7 @@ export const LoginHome: VFC = () => {
           ...state,
           diaries: data.diaries,
           pagy: data.pagy,
-          isOpenConfirmationDialog: false,
+          isOpenConfirmDialog: false,
           isOpenDiaryEdit: false,
           isOpenDiaryDialog: false,
         });
@@ -375,13 +374,13 @@ export const LoginHome: VFC = () => {
         {
           state.diaries != null  && state.pagy != null ?
           <Fragment>
-            <PagenationArea
-              onPageChange={onPageChange}
-              pagy={state.pagy}
-            />
             <DiaryIndex
               diaries={state.diaries}
               onOpenDiaryDialog={onOpenDiaryDialog}
+            />
+            <PagenationArea
+              onPageChange={onPageChange}
+              pagy={state.pagy}
             />
           </Fragment>
         :
@@ -432,9 +431,9 @@ export const LoginHome: VFC = () => {
           />
         }
         {
-          state.isOpenConfirmationDialog && state.selectedDiary &&
-          <ConfirmationDialog
-            isOpen={state.isOpenConfirmationDialog}
+          state.isOpenConfirmDialog && state.selectedDiary &&
+          <ConfirmDialog
+            isOpen={state.isOpenConfirmDialog}
             diary={state.selectedDiary}
             title={'削除確認'}
             contentText={'選択した日記を削除しますか？'}

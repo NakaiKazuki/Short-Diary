@@ -37,11 +37,11 @@ interface IDiary {
   id: number;
   date: string;
   content: string;
-  picture_url: string;
+  picture_url: string | null;
   user_id: number;
 }
 
-interface IConfirmationDialogProps {
+interface IConfirmDialogProps {
   isOpen: boolean;
   title: string;
   contentText: string;
@@ -50,7 +50,7 @@ interface IConfirmationDialogProps {
   onClose(): void;
 }
 
-export const ConfirmationDialog:VFC<IConfirmationDialogProps> = ({
+export const ConfirmDialog:VFC<IConfirmDialogProps> = ({
   isOpen,
   title,
   contentText,
@@ -64,17 +64,25 @@ export const ConfirmationDialog:VFC<IConfirmationDialogProps> = ({
       onClose={onClose}
       fullWidth
     >
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle data-testid='confirmDialogTitle'>{title}</DialogTitle>
       <DialogContent>
-        <DialogContentText>
+        <DialogContentText data-testid='confirmDialogContent'>
           {contentText}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <DeleteButton onClick={() => onDiaryDelete(diary)}>
+        <DeleteButton
+          type='button'
+          onClick={() => onDiaryDelete(diary)}
+          data-testid='diaryDleteButton'
+        >
           削除
         </DeleteButton>
-        <CloseButton onClick={onClose}>
+        <CloseButton
+          type='button'
+          onClick={onClose}
+          data-testid='confirmDialogCloseButton'
+        >
           閉じる
         </CloseButton>
       </DialogActions>
