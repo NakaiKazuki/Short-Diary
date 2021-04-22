@@ -33,7 +33,7 @@ const SessionLink = styled(Link)`
   margin: 0 0 0 auto;
 `;
 
-const LoginButton = styled(BaseButton)`
+const LoginLink = styled(BaseButton)`
   height: 2.5rem;
   padding: 0 1rem;
   font-size: 1.2rem;
@@ -77,13 +77,13 @@ export const Header:VFC = () => {
         :
         <SessionLink
           to={'/login'}
+          data-testid='loginLink'
         >
-          <LoginButton
+          <LoginLink
             type='button'
-            data-testid='loginButton'
           >
             Login
-          </LoginButton>
+          </LoginLink>
         </SessionLink>
         }
       </Toolbar>

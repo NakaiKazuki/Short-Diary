@@ -26,7 +26,7 @@ interface IDiary {
   id: number;
   date: string;
   content: string;
-  picture_url: string;
+  picture_url: string | null;
   user_id: number;
 }
 
@@ -68,7 +68,6 @@ export const DiaryEdit:VFC<IDiaryEditProps> = ({
         onSubmitText={onSubmitText}
         isDisabled={isDisabled}
         contentCount={contentCount}
-        diaryId={diary.id}
         defaultDate={diary.date}
         defaultContent={diary.content}
         setFileName={setFileName}

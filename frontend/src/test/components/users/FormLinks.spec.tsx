@@ -3,7 +3,7 @@ import { render , screen, cleanup } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { createMemoryHistory } from 'history';
-import { FormLinks } from '../../../components/users/FormLinks';
+import { FormLinks } from '../../../components/users';
 
 const renderWithRouter = (component: any) => {
   const history = createMemoryHistory();

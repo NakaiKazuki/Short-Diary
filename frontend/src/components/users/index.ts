@@ -1,4 +1,4 @@
-export { FormItems } from './FormItems';
+export { FormItem } from './FormItem';
 export { FormSubmit } from './FormSubmit';
 export { FormLinks } from './FormLinks';
 export { FormTitle, FormWrapper } from './style'

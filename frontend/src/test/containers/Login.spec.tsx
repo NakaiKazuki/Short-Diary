@@ -95,8 +95,10 @@ describe('Loginコンポーネント', () => {
     describe('Form入力欄', () => {
       const idNames = ['email', 'password'];
 
-      it('各入力欄のブロックがある', () => {
-        idNames.forEach(idName => expect(screen.getByTestId(`FormItem-${idName}`)).toBeTruthy());
+      it('Form内に各入力欄がある', () => {
+        const loginForm = screen.getByTestId('loginForm');
+
+        idNames.forEach(idName => expect(loginForm).toContainElement(screen.getByTestId(`FormItem-${idName}`)));
       })
 
       it('エラーメッセージ', async() => {

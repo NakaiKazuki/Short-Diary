@@ -12,7 +12,7 @@ import { CurrentUserContext } from '../contexts/CurrentUser';
 
 // components
 import {
-  FormItems,
+  FormItem,
   FormSubmit,
   FormLinks,
   FormTitle,
@@ -74,7 +74,7 @@ export const Login:VFC = () => {
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { handleSubmit, errors, control } = useForm<IFormValues>();
-
+  const formInfo = loginFormInfo(errors, control, apiErrors);
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING});
     createSession({
@@ -104,9 +104,15 @@ export const Login:VFC = () => {
     <LoginWrapper>
       <FormTitle>Login</FormTitle>
       <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid='loginForm'>
-        <FormItems
-          formInfo={loginFormInfo(errors, control, apiErrors)}
+
+        <FormItem
+          formInfo={formInfo.email}
         />
+
+        <FormItem
+          formInfo={formInfo.password}
+        />
+
         <FormSubmit
           isDisabled={isDisabled(state.postState)}
           onSubmitText={onSubmitText(state.postState, 'Login!')}

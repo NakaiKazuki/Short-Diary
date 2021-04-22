@@ -77,10 +77,10 @@ describe('Header コンポーネント', () => {
       expect(homeLink ).toBeTruthy();
     })
 
-    it('ログインボタン', () => {
-      const loginButton = screen.getByTestId('loginButton');
+    it('ログインリンクがある', () => {
+      const loginLink = screen.getByTestId('loginLink');
 
-      expect(loginButton).toHaveAttribute('type', 'button')
+      expect(loginLink).toHaveAttribute('href', '/login');
     })
   })
 
@@ -99,7 +99,7 @@ describe('Header コンポーネント', () => {
     it('ホーム画面へのリンク', () => {
       const homeLink = screen.getByTestId('homeLink');
 
-      expect(homeLink ).toBeTruthy();
+      expect(homeLink).toHaveAttribute('href', '/');
     })
 
     it('ユーザアイコンが表示', () => {
@@ -109,20 +109,21 @@ describe('Header コンポーネント', () => {
     })
 
     describe('MenuBar',() => {
-      beforeEach(() => {
+      it('MenuBarの表示', () => {
+        const menuBar = screen.getByTestId('menuBar');
+        // デフォルトは非表示
+        expect(menuBar).toHaveStyle('visibility: hidden');
+
+        // ユーザがクリックすることで表示
         userEvent.click(screen.getByTestId('userIcon'));
-      })
-
-      it('IconクリックでMenuBar表示', () => {
-        const menuBar = screen.getByTestId('menuBar')
-
-        expect(menuBar).toBeTruthy();
+        expect(menuBar).toHaveStyle('visibility: visible');
       })
 
       it('Logoutボタン', () => {
-        const logoutButton = screen.getByTestId('logoutButton')
+        const menuBar = screen.getByTestId('menuBar');
+        const logoutButton = screen.getByTestId('logoutButton');
 
-        expect(logoutButton).toBeTruthy();
+        expect(menuBar).toContainElement(logoutButton);
       })
     });
   })
