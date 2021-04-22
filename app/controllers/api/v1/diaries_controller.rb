@@ -58,7 +58,7 @@ class Api::V1::DiariesController < ApplicationController
 
     # 画像ファイルをデコードしてアタッチ
     def file_decode
-      blob = ActiveStorage::Blob.create_after_upload!(
+      blob = ActiveStorage::Blob.create_and_upload!(
         io: StringIO.new("#{decode(params[:picture][:data])}\n"),
         filename: params[:picture][:name]
       )
