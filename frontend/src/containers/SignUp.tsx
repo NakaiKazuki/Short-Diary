@@ -15,7 +15,7 @@ import {
 // apis
 import { postRegistration } from '../apis/users/registrations';
 
-// responses
+// constants
 import { HTTP_STATUS_CODE } from '../constants';
 
 // formitemsinfo

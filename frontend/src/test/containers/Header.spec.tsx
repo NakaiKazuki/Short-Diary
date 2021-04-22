@@ -77,7 +77,7 @@ describe('Header コンポーネント', () => {
       expect(homeLink ).toBeTruthy();
     })
 
-    it('ログインリンクがある', () => {
+    it('ログインページへのリンク', () => {
       const loginLink = screen.getByTestId('loginLink');
 
       expect(loginLink).toHaveAttribute('href', '/login');

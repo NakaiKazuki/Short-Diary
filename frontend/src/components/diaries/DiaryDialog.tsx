@@ -24,8 +24,7 @@ const ContentHeading = styled.h4`
 `;
 
 const ContentImageWrapper = styled.div`
-  min-height: 20rem;
-  height: auto;
+  min-height: 15rem;
   margin: .5rem auto 2.5rem auto;
   width: 80%;
   border: .0125rem solid green;
@@ -42,8 +41,9 @@ const Content = styled.div`
 const Image = styled.img`
   display: flex;
   margin: 1rem auto;
-  height: 95%;
-  width: 95%;
+  max-height: 95%;
+  max-width: 95%;
+  object-fit: scale-down;
 `;
 
 // 型
@@ -63,7 +63,6 @@ interface IApiErrors {
   date?: TApiError;
   content?: TApiError;
   picture?: TApiError;
-  full_messages: TApiError;
 }
 
 interface IDiaryDialogProps {

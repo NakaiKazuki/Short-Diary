@@ -1,8 +1,8 @@
 // 型
 interface IREQUEST_STATE {
-  INITIAL: string;
-  LOADING: string;
-  OK: string;
+  INITIAL: 'INITIAL';
+  LOADING: 'LOADING';
+  OK: 'OK';
 }
 
 interface IHTTP_STATUS_CODE {

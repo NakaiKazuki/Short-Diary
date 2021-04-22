@@ -16,9 +16,10 @@ import { CreateIcon } from '../../components/Icons';
 import { BaseButton } from '../../components/shared_style';
 import { PagenationArea } from '../../components/PagenationArea';
 import { DiaryIndex, DiaryCreateDialog, DiaryDialog, ConfirmDialog } from '../../components/diaries';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-// responses
-import { HTTP_STATUS_CODE } from '../../constants';
+// constants
+import { HTTP_STATUS_CODE, REQUEST_STATE  } from '../../constants';
 
 // helpers
 import { dateToday, onSubmitText, isDisabled } from '../../helpers';
@@ -28,6 +29,7 @@ import { initialState as reducerInitialState, submitActionTypes, submitReducer }
 
 // css
 const LoginHomeWrapper = styled.div`
+  position: relative;
   width: 90vw;
   height: auto;
   margin: 6.6vh auto 0 auto;
@@ -58,6 +60,14 @@ const IconWrapper = styled.span`
   margin-right: 1rem;
 `;
 
+const CircularProgressWrapper = styled.span`
+  position: absolute;
+  top: 50vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+`;
 // 型
 interface IDiary {
   id: number;
@@ -81,15 +91,16 @@ interface IPagy {
 }
 
 interface IInitialState {
-  diaries: Array<IDiary> | undefined;
+  anchorEl: HTMLElement | null;
   apiErrors: IApiErrors | undefined;
+  diaries: Array<IDiary> | undefined;
+  fetchState: 'INITIAL' | 'LOADING' | 'OK';
   pagy: IPagy| undefined;
   selectedDiary: IDiary | null;
   isOpenDiaryCreateDialog: boolean;
   isOpenDiaryDialog: boolean;
   isOpenDiaryEdit: boolean;
   isOpenConfirmDialog: boolean;
-  anchorEl: HTMLElement | null;
 }
 
 // Formから送信される情報
@@ -108,15 +119,16 @@ export const LoginHome: VFC = () => {
   const { handleSubmit, errors, control , watch, register} = useForm<IFormValues>();
   const [reducerState, dispatch] = useReducer(submitReducer, reducerInitialState);
   const initialState: IInitialState = {
-    diaries: undefined,
+    anchorEl: null,
     apiErrors: undefined,
+    diaries: undefined,
+    fetchState: REQUEST_STATE.INITIAL,
     pagy: undefined,
     selectedDiary: null,
     isOpenDiaryCreateDialog: false,
     isOpenDiaryDialog: false,
     isOpenDiaryEdit: false,
     isOpenConfirmDialog: false,
-    anchorEl: null,
   }
   const [state, setState] = useState<IInitialState>(initialState);
 
@@ -344,12 +356,17 @@ export const LoginHome: VFC = () => {
 
   // このコンポーネントが開かれた時にだけ実行される
   useEffect((): void => {
+    setState({
+      ...state,
+      fetchState: REQUEST_STATE.LOADING,
+    })
     fetchHome(currentUser!.headers)
     .then((data): void => {
       setState({
         ...state,
         diaries: data.diaries,
         pagy: data.pagy,
+        fetchState: REQUEST_STATE.OK,
       })
     })
     .catch((e): void => {
@@ -371,21 +388,31 @@ export const LoginHome: VFC = () => {
         </IconWrapper>
         日記作成
       </FormDialogButton>
-        {
-          state.diaries != null  && state.pagy != null ?
-          <Fragment>
-            <DiaryIndex
-              diaries={state.diaries}
-              onOpenDiaryDialog={onOpenDiaryDialog}
-            />
-            <PagenationArea
-              onPageChange={onPageChange}
-              pagy={state.pagy}
-            />
-          </Fragment>
+      {
+        state.fetchState === REQUEST_STATE.LOADING ?
+        <CircularProgressWrapper>
+          <CircularProgress />
+        </CircularProgressWrapper>
         :
-        <h1>値がないよ</h1>
-        }
+          state.diaries != null  && state.pagy != null &&
+            <Fragment>
+              {
+                state.diaries.length ?
+                  <Fragment>
+                    <DiaryIndex
+                      diaries={state.diaries}
+                      onOpenDiaryDialog={onOpenDiaryDialog}
+                      />
+                    <PagenationArea
+                      onPageChange={onPageChange}
+                      pagy={state.pagy}
+                      />
+                  </Fragment>
+                :
+                  <h2>値がないよ</h2>
+              }
+            </Fragment>
+      }
         {
           state.isOpenDiaryCreateDialog &&
           <DiaryCreateDialog

@@ -56,7 +56,7 @@ export const FormLinks:VFC<IFormLinks> = ({
             <FormLinkListWrapper>
             <FormLinkList>
               <FormLinkItem>
-                <FormLink to={obj.url} data-testid={`formLinkItem-${index}`}>{obj.text}</FormLink>
+                <FormLink to={obj.url} data-testid={`formLink-${index}`}>{obj.text}</FormLink>
               </FormLinkItem>
             </FormLinkList>
           </FormLinkListWrapper>

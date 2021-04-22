@@ -22,7 +22,7 @@ import {
 // apis
 import { createSession } from '../apis/users/sessions';
 
-// responses
+// constants
 import { HTTP_STATUS_CODE } from '../constants';
 
 // forminfo
