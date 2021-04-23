@@ -3,7 +3,7 @@ import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } 
 import styled from 'styled-components';
 
 // components
-import { BaseButton } from '../shared_style';
+import { BaseButton } from './shared_style';
 // css
 const ConfirmationButton = styled(BaseButton)`
   height: 2.2rem;
@@ -46,7 +46,7 @@ interface IConfirmDialogProps {
   title: string;
   contentText: string;
   diary: IDiary;
-  onDiaryDelete(diary: IDiary): void;
+  onDeleteButton(obj: IDiary): void;
   onClose(): void;
 }
 
@@ -55,7 +55,7 @@ export const ConfirmDialog:VFC<IConfirmDialogProps> = ({
   title,
   contentText,
   diary,
-  onDiaryDelete,
+  onDeleteButton,
   onClose,
 }) => {
   return(
@@ -73,7 +73,7 @@ export const ConfirmDialog:VFC<IConfirmDialogProps> = ({
       <DialogActions>
         <DeleteButton
           type='button'
-          onClick={() => onDiaryDelete(diary)}
+          onClick={() => onDeleteButton(diary)}
           data-testid='diaryDleteButton'
         >
           削除

@@ -61,7 +61,7 @@ export const Header:VFC = () => {
   };
 
   return (
-    <AppHeader position='fixed' color='inherit' data-testid='header' >
+    <AppHeader position='fixed' color='inherit' data-testid='header'>
       <Toolbar>
         <Link to ={'/'} data-testid='homeLink'>
            <MainLogoImage src={MainLogo} alt='main logo' />

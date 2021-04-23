@@ -28,7 +28,7 @@ interface IProviderProps {
     setCurrentUser: jest.Mock<any, any>;
   }
 }
-const customRender = (ui: any, { providerProps}: {providerProps: IProviderProps}) => {
+const customRender = (ui: JSX.Element, { providerProps}: {providerProps: IProviderProps}) => {
   const history = createMemoryHistory();
   return (
     render(

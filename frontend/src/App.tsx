@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-} from "react-router-dom";
+} from 'react-router-dom';
 
 // cotexts
 import {CurrentUserProvider} from './contexts/CurrentUser';
@@ -21,9 +21,9 @@ function App() {
       <CurrentUserProvider>
         <Header/>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <GuestRoute exact path="/signup" children={<SignUp/>} />
-          <GuestRoute exact path="/login" children={<Login/>} />
+          <Route exact path='/' component={Home} />
+          <GuestRoute exact path='/signup' children={<SignUp/>} />
+          <GuestRoute exact path='/login' children={<Login/>} />
         </Switch>
       </CurrentUserProvider>
       <footer>ここFooterな！！</footer>

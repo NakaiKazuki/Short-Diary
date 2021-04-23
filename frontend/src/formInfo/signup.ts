@@ -20,8 +20,12 @@ interface IObject {
   rules: IRurles;
 }
 
-// SignUpページのフォーム欄を表示するために必要な情報群
-
+interface IErrors {
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+}
 interface ISignUpApiErrors {
   name?: TApiError;
   email?: TApiError;
@@ -35,7 +39,8 @@ type IReturnSignUp = {
   password: IObject;
   password_confirmation: IObject};
 
-export const signUpFormInfo = (errors: any, control: any, apiErrors: ISignUpApiErrors | undefined): IReturnSignUp => {
+  // SignUpページのフォーム欄を表示するために必要な情報群
+export const signUpFormInfo = (errors: IErrors, control: object, apiErrors: ISignUpApiErrors | undefined): IReturnSignUp => {
   return {
     name: {
       formLabel: 'Name:',

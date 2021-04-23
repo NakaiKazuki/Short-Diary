@@ -7,7 +7,7 @@ import { CurrentUserContext } from '../contexts/CurrentUser'
 // helpers
 import { isLoggedIn } from '../helpers';
 
-export const PrivateRoute:VFC<any> = ({ children }) => {
+export const PrivateRoute:VFC<{children: JSX.Element}> = ({ children }) => {
   const {currentUser} = useContext(CurrentUserContext);
 
   return (

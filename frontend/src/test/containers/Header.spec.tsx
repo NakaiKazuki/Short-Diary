@@ -27,11 +27,11 @@ interface ICurrentUser {
 interface IProviderProps {
   value: {
     currentUser: ICurrentUser | undefined;
-    setCurrentUser: jest.Mock<any, any>;
+    setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
   }
 }
 
-const customRender = (ui: any, { providerProps }: {providerProps: IProviderProps}) => {
+const customRender = (ui: JSX.Element, { providerProps }: {providerProps: IProviderProps}) => {
   const history = createMemoryHistory();
   return (
     render(

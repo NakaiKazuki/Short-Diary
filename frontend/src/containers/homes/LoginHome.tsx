@@ -15,7 +15,8 @@ import { CreateIcon } from '../../components/Icons';
 // components
 import { BaseButton } from '../../components/shared_style';
 import { PagenationArea } from '../../components/PagenationArea';
-import { DiaryIndex, DiaryCreateDialog, DiaryDialog, ConfirmDialog } from '../../components/diaries';
+import { ConfirmDialog } from '../../components/ConfirmDialog';
+import { DiaryIndex, DiaryCreateDialog, DiaryDialog } from '../../components/diaries';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // constants
@@ -41,7 +42,7 @@ const Heading = styled.h1`
   color: royalblue;
 `;
 
-const FormDialogButton = styled(BaseButton)`
+const OpenDiaryCreateDialogButton = styled(BaseButton)`
   height: 2.5rem;
   width: 10rem;
   border: .0125rem solid green;
@@ -382,12 +383,12 @@ export const LoginHome: VFC = () => {
   return (
     <LoginHomeWrapper data-testid="loginHome">
       <Heading>Diaries</Heading>
-      <FormDialogButton onClick={onOpenDiaryCreateDialog}>
+      <OpenDiaryCreateDialogButton onClick={onOpenDiaryCreateDialog}>
         <IconWrapper>
           <CreateIcon fontSize={"small"} />
         </IconWrapper>
         日記作成
-      </FormDialogButton>
+      </OpenDiaryCreateDialogButton>
       {
         state.fetchState === REQUEST_STATE.LOADING ?
         <CircularProgressWrapper>
@@ -463,7 +464,7 @@ export const LoginHome: VFC = () => {
             diary={state.selectedDiary}
             title={'削除確認'}
             contentText={'選択した日記を削除しますか？'}
-            onDiaryDelete={onDiaryDelete}
+            onDeleteButton={onDiaryDelete}
             onClose={onCloseCofirmationDialog}
           />
         }
