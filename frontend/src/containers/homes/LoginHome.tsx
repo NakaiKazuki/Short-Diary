@@ -438,7 +438,6 @@ export const LoginHome: VFC = () => {
             apiErrors={state.apiErrors}
             contentCount={watch("content",state.selectedDiary.content).length}
             control={control}
-            currentUserId={currentUser!.data.id}
             diary={state.selectedDiary}
             errors={errors}
             isDisabled={isDisabled(reducerState.postState)}

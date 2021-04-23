@@ -77,7 +77,6 @@ interface IDiaryDialogProps {
   contentCount: number;
   setFileName: string | undefined;
   diary: IDiary;
-  currentUserId: number;
   anchorEl: HTMLElement | null;
   onEditSubmit(): void;
   onOpenCofirmationDialog(): void;
@@ -93,7 +92,6 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
   isOpen,
   isOpenDiaryEdit,
   diary,
-  currentUserId,
   anchorEl,
   control,
   errors,
@@ -120,8 +118,6 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
       fullWidth
     >
       <DiaryMenu
-        diary={diary}
-        currentUserId={currentUserId}
         anchorEl={anchorEl}
         isOpenDiaryEdit={isOpenDiaryEdit}
         onMenuOpen={onMenuOpen}
