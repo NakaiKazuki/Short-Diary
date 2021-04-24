@@ -3,30 +3,30 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 // contexts
-import { CurrentUserContext } from '../../contexts/CurrentUser';
+import { CurrentUserContext } from '../contexts/CurrentUser';
 
 // apis
-import { fetchHome, getDiaies } from '../../apis/home';
-import { createDiary, updateDiary, deleteDiary } from '../../apis/diaries';
+import { fetchHome, getDiaies } from '../apis/home';
+import { createDiary, updateDiary, deleteDiary } from '../apis/diaries';
 
 // icons
-import { CreateIcon } from '../../components/Icons';
+import { CreateIcon } from '../components/Icons';
 
 // components
-import { BaseButton } from '../../components/shared_style';
-import { PagenationArea } from '../../components/PagenationArea';
-import { ConfirmDialog } from '../../components/ConfirmDialog';
-import { DiaryIndex, DiaryCreateDialog, DiaryDialog } from '../../components/diaries';
+import { BaseButton } from '../components/shared_style';
+import { PagenationArea } from '../components/PagenationArea';
+import { ConfirmDialog } from '../components/ConfirmDialog';
+import { DiaryIndex, DiaryCreateDialog, DiaryDialog } from '../components/diaries';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // constants
-import { HTTP_STATUS_CODE, REQUEST_STATE  } from '../../constants';
+import { HTTP_STATUS_CODE, REQUEST_STATE  } from '../constants';
 
 // helpers
-import { dateToday, onSubmitText, isDisabled } from '../../helpers';
+import { dateToday, onSubmitText, isDisabled } from '../helpers';
 
 // reducers
-import { initialState as reducerInitialState, submitActionTypes, submitReducer } from '../../reducers/submit';
+import { initialState as reducerInitialState, submitActionTypes, submitReducer } from '../reducers/submit';
 
 // css
 const LoginHomeWrapper = styled.div`
@@ -461,10 +461,10 @@ export const LoginHome: VFC = () => {
           state.isOpenConfirmDialog && state.selectedDiary &&
           <ConfirmDialog
             isOpen={state.isOpenConfirmDialog}
-            diary={state.selectedDiary}
+            obj={state.selectedDiary}
             title={'削除確認'}
             contentText={'選択した日記を削除しますか？'}
-            onDeleteButton={onDiaryDelete}
+            onDelete={onDiaryDelete}
             onClose={onCloseCofirmationDialog}
           />
         }

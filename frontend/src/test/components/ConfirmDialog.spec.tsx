@@ -1,8 +1,7 @@
-import React from 'react';
 import { render , screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { ConfirmDialog } from '../../../components/diaries';
-import { dateToday } from '../../../helpers';
+import { ConfirmDialog } from '../../components/ConfirmDialog';
+import { dateToday } from '../../helpers';
 
 const diary = {
   id: 1,
@@ -21,8 +20,8 @@ describe('ConfirmDialog コンポーネント', () => {
         isOpen={true}
         title={'Test Title'}
         contentText={'Test Content'}
-        diary={diary}
-        onDiaryDelete={jest.fn()}
+        obj={diary}
+        onDelete={jest.fn()}
         onClose={jest.fn()}
       />
     )
@@ -50,8 +49,8 @@ describe('ConfirmDialog コンポーネント', () => {
       expect(closeButton ).toHaveTextContent('閉じる')
     })
 
-    it('DiaryDeleteButton', () => {
-      const deleteButton = screen.getByTestId('diaryDleteButton');
+    it('deleteButton', () => {
+      const deleteButton = screen.getByTestId('deleteButton');
 
       expect(deleteButton).toHaveAttribute('type','button')
       expect(deleteButton).toHaveTextContent('削除')

@@ -1,4 +1,4 @@
-import React, { VFC } from 'react';
+import { VFC } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 import styled from 'styled-components';
 
@@ -45,8 +45,8 @@ interface IConfirmDialogProps {
   isOpen: boolean;
   title: string;
   contentText: string;
-  diary: IDiary;
-  onDeleteButton(obj: IDiary): void;
+  obj: IDiary;
+  onDelete(obj: IDiary): void;
   onClose(): void;
 }
 
@@ -54,8 +54,8 @@ export const ConfirmDialog:VFC<IConfirmDialogProps> = ({
   isOpen,
   title,
   contentText,
-  diary,
-  onDeleteButton,
+  obj,
+  onDelete,
   onClose,
 }) => {
   return(
@@ -73,8 +73,8 @@ export const ConfirmDialog:VFC<IConfirmDialogProps> = ({
       <DialogActions>
         <DeleteButton
           type='button'
-          onClick={() => onDeleteButton(diary)}
-          data-testid='diaryDleteButton'
+          onClick={() => onDelete(obj)}
+          data-testid='deleteButton'
         >
           削除
         </DeleteButton>

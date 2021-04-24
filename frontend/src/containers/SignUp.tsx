@@ -1,4 +1,4 @@
-import React, { VFC, useState, useReducer } from 'react';
+import { VFC, useState, useReducer } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';

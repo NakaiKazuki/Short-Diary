@@ -1,4 +1,4 @@
-import React, { VFC, useContext } from 'react';
+import { VFC, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 
 // contexts
@@ -6,8 +6,12 @@ import { CurrentUserContext } from '../contexts/CurrentUser'
 
 // helpers
 import { isLoggedIn } from '../helpers';
-
-export const PrivateRoute:VFC<{children: JSX.Element}> = ({ children }) => {
+interface PrivateRouteProps {
+  exact: true;
+  path: string;
+  children: JSX.Element
+}
+export const PrivateRoute:VFC<PrivateRouteProps> = ({ children }) => {
   const {currentUser} = useContext(CurrentUserContext);
 
   return (

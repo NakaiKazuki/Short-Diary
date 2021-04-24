@@ -6,8 +6,8 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
-import { CurrentUserContext } from '../../../contexts/CurrentUser';
-import { LoginHome } from '../../../containers/homes/LoginHome';
+import { CurrentUserContext } from '../../contexts/CurrentUser';
+import { LoginHome } from '../../containers/LoginHome';
 
 interface IHeaders {
   'access-token': string;

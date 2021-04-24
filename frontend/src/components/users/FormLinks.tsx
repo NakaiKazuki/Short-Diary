@@ -1,6 +1,4 @@
-import React, {
-  VFC,
-  Fragment } from 'react';
+import { VFC, Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 

@@ -1,4 +1,4 @@
-import React, { VFC } from 'react';
+import { VFC } from 'react';
 import styled from 'styled-components';
 import { BaseButton } from '../shared_style';
 
