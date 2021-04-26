@@ -55,7 +55,7 @@ const FileNameArea = styled.span`
   margin-left: .6rem;
 `;
 
-const InputFileArea = styled.input`
+const InputPictureArea = styled.input`
   display: none;
 `;
 // 型
@@ -99,10 +99,10 @@ export const FormArea:VFC<IFormAreaProps> = ({
   onFileChange,
 }) => {
   return(
-    <FormWrapper onSubmit={onSubmit}>
-      <FormItemWrapper>
+    <FormWrapper onSubmit={onSubmit} data-testid='diaryForm'>
+      <FormItemWrapper data-testid='FormItem-date'>
         {apiErrors?.date?.map((message: string, index: number) =>
-          <FormErrorMessage key={`date-${index}`}>{`日付${message}`}</FormErrorMessage>
+          <FormErrorMessage key={`date-${index}`} data-testid='dateApiError'>{`日付${message}`}</FormErrorMessage>
         )}
         <Controller
           name={'date'}
@@ -113,17 +113,20 @@ export const FormArea:VFC<IFormAreaProps> = ({
             <TextField
               label='Date'
               type={'date'}
+              inputProps={{
+                'data-testid': 'dateArea',
+              }}
             />
           }
         />
       </FormItemWrapper>
 
-      <FormItemWrapper>
+      <FormItemWrapper data-testid='FormItem-content'>
         {errors?.content &&
-          <FormErrorMessage>1文字以上、200文字以内で入力してください</FormErrorMessage>
+          <FormErrorMessage data-testid='contentErrorMessage'>1文字以上、200文字以内で入力してください</FormErrorMessage>
         }
         {apiErrors?.content?.map((message: string, index: number) =>
-          <FormErrorMessage key={`content-${index}`}>{`日記内容${message}`}</FormErrorMessage>
+          <FormErrorMessage key={`content-${index}`} data-testid='contentApiError'>{`日記内容${message}`}</FormErrorMessage>
         )}
         <Controller
           name={'content'}
@@ -139,23 +142,29 @@ export const FormArea:VFC<IFormAreaProps> = ({
               placeholder='200文字以内で日記の内容を入力してください'
               multiline
               fullWidth
-              helperText = {<ContentCount>{contentCount}/200</ContentCount>}
+              helperText = {<ContentCount data-testid='contentCount'>{contentCount}/200</ContentCount>}
+              inputProps={{
+                'data-testid': 'contentArea',
+              }}
             />
           }
         />
+      </ FormItemWrapper>
 
+      <FormItemWrapper data-testid='FormItem-picture'>
         {apiErrors?.picture?.map((message: string, index: number) =>
-          <FormErrorMessage key={`picture-${index}`}>{`画像${message}`}</FormErrorMessage>
+          <FormErrorMessage key={`picture-${index}`} data-testid='pictureApiError'>{`画像${message}`}</FormErrorMessage>
         )}
         <InputFileLabel>
           <AddPictureIcon/>
           <FileNameArea>{setFileName}</FileNameArea>
-          <InputFileArea
+          <InputPictureArea
             name='picture'
             type='file'
             ref={register}
             onChange={onFileChange}
             accept='image/*,.png,.jpg,.jpeg,.gif'
+            data-testid='pictureArea'
           />
         </InputFileLabel>
       </FormItemWrapper>
@@ -163,6 +172,7 @@ export const FormArea:VFC<IFormAreaProps> = ({
       <FormSubmit
         type='submit'
         disabled={isDisabled}
+        data-testid='formSubmit'
       >
         {onSubmitText}
       </FormSubmit>

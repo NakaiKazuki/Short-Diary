@@ -87,8 +87,8 @@ export const Login:VFC = () => {
       history.push('/')
     })
     .catch(e => {
+      dispatch({ type: submitActionTypes.POST_INITIAL });
       if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-        dispatch({ type: submitActionTypes.POST_INITIAL });
         setErrorMessage(e.response.data.errors);
       } else {
         throw e;

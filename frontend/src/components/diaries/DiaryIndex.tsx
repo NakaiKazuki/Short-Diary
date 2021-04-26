@@ -78,7 +78,7 @@ export const DiaryIndex: VFC<DiariesProps> = ({
   onOpenDiaryDialog,
 }) => {
   return(
-    <DiariesWrapper>
+    <DiariesWrapper data-testid='diaryIndex'>
       {
         diaries.map((diary: IDiary, index: number) => {
           return(

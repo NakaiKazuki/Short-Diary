@@ -8,6 +8,8 @@ const pagy = {
   pages: 1,
 }
 
+const el = screen.getByTestId;
+
 afterEach(cleanup);
 
 describe('PagenationArea コンポーネント', () => {
@@ -21,7 +23,6 @@ describe('PagenationArea コンポーネント', () => {
   })
 
   it('Pagenation欄がある', () => {
-    const pagenationBar = screen.getByTestId('pagenationBar');
-    expect(pagenationBar).toBeTruthy();
+    expect(el('pagenationBar')).toBeTruthy();
   })
 });

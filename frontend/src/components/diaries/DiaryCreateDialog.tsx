@@ -59,8 +59,9 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
       onClose={onClose}
       maxWidth={'sm'}
       fullWidth
+      data-testid='diaryCreateDialog'
     >
-      <FromTitle>日記作成</FromTitle>
+      <FromTitle data-testid='diaryCreateDialogTitle'>日記作成</FromTitle>
       <FormArea
         control={control}
         errors={errors}

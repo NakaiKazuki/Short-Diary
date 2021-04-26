@@ -34,6 +34,7 @@ interface IProviderProps {
   }
 }
 
+const el = screen.getByTestId;
 const mockAxios = new MockAdapter(axios);
 mockAxios.onPost(guestSignIn).reply(200,
   {
@@ -52,12 +53,10 @@ mockAxios.onPost(guestSignIn).reply(200,
 
 const customRender = (ui: JSX.Element, { providerProps }: {providerProps: IProviderProps}) => {
   const history = createMemoryHistory();
-  return (
-    render(
-      <Router history={history}>
-        <CurrentUserContext.Provider {...providerProps}>{ui}</CurrentUserContext.Provider>
-      </Router>
-    )
+  return render(
+    <Router history={history}>
+      <CurrentUserContext.Provider {...providerProps}>{ui}</CurrentUserContext.Provider>
+    </Router>
   );
 };
 
@@ -76,34 +75,31 @@ describe('LogoutHome', () =>{
   })
 
   it('ユーザ登録画面へのリンクがある', () => {
-    const signUpLink = screen.getByTestId('signUpLink');
-
-    expect(signUpLink).toHaveAttribute('href', '/signup');
+    expect(el('signUpLink')).toHaveAttribute('href', '/signup');
   })
 
   describe('ゲストログインボタン',() =>{
     it('ゲストログインボタン', () => {
-      const guestLoginButton = screen.getByTestId('guestLoginButton');
-
-      expect(guestLoginButton).toHaveAttribute('type', 'button');
+      expect(el('guestLoginButton')).toHaveAttribute('type', 'button');
     })
 
     it('送信状況に応じてボタンの要素が変化', async() => {
-      const guestLoginButton = screen.getByTestId('guestLoginButton');
       // 初期値
-      expect(guestLoginButton).toHaveTextContent('ゲストログイン');
-      expect(guestLoginButton).not.toBeDisabled();
+      expect(el('guestLoginButton')).toHaveTextContent('ゲストログイン');
+      expect(el('guestLoginButton')).not.toBeDisabled();
 
       // ユーザがゲストログインボタンをクリック
-      userEvent.click(guestLoginButton);
+      userEvent.click(el('guestLoginButton'));
 
       // 送信中
-      expect(guestLoginButton).toHaveTextContent('送信中...');
-      expect(guestLoginButton).toBeDisabled();
+      expect(el('guestLoginButton')).toHaveTextContent('送信中...');
+      expect(el('guestLoginButton')).toBeDisabled();
 
       // 送信完了
-      await waitFor(() => expect(screen.getByTestId('guestLoginButton')).toHaveTextContent('送信完了!'));
-      await waitFor(() => expect(screen.getByTestId('guestLoginButton')).toBeDisabled());
+      await waitFor(() => {
+        expect(el('guestLoginButton')).toHaveTextContent('送信完了!');
+        expect(el('guestLoginButton')).toBeDisabled();
+      });
     })
   })
 })

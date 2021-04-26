@@ -122,7 +122,7 @@ export const LogoutHome: VFC = () => {
   };
 
   return(
-    <LogoutHomeWrapper data-testid="logoutHome">
+    <LogoutHomeWrapper>
       <Contents>
         <Heading>
           毎日の出来事を記録しよう

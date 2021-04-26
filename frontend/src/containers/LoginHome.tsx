@@ -42,7 +42,7 @@ const Heading = styled.h1`
   color: royalblue;
 `;
 
-const OpenDiaryCreateDialogButton = styled(BaseButton)`
+const DiaryCreateOpenButton = styled(BaseButton)`
   height: 2.5rem;
   width: 10rem;
   border: .0125rem solid green;
@@ -208,14 +208,13 @@ export const LoginHome: VFC = () => {
         })
       })
       .catch((e): void => {
+        dispatch({ type: submitActionTypes.POST_INITIAL });
         if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
-          dispatch({ type: submitActionTypes.POST_INITIAL });
           setState({
             ...state,
             apiErrors: e.response.data.errors,
           })
         } else {
-          dispatch({ type: submitActionTypes.POST_INITIAL });
           throw e;
         }
       });
@@ -257,14 +256,13 @@ export const LoginHome: VFC = () => {
       });
     })
     .catch((e): void => {
+      dispatch({ type: submitActionTypes.POST_INITIAL });
       if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
-        dispatch({ type: submitActionTypes.POST_INITIAL });
         setState({
           ...state,
           apiErrors: e.response.data.errors,
         })
       } else {
-        dispatch({ type: submitActionTypes.POST_INITIAL });
         throw e;
       }
     });
@@ -320,22 +318,6 @@ export const LoginHome: VFC = () => {
       });
     };
 
-    // メニューバーを開く
-    const onMenuOpen = (e: TClickHTMLElement): void => {
-      setState({
-        ...state,
-        anchorEl: e.currentTarget,
-      })
-    };
-
-    // メニューバーを閉じる
-    const onMenuClose = (): void => {
-      setState({
-        ...state,
-        anchorEl: null,
-      })
-    };
-
     // Dialogの内容を閲覧用に変更する
     const onDiaryShowMode = (): void => {
       setState({
@@ -352,6 +334,22 @@ export const LoginHome: VFC = () => {
         anchorEl: null,
         isOpenDiaryEdit: true,
       });
+    };
+
+    // メニューバーを開く
+    const onMenuOpen = (e: TClickHTMLElement): void => {
+      setState({
+        ...state,
+        anchorEl: e.currentTarget,
+      })
+    };
+
+    // メニューバーを閉じる
+    const onMenuClose = (): void => {
+      setState({
+        ...state,
+        anchorEl: null,
+      })
     };
   // ここまでDiaryMenuで使う関数
 
@@ -381,18 +379,18 @@ export const LoginHome: VFC = () => {
   },[]);
 
   return (
-    <LoginHomeWrapper data-testid="loginHome">
-      <Heading>Diaries</Heading>
-      <OpenDiaryCreateDialogButton onClick={onOpenDiaryCreateDialog}>
+    <LoginHomeWrapper>
+      <Heading data-testid='pageTitle'>Diaries</Heading>
+      <DiaryCreateOpenButton onClick={onOpenDiaryCreateDialog} data-testid='diaryCreateOpenButton'>
         <IconWrapper>
-          <CreateIcon fontSize={"small"} />
+          <CreateIcon fontSize={"small"} data-testid='createIcon' />
         </IconWrapper>
         日記作成
-      </OpenDiaryCreateDialogButton>
+      </DiaryCreateOpenButton>
       {
         state.fetchState === REQUEST_STATE.LOADING ?
         <CircularProgressWrapper>
-          <CircularProgress />
+          <CircularProgress/>
         </CircularProgressWrapper>
         :
           state.diaries != null  && state.pagy != null &&

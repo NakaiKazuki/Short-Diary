@@ -7,9 +7,9 @@ import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { createMemoryHistory } from 'history';
 import { CurrentUserContext } from '../../contexts/CurrentUser';
-import { SignUp } from '../../containers/SignUp';
-import { registration} from '../../urls';
-import { signUpLinkInfo as linkInfo } from '../../formInfo'
+import { Login } from '../../containers/Login';
+import { signIn } from '../../urls';
+import { loginLinkInfo as linkInfo } from '../../formInfo'
 
 interface IHeaders {
   'access-token': string;
@@ -37,12 +37,10 @@ interface IProviderProps {
 
 const customRender = (ui: JSX.Element, { providerProps }: {providerProps: IProviderProps}) => {
   const history = createMemoryHistory();
-  return (
-    render(
-      <Router history={history}>
-        <CurrentUserContext.Provider {...providerProps}>{ui}</CurrentUserContext.Provider>
-      </Router>
-    )
+  return render(
+    <Router history={history}>
+      <CurrentUserContext.Provider {...providerProps}>{ui}</CurrentUserContext.Provider>
+    </Router>
   );
 };
 
@@ -51,10 +49,6 @@ const mockAxios = new MockAdapter(axios);
 // 正しいForm情報
 const validInfo = [
   {
-    testId: 'nameArea',
-    value: 'testName',
-  },
-  {
     testId: 'emailArea',
     value: 'test@example.com',
   },
@@ -62,18 +56,10 @@ const validInfo = [
     testId: 'passwordArea',
     value: 'testPassword',
   },
-  {
-    testId: 'password_confirmationArea',
-    value: 'testPassword',
-  },
 ];
 
 // 不正なForm情報
 const invalidInfo = [
-  {
-    testId: 'nameArea',
-    value: '',
-  },
   {
     testId: 'emailArea',
     value: '',
@@ -82,15 +68,13 @@ const invalidInfo = [
     testId: 'passwordArea',
     value: '',
   },
-  {
-    testId: 'password_confirmationArea',
-    value: '',
-  },
 ];
+
+const el = screen.getByTestId;
 
 afterEach(cleanup);
 
-describe('SignUpコンポーネント', () => {
+describe('Loginコンポーネント', () => {
   const providerProps = {
     value:{
       currentUser: undefined,
@@ -99,64 +83,70 @@ describe('SignUpコンポーネント', () => {
   };
 
   beforeEach(() => {
-    customRender(<SignUp />,{providerProps})
+    customRender(<Login />,{providerProps})
   })
 
   describe('Form欄', () => {
     it('Formがある', () => {
-      const signUpForm = screen.getByTestId('signUpForm');
 
-      expect(signUpForm).toBeTruthy();
+      expect(el('loginForm')).toBeTruthy();
     })
 
     describe('Form入力欄', () => {
-      const idNames = ['name', 'email', 'password', 'password_confirmation'];
+      const idNames = ['email', 'password'];
 
-      it('各入力欄のブロックがある', () => {
-        const signUpForm = screen.getByTestId('signUpForm');
-
-        idNames.forEach(idName => expect(signUpForm).toContainElement(screen.getByTestId(`FormItem-${idName}`)));
+      it('Form内に各入力欄がある', () => {
+        idNames.forEach(idName => expect(el('loginForm')).toContainElement(el(`FormItem-${idName}`)));
       })
 
       it('エラーメッセージ', async() => {
         // ApiResponse
-        mockAxios.onPost(registration).reply(200);
+        mockAxios.onPost(signIn).reply(200,
+        {
+          headers: {
+            'access-token': 'testtoken',
+            client: 'testclient',
+            uid: 'test@example.com',
+          },
+          data: {
+            id: 1,
+            name: 'testName',
+            email: 'test@example.com',
+          },
+        });
 
         // 各項目に無効な値を入力
-        invalidInfo.forEach(obj => userEvent.type(screen.getByTestId(obj.testId), obj.value));
+        invalidInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
 
         // ユーザが送信ボタンをクリック
-        const formSubmit = screen.getByTestId('formSubmit');
-        userEvent.click(formSubmit);
+        userEvent.click(el('formSubmit'));
 
         // 各項目に対応したエラーメッセージが表示
         await waitFor(() => {
-          idNames.forEach(idName => expect(screen.getByTestId(`${idName}ErrorMessage`)).toBeTruthy());
+          idNames.forEach(idName => expect(el(`${idName}ErrorMessage`)).toBeTruthy());
         })
       })
 
       it('Apiエラーメッセージ', () => {
         // ApiResponse
-        mockAxios.onPost(registration).reply(401,
+        mockAxios.onPost(signIn).reply(401,
           {
             data: {
               errors:{
-                name: ['name ApiError'],
                 email: ['email ApiError'],
                 password: ['password ApiError'],
-                password_confirmation: ['password_confirmation ApiError'],
               }
             },
           },
         )
 
         // 各項目に値を入力
-        validInfo.forEach(obj => userEvent.type(screen.getByTestId(obj.testId), obj.value));
+        validInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
 
         // ユーザが送信ボタンをクリック
-        userEvent.click(screen.getByTestId('formSubmit'));
+        userEvent.click(el('formSubmit'));
 
-        // 各項目に対応したApiからのエラーメッセージが表示
+        // 各項目に対応したApiエラーメッセージが表示
         idNames.forEach(async idName => expect(await screen.findByTestId(`${idName}ApiError`)).toBeTruthy());
       })
     })
@@ -164,71 +154,79 @@ describe('SignUpコンポーネント', () => {
 
     describe('送信ボタン',() => {
       it('送信ボタンがある', () => {
-        const formSubmit = screen.getByTestId('formSubmit');
 
-        expect(formSubmit).toHaveAttribute('type', 'submit');
+        expect(el('formSubmit')).toHaveAttribute('type', 'submit');
       })
 
       it('送信状況に応じてボタンの要素が変化 Status200', async() => {
         // ApiResponse
-        mockAxios.onPost(registration).reply(200);
+        mockAxios.onPost(signIn).reply(200,
+        {
+          headers: {
+            'access-token': 'testtoken',
+            client: 'testclient',
+            uid: 'test@example.com',
+          },
+          data: {
+            id: 1,
+            name: 'testName',
+            email: 'test@example.com',
+          },
+        });
 
         // 各項目に有効な値を入力
-        validInfo.forEach(obj => userEvent.type(screen.getByTestId(obj.testId), obj.value));
+        validInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
 
         // 初期値
-        const formSubmit = screen.getByTestId('formSubmit');
-        expect(formSubmit).toHaveTextContent('SignUp!');
-        expect(formSubmit).not.toBeDisabled();
+        expect(el('formSubmit')).toHaveTextContent('Login!');
+        expect(el('formSubmit')).not.toBeDisabled();
 
         // ユーザが送信ボタンをクリック
-        userEvent.click(formSubmit);
+        userEvent.click(el('formSubmit'));
 
         // 送信完了
-        await waitFor(() => expect(formSubmit).toHaveTextContent('送信完了!'));
-        await waitFor(() => expect(formSubmit).toBeDisabled());
+        await waitFor(() => {
+          expect(el('formSubmit')).toHaveTextContent('送信完了!');
+          expect(el('formSubmit')).toBeDisabled();
+        });
       })
 
       it('送信状況に応じてボタンの要素が変化 Status401', async() => {
         // ApiResponse
-        mockAxios.onPost(registration).reply(401,
+        mockAxios.onPost(signIn).reply(401,
           {
             data: {
               errors:{
-                name: ['name ApiError'],
                 email: ['email ApiError'],
                 password: ['password ApiError'],
-                password_confirmation: ['password_confirmation ApiError'],
               }
             },
           },
         )
 
         // 各項目に有効な値を入力
-        validInfo.forEach(obj => userEvent.type(screen.getByTestId(obj.testId), obj.value));
-
-        const formSubmit = screen.getByTestId('formSubmit');
+        validInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
 
         // 初期値
-        expect(formSubmit).toHaveTextContent('SignUp!');
-        expect(formSubmit).not.toBeDisabled();
+        expect(el('formSubmit')).toHaveTextContent('Login!');
+        expect(el('formSubmit')).not.toBeDisabled();
 
         // ユーザが送信ボタンをクリック
-        userEvent.click(formSubmit);
+        userEvent.click(el('formSubmit'));
 
         // APIからエラーが返ってくると初期値に戻る
-        await waitFor(() => expect(formSubmit).toHaveTextContent('SignUp!'));
-        await waitFor(() => expect(formSubmit).not.toBeDisabled());
+        await waitFor(() => {
+          expect(el('formSubmit')).toHaveTextContent('Login!');
+          expect(el('formSubmit')).not.toBeDisabled();
+        });
       })
     })
   })
 
   it('Links', () => {
     linkInfo.forEach((obj, index) =>{
-      const link = screen.getByTestId(`formLink-${index}`);
-
-      expect(link).toHaveAttribute(`href`, obj.url);
-      expect(link).toHaveTextContent(obj.text);
+      expect(el(`formLink-${index}`)).toHaveAttribute(`href`, obj.url);
+      expect(el(`formLink-${index}`)).toHaveTextContent(obj.text);
     })
   })
 })

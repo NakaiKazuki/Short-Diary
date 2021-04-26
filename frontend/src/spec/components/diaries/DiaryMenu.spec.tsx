@@ -3,6 +3,8 @@ import { render , screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { DiaryMenu } from '../../../components/diaries/DiaryMenu';
 
+
+const el = screen.getByTestId;
 afterEach(cleanup);
 
 describe('DiaryMenu コンポーネント', () => {
@@ -23,25 +25,20 @@ describe('DiaryMenu コンポーネント', () => {
     })
 
     it('MenuIconがある', () => {
-      const menuIcon = screen.getByTestId('menuIcon');
-      expect(menuIcon).toBeTruthy();
+      expect(el('menuIcon')).toBeTruthy();
     })
 
     it('メニューは基本非表示',() => {
-      const diaryMenuBar = screen.getByTestId('diaryMenuBar');
 
-      expect(diaryMenuBar).toHaveStyle('visibility: hidden');
+      expect(el('diaryMenuBar')).toHaveStyle('visibility: hidden');
     })
 
     // 閲覧・編集時どちらにも表示される項目
     it('削除', () => {
-      const diaryMenuBar = screen.getByTestId('diaryMenuBar');
-      const MenuItemDiaryDelete = screen.getByTestId('MenuItemDiaryDelete');
-      expect(diaryMenuBar).toContainElement(MenuItemDiaryDelete);
+      expect(el('diaryMenuBar')).toContainElement(el('MenuItemDiaryDelete'));
       // IconとTextで表示
-      const deleteIcon = screen.getByTestId('deleteIcon');
-      expect(MenuItemDiaryDelete).toContainElement(deleteIcon);
-      expect(MenuItemDiaryDelete).toHaveTextContent('削除')
+      expect(el('MenuItemDiaryDelete')).toContainElement(el('deleteIcon'));
+      expect(el('MenuItemDiaryDelete')).toHaveTextContent('削除')
     })
   })
 
@@ -62,14 +59,10 @@ describe('DiaryMenu コンポーネント', () => {
     })
 
     it('編集', () => {
-      const diaryMenuBar = screen.getByTestId('diaryMenuBar');
-
-      const MenuItemDiaryEdit = screen.getByTestId('MenuItemDiaryEdit');
-      expect(diaryMenuBar).toContainElement(MenuItemDiaryEdit);
+      expect(el('diaryMenuBar')).toContainElement(el('MenuItemDiaryEdit'));
       // IconとTextで表示
-      const editIcon = screen.getByTestId('editIcon');
-      expect(MenuItemDiaryEdit).toContainElement(editIcon);
-      expect(MenuItemDiaryEdit).toHaveTextContent('編集')
+      expect(el('MenuItemDiaryEdit')).toContainElement(el('editIcon'));
+      expect(el('MenuItemDiaryEdit')).toHaveTextContent('編集')
     })
   })
 
@@ -89,15 +82,11 @@ describe('DiaryMenu コンポーネント', () => {
     })
 
     it('閲覧', () => {
-      const diaryMenuBar = screen.getByTestId('diaryMenuBar');
-
       // 閲覧モードに変更項目
-      const MenuItemDiaryShow = screen.getByTestId('MenuItemDiaryShow');
-      expect(diaryMenuBar).toContainElement(MenuItemDiaryShow);
+      expect(el('diaryMenuBar')).toContainElement(el('MenuItemDiaryShow'));
       // IconとTextで表示
-      const visibilityIcon = screen.getByTestId('visibilityIcon');
-      expect(MenuItemDiaryShow).toContainElement(visibilityIcon);
-      expect(MenuItemDiaryShow).toHaveTextContent('閲覧')
+      expect(el('MenuItemDiaryShow')).toContainElement(el('visibilityIcon'));
+      expect(el('MenuItemDiaryShow')).toHaveTextContent('閲覧')
     })
   })
 });

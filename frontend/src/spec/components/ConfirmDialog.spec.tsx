@@ -11,6 +11,8 @@ const diary = {
   user_id: 1,
 };
 
+const el = screen.getByTestId;
+
 afterEach(cleanup);
 
 describe('ConfirmDialog コンポーネント', () => {
@@ -29,31 +31,23 @@ describe('ConfirmDialog コンポーネント', () => {
 
   describe('要素の表示確認',() => {
     it('DialogTitle', () => {
-      const title = screen.getByTestId('confirmDialogTitle');
-
       // プロパティによって内容が変わる
-      expect(title).toHaveTextContent('Test Title');
+      expect(el('confirmDialogTitle')).toHaveTextContent('Test Title');
     })
 
     it('DialogContentText', () => {
-      const content = screen.getByTestId('confirmDialogContent');
-
       // プロパティによって内容が変わる
-      expect(content).toHaveTextContent('Test Content');
+      expect(el('confirmDialogContent')).toHaveTextContent('Test Content');
     })
 
     it('DialogCloseButton', () => {
-      const closeButton = screen.getByTestId('confirmDialogCloseButton');
-
-      expect(closeButton ).toHaveAttribute('type','button')
-      expect(closeButton ).toHaveTextContent('閉じる')
+      expect(el('confirmDialogCloseButton')).toHaveAttribute('type','button')
+      expect(el('confirmDialogCloseButton')).toHaveTextContent('閉じる')
     })
 
     it('deleteButton', () => {
-      const deleteButton = screen.getByTestId('deleteButton');
-
-      expect(deleteButton).toHaveAttribute('type','button')
-      expect(deleteButton).toHaveTextContent('削除')
+      expect(el('deleteButton')).toHaveAttribute('type','button')
+      expect(el('deleteButton')).toHaveTextContent('削除')
     })
   })
 });

@@ -7,9 +7,7 @@ import { FormLinks } from '../../../components/users';
 
 const renderWithRouter = (component: any) => {
   const history = createMemoryHistory();
-  return {
-    ...render(<Router history={history}>{component}</Router>),
-  };
+  return render(<Router history={history}>{component}</Router>)
 };
 
 const linkInfo =  [
@@ -22,6 +20,8 @@ const linkInfo =  [
     text: 'Test Text2',
   }
 ];
+
+const el = screen.getByTestId;
 
 afterEach(cleanup);
 
@@ -37,10 +37,8 @@ describe('FormLinks コンポーネント', () => {
   it('配列の要素の数、要素の内容次第で変化する', () => {
     // linkInfo[0] によって表示される内容
     linkInfo.forEach((obj, index) =>{
-      const linkItem = screen.getByTestId(`formLink-${index}`);
-
-      expect(linkItem).toHaveAttribute(`href`, obj.url);
-      expect(linkItem).toHaveTextContent(obj.text);
+      expect(el(`formLink-${index}`)).toHaveAttribute(`href`, obj.url);
+      expect(el(`formLink-${index}`)).toHaveTextContent(obj.text);
     } )
   })
 });
