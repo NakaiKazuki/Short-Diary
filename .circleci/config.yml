@@ -29,7 +29,7 @@ jobs:
           name: Run Brakeman
           command: bundle exec brakeman -6 -A -w1
 
-  bundle_audit:
+  bundle-audit:
     docker:
       - image: circleci/ruby:3.0.1
         environment:
