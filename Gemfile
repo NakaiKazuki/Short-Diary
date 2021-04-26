@@ -44,6 +44,7 @@ end
 
 group :test do
   gem 'database_cleaner' # DockerではDBのお掃除が必要
+  gem 'rspec_junit_formatter' #CircleCiで必要
 end
 
 group :production do
