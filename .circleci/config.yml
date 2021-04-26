@@ -6,16 +6,16 @@ orbs:
 
 jobs:
   rails_best_practices:
-  docker:
-    - image: circleci/ruby:3.0.1
-      environment:
-        - BUNDLER_VERSION: 2.2.15
-  steps:
-    - checkout
-    - ruby/install-deps
-    - run:
-        name: Run Rails Best Practices
-        command: bundle exec rails_best_practices .
+    docker:
+      - image: circleci/ruby:3.0.1
+        environment:
+          - BUNDLER_VERSION: 2.2.15
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run:
+          name: Run Rails Best Practices
+          command: bundle exec rails_best_practices .
 
   brakeman:
     docker:
@@ -29,7 +29,7 @@ jobs:
           name: Run Brakeman
           command: bundle exec brakeman -6 -A -w1
 
-  bundle-audit:
+  bundle_audit:
     docker:
       - image: circleci/ruby:3.0.1
         environment:
