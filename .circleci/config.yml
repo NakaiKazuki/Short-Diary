@@ -1,0 +1,110 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.3.0
+  ruby: circleci/ruby@1.1.2
+
+jobs:
+  rails_best_practices:
+  docker:
+    - image: circleci/ruby:3.0.1
+      environment:
+        - BUNDLER_VERSION: 2.2.15
+  steps:
+    - checkout
+    - ruby/install-deps
+    - run:
+        name: Run Rails Best Practices
+        command: bundle exec rails_best_practices .
+
+  brakeman:
+    docker:
+      - image: circleci/ruby:3.0.1
+        environment:
+          - BUNDLER_VERSION: 2.2.15
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run:
+          name: Run Brakeman
+          command: bundle exec brakeman -6 -A -w1
+
+  bundle-audit:
+    docker:
+      - image: circleci/ruby:3.0.1
+        environment:
+          - BUNDLER_VERSION: 2.2.15
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run:
+          name: Run Bundle Audit Check
+          command: bundle exec bundle-audit check --update
+
+  rubocop:
+    docker:
+      - image: circleci/ruby:3.0.1
+        environment:
+          - BUNDLER_VERSION: 2.2.15
+    steps:
+      - checkout
+      - ruby/install-deps
+      - ruby/rubocop-check
+
+  rspec:
+    docker:
+      - image: circleci/ruby:3.0.1
+        environment:
+          - DB_HOST: 127.0.0.1
+          - RAILS_ENV: test
+          - BUNDLER_VERSION: 2.2.15
+      - image: circleci/mysql:8.0.22
+        command: |
+          mysqld --default-authentication-plugin=mysql_native_password
+        environment:
+          - MYSQL_ROOT_PASSWORD: password
+          - MYSQL_USER: root
+          - MYSQL_ROOT_HOST: '%'
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run: mv config/database.yml.ci config/database.yml
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+      - ruby/rspec-test
+
+  jest:
+    docker:
+      - image: circleci/node:14.16.1
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-path: './frontend/yarn.lock'
+      - run:
+        name: Run FrontEnd Test
+        command: yarn test
+
+workflows:
+  version: 2
+  confirmation_passed_deploy:
+    jobs:
+      - rails_best_practices
+      - brakeman:
+          requires:
+            - rails_best_practices
+      - bundle-audit:
+          requires:
+            - brakeman
+      - rubocop:
+          requires:
+            - bundle-audit
+      - rspec:
+          requires:
+            - rubocop
+      - jest:
+          requires:
+            - rspec
