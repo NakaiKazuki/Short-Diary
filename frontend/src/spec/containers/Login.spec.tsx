@@ -45,9 +45,29 @@ const customRender = (ui: JSX.Element, { providerProps }: {providerProps: IProvi
 };
 
 const mockAxios = new MockAdapter(axios);
+const returnData = {
+  headers: {
+    'access-token': 'testtoken',
+    client: 'testclient',
+    uid: 'test@example.com',
+  },
+  data: {
+    id: 1,
+    name: 'testName',
+    email: 'test@example.com',
+  },
+};
 
+const returnErrorData = {
+  data: {
+    errors:{
+      email: ['email ApiError'],
+      password: ['password ApiError'],
+    }
+  },
+}
 // 正しいForm情報
-const validInfo = [
+const formInfo = [
   {
     testId: 'emailArea',
     value: 'test@example.com',
@@ -55,18 +75,6 @@ const validInfo = [
   {
     testId: 'passwordArea',
     value: 'testPassword',
-  },
-];
-
-// 不正なForm情報
-const invalidInfo = [
-  {
-    testId: 'emailArea',
-    value: '',
-  },
-  {
-    testId: 'passwordArea',
-    value: '',
   },
 ];
 
@@ -101,22 +109,10 @@ describe('Loginコンポーネント', () => {
 
       it('エラーメッセージ', async() => {
         // ApiResponse
-        mockAxios.onPost(signIn).reply(200,
-        {
-          headers: {
-            'access-token': 'testtoken',
-            client: 'testclient',
-            uid: 'test@example.com',
-          },
-          data: {
-            id: 1,
-            name: 'testName',
-            email: 'test@example.com',
-          },
-        });
+        mockAxios.onPost(signIn).reply(200,returnData);
 
         // 各項目に無効な値を入力
-        invalidInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
+        formInfo.forEach(obj => userEvent.clear(el(obj.testId)));
 
         // ユーザが送信ボタンをクリック
         userEvent.click(el('formSubmit'));
@@ -129,19 +125,10 @@ describe('Loginコンポーネント', () => {
 
       it('Apiエラーメッセージ', () => {
         // ApiResponse
-        mockAxios.onPost(signIn).reply(401,
-          {
-            data: {
-              errors:{
-                email: ['email ApiError'],
-                password: ['password ApiError'],
-              }
-            },
-          },
-        )
+        mockAxios.onPost(signIn).reply(401,returnErrorData)
 
         // 各項目に値を入力
-        validInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
+        formInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
 
         // ユーザが送信ボタンをクリック
         userEvent.click(el('formSubmit'));
@@ -160,22 +147,10 @@ describe('Loginコンポーネント', () => {
 
       it('送信状況に応じてボタンの要素が変化 Status200', async() => {
         // ApiResponse
-        mockAxios.onPost(signIn).reply(200,
-        {
-          headers: {
-            'access-token': 'testtoken',
-            client: 'testclient',
-            uid: 'test@example.com',
-          },
-          data: {
-            id: 1,
-            name: 'testName',
-            email: 'test@example.com',
-          },
-        });
+        mockAxios.onPost(signIn).reply(200, returnData);
 
         // 各項目に有効な値を入力
-        validInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
+        formInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
 
         // 初期値
         expect(el('formSubmit')).toHaveTextContent('Login!');
@@ -193,19 +168,10 @@ describe('Loginコンポーネント', () => {
 
       it('送信状況に応じてボタンの要素が変化 Status401', async() => {
         // ApiResponse
-        mockAxios.onPost(signIn).reply(401,
-          {
-            data: {
-              errors:{
-                email: ['email ApiError'],
-                password: ['password ApiError'],
-              }
-            },
-          },
-        )
+        mockAxios.onPost(signIn).reply(401, returnErrorData)
 
         // 各項目に有効な値を入力
-        validInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
+        formInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
 
         // 初期値
         expect(el('formSubmit')).toHaveTextContent('Login!');

@@ -23,7 +23,7 @@ const ContentHeading = styled.h4`
   color: mediumblue;
 `;
 
-const ContentImageWrapper = styled.div`
+const PictureWrapper = styled.div`
   min-height: 15rem;
   margin: .5rem auto 2.5rem auto;
   width: 80%;
@@ -38,7 +38,7 @@ const Content = styled.div`
   padding: 4% 4% 0 4%;
 `;
 
-const Image = styled.img`
+const Picture = styled.img`
   display: flex;
   margin: 1rem auto;
   max-height: 95%;
@@ -116,6 +116,7 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
       onClose={onClose}
       maxWidth={'sm'}
       fullWidth
+      data-testid='diaryDialog'
     >
       <DiaryMenu
         anchorEl={anchorEl}
@@ -143,17 +144,18 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
           />
         :
           <Fragment>
-            <Date>{diary.date}</Date>
+            <Date data-testid='diaryDate'>{diary.date}</Date>
             <ContentHeading>Content</ContentHeading>
-            <ContentImageWrapper>
-              <Content>{diary.content}</Content>
+            <PictureWrapper>
+              <Content data-testid='diaryContent'>{diary.content}</Content>
               {
                 diary.picture_url &&
-                <Image
+                <Picture
                   src={diary.picture_url} alt='日記画像'
+                  data-testid='diaryPicture'
                 />
               }
-            </ContentImageWrapper>
+            </PictureWrapper>
           </Fragment>
       }
     </Dialog>

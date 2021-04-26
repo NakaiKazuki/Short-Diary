@@ -29,7 +29,6 @@ describe('DiaryMenu コンポーネント', () => {
     })
 
     it('メニューは基本非表示',() => {
-
       expect(el('diaryMenuBar')).toHaveStyle('visibility: hidden');
     })
 

@@ -45,7 +45,7 @@ const customRender = (ui: JSX.Element, { providerProps }: {providerProps: IProvi
 };
 
 // 正しいForm情報
-const validInfo = [
+const formInfo = [
   {
     testId: 'nameArea',
     value: 'testName',
@@ -63,26 +63,23 @@ const validInfo = [
     value: 'testPassword',
   },
 ];
+const returnErrorData = {
+  data: {
+    errors:{
+      name: ['name ApiError'],
+      email: ['email ApiError'],
+      password: ['password ApiError'],
+      password_confirmation: ['password_confirmation ApiError'],
+    }
+  },
+}
 
-// 不正なForm情報
-const invalidInfo = [
-  {
-    testId: 'nameArea',
-    value: '',
-  },
-  {
-    testId: 'emailArea',
-    value: '',
-  },
-  {
-    testId: 'passwordArea',
-    value: '',
-  },
-  {
-    testId: 'password_confirmationArea',
-    value: '',
-  },
-];
+const providerProps = {
+  value:{
+    currentUser: undefined,
+    setCurrentUser: jest.fn(),
+  }
+};
 
 const el = screen.getByTestId;
 const mockAxios = new MockAdapter(axios);
@@ -90,12 +87,6 @@ const mockAxios = new MockAdapter(axios);
 afterEach(cleanup);
 
 describe('SignUpコンポーネント', () => {
-  const providerProps = {
-    value:{
-      currentUser: undefined,
-      setCurrentUser: jest.fn(),
-    }
-  };
 
   beforeEach(() => {
     customRender(<SignUp />,{providerProps})
@@ -118,7 +109,7 @@ describe('SignUpコンポーネント', () => {
         mockAxios.onPost(registration).reply(200);
 
         // 各項目に無効な値を入力
-        invalidInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
+        formInfo.forEach(obj => userEvent.clear(el(obj.testId)));
 
         // ユーザが送信ボタンをクリック
         userEvent.click(el('formSubmit'));
@@ -131,21 +122,10 @@ describe('SignUpコンポーネント', () => {
 
       it('Apiエラーメッセージ', () => {
         // ApiResponse
-        mockAxios.onPost(registration).reply(401,
-          {
-            data: {
-              errors:{
-                name: ['name ApiError'],
-                email: ['email ApiError'],
-                password: ['password ApiError'],
-                password_confirmation: ['password_confirmation ApiError'],
-              }
-            },
-          },
-        )
+        mockAxios.onPost(registration).reply(401, returnErrorData)
 
         // 各項目に値を入力
-        validInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
+        formInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
 
         // ユーザが送信ボタンをクリック
         userEvent.click(el('formSubmit'));
@@ -166,7 +146,7 @@ describe('SignUpコンポーネント', () => {
         mockAxios.onPost(registration).reply(200);
 
         // 各項目に有効な値を入力
-        validInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
+        formInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
 
         // 初期値
         expect(el('formSubmit')).toHaveTextContent('SignUp!');
@@ -184,21 +164,10 @@ describe('SignUpコンポーネント', () => {
 
       it('送信状況に応じてボタンの要素が変化 Status401', async() => {
         // ApiResponse
-        mockAxios.onPost(registration).reply(401,
-          {
-            data: {
-              errors:{
-                name: ['name ApiError'],
-                email: ['email ApiError'],
-                password: ['password ApiError'],
-                password_confirmation: ['password_confirmation ApiError'],
-              }
-            },
-          },
-        )
+        mockAxios.onPost(registration).reply(401, returnErrorData)
 
         // 各項目に有効な値を入力
-        validInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
+        formInfo.forEach(obj => userEvent.type(el(obj.testId), obj.value));
 
         // 初期値
         expect(el('formSubmit')).toHaveTextContent('SignUp!');

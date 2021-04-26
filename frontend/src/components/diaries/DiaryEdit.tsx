@@ -58,7 +58,7 @@ export const DiaryEdit:VFC<IDiaryEditProps> = ({
 }) => {
   return (
     <Fragment>
-      <FromTitle>日記編集</FromTitle>
+      <FromTitle data-testid='diaryEditTitle'>日記編集</FromTitle>
       <FormArea
         control={control}
         errors={errors}

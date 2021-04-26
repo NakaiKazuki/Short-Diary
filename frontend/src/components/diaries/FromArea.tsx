@@ -7,15 +7,15 @@ import styled from 'styled-components';
 import { BaseButton } from '../shared_style';
 import { AddPictureIcon } from '../Icons';
 
-const FormItemWrapper = styled.div`
-  margin-top: 1rem;
-`;
-
 const FormWrapper = styled.form`
   padding: 0 10% 5% 10%;
 `;
 
-const FormErrorMessage = styled.p`
+const FormItemWrapper = styled.div`
+  margin-top: 1rem;
+`;
+
+const ErrorMessage = styled.p`
   text-align: center;
   margin: .4rem auto;
   color: red;
@@ -27,7 +27,7 @@ const ContentCount = styled.span`
   font-size: 1rem;
 `;
 
-const FormSubmit = styled(BaseButton)`
+const Submit = styled(BaseButton)`
   margin-top: 2rem;
   background-color: royalblue;
   color: white;
@@ -37,7 +37,7 @@ const FormSubmit = styled(BaseButton)`
   font-size: 1.1rem;
 `;
 
-const InputFileLabel = styled.label`
+const Picture = styled.label`
   width: 100%;
   text-align: center;
   padding: .6rem 0;
@@ -102,7 +102,7 @@ export const FormArea:VFC<IFormAreaProps> = ({
     <FormWrapper onSubmit={onSubmit} data-testid='diaryForm'>
       <FormItemWrapper data-testid='FormItem-date'>
         {apiErrors?.date?.map((message: string, index: number) =>
-          <FormErrorMessage key={`date-${index}`} data-testid='dateApiError'>{`日付${message}`}</FormErrorMessage>
+          <ErrorMessage key={`date-${index}`} data-testid='dateApiError'>{`日付${message}`}</ErrorMessage>
         )}
         <Controller
           name={'date'}
@@ -123,10 +123,10 @@ export const FormArea:VFC<IFormAreaProps> = ({
 
       <FormItemWrapper data-testid='FormItem-content'>
         {errors?.content &&
-          <FormErrorMessage data-testid='contentErrorMessage'>1文字以上、200文字以内で入力してください</FormErrorMessage>
+          <ErrorMessage data-testid='contentErrorMessage'>1文字以上、200文字以内で入力してください</ErrorMessage>
         }
         {apiErrors?.content?.map((message: string, index: number) =>
-          <FormErrorMessage key={`content-${index}`} data-testid='contentApiError'>{`日記内容${message}`}</FormErrorMessage>
+          <ErrorMessage key={`content-${index}`} data-testid='contentApiError'>{`日記内容${message}`}</ErrorMessage>
         )}
         <Controller
           name={'content'}
@@ -153,9 +153,9 @@ export const FormArea:VFC<IFormAreaProps> = ({
 
       <FormItemWrapper data-testid='FormItem-picture'>
         {apiErrors?.picture?.map((message: string, index: number) =>
-          <FormErrorMessage key={`picture-${index}`} data-testid='pictureApiError'>{`画像${message}`}</FormErrorMessage>
+          <ErrorMessage key={`picture-${index}`} data-testid='pictureApiError'>{`画像${message}`}</ErrorMessage>
         )}
-        <InputFileLabel>
+        <Picture>
           <AddPictureIcon/>
           <FileNameArea>{setFileName}</FileNameArea>
           <InputPictureArea
@@ -166,16 +166,16 @@ export const FormArea:VFC<IFormAreaProps> = ({
             accept='image/*,.png,.jpg,.jpeg,.gif'
             data-testid='pictureArea'
           />
-        </InputFileLabel>
+        </Picture>
       </FormItemWrapper>
 
-      <FormSubmit
+      <Submit
         type='submit'
         disabled={isDisabled}
         data-testid='formSubmit'
       >
         {onSubmitText}
-      </FormSubmit>
+      </Submit>
     </FormWrapper>
   );
 }

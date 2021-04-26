@@ -6,7 +6,7 @@ import { dateToday } from '../../helpers';
 const diary = {
   id: 1,
   date: dateToday(),
-  content: 'Test Content',
+  content: 'Test Text',
   picture_url: null,
   user_id: 1,
 };
@@ -21,7 +21,7 @@ describe('ConfirmDialog コンポーネント', () => {
       <ConfirmDialog
         isOpen={true}
         title={'Test Title'}
-        contentText={'Test Content'}
+        contentText={diary.content}
         obj={diary}
         onDelete={jest.fn()}
         onClose={jest.fn()}
@@ -37,7 +37,7 @@ describe('ConfirmDialog コンポーネント', () => {
 
     it('DialogContentText', () => {
       // プロパティによって内容が変わる
-      expect(el('confirmDialogContent')).toHaveTextContent('Test Content');
+      expect(el('confirmDialogContent')).toHaveTextContent(diary.content);
     })
 
     it('DialogCloseButton', () => {

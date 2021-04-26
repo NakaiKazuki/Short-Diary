@@ -57,6 +57,7 @@ const DiaryCreateOpenButton = styled(BaseButton)`
     width: 100%;
   }
 `;
+
 const IconWrapper = styled.span`
   margin-right: 1rem;
 `;

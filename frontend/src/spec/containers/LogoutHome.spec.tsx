@@ -36,6 +36,7 @@ interface IProviderProps {
 
 const el = screen.getByTestId;
 const mockAxios = new MockAdapter(axios);
+
 mockAxios.onPost(guestSignIn).reply(200,
   {
     headers: {

@@ -63,6 +63,7 @@ export const ConfirmDialog:VFC<IConfirmDialogProps> = ({
       open={isOpen}
       onClose={onClose}
       fullWidth
+      data-testid='confirmDialog'
     >
       <DialogTitle data-testid='confirmDialogTitle'>{title}</DialogTitle>
       <DialogContent>
