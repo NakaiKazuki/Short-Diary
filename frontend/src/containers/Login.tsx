@@ -1,8 +1,4 @@
-import React, {
-  VFC,
-  useState ,
-  useReducer,
-  useContext } from 'react';
+import { VFC, useState, useReducer, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
@@ -91,8 +87,8 @@ export const Login:VFC = () => {
       history.push('/')
     })
     .catch(e => {
+      dispatch({ type: submitActionTypes.POST_INITIAL });
       if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-        dispatch({ type: submitActionTypes.POST_INITIAL });
         setErrorMessage(e.response.data.errors);
       } else {
         throw e;

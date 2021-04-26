@@ -1,9 +1,9 @@
-import React, { VFC } from 'react';
+import { VFC } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 import styled from 'styled-components';
 
 // components
-import { BaseButton } from '../shared_style';
+import { BaseButton } from './shared_style';
 // css
 const ConfirmationButton = styled(BaseButton)`
   height: 2.2rem;
@@ -45,8 +45,8 @@ interface IConfirmDialogProps {
   isOpen: boolean;
   title: string;
   contentText: string;
-  diary: IDiary;
-  onDiaryDelete(diary: IDiary): void;
+  obj: IDiary;
+  onDelete(obj: IDiary): void;
   onClose(): void;
 }
 
@@ -54,8 +54,8 @@ export const ConfirmDialog:VFC<IConfirmDialogProps> = ({
   isOpen,
   title,
   contentText,
-  diary,
-  onDiaryDelete,
+  obj,
+  onDelete,
   onClose,
 }) => {
   return(
@@ -63,6 +63,7 @@ export const ConfirmDialog:VFC<IConfirmDialogProps> = ({
       open={isOpen}
       onClose={onClose}
       fullWidth
+      data-testid='confirmDialog'
     >
       <DialogTitle data-testid='confirmDialogTitle'>{title}</DialogTitle>
       <DialogContent>
@@ -73,8 +74,8 @@ export const ConfirmDialog:VFC<IConfirmDialogProps> = ({
       <DialogActions>
         <DeleteButton
           type='button'
-          onClick={() => onDiaryDelete(diary)}
-          data-testid='diaryDleteButton'
+          onClick={() => onDelete(obj)}
+          data-testid='deleteButton'
         >
           削除
         </DeleteButton>

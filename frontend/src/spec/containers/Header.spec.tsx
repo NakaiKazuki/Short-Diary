@@ -27,21 +27,18 @@ interface ICurrentUser {
 interface IProviderProps {
   value: {
     currentUser: ICurrentUser | undefined;
-    setCurrentUser: jest.Mock<any, any>;
+    setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
   }
 }
 
-const customRender = (ui: any, { providerProps }: {providerProps: IProviderProps}) => {
+const customRender = (ui: JSX.Element, { providerProps }: {providerProps: IProviderProps}) => {
   const history = createMemoryHistory();
-  return (
-    render(
-      <Router history={history}>
-        <CurrentUserContext.Provider {...providerProps}>{ui}</CurrentUserContext.Provider>
-      </Router>
-    )
+  return render(
+    <Router history={history}>
+      <CurrentUserContext.Provider {...providerProps}>{ui}</CurrentUserContext.Provider>
+    </Router>
   );
 };
-
 
 const currentUser = {
   headers: {
@@ -55,6 +52,8 @@ const currentUser = {
     email: 'test@example.com',
   },
 };
+
+const el = screen.getByTestId;
 
 afterEach(cleanup);
 
@@ -72,15 +71,11 @@ describe('Header コンポーネント', () => {
     })
 
     it('ホーム画面へのリンク', () => {
-      const homeLink = screen.getByTestId('homeLink');
-
-      expect(homeLink ).toBeTruthy();
+      expect(el('homeLink')).toBeTruthy();
     })
 
     it('ログインページへのリンク', () => {
-      const loginLink = screen.getByTestId('loginLink');
-
-      expect(loginLink).toHaveAttribute('href', '/login');
+      expect(el('loginLink')).toHaveAttribute('href', '/login');
     })
   })
 
@@ -97,33 +92,25 @@ describe('Header コンポーネント', () => {
     })
 
     it('ホーム画面へのリンク', () => {
-      const homeLink = screen.getByTestId('homeLink');
-
-      expect(homeLink).toHaveAttribute('href', '/');
+      expect(el('homeLink')).toHaveAttribute('href', '/');
     })
 
     it('ユーザアイコンが表示', () => {
-      const userIcon = screen.getByTestId('userIcon');
-
-      expect(userIcon).toBeTruthy();
+      expect(el('userIcon')).toBeTruthy();
     })
 
     describe('MenuBar',() => {
       it('MenuBarの表示', () => {
-        const menuBar = screen.getByTestId('menuBar');
         // デフォルトは非表示
-        expect(menuBar).toHaveStyle('visibility: hidden');
+        expect(el('menuBar')).toHaveStyle('visibility: hidden');
 
         // ユーザがクリックすることで表示
-        userEvent.click(screen.getByTestId('userIcon'));
-        expect(menuBar).toHaveStyle('visibility: visible');
+        userEvent.click(el('userIcon'));
+        expect(el('menuBar')).toHaveStyle('visibility: visible');
       })
 
       it('Logoutボタン', () => {
-        const menuBar = screen.getByTestId('menuBar');
-        const logoutButton = screen.getByTestId('logoutButton');
-
-        expect(menuBar).toContainElement(logoutButton);
+        expect(el('menuBar')).toContainElement(el('logoutButton'));
       })
     });
   })

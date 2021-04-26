@@ -1,21 +1,19 @@
-import React, {
-  VFC,
-  Fragment } from 'react';
+import { VFC, Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // css
-const FormLinkListWrapper = styled.div`
+const LinkListWrapper = styled.div`
   text-align: center;
 `;
 
-const FormLinkList = styled.ul`
+const LinkList = styled.ul`
   display: inline-block;
   text-align: left;
   list-style: none;
 `;
 
-const FormLinkItem = styled.li`
+const LinkArea = styled.li`
   margin-top: 1rem;
 `;
 
@@ -53,13 +51,13 @@ export const FormLinks:VFC<IFormLinks> = ({
       linkInfo.map((obj: IlinkInfo, index: number) => {
         return (
           <Fragment key={`formLinkArea-${index}`}>
-            <FormLinkListWrapper>
-            <FormLinkList>
-              <FormLinkItem>
+            <LinkListWrapper>
+            <LinkList>
+              <LinkArea>
                 <FormLink to={obj.url} data-testid={`formLink-${index}`}>{obj.text}</FormLink>
-              </FormLinkItem>
-            </FormLinkList>
-          </FormLinkListWrapper>
+              </LinkArea>
+            </LinkList>
+          </LinkListWrapper>
           </Fragment>
         )
       })

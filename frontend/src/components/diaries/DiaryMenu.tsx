@@ -92,17 +92,8 @@ const StyledMenuItemDelete = withStyles(() => ({
 }))(MenuItem);
 
 // 型
-interface IDiary {
-  id: number;
-  date: string;
-  content: string;
-  picture_url: string | null;
-  user_id: number;
-}
 
 interface IDiaryMenuProps {
-  diary: IDiary;
-  currentUserId: number;
   anchorEl: HTMLElement | null;
   isOpenDiaryEdit: boolean;
   onMenuOpen(e: React.MouseEvent<HTMLElement>): void;
@@ -113,8 +104,6 @@ interface IDiaryMenuProps {
 }
 
 export const DiaryMenu:VFC<IDiaryMenuProps> = ({
-  diary,
-  currentUserId,
   anchorEl,
   isOpenDiaryEdit,
   onMenuOpen,
@@ -125,40 +114,37 @@ export const DiaryMenu:VFC<IDiaryMenuProps> = ({
 }) => {
   return(
     <Fragment>
-      {
-        diary.user_id === currentUserId &&
-          <Fragment>
-            <MenuIconWrapper
-              aria-haspopup='true'
-              onClick={onMenuOpen}
-            >
-              <MenuIcon fontSize='large' />
-            </MenuIconWrapper>
+      <MenuIconWrapper
+        aria-haspopup='true'
+        onClick={onMenuOpen}
+        data-testid='menuIcon'
+      >
+        <MenuIcon fontSize='large' />
+      </MenuIconWrapper>
 
-            <StyledMenu
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={onMenuClose}
-            >
-              {isOpenDiaryEdit ?
-                <StyledMenuItem onClick={() => onDiaryShowMode()}>
-                  <ListItemIcon><VisibilityIcon /></ListItemIcon>
-                    閲覧
-                </StyledMenuItem>
-              :
-                <StyledMenuItem onClick={() => onDiaryEditMode()}>
-                  <ListItemIcon><EditIcon /></ListItemIcon>
-                    編集
-                </StyledMenuItem>
-              }
-              <StyledMenuItemDelete onClick={onOpenCofirmationDialog}>
-                <ListItemIcon><DeleteIcon /></ListItemIcon>
-                  削除
-              </StyledMenuItemDelete>
-            </StyledMenu>
-          </Fragment>
-      }
+      <StyledMenu
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={onMenuClose}
+        data-testid='diaryMenuBar'
+      >
+        {isOpenDiaryEdit ?
+          <StyledMenuItem onClick={() => onDiaryShowMode()} data-testid='MenuItemDiaryShow'>
+            <ListItemIcon><VisibilityIcon data-testid='visibilityIcon'/></ListItemIcon>
+              閲覧
+          </StyledMenuItem>
+        :
+          <StyledMenuItem onClick={() => onDiaryEditMode()} data-testid='MenuItemDiaryEdit'>
+            <ListItemIcon><EditIcon data-testid='editIcon'/></ListItemIcon>
+              編集
+          </StyledMenuItem>
+        }
+        <StyledMenuItemDelete onClick={onOpenCofirmationDialog} data-testid='MenuItemDiaryDelete'>
+          <ListItemIcon><DeleteIcon data-testid='deleteIcon'/></ListItemIcon>
+            削除
+        </StyledMenuItemDelete>
+      </StyledMenu>
     </Fragment>
   );
 }

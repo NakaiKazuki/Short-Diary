@@ -3,29 +3,30 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 // contexts
-import { CurrentUserContext } from '../../contexts/CurrentUser';
+import { CurrentUserContext } from '../contexts/CurrentUser';
 
 // apis
-import { fetchHome, getDiaies } from '../../apis/home';
-import { createDiary, updateDiary, deleteDiary } from '../../apis/diaries';
+import { fetchHome, getDiaies } from '../apis/home';
+import { createDiary, updateDiary, deleteDiary } from '../apis/diaries';
 
 // icons
-import { CreateIcon } from '../../components/Icons';
+import { CreateIcon } from '../components/Icons';
 
 // components
-import { BaseButton } from '../../components/shared_style';
-import { PagenationArea } from '../../components/PagenationArea';
-import { DiaryIndex, DiaryCreateDialog, DiaryDialog, ConfirmDialog } from '../../components/diaries';
+import { BaseButton } from '../components/shared_style';
+import { PagenationArea } from '../components/PagenationArea';
+import { ConfirmDialog } from '../components/ConfirmDialog';
+import { DiaryIndex, DiaryCreateDialog, DiaryDialog } from '../components/diaries';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // constants
-import { HTTP_STATUS_CODE, REQUEST_STATE  } from '../../constants';
+import { HTTP_STATUS_CODE, REQUEST_STATE  } from '../constants';
 
 // helpers
-import { dateToday, onSubmitText, isDisabled } from '../../helpers';
+import { dateToday, onSubmitText, isDisabled } from '../helpers';
 
 // reducers
-import { initialState as reducerInitialState, submitActionTypes, submitReducer } from '../../reducers/submit';
+import { initialState as reducerInitialState, submitActionTypes, submitReducer } from '../reducers/submit';
 
 // css
 const LoginHomeWrapper = styled.div`
@@ -41,7 +42,7 @@ const Heading = styled.h1`
   color: royalblue;
 `;
 
-const FormDialogButton = styled(BaseButton)`
+const DiaryCreateOpenButton = styled(BaseButton)`
   height: 2.5rem;
   width: 10rem;
   border: .0125rem solid green;
@@ -56,6 +57,7 @@ const FormDialogButton = styled(BaseButton)`
     width: 100%;
   }
 `;
+
 const IconWrapper = styled.span`
   margin-right: 1rem;
 `;
@@ -207,14 +209,13 @@ export const LoginHome: VFC = () => {
         })
       })
       .catch((e): void => {
+        dispatch({ type: submitActionTypes.POST_INITIAL });
         if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
-          dispatch({ type: submitActionTypes.POST_INITIAL });
           setState({
             ...state,
             apiErrors: e.response.data.errors,
           })
         } else {
-          dispatch({ type: submitActionTypes.POST_INITIAL });
           throw e;
         }
       });
@@ -256,14 +257,13 @@ export const LoginHome: VFC = () => {
       });
     })
     .catch((e): void => {
+      dispatch({ type: submitActionTypes.POST_INITIAL });
       if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
-        dispatch({ type: submitActionTypes.POST_INITIAL });
         setState({
           ...state,
           apiErrors: e.response.data.errors,
         })
       } else {
-        dispatch({ type: submitActionTypes.POST_INITIAL });
         throw e;
       }
     });
@@ -319,22 +319,6 @@ export const LoginHome: VFC = () => {
       });
     };
 
-    // メニューバーを開く
-    const onMenuOpen = (e: TClickHTMLElement): void => {
-      setState({
-        ...state,
-        anchorEl: e.currentTarget,
-      })
-    };
-
-    // メニューバーを閉じる
-    const onMenuClose = (): void => {
-      setState({
-        ...state,
-        anchorEl: null,
-      })
-    };
-
     // Dialogの内容を閲覧用に変更する
     const onDiaryShowMode = (): void => {
       setState({
@@ -351,6 +335,22 @@ export const LoginHome: VFC = () => {
         anchorEl: null,
         isOpenDiaryEdit: true,
       });
+    };
+
+    // メニューバーを開く
+    const onMenuOpen = (e: TClickHTMLElement): void => {
+      setState({
+        ...state,
+        anchorEl: e.currentTarget,
+      })
+    };
+
+    // メニューバーを閉じる
+    const onMenuClose = (): void => {
+      setState({
+        ...state,
+        anchorEl: null,
+      })
     };
   // ここまでDiaryMenuで使う関数
 
@@ -380,18 +380,18 @@ export const LoginHome: VFC = () => {
   },[]);
 
   return (
-    <LoginHomeWrapper data-testid="loginHome">
-      <Heading>Diaries</Heading>
-      <FormDialogButton onClick={onOpenDiaryCreateDialog}>
+    <LoginHomeWrapper>
+      <Heading data-testid='pageTitle'>Diaries</Heading>
+      <DiaryCreateOpenButton onClick={onOpenDiaryCreateDialog} data-testid='diaryCreateOpenButton'>
         <IconWrapper>
-          <CreateIcon fontSize={"small"} />
+          <CreateIcon fontSize={"small"} data-testid='createIcon' />
         </IconWrapper>
         日記作成
-      </FormDialogButton>
+      </DiaryCreateOpenButton>
       {
         state.fetchState === REQUEST_STATE.LOADING ?
         <CircularProgressWrapper>
-          <CircularProgress />
+          <CircularProgress/>
         </CircularProgressWrapper>
         :
           state.diaries != null  && state.pagy != null &&
@@ -438,7 +438,6 @@ export const LoginHome: VFC = () => {
             apiErrors={state.apiErrors}
             contentCount={watch("content",state.selectedDiary.content).length}
             control={control}
-            currentUserId={currentUser!.data.id}
             diary={state.selectedDiary}
             errors={errors}
             isDisabled={isDisabled(reducerState.postState)}
@@ -461,10 +460,10 @@ export const LoginHome: VFC = () => {
           state.isOpenConfirmDialog && state.selectedDiary &&
           <ConfirmDialog
             isOpen={state.isOpenConfirmDialog}
-            diary={state.selectedDiary}
+            obj={state.selectedDiary}
             title={'削除確認'}
             contentText={'選択した日記を削除しますか？'}
-            onDiaryDelete={onDiaryDelete}
+            onDelete={onDiaryDelete}
             onClose={onCloseCofirmationDialog}
           />
         }

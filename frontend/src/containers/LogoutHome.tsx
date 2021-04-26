@@ -1,33 +1,33 @@
-import React, {VFC, useContext, useReducer} from 'react';
+import { VFC, useContext, useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 
 //contexts
-import { CurrentUserContext } from '../../contexts/CurrentUser';
+import { CurrentUserContext } from '../contexts/CurrentUser';
 
 // apis
-import { newGuestSession } from '../../apis/users/sessions';
+import { newGuestSession } from '../apis/users/sessions';
 
 
 // helpers
 import {
   onSubmitText,
   isDisabled
-} from '../../helpers';
+} from '../helpers';
 
 // reducers
 import {
   initialState,
   submitActionTypes,
   submitReducer,
-} from '../../reducers/submit';
+} from '../reducers/submit';
 
 // components
-import { BaseButton } from '../../components/shared_style';
+import { BaseButton } from '../components/shared_style';
 
 // images
-import HomeBackGround from '../../images/homebackground.jpg';
+import HomeBackGround from '../images/homebackground.jpg';
 
 // css
 const LogoutHomeWrapper = styled.div`
@@ -122,7 +122,7 @@ export const LogoutHome: VFC = () => {
   };
 
   return(
-    <LogoutHomeWrapper data-testid="logoutHome">
+    <LogoutHomeWrapper>
       <Contents>
         <Heading>
           毎日の出来事を記録しよう

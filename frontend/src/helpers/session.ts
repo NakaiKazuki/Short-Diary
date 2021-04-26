@@ -17,7 +17,7 @@ interface IUser {
   headers: IUserHeaders;
 }
 
-// ユーザがログインしていたらtrueを返す (ログインしていないと持っていない情報で判定している)
+// ユーザがログインしていたらtrueを返す
 export const isLoggedIn = (user: IUser | undefined): boolean =>
   user != null;
 ;

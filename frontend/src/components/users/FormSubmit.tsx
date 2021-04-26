@@ -1,8 +1,8 @@
-import React, { VFC } from 'react';
+import { VFC } from 'react';
 import styled from 'styled-components';
 import { BaseButton } from '../shared_style';
 
-const FormSubmitWrapper = styled(BaseButton)`
+const Submit = styled(BaseButton)`
   margin: 2rem auto 0 auto;
   background-color: royalblue;
   color: white;
@@ -11,6 +11,7 @@ const FormSubmitWrapper = styled(BaseButton)`
   height: 3rem;
   font-size: 1.1rem;
 `;
+
 // 型
 interface ISubmit {
   isDisabled: boolean;
@@ -22,12 +23,12 @@ export const FormSubmit: VFC<ISubmit> = ({
   onSubmitText,
 }) => {
   return(
-    <FormSubmitWrapper
+    <Submit
       type='submit'
       disabled={isDisabled}
       data-testid='formSubmit'
     >
       {onSubmitText}
-    </FormSubmitWrapper>
+    </Submit>
   );
 }

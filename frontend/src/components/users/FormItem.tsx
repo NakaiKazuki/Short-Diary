@@ -8,11 +8,11 @@ const FormItemWrapper = styled.div`
   margin-top: 1rem;
 `;
 
-const FormInput = styled(TextField)`
+const Input = styled(TextField)`
   margin-bottom: 1.2rem;
 `;
 
-const FormErrorMessage = styled.p`
+const ErrorMessage = styled.p`
   margin: .6rem auto auto auto;
   color: red;
   font-size: .9rem;
@@ -52,12 +52,12 @@ export const FormItem:VFC<IFormItemProps> = ({
       <InputLabel>
         {formInfo.formLabel}
         {formInfo.errorsProperty &&
-          <FormErrorMessage data-testid={`${formInfo.nameAttribute}ErrorMessage`}>{formInfo.errorMessage}</FormErrorMessage>
+          <ErrorMessage data-testid={`${formInfo.nameAttribute}ErrorMessage`}>{formInfo.errorMessage}</ErrorMessage>
         }
         {formInfo.apiErrorProperty?.map((message: string, index: number) =>
-          <FormErrorMessage key={`${formInfo.nameAttribute}-${index}`} data-testid={`${formInfo.nameAttribute}ApiError`}>
+          <ErrorMessage key={`${formInfo.nameAttribute}-${index}`} data-testid={`${formInfo.nameAttribute}ApiError`}>
             {`${formInfo.apiMessagePropertyName}${message}`}
-          </FormErrorMessage>
+          </ErrorMessage>
         )}
         <Controller
           name={formInfo.nameAttribute}
@@ -65,7 +65,7 @@ export const FormItem:VFC<IFormItemProps> = ({
           defaultValue={formInfo.defaultValue}
           rules={ formInfo.rules }
           as={
-            <FormInput
+            <Input
               type={formInfo.typeAttribute}
               autoFocus={formInfo.autoFocus}
               autoComplete={formInfo.autoComplete}

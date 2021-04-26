@@ -1,4 +1,4 @@
-import React, { VFC } from 'react';
+import { VFC } from 'react';
 import styled from 'styled-components';
 
 // components
@@ -41,7 +41,7 @@ const Paragraph = styled.p`
   padding:  0 1rem;
 `;
 
-const DiaryDate = styled.span`
+const Date = styled.span`
   font-family: cursive, Century;
   font-style: italic;
   text-align: center;
@@ -53,7 +53,7 @@ const ImageIconArea = styled(PictureIcon)`
   color: royalblue;
 `;
 
-const DiaryContent = styled.div`
+const Content = styled.div`
   white-space: pre-line;
   word-wrap: break-word;
   padding:  0 1rem;
@@ -78,7 +78,7 @@ export const DiaryIndex: VFC<DiariesProps> = ({
   onOpenDiaryDialog,
 }) => {
   return(
-    <DiariesWrapper>
+    <DiariesWrapper data-testid='diaryIndex'>
       {
         diaries.map((diary: IDiary, index: number) => {
           return(
@@ -88,20 +88,20 @@ export const DiaryIndex: VFC<DiariesProps> = ({
               data-testid={`diary-${index}`}
             >
               <Paragraph>
-                <DiaryDate data-testid={`diaryDate-${index}`}>{diary.date}</DiaryDate>
+                <Date data-testid={`diaryDate-${index}`}>{diary.date}</Date>
                 {
                   diary.picture_url &&
                   <ImageIconArea data-testid={`diaryimageIcon-${index}`} />
                 }
               </Paragraph>
-              <DiaryContent data-testid={`diaryContent-${index}`}>
+              <Content data-testid={`diaryContent-${index}`}>
                 {
                   diary.content.length <= 50 ?
                     diary.content
                   :
                   `${diary.content.slice(0, 50)}......`
                 }
-              </DiaryContent>
+              </Content>
             </DiaryWrapper>
           );
         })

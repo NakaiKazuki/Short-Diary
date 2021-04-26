@@ -3,6 +3,8 @@ import { render , screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { FormSubmit } from '../../../components/users';
 
+const el = screen.getByTestId;
+
 afterEach(cleanup);
 
 describe('formSubmit コンポーネント', () => {
@@ -13,7 +15,7 @@ describe('formSubmit コンポーネント', () => {
         onSubmitText={'NotDisabled'}
       />
     )
-    const formSubmit = screen.getByTestId('formSubmit');
+    const formSubmit = el('formSubmit');
 
     // 表示確認
     expect(formSubmit).toHaveAttribute('type', 'submit');
@@ -32,7 +34,7 @@ describe('formSubmit コンポーネント', () => {
         onSubmitText={'Disabled'}
       />
     )
-    const formSubmit = screen.getByTestId('formSubmit');
+    const formSubmit = el('formSubmit');
 
     // 表示確認
     expect(formSubmit).toHaveAttribute('type', 'submit');

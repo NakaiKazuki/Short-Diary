@@ -25,7 +25,8 @@ export const createDiary = (currentUserHeaders: ICurrentUserHeaders, params: IPa
       content: params.content,
       picture: params.picture? {data: params.picture!.data, name: params.picture!.name} : null,
     })
-    .then(res => res.data);
+    .then(res => res.data )
+    .catch(e => { throw e; })
 };
 
 export const updateDiary = (currentUserHeaders: ICurrentUserHeaders, params: IParams, page: number, diaryId: TDiaryId | undefined): Promise<any> => {
@@ -39,7 +40,8 @@ export const updateDiary = (currentUserHeaders: ICurrentUserHeaders, params: IPa
       picture: params.picture? {data: params.picture!.data, name: params.picture!.name} : null,
       page: page,
     })
-    .then(res => res.data);
+    .then(res => res.data )
+    .catch(e => { throw e; })
 };
 
 export const deleteDiary = (currentUserHeaders: ICurrentUserHeaders, page: number, diaryId: TDiaryId): Promise<any> => {
@@ -48,5 +50,6 @@ export const deleteDiary = (currentUserHeaders: ICurrentUserHeaders, page: numbe
     headers: currentUserHeaders,
     data: {page: page},
   })
-  .then(res => res.data);
+  .then(res => res.data )
+  .catch(e => { throw e; })
 }

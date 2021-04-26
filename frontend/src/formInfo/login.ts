@@ -4,13 +4,11 @@ interface IRurles {
   maxLength: number;
 }
 
-type TApiError = Array<string>;
-
 interface IObject {
   formLabel: string;
   errorsProperty: string;
   errorMessage: string;
-  apiErrorProperty: TApiError | undefined;
+  apiErrorProperty: Array<string> | undefined;
   apiMessagePropertyName: string;
   nameAttribute: string;
   typeAttribute: string;
@@ -21,10 +19,9 @@ interface IObject {
   rules: IRurles;
 }
 
-// Loginページのフォーム欄を表示するために必要な情報群
 interface ILoginApiErrors {
-  email?: TApiError;
-  password?: TApiError;
+  email?: Array<string>;
+  password?: Array<string>;
 }
 
 interface IReturnLogin {
@@ -32,7 +29,8 @@ interface IReturnLogin {
   password: IObject;
 }
 
-export const loginFormInfo = (errors: any, control: any, apiErrors: ILoginApiErrors | undefined): IReturnLogin => {
+// Loginページのフォーム欄を表示するために必要な情報群
+export const loginFormInfo = (errors: any, control: object, apiErrors: ILoginApiErrors | undefined): IReturnLogin => {
   return {
     email: {
       formLabel: 'Email:',
