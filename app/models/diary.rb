@@ -29,7 +29,7 @@ class Diary < ApplicationRecord
   include Rails.application.routes.url_helpers
   belongs_to :user
   has_one_attached :picture
-  default_scope { order(created_at: :desc) }
+  default_scope { order(date: :desc) }
 
   validates :date,
             presence: true

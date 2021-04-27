@@ -31,12 +31,12 @@ RSpec.describe Diary, type: :model do
       expect(diary).to be_valid
     end
 
-    it '投稿日が新しい投稿が最初に来る' do
+    it '日付が新しい投稿が最初に来る' do
       date = Time.zone.today
       3.times do |m|
-        create(:diary, user: user, created_at: date - m - 1)
+        create(:diary, user: user, date: date - m - 1)
       end
-      diary4 = create(:diary, user: user, created_at: date)
+      diary4 = create(:diary, user: user, date: date)
       expect(Diary.first).to eq diary4
     end
   end

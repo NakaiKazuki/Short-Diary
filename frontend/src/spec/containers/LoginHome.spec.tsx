@@ -270,7 +270,20 @@ describe('LoginHome', () =>{
       expect(el('diaryDialog')).toBeTruthy();
     })
 
-    it('初期値', () => {
+    it('初期値(画像無し)', () => {
+      // 日記データをクリック
+      userEvent.click(el('diary-0'));
+      // MenuIconが表示
+      expect(el('menuIcon')).toBeTruthy();
+      // 日付が表示
+      expect(el('diaryDate')).toHaveTextContent(returnData.diaries[0].date);
+      // 日記内容が表示
+      expect(el('diaryContent')).toHaveTextContent(returnData.diaries[0].content);
+      // 画像がない場合は表示しない
+      expect(screen.queryByTestId('diaryPicture')).toBeNull();
+    })
+
+    it('初期値(画像あり)', () => {
       // 日記データをクリック
       userEvent.click(el('diary-1'));
       // MenuIconが表示
@@ -348,7 +361,7 @@ describe('LoginHome', () =>{
         it('入力欄初期値', () => {
           // date
           expect(el('dateArea')).toHaveValue(returnData.diaries[0].date);
-          // content
+          // contentｘｘ
           expect(el('contentArea')).toHaveValue(returnData.diaries[0].content);
           // picture
           expect(el('pictureArea')).toHaveValue("");
