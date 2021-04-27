@@ -16,7 +16,7 @@ padding-inline-start: 0;
 const DiaryWrapper = styled.li`
   margin-top: .5rem;
   list-style: none;
-  height: 17vh;
+  height: 22vh;
   width: 18%;
   border: .0125rem solid limegreen;
   border-radius: .5rem;
@@ -55,7 +55,7 @@ const ImageIconArea = styled(PictureIcon)`
 
 const Content = styled.div`
   white-space: pre-line;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   padding:  0 1rem;
 `;
 
@@ -96,10 +96,10 @@ export const DiaryIndex: VFC<DiariesProps> = ({
               </Paragraph>
               <Content data-testid={`diaryContent-${index}`}>
                 {
-                  diary.content.length <= 50 ?
+                  diary.content.length <= 40 ?
                     diary.content
                   :
-                  `${diary.content.slice(0, 50)}......`
+                  `${diary.content.slice(0, 40)}......`
                 }
               </Content>
             </DiaryWrapper>

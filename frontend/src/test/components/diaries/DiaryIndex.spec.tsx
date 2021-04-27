@@ -46,8 +46,8 @@ describe('DiaryIndex コンポーネント', () => {
       // 配列要素のdateプロパティを表示
       expect(el(`diaryDate-${index}`)).toHaveTextContent(obj.date)
 
-      // 配列要素のcontentプロパティを表示 50文字を超える場合は超えた文字を省略
-      expect(el(`diaryContent-${index}`)).toHaveTextContent(obj.content.length <= 50 ? obj.content : `${obj.content.slice(0, 50)}......`)
+      // 配列要素のcontentプロパティを表示 40文字を超える場合は超えた文字を省略
+      expect(el(`diaryContent-${index}`)).toHaveTextContent(obj.content.length <= 40 ? obj.content : `${obj.content.slice(0, 40)}......`)
     })
   })
 });

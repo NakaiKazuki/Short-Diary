@@ -1,12 +1,17 @@
-FROM ruby:3.0.1
+FROM ruby:3.0.1-alpine3.13
 
-RUN apt-get update -qq && apt-get install -y \
-    build-essential \
+RUN apk update && apk add --no-cache \
+    libxml2-dev \
+    curl-dev \
+    make \
+    gcc \
+    g++ \
+    libc-dev \
+    mysql-client \
+    mysql-dev \
+    tzdata \
+    bash \
     vim
-
-RUN apt-get clean
-
-RUN rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /Short-Diary
 
@@ -17,10 +22,10 @@ WORKDIR $APP_ROOT
 COPY Gemfile $APP_ROOT/Gemfile
 COPY Gemfile.lock $APP_ROOT/Gemfile.lock
 
-RUN gem install bundler
-RUN bundle install
+RUN gem install bundler && \
+    bundle install
 
 COPY . $APP_ROOT
-RUN mkdir -p tmp/sockets
+RUN mkdir -p tmp/sockets tmp/pids
 
 EXPOSE 3001
