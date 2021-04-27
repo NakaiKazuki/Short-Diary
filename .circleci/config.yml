@@ -75,6 +75,8 @@ jobs:
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
       - ruby/rspec-test
+    - store_test_results:
+        path: ./rspec_result
 
   frontendTest:
     docker:
@@ -89,6 +91,8 @@ jobs:
           working_directory: './frontend'
           name: Run FrontEnd Test
           command: yarn test
+      - store_test_results:
+          path: ./frontend/test_result
 
 workflows:
   version: 2
