@@ -14,4 +14,8 @@ describe('App', () => {
   it('Headerコンポーネント', () =>{
     expect(el('header')).toBeTruthy();
   });
+
+  it('footerコンポーネント',() => {
+    expect(el('footer')).toBeTruthy();
+  })
 });

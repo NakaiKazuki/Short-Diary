@@ -32,14 +32,14 @@ import HomeBackGround from '../images/homebackground.jpg';
 // css
 const LogoutHomeWrapper = styled.div`
   width: 100vw;
-  height: 90vh;
+  min-height: 86.4vh;
   margin-top: 6.6vh;
   background-image: url(${HomeBackGround});
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size:cover;
   @media screen and (max-width: 480px) {
-    height: auto;
+    height: 84vh;
   };
 `;
 

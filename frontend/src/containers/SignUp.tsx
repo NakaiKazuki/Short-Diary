@@ -39,7 +39,7 @@ import {
 // css
 const SignUpWrapper = styled.div`
   width: 100vw;
-  height: 80vh;
+  min-height: 81vh;
   margin-top: 6.6vh;
   padding-top: 5.4vh;
 `;

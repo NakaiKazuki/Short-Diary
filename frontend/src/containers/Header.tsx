@@ -1,4 +1,4 @@
-import React, {VFC, useContext, useState} from 'react';
+import React, { VFC, useContext, useState } from 'react';
 import {useHistory, Link } from 'react-router-dom';
 import {AppBar, Toolbar } from '@material-ui/core';
 import styled from 'styled-components';
@@ -9,6 +9,7 @@ import { CurrentUserContext } from '../contexts/CurrentUser';
 // components
 import { BaseButton } from '../components/shared_style';
 import { UserMenu } from '../components/users/UserMenu';
+
 // helpers
 import { isLoggedIn } from '../helpers';
 
@@ -88,5 +89,5 @@ export const Header:VFC = () => {
         }
       </Toolbar>
     </AppHeader>
-  )
+  );
 }

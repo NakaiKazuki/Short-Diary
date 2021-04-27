@@ -11,6 +11,7 @@ const LinkList = styled.ul`
   display: inline-block;
   text-align: left;
   list-style: none;
+  padding-inline-start: 0;
 `;
 
 const LinkArea = styled.li`
