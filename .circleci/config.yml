@@ -84,7 +84,7 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
-          cache-path: './frontend/yarn.lock'
+          cache-path: 'yarn.lock'
       - run:
         name: Run FrontEnd Test
         command: yarn test
