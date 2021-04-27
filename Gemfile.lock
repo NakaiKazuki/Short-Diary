@@ -67,7 +67,7 @@ GEM
       rake (>= 10.4, < 14.0)
     ast (2.4.2)
     aws-eventstream (1.1.1)
-    aws-partitions (1.446.0)
+    aws-partitions (1.447.0)
     aws-sdk-core (3.114.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -246,6 +246,8 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
+    rspec_junit_formatter (0.4.1)
+      rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (1.13.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
@@ -320,6 +322,7 @@ DEPENDENCIES
   rails-i18n
   rails_best_practices
   rspec-rails
+  rspec_junit_formatter
   rubocop
   rubocop-performance
   rubocop-rails

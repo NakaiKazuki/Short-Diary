@@ -76,35 +76,34 @@ jobs:
       - run: bundle exec rake db:schema:load
       - ruby/rspec-test
 
-  # jest:
-  #   docker:
-  #     - image: circleci/node:14.16.1
-  #   steps:
-  #     - checkout
-  #     - node/install-packages:
-  #         pkg-manager: yarn
-  #         cache-path: 'frontend/yarn.lock'
-  #     - run:
-  #       name: Run FrontEnd Test
-  #       command: yarn test
+  jest:
+    parallelism: 2
+    docker:
+      - image: circleci/node:14.16.1
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-path: './frontend/yarn.lock'
+      - run:
+        name: Run FrontEnd Test
+        command: yarn test
 
 workflows:
   version: 2
   confirmation_passed_deploy:
     jobs:
       - rails_best_practices
-      - brakeman:
-          requires:
-            - rails_best_practices
-      - bundle-audit:
-          requires:
-            - brakeman
+      - brakeman
+      - bundle-audit
       - rubocop:
           requires:
+            - rails_best_practices
+            - brakeman
             - bundle-audit
       - rspec:
           requires:
             - rubocop
-      # - jest:
-      #     requires:
-      #       - rspec
+      - jest:
+          requires:
+            - rspec
