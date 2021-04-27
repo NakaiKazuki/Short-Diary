@@ -77,15 +77,16 @@ jobs:
       - ruby/rspec-test
 
   frontendTest:
-    working_directory: './frontend'
     docker:
       - image: circleci/node:14.16.1
     steps:
       - checkout
       - node/install-packages:
+          app-dir: './frontend'
           pkg-manager: yarn
-          cache-path: 'yarn.lock'
+          cache-path: './frontend/yarn.lock'
       - run:
+          working_directory: './frontend'
           name: Run FrontEnd Test
           command: yarn test
 
