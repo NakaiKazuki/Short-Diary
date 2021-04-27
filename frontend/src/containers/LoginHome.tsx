@@ -32,7 +32,7 @@ import { initialState as reducerInitialState, submitActionTypes, submitReducer }
 const LoginHomeWrapper = styled.div`
   position: relative;
   width: 90vw;
-  height: auto;
+  min-height: 83vh;
   margin: 6.6vh auto 0 auto;
   padding-top: 2rem;
 `;
@@ -70,6 +70,34 @@ const CircularProgressWrapper = styled.span`
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 `;
+
+const EmptyMessageWrapper = styled.div`
+  text-align: center;
+  margin: 2rem auto 0 auto;
+  height: 17vh;
+  width: 18%;
+  border: .0125rem solid limegreen;
+  border-radius: .5rem;
+  position: relative;
+  @media screen and (min-width: 768px) and (max-width: 979px) {
+    width: 44%;
+  }
+  @media screen and (max-width:480px) {
+    height: 10rem;
+    width: 100%;
+  }
+`;
+
+const EmptyMessage = styled.span`
+  margin-top: 50% 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+`;
+
 // 型
 interface IDiary {
   id: number;
@@ -409,7 +437,7 @@ export const LoginHome: VFC = () => {
                       />
                   </Fragment>
                 :
-                  <h2>値がないよ</h2>
+                  <EmptyMessageWrapper><EmptyMessage>日記がありません</EmptyMessage></EmptyMessageWrapper>
               }
             </Fragment>
       }
