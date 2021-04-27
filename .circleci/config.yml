@@ -86,6 +86,7 @@ jobs:
           pkg-manager: yarn
           cache-path: './frontend/yarn.lock'
       - run:
+          working_directory: './frontend'
           name: Run FrontEnd Test
           command: yarn test
 
