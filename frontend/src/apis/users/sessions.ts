@@ -15,7 +15,7 @@ interface ICurrentUserHeaders {
   uid: string;
 }
 
-export const createSession = (params: IParams) => {
+export const createSession = (params: IParams):Promise<any> => {
   return axios.post(signIn,
     {
       email: params.email,
@@ -24,7 +24,7 @@ export const createSession = (params: IParams) => {
     .catch(e => { throw e; })
 };
 
-export const deleteSession = (currentUserHeaders: ICurrentUserHeaders) => {
+export const deleteSession = (currentUserHeaders: ICurrentUserHeaders):Promise<any> => {
   return axios.delete(signOut,
     {
       headers: currentUserHeaders,
@@ -32,7 +32,7 @@ export const deleteSession = (currentUserHeaders: ICurrentUserHeaders) => {
     .catch(e => { throw e; })
 };
 
-export const newGuestSession = () => {
+export const newGuestSession = ():Promise<any> => {
   return axios.post(guestSignIn)
   .catch(e => { throw e; })
 };

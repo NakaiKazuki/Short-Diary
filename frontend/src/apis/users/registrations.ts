@@ -8,7 +8,7 @@ interface IParams {
   password_confirmation: string;
 }
 
-export const postRegistration = (params: IParams) => {
+export const postRegistration = (params: IParams):Promise<any> => {
   return axios.post(registration,
     {
       name: params.name,

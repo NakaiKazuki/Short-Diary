@@ -27,7 +27,7 @@ jobs:
       - ruby/install-deps
       - run:
           name: Run Brakeman
-          command: bundle exec brakeman -6 -A -w1
+          command: bundle exec brakeman -6 -A -w1 --no-pager
 
   bundle-audit:
     docker:
