@@ -6,11 +6,12 @@ RUN apk update && apk add --no-cache \
     make \
     gcc \
     g++ \
+    git \
     libc-dev \
     mysql-client \
     mysql-dev \
     tzdata \
-    bash \
+    zsh \
     vim
 
 RUN mkdir /Short-Diary
@@ -26,6 +27,6 @@ RUN gem install bundler && \
     bundle install
 
 COPY . $APP_ROOT
-RUN mkdir -p tmp/sockets tmp/pids
+RUN mkdir -p tmp/sockets tmp/pids log
 
 EXPOSE 3001
