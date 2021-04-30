@@ -14,9 +14,9 @@ RUN apk update && apk add --no-cache \
     zsh \
     vim
 
-RUN mkdir -p /var/www/Short-Diary
+RUN mkdir -p /Short-Diary
 
-ENV APP_ROOT /var/www/Short-Diary
+ENV APP_ROOT /Short-Diary
 
 WORKDIR $APP_ROOT
 

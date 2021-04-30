@@ -4,9 +4,9 @@ RUN apk update && apk add --no-cache \
     zsh \
     yarn
 
-RUN mkdir -p /var/www/frontend
+RUN mkdir -p /frontend
 
-ENV APP_ROOT /var/www/frontend
+ENV APP_ROOT /frontend
 
 WORKDIR $APP_ROOT
 
