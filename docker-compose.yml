@@ -33,7 +33,6 @@ services:
       - CHOKIDAR_USEPOLLING=true # ホットリロードで使用したい場合はコメントアウト
     volumes:
       - ./frontend:/frontend
-      - ./frontend/node_modules:/frontend/node_modules
     ports:
       - 3000:3000
     tty: true
