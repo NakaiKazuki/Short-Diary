@@ -1,0 +1,60 @@
+version: '3'
+services:
+  db:
+    image: mysql:8.0.22
+    env_file:
+      - ./environments/db_prod.env
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile_prod
+    env_file:
+      - ./environments/db_prod.env
+      - ./environments/ruby.env
+    volumes:
+      - public-data:/Short-Diary/public
+      - tmp-data:/Short-Diary/tmp
+      - log-data:/Short-Diary/log
+    tty: true
+    command: zsh -c "bundle exec pumactl start"
+    depends_on:
+      - db
+
+  front:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile_prod
+      - CHOKIDAR_USEPOLLING=true # ホットリロードで使用したい場合はコメントアウト
+    volumes:
+      - node_modules-data:/frontend/node_modules
+    ports:
+      - 3000:3000
+    tty: true
+    command: zsh -c "yarn install && /bin/zsh"
+    depends_on:
+      - api
+
+  nginx:
+    build:
+      context: ./nginx
+    volumes:
+      - public-data:/Short-Diary/public
+      - tmp-data:/Short-Diary/tmp
+    ports:
+      - 80:80
+    depends_on:
+      - api
+      - front
+
+volumes:
+  db-data:
+  public-data:
+  tmp-data:
+  log-data:
+  node_modules-data:

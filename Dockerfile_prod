@@ -11,12 +11,12 @@ RUN apk update && apk add --no-cache \
     mysql-client \
     mysql-dev \
     tzdata \
-    zsh \
-    vim
+    zsh
 
-RUN mkdir -p /Short-Diary
+RUN mkdir -p /var/www/Short-Diary
 
-ENV APP_ROOT /Short-Diary
+ENV APP_ROOT /var/www/Short-Diary
+ENV RAILS_ENV production
 
 WORKDIR $APP_ROOT
 
