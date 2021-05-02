@@ -22,7 +22,7 @@ services:
       - tmp-data:/Short-Diary/tmp
       - storage-data:/Short-Diary/storage
     tty: true
-    command: zsh -c "bundle exec pumactl start"
+    command: zsh -c 'bundle exec pumactl start'
     depends_on:
       - db
 
@@ -36,7 +36,7 @@ services:
     ports:
       - 3000:3000
     tty: true
-    command: zsh -c "yarn install && /bin/zsh"
+    command: zsh -c 'yarn install && /bin/zsh'
     depends_on:
       - api
 

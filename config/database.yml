@@ -16,6 +16,7 @@ test:
 
 production:
   <<: *default
-  database: Short_Diary_production
-  username: Short_Diary
-  password: <%= ENV['SHORT_DIARY_DATABASE_PASSWORD'] %>
+  database: <%= Rails.application.credentials.dig(:production_db, :db_name) %>
+  username: <%= Rails.application.credentials.dig(:production_db, :user_name) %>
+  password: <%= Rails.application.credentials.dig(:production_db, :password) %>
+  host: <%= Rails.application.credentials.dig(:production_db, :host) %>
