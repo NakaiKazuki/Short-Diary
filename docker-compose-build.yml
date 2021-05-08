@@ -1,22 +1,33 @@
 version: '3'
+
 services:
   api:
-    image: 138192367388.dkr.ecr.ap-northeast-1.amazonaws.com/short-diary_api:latest
+    image:
+    build:
+      context: .
+      dockerfile: Dockerfile-prod
     volumes:
       - public-prod-data:/Short-Diary/public
       - tmp-prod-data:/Short-Diary/tmp
+    tty: true
+    ports:
+      - 3000:3000
     command: zsh -c 'bundle exec pumactl start'
 
   front:
-    image: 138192367388.dkr.ecr.ap-northeast-1.amazonaws.com/short-diary_front:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile-prod
     ports:
       - 5000:5000
+    tty: true
     command: zsh -c 'yarn install && npx serve -s build'
     depends_on:
       - api
 
   nginx:
-    image: 138192367388.dkr.ecr.ap-northeast-1.amazonaws.com/short-diary_nginx:latest
+    build:
+      context: ./nginx
     volumes:
       - public-prod-data:/Short-Diary/public
       - tmp-prod-data:/Short-Diary/tmp
