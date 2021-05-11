@@ -2,7 +2,6 @@ version: '3'
 
 services:
   api:
-    image:
     build:
       context: .
       dockerfile: Dockerfile-prod
@@ -10,18 +9,16 @@ services:
       - public-prod-data:/Short-Diary/public
       - tmp-prod-data:/Short-Diary/tmp
     tty: true
-    ports:
-      - 3000:3000
     command: zsh -c 'bundle exec pumactl start'
 
   front:
     build:
       context: ./frontend
       dockerfile: Dockerfile-prod
-    ports:
-      - 5000:5000
     tty: true
-    command: zsh -c 'yarn install && npx serve -s build'
+    volumes:
+      - build-prod-data:/frontend/build
+    command: zsh -c 'npx serve -s build -n'
     depends_on:
       - api
 
@@ -30,6 +27,7 @@ services:
       context: ./nginx
     volumes:
       - public-prod-data:/Short-Diary/public
+      - build-prod-data:/Short-Diary/frontend/build
       - tmp-prod-data:/Short-Diary/tmp
     ports:
       - 80:80
@@ -40,3 +38,4 @@ services:
 volumes:
   public-prod-data:
   tmp-prod-data:
+  build-prod-data:
