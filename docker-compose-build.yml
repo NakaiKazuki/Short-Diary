@@ -9,7 +9,7 @@ services:
       - public-prod-data:/Short-Diary/public
       - tmp-prod-data:/Short-Diary/tmp
     tty: true
-    command: zsh -c 'bundle exec pumactl start'
+    command: sh start.sh
 
   front:
     build:
