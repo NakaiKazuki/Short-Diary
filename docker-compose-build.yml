@@ -18,7 +18,7 @@ services:
     tty: true
     volumes:
       - build-prod-data:/frontend/build
-    command: zsh -c 'npx serve -s build -n'
+    command: npx serve -s build -n
     depends_on:
       - api
 
