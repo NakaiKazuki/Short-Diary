@@ -9,7 +9,7 @@ services:
       - public-prod-data:/Short-Diary/public
       - tmp-prod-data:/Short-Diary/tmp
     tty: true
-    command: sh start.sh
+    command: zsh -c "bundle exec pumactl start"
 
   front:
     build:
@@ -18,13 +18,15 @@ services:
     tty: true
     volumes:
       - build-prod-data:/frontend/build
-    command: npx serve -s build -n
+      - node_modules-prod-data:/frontend/node_modules
+    command: zsh -c "yarn install && yarn build && npx serve -s build -n"
     depends_on:
       - api
 
   nginx:
     build:
       context: ./nginx
+      dockerfile: Dockerfile-prod
     volumes:
       - public-prod-data:/Short-Diary/public
       - build-prod-data:/Short-Diary/frontend/build
@@ -39,3 +41,4 @@ volumes:
   public-prod-data:
   tmp-prod-data:
   build-prod-data:
+  node_modules-prod-data:

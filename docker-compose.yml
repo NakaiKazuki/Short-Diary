@@ -22,7 +22,7 @@ services:
       - tmp-data:/Short-Diary/tmp
       - storage-data:/Short-Diary/storage
     tty: true
-    command: sh start.sh
+    command: zsh -c "bundle exec pumactl start"
     depends_on:
       - db
 

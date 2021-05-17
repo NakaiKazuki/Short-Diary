@@ -1,4 +1,3 @@
 frontend
 nginx
 log
-config/master.key
