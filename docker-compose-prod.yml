@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-prod
+    env_file:
+      - ./environments/ruby.env
     volumes:
       - public-prod-data:/Short-Diary/public
       - tmp-prod-data:/Short-Diary/tmp
