@@ -9,7 +9,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:3000', 'localhost:5000' # 指定したurl or ドメインのみアクセス許可
+    origins 'localhost:3000', '13.114.225.30' # 指定したurl or ドメインのみアクセス許可
 
     resource '*',
              headers: :any,
