@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+docker-compose -f docker-compose-prod.yml down
+
 git pll
 
 docker-compose -f docker-compose-prod.yml build --no-cache
