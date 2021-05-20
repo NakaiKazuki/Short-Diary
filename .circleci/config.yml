@@ -94,7 +94,7 @@ jobs:
 
 workflows:
   version: 2
-  confirmation_passed_deploy:
+  confirmation:
     jobs:
       - rails_best_practices
       - brakeman
