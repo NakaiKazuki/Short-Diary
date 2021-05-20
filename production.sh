@@ -3,7 +3,7 @@ set -e
 
 docker-compose -f docker-compose-prod.yml down
 
-git pll
+git pull
 
 docker-compose -f docker-compose-prod.yml build --no-cache
 
