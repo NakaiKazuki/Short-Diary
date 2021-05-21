@@ -80,7 +80,7 @@ jobs:
 
   frontendTest:
     docker:
-      - image: circleci/node:14.16.1
+      - image: circleci/node:14.17
     steps:
       - checkout
       - node/install-packages:
