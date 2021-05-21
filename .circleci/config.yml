@@ -7,7 +7,7 @@ orbs:
 jobs:
   rails_best_practices:
     docker:
-      - image: circleci/ruby:3.0.1
+      - image: cimg/ruby:3.0.1
         environment:
           - BUNDLER_VERSION: 2.2.15
     steps:
@@ -19,7 +19,7 @@ jobs:
 
   brakeman:
     docker:
-      - image: circleci/ruby:3.0.1
+      - image: cimg/ruby:3.0.1
         environment:
           - BUNDLER_VERSION: 2.2.15
     steps:
@@ -31,7 +31,7 @@ jobs:
 
   bundle-audit:
     docker:
-      - image: circleci/ruby:3.0.1
+      - image: cimg/ruby:3.0.1
         environment:
           - BUNDLER_VERSION: 2.2.15
     steps:
@@ -43,7 +43,7 @@ jobs:
 
   rubocop:
     docker:
-      - image: circleci/ruby:3.0.1
+      - image: cimg/ruby:3.0.1
         environment:
           - BUNDLER_VERSION: 2.2.15
     steps:
@@ -53,7 +53,7 @@ jobs:
 
   rspec:
     docker:
-      - image: circleci/ruby:3.0.1
+      - image: cimg/ruby:3.0.1
         environment:
           - DB_HOST: 127.0.0.1
           - RAILS_ENV: test
@@ -80,7 +80,7 @@ jobs:
 
   frontendTest:
     docker:
-      - image: circleci/node:14.17.0
+      - image: cimg/node:14.17.0
     steps:
       - checkout
       - node/install-packages:
