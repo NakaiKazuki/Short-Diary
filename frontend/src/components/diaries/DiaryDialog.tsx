@@ -114,7 +114,7 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
     <Dialog
       open={isOpen}
       onClose={onClose}
-      maxWidth={'sm'}
+      maxWidth='sm'
       fullWidth
       data-testid='diaryDialog'
     >

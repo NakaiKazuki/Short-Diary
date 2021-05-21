@@ -146,7 +146,7 @@ type TClickHTMLElement = React.MouseEvent<HTMLElement>;
 
 export const LoginHome: VFC = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-  const { handleSubmit, errors, control , watch, register} = useForm<IFormValues>();
+  const { handleSubmit, control , watch, register, errors } = useForm<IFormValues>();
   const [reducerState, dispatch] = useReducer(submitReducer, reducerInitialState);
   const initialState: IInitialState = {
     anchorEl: null,
@@ -489,8 +489,8 @@ export const LoginHome: VFC = () => {
           <ConfirmDialog
             isOpen={state.isOpenConfirmDialog}
             obj={state.selectedDiary}
-            title={'削除確認'}
-            contentText={'選択した日記を削除しますか？'}
+            title='削除確認'
+            contentText='選択した日記を削除しますか？'
             onDelete={onDiaryDelete}
             onClose={onCloseCofirmationDialog}
           />

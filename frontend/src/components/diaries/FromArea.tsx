@@ -105,7 +105,7 @@ export const FormArea:VFC<IFormAreaProps> = ({
           <ErrorMessage key={`date-${index}`} data-testid='dateApiError'>{`日付${message}`}</ErrorMessage>
         )}
         <Controller
-          name={'date'}
+          name='date'
           control={control}
           defaultValue={defaultDate}
           rules={{ required: true, pattern: /(\d{4})-(\d{2})-(\d{2})/}}
@@ -129,7 +129,7 @@ export const FormArea:VFC<IFormAreaProps> = ({
           <ErrorMessage key={`content-${index}`} data-testid='contentApiError'>{`日記内容${message}`}</ErrorMessage>
         )}
         <Controller
-          name={'content'}
+          name='content'
           control={control}
           defaultValue={defaultContent}
           rules={{ required: true , maxLength: 200 }}
@@ -159,9 +159,9 @@ export const FormArea:VFC<IFormAreaProps> = ({
           <AddPictureIcon/>
           <FileNameArea>{setFileName}</FileNameArea>
           <InputPictureArea
+            ref={register}
             name='picture'
             type='file'
-            ref={register}
             onChange={onFileChange}
             accept='image/*,.png,.jpg,.jpeg,.gif'
             data-testid='pictureArea'

@@ -29,7 +29,7 @@ const LinkItem = styled(BaseButton)`
 export const Footer:VFC = () => {
   return(
     <AppFooter data-testid='footer'>
-      <Link to={{ pathname: 'https://twitter.com/k_kyube' }} target="_blank" data-testid='twitterLink' >
+      <Link to={{ pathname: 'https://twitter.com/k_kyube' }} target='_blank' data-testid='twitterLink' >
         <LinkItem>制作者Twitter</LinkItem>
       </Link>
     </AppFooter>

@@ -64,7 +64,7 @@ export const Header:VFC = () => {
   return (
     <AppHeader position='fixed' color='inherit' data-testid='header'>
       <Toolbar>
-        <Link to ={'/'} data-testid='homeLink'>
+        <Link to ='/' data-testid='homeLink'>
            <MainLogo src={mainLogo} alt='main logo' />
         </Link>
         {
@@ -77,7 +77,7 @@ export const Header:VFC = () => {
           />
         :
         <SessionLink
-          to={'/login'}
+          to='/login'
           data-testid='loginLink'
         >
           <LoginLink

@@ -33,7 +33,7 @@ export const PagenationArea:VFC<IPaginationAreaProps> = ({
     <PaginationWrapper>
       <PaginationBar
         count={pagy.pages}          //総ページ数
-        color="primary"     //ページネーションの色
+        color='primary'     //ページネーションの色
         page={pagy.page}         //現在のページ番号
         onChange={(e:React.ChangeEvent<unknown>, page: number) => onPageChange(page)}  //変更されたときに走る関数。第2引数にページ番号が入る
         data-testid={'pagenationBar'}

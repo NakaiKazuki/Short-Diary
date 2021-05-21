@@ -1,6 +1,6 @@
 import { VFC, useContext, useReducer } from 'react';
 import { Link } from 'react-router-dom';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 //contexts
@@ -114,7 +114,7 @@ export const LogoutHome: VFC = () => {
         ...res.data,
         headers: res.headers,
       })
-      history.push("/")
+      history.push('/')
     })
     .catch(e => {
       throw e;
@@ -135,21 +135,21 @@ export const LogoutHome: VFC = () => {
         </Paragraph>
         <ButtonsWrapper>
           <Link
-            to={'/signup'}
-            data-testid="signUpLink"
+            to='/signup'
+            data-testid='signUpLink'
           >
             <SignUpButton
-              type="button"
+              type='button'
             >
               ユーザー登録
             </SignUpButton>
           </Link>
           <GuestLogin
-            type="button"
+            type='button'
             onClick ={onGuestLoginButton}
             disabled={isDisabled(state.postState)}
-            data-testid="guestLoginButton">
-            {onSubmitText(state.postState, "ゲストログイン")}
+            data-testid='guestLoginButton'>
+            {onSubmitText(state.postState, 'ゲストログイン')}
           </GuestLogin>
         </ButtonsWrapper>
       </Contents>

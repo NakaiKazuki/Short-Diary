@@ -69,7 +69,7 @@ export const Login:VFC = () => {
   const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined >(undefined);
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
-  const { handleSubmit, errors, control } = useForm<IFormValues>();
+  const { handleSubmit, control, errors } = useForm<IFormValues>();
   const formInfo = loginFormInfo(errors, control, apiErrors);
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING});
