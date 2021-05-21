@@ -138,7 +138,7 @@ export const FormArea:VFC<IFormAreaProps> = ({
           render={({ onChange, value }) => (
             <TextField
               label='Content'
-              type={'textarea'}
+              type='textarea'
               autoFocus={true}
               rows='8'
               placeholder='200文字以内で日記の内容を入力してください'
