@@ -64,17 +64,19 @@ export const FormItem:VFC<IFormItemProps> = ({
           control={formInfo.control}
           defaultValue={formInfo.defaultValue}
           rules={ formInfo.rules }
-          as={
+          render={({ onChange, value }) => (
             <Input
               type={formInfo.typeAttribute}
               autoFocus={formInfo.autoFocus}
               autoComplete={formInfo.autoComplete}
               fullWidth
+              onChange={onChange}
+              value={value}
               inputProps={{
                 'data-testid': `${formInfo.nameAttribute}Area`,
               }}
             />
-          }
+          )}
         />
       </InputLabel>
     </FormItemWrapper>

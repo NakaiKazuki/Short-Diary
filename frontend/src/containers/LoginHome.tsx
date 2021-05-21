@@ -146,7 +146,7 @@ type TClickHTMLElement = React.MouseEvent<HTMLElement>;
 
 export const LoginHome: VFC = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-  const { handleSubmit, errors, control , watch, register} = useForm<IFormValues>();
+  const { handleSubmit, control , watch, register, errors } = useForm<IFormValues>();
   const [reducerState, dispatch] = useReducer(submitReducer, reducerInitialState);
   const initialState: IInitialState = {
     anchorEl: null,
@@ -197,11 +197,11 @@ export const LoginHome: VFC = () => {
   // ここからDiaryCreateDialogとDiaryEditで共通して使う関数
     // DiaryCreateDialogで選択されたfile名を返す
     const setFileName = ():string => {
-      const InputPicture:TPicture | undefined = watch("picture");
+      const InputPicture:TPicture | undefined = watch('picture');
       if(InputPicture && InputPicture![0] != null){
         return InputPicture![0].name.slice(0, 20);
       } else{
-        return "画像を選択する";
+        return '画像を選択する';
       }
     };
 
@@ -412,7 +412,7 @@ export const LoginHome: VFC = () => {
       <Heading data-testid='pageTitle'>Diaries</Heading>
       <DiaryCreateOpenButton onClick={onOpenDiaryCreateDialog} data-testid='diaryCreateOpenButton'>
         <IconWrapper>
-          <CreateIcon fontSize={"small"} data-testid='createIcon' />
+          <CreateIcon fontSize={'small'} data-testid='createIcon' />
         </IconWrapper>
         日記作成
       </DiaryCreateOpenButton>
@@ -445,7 +445,7 @@ export const LoginHome: VFC = () => {
           state.isOpenDiaryCreateDialog &&
           <DiaryCreateDialog
             apiErrors={state.apiErrors}
-            contentCount={watch("content","").length}
+            contentCount={watch('content','').length}
             control={control}
             dateToday={dateToday()}
             errors={errors}
@@ -454,7 +454,7 @@ export const LoginHome: VFC = () => {
             onClose={onCloseDiaryCreateDialog}
             onFileChange={onFileChange}
             onSubmit={handleSubmit(onCreateSubmit)}
-            onSubmitText={onSubmitText(reducerState.postState, "日記作成")}
+            onSubmitText={onSubmitText(reducerState.postState, '日記作成')}
             register={register}
             setFileName={setFileName()}
           />
@@ -464,7 +464,7 @@ export const LoginHome: VFC = () => {
           <DiaryDialog
             anchorEl={state.anchorEl}
             apiErrors={state.apiErrors}
-            contentCount={watch("content",state.selectedDiary.content).length}
+            contentCount={watch('content',state.selectedDiary.content).length}
             control={control}
             diary={state.selectedDiary}
             errors={errors}
@@ -479,7 +479,7 @@ export const LoginHome: VFC = () => {
             onMenuClose={onMenuClose}
             onMenuOpen={onMenuOpen}
             onEditSubmit={handleSubmit(onEditSubmit)}
-            onSubmitText={onSubmitText(reducerState.postState, "日記編集")}
+            onSubmitText={onSubmitText(reducerState.postState, '日記編集')}
             register={register}
             setFileName={setFileName()}
           />
@@ -489,8 +489,8 @@ export const LoginHome: VFC = () => {
           <ConfirmDialog
             isOpen={state.isOpenConfirmDialog}
             obj={state.selectedDiary}
-            title={'削除確認'}
-            contentText={'選択した日記を削除しますか？'}
+            title='削除確認'
+            contentText='選択した日記を削除しますか？'
             onDelete={onDiaryDelete}
             onClose={onCloseCofirmationDialog}
           />

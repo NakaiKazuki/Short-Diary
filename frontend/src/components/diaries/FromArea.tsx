@@ -105,19 +105,21 @@ export const FormArea:VFC<IFormAreaProps> = ({
           <ErrorMessage key={`date-${index}`} data-testid='dateApiError'>{`日付${message}`}</ErrorMessage>
         )}
         <Controller
-          name={'date'}
+          name='date'
           control={control}
           defaultValue={defaultDate}
           rules={{ required: true, pattern: /(\d{4})-(\d{2})-(\d{2})/}}
-          as={
+          render={({ onChange, value }) => (
             <TextField
               label='Date'
               type={'date'}
+              onChange={onChange}
+              value={value}
               inputProps={{
                 'data-testid': 'dateArea',
               }}
             />
-          }
+          )}
         />
       </FormItemWrapper>
 
@@ -129,25 +131,27 @@ export const FormArea:VFC<IFormAreaProps> = ({
           <ErrorMessage key={`content-${index}`} data-testid='contentApiError'>{`日記内容${message}`}</ErrorMessage>
         )}
         <Controller
-          name={'content'}
+          name='content'
           control={control}
           defaultValue={defaultContent}
           rules={{ required: true , maxLength: 200 }}
-          as={
+          render={({ onChange, value }) => (
             <TextField
               label='Content'
-              type={'textarea'}
+              type='textarea'
               autoFocus={true}
               rows='8'
               placeholder='200文字以内で日記の内容を入力してください'
               multiline
               fullWidth
+              onChange={onChange}
+              value={value}
               helperText = {<ContentCount data-testid='contentCount'>{contentCount}/200</ContentCount>}
               inputProps={{
                 'data-testid': 'contentArea',
               }}
             />
-          }
+          )}
         />
       </ FormItemWrapper>
 
@@ -159,9 +163,9 @@ export const FormArea:VFC<IFormAreaProps> = ({
           <AddPictureIcon/>
           <FileNameArea>{setFileName}</FileNameArea>
           <InputPictureArea
+            ref={register}
             name='picture'
             type='file'
-            ref={register}
             onChange={onFileChange}
             accept='image/*,.png,.jpg,.jpeg,.gif'
             data-testid='pictureArea'
