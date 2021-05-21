@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@4.3.0
-  ruby: circleci/ruby@1.1.2
+  node: circleci/node@4.4.0
+  ruby: circleci/ruby@1.1.3
 
 jobs:
   rails_best_practices:
