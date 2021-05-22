@@ -92,7 +92,7 @@ docker-compose up -d
 docker-compose run api rails db:create db:migrate db:seed && rails db:migrate RAILS_ENV=test
 ```
 
-node_modulesのインストールを確認し次第下記のコマンドを実行します。
+node_modulesのインストールを確認後、下記のコマンドを実行します。
 
 ```
 docker-compose run front yarn start
