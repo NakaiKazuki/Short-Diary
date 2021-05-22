@@ -117,7 +117,7 @@ RSpec.describe 'Diaries', type: :request do
             end
 
             it 'tag_list' do
-              expect(diary_json['tag_list']).to eq ['testTag1', 'testTag2']
+              expect(diary_json['tag_list']).to eq %w[testTag1 testTag2]
             end
 
             it 'picture_url(画像あり)' do

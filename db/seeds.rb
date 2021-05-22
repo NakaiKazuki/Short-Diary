@@ -20,20 +20,23 @@ User.create!(
     date: Time.zone.today - m,
     content: "サンプル投稿-#{m}",
     created_at: Time.zone.today - m,
+    tag_list: ["サンプルTag#{m}"],
     user_id: 1
   )
 end
 
 Diary.create!(
   date: Time.zone.today,
-  content: "0123456789" * 20,
+  content: '0123456789' * 20,
   created_at: Time.zone.today,
+  tag_list: ['MaxContet 半角'],
   user_id: 1
 )
 
 Diary.create!(
   date: Time.zone.today,
-  content: "あいうえおかきくけこ" * 20,
+  content: 'あいうえおかきくけこ' * 20,
   created_at: Time.zone.today,
+  tag_list: ['MaxContet 全角'],
   user_id: 1
 )
