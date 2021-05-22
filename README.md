@@ -18,7 +18,7 @@
 - CircleCi
 - AWS
   - VPC
-  - EC2
+  - EC2(インスタンス内でDocker-composeを実行([使用ファイル](https://github.com/NakaiKazuki/Short-Diary/blob/main/docker-compose-prod.yml))
   - Route53
   - Certificate Manager
   - S3
@@ -49,14 +49,18 @@
 
 # テスト
 
-- RSpec
-  - モデルテスト(model)
-  - コントローラーテスト(request)
-  - ブラウザテスト(system)
-- React Testing Library
+- Rails
+  - RSpec
+    - モデルテスト(model)
+    - コントローラーテスト(request)
+    - ブラウザテスト(system)
 
-# ローカルで使用する場合(開発環境はDockerを利用して構築します)
-Windows Mac 共に動作確認済みです。
+- React
+  - React Testing Library
+
+# ローカルで使用する場合(開発環境はDockerを利用して構築します。)
+
+Windows Mac 両Docker共に動作確認済み。
 
 リポジトリを手元にクローンしてください。
 
@@ -70,7 +74,7 @@ git clone https://github.com/NakaiKazuki/Short-Diary.git
 cd Short-Diary
 ```
 
-その後下記のコマンドでdockerimageを作成します。
+その後下記のコマンドでdocker-imageを作成します。
 
 ```
 docker-compose build
