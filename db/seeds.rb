@@ -20,7 +20,7 @@ User.create!(
     date: Time.zone.today - m,
     content: "サンプル投稿-#{m}",
     created_at: Time.zone.today - m,
-    tag_list: ["サンプルTag#{m}"],
+    tag_list: ['サンプルTag'],
     user_id: 1
   )
 end

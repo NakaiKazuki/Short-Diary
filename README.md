@@ -2,7 +2,7 @@
 
  200文字以内の日記を投稿するサイトです。
 
- 一言二言の内容で日記を書くことで継続しやすくしています。
+ 日記の内容を短くすることで継続しやすくしています。
 
  スマホからもご利用いただけます。
 
@@ -10,31 +10,31 @@
 
 <https://short-diary.com>
 
-画面中央やや左の「ゲストとしてログイン」のボタンから、メールアドレスとパスワードを入力せずにログインできます。
-ゲストユーザーは登録情報の編集と削除のみを制限しています。
+「ゲストとしてログイン」のボタンから、メールアドレスとパスワードを入力せずにログインできます。
 
 ## 使用技術
 
-- Docker/Docker-compose
-- MySQL 8.0
-- Nginx
 - CircleCi
 - AWS
   - VPC
   - EC2(インスタンス内でDocker-composeを実行([使用ファイル](https://github.com/NakaiKazuki/Short-Diary/blob/main/docker-compose-prod.yml))
-  - Route53
+  - Route53s
   - Certificate Manager
   - S3
-  - RDS(MySQL)
+  - RDS(MySQL 8.0)
+- Docker/Docker-compose
+- MySQL 8.0
 - Rails(API)
   - Ruby 3.0.1
   - Ruby on Rails 6.1.3
   - Puma
   - RSpec
 - React
+  - Node 14.17.0
   - TypeScript 4.2.4
   - React 17.0.2
   - React Testing Library
+- Nginx 1.20.0
 
 ## CircleCi
 
@@ -42,13 +42,21 @@
 
 ## 主な機能
 
-- ユーザー登録、ログイン機能(devise_token_auth)
-- 投稿機能
-  - 画像投稿(ActiveStorage)
-    - 本番環境ではS3に保存
-- ページネーション機能(pagy)
-- DoS攻撃対策(rack-attack)
-  - 60回/1分 の接続で使用されたIPを制限
+- Rails
+  - ユーザー登録、ログイン機能(devise_token_auth)
+  - 投稿機能
+    - 画像投稿(ActiveStorage)
+      - 本番環境ではS3に保存
+  - ページネーション機能(pagy)
+  - DoS攻撃対策(rack-attack)
+    - 60回/1分 の接続で使用されたIPを制限
+
+- React
+  - デザイン
+    - Material-UI
+    - styled-components
+  - Form
+    - React Hook Form(version6)
 
 ## テスト
 
