@@ -24,7 +24,7 @@
   - S3
   - RDS(MySQL)
 - Rails(API)
-  - Ruby 3.0.0
+  - Ruby 3.0.1
   - Ruby on Rails 6.1.3
   - Puma
   - RSpec

@@ -27,6 +27,7 @@
 #
 class Diary < ApplicationRecord
   include Rails.application.routes.url_helpers
+  acts_as_taggable_on :tags
   belongs_to :user
   has_one_attached :picture
   default_scope { order(date: :desc, created_at: :desc) }

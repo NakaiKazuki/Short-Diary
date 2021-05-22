@@ -390,6 +390,7 @@ export const LoginHome: VFC = () => {
     })
     fetchHome(currentUser!.headers)
     .then((data): void => {
+      console.log(data.diaries)
       setState({
         ...state,
         diaries: data.diaries,
