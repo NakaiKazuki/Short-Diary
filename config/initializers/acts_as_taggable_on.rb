@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # 特殊文字の問題を回避
-ActsAsTaggableOn.force_binary_collation = true
+# ActsAsTaggableOn.force_binary_collation = true
 
 # タグ付けを削除した後に未使用のタグオブジェクトを削除する
 ActsAsTaggableOn.remove_unused_tags = true
