@@ -23,6 +23,7 @@ interface IDiary {
   date: string;
   content: string;
   picture_url: string | null;
+  tag_list: Array<string | null>;
   user_id: number;
 }
 

@@ -65,6 +65,7 @@ interface IDiary {
   date: string;
   content: string;
   picture_url: string | null;
+  tag_list: Array<string | null>;
   user_id: number;
 }
 interface DiariesProps {
@@ -79,8 +80,8 @@ export const DiaryIndex: VFC<DiariesProps> = ({
   return(
     <DiariesWrapper data-testid='diaryIndex'>
       {
-        diaries.map((diary: IDiary, index: number) => {
-          return(
+        diaries.map((diary: IDiary, index: number): JSX.Element => {
+          return (
             <DiaryWrapper
               key={`diary-${index}`}
               onClick={() => onOpenDiaryDialog(diary)}

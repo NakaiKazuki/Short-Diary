@@ -1,5 +1,5 @@
 import React, { VFC, Fragment } from 'react';
-import { Dialog } from '@material-ui/core';
+import { Chip, Dialog } from '@material-ui/core';
 import styled from 'styled-components';
 
 // components
@@ -22,6 +22,15 @@ const ContentHeading = styled.h4`
   font-weight: normal;
   opacity: .6;
   color: mediumblue;
+`;
+
+const TagWrapper = styled.span`
+  text-align: right;
+  display: inline-block;
+`;
+
+const Tag = styled(Chip)`
+  margin: .3rem;
 `;
 
 const PictureWrapper = styled.div`
@@ -53,6 +62,7 @@ interface IDiary {
   date: string;
   content: string;
   picture_url: string | null;
+  tag_list: Array<string | null>;
   user_id: number;
 }
 
@@ -144,6 +154,22 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
         :
           <Fragment>
             <Date data-testid='diaryDate'>{diary.date}</Date>
+            <TagWrapper>
+              {
+                diary.tag_list.map((tag: string | null, index: number): JSX.Element => {
+                  return (
+                    <Tag
+                      label={tag}
+                      color='primary'
+                      variant='outlined'
+                      size='small'
+                      key={`diary-tag-${index}`}
+                      data-testid={`diaryTag-${index}`}
+                    />
+                  )
+                })
+              }
+            </TagWrapper>
             <ContentHeading>Content</ContentHeading>
             <PictureWrapper>
               <Content data-testid='diaryContent'>{diary.content}</Content>

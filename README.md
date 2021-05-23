@@ -101,6 +101,13 @@ dockerimage作成後コンテナを起動します。
 docker-compose up -d
 ```
 
+node_modulesのインストール後、下記のコマンドを実行します。
+
+```zsh
+#!/bin/zsh
+docker-compose run front yarn start
+```
+
 下記のコマンドでデータベースを作成します。
 
 ```zsh
@@ -108,12 +115,7 @@ docker-compose up -d
 docker-compose run api rails db:create db:migrate db:seed && rails db:migrate RAILS_ENV=test
 ```
 
-node_modulesのインストール後、下記のコマンドを実行します。
-
-```zsh
-#!/bin/zsh
-docker-compose run front yarn start
-```
+以下 Test etc...
 
 下記のコマンドでテスト+その他を実行できます。
 

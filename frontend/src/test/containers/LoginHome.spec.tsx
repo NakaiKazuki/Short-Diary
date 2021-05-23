@@ -61,6 +61,7 @@ const returnData = {
       id: 1,
       date: dateToday(),
       content: 'Test Content',
+      tag_list: [],
       picture_url: null,
       user_id: 1,
     },
@@ -68,6 +69,7 @@ const returnData = {
       id: 2,
       date: dateToday(),
       content: 'A123456789B123456789C123456789D123456789E123456789F123456789',
+      tag_list: ['testTag1', 'testTag2'],
       picture_url: '/testurl',
       user_id: 1,
     },
@@ -270,24 +272,30 @@ describe('LoginHome', () =>{
       expect(el('diaryDialog')).toBeTruthy();
     })
 
-    it('初期値(画像無し)', () => {
+    it('初期値(タグ無し, 画像無し)', () => {
       // 日記データをクリック
       userEvent.click(el('diary-0'));
       // MenuIconが表示
       expect(el('menuIcon')).toBeTruthy();
       // 日付が表示
       expect(el('diaryDate')).toHaveTextContent(returnData.diaries[0].date);
+      // タグが空配列なら表示しない
+      expect(screen.queryByTestId('diaryTag-0')).toBeNull();
       // 日記内容が表示
       expect(el('diaryContent')).toHaveTextContent(returnData.diaries[0].content);
       // 画像がない場合は表示しない
       expect(screen.queryByTestId('diaryPicture')).toBeNull();
     })
 
-    it('初期値(画像あり)', () => {
+    it('初期値(タグあり, 画像あり)', () => {
       // 日記データをクリック
       userEvent.click(el('diary-1'));
       // MenuIconが表示
       expect(el('menuIcon')).toBeTruthy();
+      // タグがあれば表示
+      returnData.diaries[0].tag_list.forEach((tag, index) => {
+        expect(el(`diaryTag-${index}`)).toHaveTextContent(tag);
+      })
       // 日付が表示
       expect(el('diaryDate')).toHaveTextContent(returnData.diaries[1].date);
       // 日記内容が表示
