@@ -13,12 +13,12 @@ const Submit = styled(BaseButton)`
 `;
 
 // 型
-interface ISubmit {
+interface IFormSubmitProps {
   isDisabled: boolean;
   onSubmitText: string;
 }
 
-export const FormSubmit: VFC<ISubmit> = ({
+export const FormSubmit: VFC<IFormSubmitProps> = ({
   isDisabled,
   onSubmitText,
 }) => {

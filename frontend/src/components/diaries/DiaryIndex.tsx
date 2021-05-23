@@ -67,7 +67,6 @@ interface IDiary {
   picture_url: string | null;
   user_id: number;
 }
-
 interface DiariesProps {
   diaries: Array<IDiary>;
   onOpenDiaryDialog(diary: IDiary): void;

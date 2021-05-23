@@ -99,23 +99,22 @@ const EmptyMessage = styled.span`
 `;
 
 // 型
-interface IDiary {
+export interface IDiary {
   id: number;
   date: string;
   content: string;
   picture_url: string | null;
+  tag_list: Array<string | null>;
   user_id: number;
 }
 
-type TApiError = Array<string>;
-interface IApiErrors {
-  date?: TApiError;
-  content?: TApiError;
-  picture?: TApiError;
-  full_messages: TApiError;
+export interface IApiErrors {
+  date?: Array<string>;
+  content?: Array<string>;
+  picture?: Array<string>;
 }
 
-interface IPagy {
+export interface IPagy {
   page: number;
   pages: number;
 }
@@ -390,7 +389,7 @@ export const LoginHome: VFC = () => {
     })
     fetchHome(currentUser!.headers)
     .then((data): void => {
-      console.log(data.diaries)
+      // console.log(data.diaries)
       setState({
         ...state,
         diaries: data.diaries,

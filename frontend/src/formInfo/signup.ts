@@ -1,15 +1,14 @@
-// 共通で利用
 interface IRurles {
   required: boolean;
   minLength?: number;
   maxLength: number;
 }
-type TApiError = Array<string>;
+
 interface IObject {
   formLabel: string;
   errorsProperty: string;
   errorMessage: string;
-  apiErrorProperty: TApiError | undefined;
+  apiErrorProperty: Array<string> | undefined;
   apiMessagePropertyName: string;
   nameAttribute: string;
   typeAttribute: string;
@@ -21,20 +20,29 @@ interface IObject {
 }
 
 interface ISignUpApiErrors {
-  name?: TApiError;
-  email?: TApiError;
-  password?: TApiError;
-  password_confirmation?: TApiError;
+  name?: Array<string>;
+  email?: Array<string>;
+  password?: Array<string>;
+  password_confirmation?: Array<string>;
 }
 
-type IReturnSignUp = {
+interface IFormInfo {
   name: IObject;
   email :IObject;
   password: IObject;
-  password_confirmation: IObject};
+  password_confirmation: IObject;
+}
 
-  // SignUpページのフォーム欄を表示するために必要な情報群
-export const signUpFormInfo = (errors: any, control: object, apiErrors: ISignUpApiErrors | undefined): IReturnSignUp => {
+// 送信ボタン下にあるリンクの情報
+type TSignUpLinkInfo = [
+  {
+    url: string;
+    text: string;
+  }
+];
+
+// SignUpページのフォーム欄を表示するために必要な情報群
+export const signUpFormInfo = (errors: any, control: object, apiErrors: ISignUpApiErrors | undefined): IFormInfo => {
   return {
     name: {
       formLabel: 'Name:',
@@ -76,7 +84,7 @@ export const signUpFormInfo = (errors: any, control: object, apiErrors: ISignUpA
       defaultValue: '',
       autoComplete: 'new-password',
       autoFocus: false,
-      rules: { required: true,minLength: 6, maxLength: 128},
+      rules: { required: true, minLength: 6, maxLength: 128},
     },
     password_confirmation: {
       formLabel: '確認用パスワード:',
@@ -94,15 +102,6 @@ export const signUpFormInfo = (errors: any, control: object, apiErrors: ISignUpA
     }
   };
 };
-
-
-// 送信ボタン下にあるリンクの情報
-type TSignUpLinkInfo = [
-  {
-    url: string;
-    text: string;
-  }
- ];
 
 export  const signUpLinkInfo: TSignUpLinkInfo  = [
   {

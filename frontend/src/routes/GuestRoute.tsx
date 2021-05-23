@@ -7,13 +7,13 @@ import { CurrentUserContext } from '../contexts/CurrentUser';
 // helpers
 import { isLoggedIn } from '../helpers';
 
-interface GuestRouteProps {
+interface IGuestRouteProps {
   exact: true;
   path: string;
   children: JSX.Element
 }
 
-export const GuestRoute:VFC<GuestRouteProps> = ({ children }) => {
+export const GuestRoute:VFC<IGuestRouteProps> = ({ children }) => {
   const {currentUser} = useContext(CurrentUserContext);
 
   return (

@@ -1,5 +1,5 @@
 // 型
-interface IUserHeaders {
+interface IHeaders {
   'access-token': string;
   client: string;
   uid: string;
@@ -14,7 +14,7 @@ interface IUserData {
 
 interface IUser {
   data: IUserData;
-  headers: IUserHeaders;
+  headers: IHeaders;
 }
 
 // ユーザがログインしていたらtrueを返す

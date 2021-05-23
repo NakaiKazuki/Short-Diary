@@ -12,13 +12,10 @@ const FromTitle = styled(DialogTitle)`
 `;
 
 // 型
-// エラーメッセージ
-type TApiError = Array<string>;
-
 interface IApiErrors {
-  date?: TApiError;
-  content?: TApiError;
-  picture?: TApiError;
+  date?: Array<string>;
+  content?: Array<string>;
+  picture?: Array<string>;
 }
 
 interface IDiary {

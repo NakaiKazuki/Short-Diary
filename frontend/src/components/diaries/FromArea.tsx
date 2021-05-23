@@ -58,6 +58,7 @@ const FileNameArea = styled.span`
 const InputPictureArea = styled.input`
   display: none;
 `;
+
 // 型
 
 // エラーメッセージ
@@ -68,7 +69,6 @@ interface IApiErrors {
   content?: TApiError;
   picture?: TApiError;
 }
-
 interface IFormAreaProps {
   control: any;
   errors: any;

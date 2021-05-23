@@ -5,6 +5,7 @@ import styled from 'styled-components';
 // components
 import { DiaryMenu } from './DiaryMenu';
 import { DiaryEdit } from './DiaryEdit';
+
 // css
 
 const Date = styled.h2`
@@ -31,7 +32,6 @@ const PictureWrapper = styled.div`
   border-radius: .5rem;
 `;
 
-
 const Content = styled.div`
   white-space: pre-line;
   word-wrap: break-word;
@@ -47,7 +47,6 @@ const Picture = styled.img`
 `;
 
 // 型
-type TClickHTMLElement = React.MouseEvent<HTMLElement>;
 
 interface IDiary {
   id: number;
@@ -84,7 +83,7 @@ interface IDiaryDialogProps {
   onDiaryShowMode(): void;
   onFileChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
   onClose(): void;
-  onMenuOpen(e: TClickHTMLElement): void;
+  onMenuOpen(e: React.MouseEvent<HTMLElement>): void;
   onMenuClose(): void;
 }
 
