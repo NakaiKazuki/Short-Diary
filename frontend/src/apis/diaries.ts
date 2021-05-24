@@ -3,6 +3,7 @@ import { diary } from '../urls';
 
 interface IParams {
   date: string;
+  tag_list?: string;
   content: string;
   picture?: {data:string,name: string};
 }
@@ -22,6 +23,7 @@ export const createDiary = (currentUserHeaders: ICurrentUserHeaders, params: IPa
       client: currentUserHeaders.client,
       uid: currentUserHeaders.uid,
       date: params.date,
+      tag_list: params.tag_list ? params.tag_list : null,
       content: params.content,
       picture: params.picture? {data: params.picture!.data, name: params.picture!.name} : null,
     })
@@ -36,6 +38,7 @@ export const updateDiary = (currentUserHeaders: ICurrentUserHeaders, params: IPa
       client: currentUserHeaders.client,
       uid: currentUserHeaders.uid,
       date: params.date,
+      tag_list: params.tag_list ? params.tag_list : null,
       content: params.content,
       picture: params.picture? {data: params.picture!.data, name: params.picture!.name} : null,
       page: page,

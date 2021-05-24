@@ -99,7 +99,7 @@ const EmptyMessage = styled.span`
 `;
 
 // 型
-export interface IDiary {
+interface IDiary {
   id: number;
   date: string;
   content: string;
@@ -108,13 +108,14 @@ export interface IDiary {
   user_id: number;
 }
 
-export interface IApiErrors {
+interface IApiErrors {
   date?: Array<string>;
+  tag_list?: Array<string>;
   content?: Array<string>;
   picture?: Array<string>;
 }
 
-export interface IPagy {
+interface IPagy {
   page: number;
   pages: number;
 }
@@ -136,6 +137,7 @@ interface IInitialState {
 type TPicture = Array<{data:string, name: string}>;
 interface IFormValues {
   date: string;
+  tag_list?: string;
   content: string;
   picture?: TPicture;
   diaryId?: number;
@@ -222,6 +224,7 @@ export const LoginHome: VFC = () => {
     createDiary(currentUser!.headers,
       {
         date: formValues.date,
+        tag_list: formValues.tag_list? formValues.tag_list.trim() : undefined,
         content: formValues.content,
         picture: formValues.picture? formValues.picture[0] : undefined,
       },
@@ -270,6 +273,7 @@ export const LoginHome: VFC = () => {
     dispatch({ type: submitActionTypes.POSTING});
     updateDiary(currentUser!.headers,{
       date: formValues.date,
+      tag_list: formValues.tag_list? formValues.tag_list.trim() : undefined,
       content: formValues.content,
       picture: formValues.picture? formValues.picture[0] : undefined,
     }, state.pagy!.page, state.selectedDiary!.id)

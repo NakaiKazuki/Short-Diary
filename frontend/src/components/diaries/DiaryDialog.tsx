@@ -66,12 +66,11 @@ interface IDiary {
   user_id: number;
 }
 
-type TApiError = Array<string>;
-
 interface IApiErrors {
-  date?: TApiError;
-  content?: TApiError;
-  picture?: TApiError;
+  date?: Array<string>;
+  tag_list?: Array<string>;
+  content?: Array<string>;
+  picture?: Array<string>;
 }
 
 interface IDiaryDialogProps {

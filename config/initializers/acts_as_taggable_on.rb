@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# 使い方 https://github.com/mbleigh/acts-as-taggable-on
+
 # 特殊文字の問題を回避
 # ActsAsTaggableOn.force_binary_collation = true
 

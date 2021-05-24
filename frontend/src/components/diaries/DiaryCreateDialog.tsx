@@ -13,12 +13,11 @@ const FromTitle = styled(DialogTitle)`
 
 // 型
 // エラーメッセージ
-type TApiError = Array<string>;
-
 interface IApiErrors {
-  date?: TApiError;
-  content?: TApiError;
-  picture?: TApiError;
+  date?: Array<string>;
+  tag_list?: Array<string>;
+  content?: Array<string>;
+  picture?: Array<string>;
 }
 
 interface IDiaryCreateDialogProps {
@@ -70,6 +69,7 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
         isDisabled={isDisabled}
         contentCount={contentCount}
         defaultDate={dateToday}
+        defaultTag={''}
         defaultContent={''}
         setFileName={setFileName}
         onSubmit={onSubmit}

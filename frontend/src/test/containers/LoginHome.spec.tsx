@@ -86,6 +86,7 @@ const returnErrorData = {
     date: ['date ApiError'],
     content: ['cotent ApiError'],
     picture: ['picture ApiError'],
+    tag_list: ['tag_list ApiError'],
   }
 }
 
@@ -101,7 +102,7 @@ const formInfo = [
   },
 ];
 
-const idNames = ['date', 'content', 'picture'];
+const idNames = ['date', 'tag_list', 'content', 'picture'];
 
 const customRender = (ui: JSX.Element, { providerProps }: {providerProps: IProviderProps}) => {
   return render(
@@ -223,10 +224,12 @@ describe('LoginHome', () =>{
         it('入力欄初期値', () => {
           // date
           expect(el('dateArea')).toHaveValue(dateToday());
+          // tag_list
+          expect(el('tag_listArea')).toHaveValue('');
           // content
-          expect(el('contentArea')).toHaveValue("");
+          expect(el('contentArea')).toHaveValue('');
           // picture
-          expect(el('pictureArea')).toHaveValue("");
+          expect(el('pictureArea')).toHaveValue('');
         })
 
         it ('content欄は入力した文字数が表示', () => {
@@ -369,10 +372,12 @@ describe('LoginHome', () =>{
         it('入力欄初期値', () => {
           // date
           expect(el('dateArea')).toHaveValue(returnData.diaries[0].date);
-          // contentｘｘ
+          // tag_list
+          expect(el('tag_listArea')).toHaveValue(returnData.diaries[0].tag_list.join(','));
+          // content
           expect(el('contentArea')).toHaveValue(returnData.diaries[0].content);
           // picture
-          expect(el('pictureArea')).toHaveValue("");
+          expect(el('pictureArea')).toHaveValue('');
         })
 
         it ('content欄は入力した文字数が表示', () => {

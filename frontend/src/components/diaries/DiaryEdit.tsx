@@ -14,6 +14,7 @@ const FromTitle = styled(DialogTitle)`
 // 型
 interface IApiErrors {
   date?: Array<string>;
+  tag_list?: Array<string>;
   content?: Array<string>;
   picture?: Array<string>;
 }
@@ -21,9 +22,9 @@ interface IApiErrors {
 interface IDiary {
   id: number;
   date: string;
+  tag_list: Array<string | null>;
   content: string;
   picture_url: string | null;
-  tag_list: Array<string | null>;
   user_id: number;
 }
 
@@ -66,6 +67,7 @@ export const DiaryEdit:VFC<IDiaryEditProps> = ({
         isDisabled={isDisabled}
         contentCount={contentCount}
         defaultDate={diary.date}
+        defaultTag={diary.tag_list.join(',')}
         defaultContent={diary.content}
         setFileName={setFileName}
         onSubmit={onEditSubmit}

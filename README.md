@@ -48,6 +48,7 @@
     - 画像投稿(ActiveStorage)
       - 本番環境ではS3に保存
   - ページネーション機能(pagy)
+  - タグ機能(acts-as-taggable-on)
   - DoS攻撃対策(rack-attack)
     - 60回/1分 の接続で使用されたIPを制限
 
@@ -56,7 +57,7 @@
     - Material-UI
     - styled-components
   - Form
-    - React Hook Form(version6)
+    - React Hook Form
 
 ## テスト
 
