@@ -1,10 +1,11 @@
 import React, { VFC, Fragment } from 'react';
-import { Dialog } from '@material-ui/core';
+import { Chip, Dialog } from '@material-ui/core';
 import styled from 'styled-components';
 
 // components
 import { DiaryMenu } from './DiaryMenu';
 import { DiaryEdit } from './DiaryEdit';
+
 // css
 
 const Date = styled.h2`
@@ -23,6 +24,15 @@ const ContentHeading = styled.h4`
   color: mediumblue;
 `;
 
+const TagWrapper = styled.span`
+  text-align: right;
+  display: inline-block;
+`;
+
+const Tag = styled(Chip)`
+  margin: .3rem;
+`;
+
 const PictureWrapper = styled.div`
   min-height: 15rem;
   margin: .5rem auto 2.5rem auto;
@@ -30,7 +40,6 @@ const PictureWrapper = styled.div`
   border: .0125rem solid green;
   border-radius: .5rem;
 `;
-
 
 const Content = styled.div`
   white-space: pre-line;
@@ -47,22 +56,21 @@ const Picture = styled.img`
 `;
 
 // 型
-type TClickHTMLElement = React.MouseEvent<HTMLElement>;
 
 interface IDiary {
   id: number;
   date: string;
   content: string;
   picture_url: string | null;
+  tag_list: Array<string | null>;
   user_id: number;
 }
 
-type TApiError = Array<string>;
-
 interface IApiErrors {
-  date?: TApiError;
-  content?: TApiError;
-  picture?: TApiError;
+  date?: Array<string>;
+  tag_list?: Array<string>;
+  content?: Array<string>;
+  picture?: Array<string>;
 }
 
 interface IDiaryDialogProps {
@@ -84,7 +92,7 @@ interface IDiaryDialogProps {
   onDiaryShowMode(): void;
   onFileChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
   onClose(): void;
-  onMenuOpen(e: TClickHTMLElement): void;
+  onMenuOpen(e: React.MouseEvent<HTMLElement>): void;
   onMenuClose(): void;
 }
 
@@ -145,6 +153,22 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
         :
           <Fragment>
             <Date data-testid='diaryDate'>{diary.date}</Date>
+            <TagWrapper>
+              {
+                diary.tag_list.map((tag: string | null, index: number): JSX.Element => {
+                  return (
+                    <Tag
+                      label={tag}
+                      color='primary'
+                      variant='outlined'
+                      size='small'
+                      key={`diary-tag-${index}`}
+                      data-testid={`diaryTag-${index}`}
+                    />
+                  )
+                })
+              }
+            </TagWrapper>
             <ContentHeading>Content</ContentHeading>
             <PictureWrapper>
               <Content data-testid='diaryContent'>{diary.content}</Content>

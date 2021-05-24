@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.1'
 
+gem 'acts-as-taggable-on' # タグ機能
 gem 'bootsnap', require: false
 gem 'devise' # User関連
 gem 'devise_token_auth' # User関連

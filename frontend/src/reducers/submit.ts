@@ -25,7 +25,6 @@ export const initialState: IInitialState = {
   postState: REQUEST_STATE.INITIAL,
 };
 
-
 export const submitReducer = (state: IInitialState, action: IAction ): IInitialState => {
   switch (action.type) {
     case submitActionTypes.POST_INITIAL:

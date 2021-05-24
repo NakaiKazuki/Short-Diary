@@ -16,7 +16,8 @@ RSpec.describe 'Diaries', type: :request do
       post api_v1_diaries_path, params: {
         diary: {
           date: Time.zone.today,
-          content: content
+          content: content,
+          tag_list: 'testTag1, testTag2'
         }
       }, headers: tokens
     end
@@ -115,6 +116,10 @@ RSpec.describe 'Diaries', type: :request do
               expect(diary_json['picture_url']).to eq nil
             end
 
+            it 'tag_list' do
+              expect(diary_json['tag_list']).to eq %w[testTag1 testTag2]
+            end
+
             it 'picture_url(画像あり)' do
               post_information_add_picture(auth_tokens)
               add_pic_json = JSON.parse(response.body)
@@ -149,7 +154,8 @@ RSpec.describe 'Diaries', type: :request do
         diary: {
           id: diary.id,
           date: Time.zone.today - 1,
-          content: content
+          content: content,
+          tag_list: 'Path Tag1, Path Tag2'
         }
       }, headers: tokens
     end
@@ -250,6 +256,10 @@ RSpec.describe 'Diaries', type: :request do
 
             it 'content' do
               expect(diary_json['content']).to eq 'テスト編集済みcontent'
+            end
+
+            it 'tag_list' do
+              expect(diary_json['tag_list']).to eq ['Path Tag1', 'Path Tag2']
             end
 
             it 'picture_url(画像無し)' do

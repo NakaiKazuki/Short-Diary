@@ -24,6 +24,7 @@ FactoryBot.define do
   factory :diary, class: 'Diary' do
     date { Time.zone.today }
     content { 'テストcontent' }
+    tag_list { %w[factoryTag1 factoryTag2] }
     association :user, factory: :user
 
     trait :add_picture do

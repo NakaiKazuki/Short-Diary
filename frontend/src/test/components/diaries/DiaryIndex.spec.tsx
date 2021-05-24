@@ -4,7 +4,6 @@ import '@testing-library/jest-dom';
 import { DiaryIndex } from '../../../components/diaries';
 import { dateToday } from '../../../helpers';
 
-
 const date =  dateToday();
 const testTContent:string = 'A123456789B123456789C123456789D123456789E123456789F123456789';
 const diaries = [
@@ -12,6 +11,7 @@ const diaries = [
     id: 1,
     date: date,
     content: 'Test Content',
+    tag_list: [],
     picture_url: null,
     user_id: 1,
   },
@@ -20,6 +20,7 @@ const diaries = [
     date: date,
     content: testTContent,
     picture_url: '/testurl',
+    tag_list: [],
     user_id: 1,
   },
 ];

@@ -58,6 +58,7 @@ const FileNameArea = styled.span`
 const InputPictureArea = styled.input`
   display: none;
 `;
+
 // 型
 
 // エラーメッセージ
@@ -65,10 +66,10 @@ type TApiError = Array<string>;
 
 interface IApiErrors {
   date?: TApiError;
+  tag_list?: TApiError;
   content?: TApiError;
   picture?: TApiError;
 }
-
 interface IFormAreaProps {
   control: any;
   errors: any;
@@ -78,6 +79,7 @@ interface IFormAreaProps {
   isDisabled: boolean;
   contentCount: number;
   defaultDate: string;
+  defaultTag: string;
   defaultContent: string;
   setFileName: string | undefined;
   onSubmit(): void;
@@ -93,6 +95,7 @@ export const FormArea:VFC<IFormAreaProps> = ({
   isDisabled,
   contentCount,
   defaultDate,
+  defaultTag,
   defaultContent,
   setFileName,
   onSubmit,
@@ -120,6 +123,28 @@ export const FormArea:VFC<IFormAreaProps> = ({
           }
         />
       </FormItemWrapper>
+
+      <FormItemWrapper data-testid='FormItem-tag_list'>
+        {apiErrors?.tag_list?.map((message: string, index: number) =>
+          <ErrorMessage key={`tag_list-${index}`} data-testid='tag_listApiError'>{`タグ${message}`}</ErrorMessage>
+        )}
+        <Controller
+          name='tag_list'
+          control={control}
+          defaultValue={defaultTag}
+          as={
+            <TextField
+              label='Tag'
+              type='textarea'
+              placeholder='「,」区切りで複数設定 Tag1,Tag2,Tag3...'
+              fullWidth
+              inputProps={{
+                'data-testid': 'tag_listArea',
+              }}
+            />
+          }
+        />
+      </ FormItemWrapper>
 
       <FormItemWrapper data-testid='FormItem-content'>
         {errors?.content &&

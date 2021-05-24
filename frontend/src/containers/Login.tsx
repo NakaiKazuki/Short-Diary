@@ -61,7 +61,6 @@ type TApiError = Array<string>;
 interface IApiErrors {
   email?: TApiError;
   password?: TApiError;
-  full_messages: TApiError;
 }
 
 export const Login:VFC = () => {
