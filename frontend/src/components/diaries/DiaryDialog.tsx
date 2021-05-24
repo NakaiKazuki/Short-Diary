@@ -160,7 +160,6 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
                     <Tag
                       label={tag}
                       color='primary'
-                      variant='outlined'
                       size='small'
                       key={`diary-tag-${index}`}
                       data-testid={`diaryTag-${index}`}

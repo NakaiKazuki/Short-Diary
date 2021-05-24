@@ -102,18 +102,39 @@ dockerimage作成後コンテナを起動します。
 docker-compose up -d
 ```
 
-node_modulesのインストール後、下記のコマンドを実行します。
+下記のコマンドでRailsのコンテナへ入ります。
 
 ```zsh
 #!/bin/zsh
-docker-compose run front yarn start
+docker-compose exec api zsh
 ```
 
-下記のコマンドでデータベースを作成します。
+コンテナ内で下記のコマンドを実行しデータベースを作成します。
 
 ```zsh
 #!/bin/zsh
-docker-compose run api rails db:create db:migrate db:seed && rails db:migrate RAILS_ENV=test
+rails db:create db:migrate db:seed && rails db:migrate RAILS_ENV=test
+```
+
+データベースの作成が完了したら下記コマンドでコンテナ内から出ます。
+
+```zsh
+#!/bin/zsh
+exit
+```
+
+node_modulesのインストール完了後、React側のコンテナへ入ります。
+
+```zsh
+#!/bin/zsh
+docker-compose exec front zsh
+```
+
+最後にコンテナ内にて、下記コマンドでReactを実行します。
+
+```zsh
+#!/bin/zsh
+yarn start
 ```
 
 以下 Test etc...
