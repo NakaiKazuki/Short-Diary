@@ -6,8 +6,11 @@
 
  スマホからもご利用いただけます。
 ![Short-Diary-ss-1](https://user-images.githubusercontent.com/62586169/120081349-39dae000-c0f8-11eb-81f0-3f78de98e9ee.png)
+
 ![Short-Diary-ss-2](https://user-images.githubusercontent.com/62586169/120081352-3c3d3a00-c0f8-11eb-9faf-08dbb0eab588.png)
+
 ![Short-Diary-ss-4](https://user-images.githubusercontent.com/62586169/120081354-3f382a80-c0f8-11eb-8e56-01b93ef7278b.png)
+
 ## URL
 
 <https://short-diary.com>
@@ -28,7 +31,7 @@
 - MySQL 8.0
 - Rails(API)
   - Ruby 3.0.1
-  - Ruby on Rails 6.1.3
+  - Rails 6.1.3
   - Puma
   - RSpec
 - React
