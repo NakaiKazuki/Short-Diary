@@ -104,15 +104,15 @@ interface IDiary {
   date: string;
   content: string;
   picture_url: string | null;
+  tag_list: Array<string | null>;
   user_id: number;
 }
 
-type TApiError = Array<string>;
 interface IApiErrors {
-  date?: TApiError;
-  content?: TApiError;
-  picture?: TApiError;
-  full_messages: TApiError;
+  date?: Array<string>;
+  tag_list?: Array<string>;
+  content?: Array<string>;
+  picture?: Array<string>;
 }
 
 interface IPagy {
@@ -137,6 +137,7 @@ interface IInitialState {
 type TPicture = Array<{data:string, name: string}>;
 interface IFormValues {
   date: string;
+  tag_list?: string;
   content: string;
   picture?: TPicture;
   diaryId?: number;
@@ -223,6 +224,7 @@ export const LoginHome: VFC = () => {
     createDiary(currentUser!.headers,
       {
         date: formValues.date,
+        tag_list: formValues.tag_list? formValues.tag_list.trim() : undefined,
         content: formValues.content,
         picture: formValues.picture? formValues.picture[0] : undefined,
       },
@@ -271,6 +273,7 @@ export const LoginHome: VFC = () => {
     dispatch({ type: submitActionTypes.POSTING});
     updateDiary(currentUser!.headers,{
       date: formValues.date,
+      tag_list: formValues.tag_list? formValues.tag_list.trim() : undefined,
       content: formValues.content,
       picture: formValues.picture? formValues.picture[0] : undefined,
     }, state.pagy!.page, state.selectedDiary!.id)
@@ -390,6 +393,7 @@ export const LoginHome: VFC = () => {
     })
     fetchHome(currentUser!.headers)
     .then((data): void => {
+      // console.log(data.diaries)
       setState({
         ...state,
         diaries: data.diaries,

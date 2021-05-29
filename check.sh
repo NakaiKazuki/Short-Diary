@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 set -e
 
 bundle exec rails_best_practices .

@@ -7,6 +7,7 @@ const diary = {
   id: 1,
   date: dateToday(),
   content: 'Test Text',
+  tag_list: [],
   picture_url: null,
   user_id: 1,
 };

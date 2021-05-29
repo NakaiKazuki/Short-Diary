@@ -21,7 +21,8 @@ import { HTTP_STATUS_CODE } from '../constants';
 // formitemsinfo
 import {
   signUpFormInfo,
-  signUpLinkInfo } from '../formInfo';
+  signUpLinkInfo
+} from '../formInfo';
 
 // reducers
 import {
@@ -54,13 +55,11 @@ interface IFormValues{
 }
 
 // エラーメッセージ
-type TApiError = Array<string>;
-interface IApiErrors {
-  name?: TApiError;
-  email?: TApiError;
-  password?: TApiError;
-  password_confirmation?: TApiError;
-  full_messages: TApiError;
+export interface IApiErrors {
+  name?: Array<string>;
+  email?: Array<string>;
+  password?: Array<string>;
+  password_confirmation?: Array<string>;
 }
 
 export const SignUp:VFC = () => {

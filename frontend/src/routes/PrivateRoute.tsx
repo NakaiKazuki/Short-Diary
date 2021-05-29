@@ -6,12 +6,14 @@ import { CurrentUserContext } from '../contexts/CurrentUser'
 
 // helpers
 import { isLoggedIn } from '../helpers';
-interface PrivateRouteProps {
+
+interface IPrivateRouteProps {
   exact: true;
   path: string;
-  children: JSX.Element
+  children: JSX.Element;
 }
-export const PrivateRoute:VFC<PrivateRouteProps> = ({ children }) => {
+
+export const PrivateRoute:VFC<IPrivateRouteProps> = ({ children }) => {
   const {currentUser} = useContext(CurrentUserContext);
 
   return (

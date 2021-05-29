@@ -1,5 +1,6 @@
 import { createContext, useState, VFC } from 'react';
 
+// 型
 interface IHeaders {
   'access-token': string;
   client: string;

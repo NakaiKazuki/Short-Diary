@@ -48,7 +48,7 @@ class Api::V1::DiariesController < ApplicationController
   private
 
     def diary_params
-      params.require(:diary).permit(:content, :date, :picture)
+      params.require(:diary).permit(:date, :content, :tag_list, :picture)
     end
 
     def correct_user

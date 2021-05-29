@@ -24,13 +24,12 @@ interface ILoginApiErrors {
   password?: Array<string>;
 }
 
-interface IReturnLogin {
+interface IFormInfo {
   email: IObject;
   password: IObject;
 }
-
 // Loginページのフォーム欄を表示するために必要な情報群
-export const loginFormInfo = (errors: any, control: object, apiErrors: ILoginApiErrors | undefined): IReturnLogin => {
+export const loginFormInfo = (errors: any, control: object, apiErrors: ILoginApiErrors | undefined): IFormInfo => {
   return {
     email: {
       formLabel: 'Email:',

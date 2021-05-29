@@ -77,6 +77,18 @@ RSpec.describe Diary, type: :model do
     end
   end
 
+  describe 'tag_list' do
+    it '有効(空配列)' do
+      diary.tag_list = []
+      expect(diary).to be_valid
+    end
+
+    it '有効(値あり(配列))' do
+      diary.tag_list = ['testTag']
+      expect(diary).to be_valid
+    end
+  end
+
   describe 'picture' do
     it '5mbより大きいファイルは無効' do
       diary.picture.attach(io: File.open(Rails.root.join('spec/fixtures/images/test_6mb.jpg')),
