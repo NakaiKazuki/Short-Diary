@@ -139,6 +139,10 @@ docker-compose exec front zsh
 yarn start
 ```
 
+以下リンクでブラウザに表示
+
+<http://localhost:3000/>
+
 以下 Test etc...
 
 下記のコマンドでテスト+その他を実行できます。
