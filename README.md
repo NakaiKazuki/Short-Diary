@@ -34,7 +34,7 @@
   - Rails 6.1.3
   - Puma
   - RSpec
-- React
+- React(CRA)
   - Node 14.17.0
   - TypeScript 4.2.4
   - React 17.0.2
