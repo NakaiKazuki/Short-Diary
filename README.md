@@ -36,8 +36,8 @@
   - RSpec
 - React(CRA)
   - Node 14.17.0
-  - TypeScript 4.2.4
-  - React 17.0.2
+  - TypeScript
+  - React
   - React Testing Library
 - Nginx 1.20.0
 

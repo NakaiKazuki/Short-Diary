@@ -28,7 +28,7 @@ interface ISignUpApiErrors {
 
 interface IFormInfo {
   name: IObject;
-  email :IObject;
+  email: IObject;
   password: IObject;
   password_confirmation: IObject;
 }
@@ -42,70 +42,74 @@ type TSignUpLinkInfo = [
 ];
 
 // SignUpページのフォーム欄を表示するために必要な情報群
-export const signUpFormInfo = (errors: any, control: object, apiErrors: ISignUpApiErrors | undefined): IFormInfo => {
+export const signUpFormInfo = (
+  errors: any,
+  control: object,
+  apiErrors: ISignUpApiErrors | undefined
+): IFormInfo => {
   return {
     name: {
-      formLabel: 'Name:',
+      formLabel: "Name:",
       errorsProperty: errors.name,
-      errorMessage: '1文字以上、50文字以内で入力してください',
+      errorMessage: "1文字以上、50文字以内で入力してください",
       apiErrorProperty: apiErrors?.name,
-      apiMessagePropertyName: '名前',
-      nameAttribute: 'name',
-      typeAttribute: 'text',
+      apiMessagePropertyName: "名前",
+      nameAttribute: "name",
+      typeAttribute: "text",
       control: control,
-      defaultValue: '',
-      autoComplete: 'username',
+      defaultValue: "",
+      autoComplete: "username",
       autoFocus: true,
       rules: { required: true, maxLength: 50 },
     },
     email: {
-      formLabel: 'Email:',
+      formLabel: "Email:",
       errorsProperty: errors.email,
-      errorMessage: '1文字以上、255文字以内で入力してください',
+      errorMessage: "1文字以上、255文字以内で入力してください",
       apiErrorProperty: apiErrors?.email,
-      apiMessagePropertyName:'メールアドレス',
-      nameAttribute: 'email',
-      typeAttribute: 'email',
+      apiMessagePropertyName: "メールアドレス",
+      nameAttribute: "email",
+      typeAttribute: "email",
       control: control,
-      defaultValue: '',
-      autoComplete: 'email',
+      defaultValue: "",
+      autoComplete: "email",
       autoFocus: false,
-      rules:{ required: true , maxLength: 255},
+      rules: { required: true, maxLength: 255 },
     },
     password: {
-      formLabel: 'パスワード: ',
+      formLabel: "パスワード: ",
       errorsProperty: errors.password,
-      errorMessage: '正しいパスワードを入力してください',
-      apiErrorProperty:  apiErrors?.password,
-      apiMessagePropertyName: 'パスワード',
-      nameAttribute: 'password',
-      typeAttribute: 'password',
+      errorMessage: "正しいパスワードを入力してください",
+      apiErrorProperty: apiErrors?.password,
+      apiMessagePropertyName: "パスワード",
+      nameAttribute: "password",
+      typeAttribute: "password",
       control: control,
-      defaultValue: '',
-      autoComplete: 'new-password',
+      defaultValue: "",
+      autoComplete: "new-password",
       autoFocus: false,
-      rules: { required: true, minLength: 6, maxLength: 128},
+      rules: { required: true, minLength: 6, maxLength: 128 },
     },
     password_confirmation: {
-      formLabel: '確認用パスワード:',
+      formLabel: "確認用パスワード:",
       errorsProperty: errors.password_confirmation,
-      errorMessage: 'パスワードと同じ内容を入力してください',
-      apiErrorProperty:  apiErrors?.password_confirmation,
-      apiMessagePropertyName: '確認用パスワード',
-      nameAttribute: 'password_confirmation',
-      typeAttribute: 'password',
+      errorMessage: "パスワードと同じ内容を入力してください",
+      apiErrorProperty: apiErrors?.password_confirmation,
+      apiMessagePropertyName: "確認用パスワード",
+      nameAttribute: "password_confirmation",
+      typeAttribute: "password",
       control: control,
-      defaultValue: '',
-      autoComplete: 'new-password',
+      defaultValue: "",
+      autoComplete: "new-password",
       autoFocus: false,
-      rules: {required: true, minLength: 6, maxLength: 128},
-    }
+      rules: { required: true, minLength: 6, maxLength: 128 },
+    },
   };
 };
 
-export  const signUpLinkInfo: TSignUpLinkInfo  = [
+export const signUpLinkInfo: TSignUpLinkInfo = [
   {
-    url: '/login',
-    text: 'アカウントをお持ちの方はこちら',
-  }
+    url: "/login",
+    text: "アカウントをお持ちの方はこちら",
+  },
 ];

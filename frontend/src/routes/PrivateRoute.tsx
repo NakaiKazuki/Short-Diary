@@ -1,11 +1,11 @@
-import { VFC, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import { VFC, useContext } from "react";
+import { Redirect } from "react-router-dom";
 
 // contexts
-import { CurrentUserContext } from '../contexts/CurrentUser'
+import { CurrentUserContext } from "../contexts/CurrentUser";
 
 // helpers
-import { isLoggedIn } from '../helpers';
+import { isLoggedIn } from "../helpers";
 
 interface IPrivateRouteProps {
   exact: true;
@@ -13,10 +13,8 @@ interface IPrivateRouteProps {
   children: JSX.Element;
 }
 
-export const PrivateRoute:VFC<IPrivateRouteProps> = ({ children }) => {
-  const {currentUser} = useContext(CurrentUserContext);
+export const PrivateRoute: VFC<IPrivateRouteProps> = ({ children }) => {
+  const { currentUser } = useContext(CurrentUserContext);
 
-  return (
-    isLoggedIn(currentUser) ? { ...children } : <Redirect to='/login' />
-  );
-}
+  return isLoggedIn(currentUser) ? { ...children } : <Redirect to="/login" />;
+};

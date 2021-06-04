@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // css
 export const FormTitle = styled.h1`
   text-align: center;
   color: royalblue;
-  letter-spacing: .1rem;
+  letter-spacing: 0.1rem;
 `;
 
 export const FormWrapper = styled.form`
@@ -12,5 +12,5 @@ export const FormWrapper = styled.form`
   width: 80vw;
   @media screen and (min-width: 980px) {
     width: 30vw;
-  };
+  } ;
 `;

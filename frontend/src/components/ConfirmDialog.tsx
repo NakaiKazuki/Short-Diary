@@ -1,35 +1,41 @@
-import { VFC } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
-import styled from 'styled-components';
+import { VFC } from "react";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from "@material-ui/core";
+import styled from "styled-components";
 
 // components
-import { BaseButton } from './shared_style';
+import { BaseButton } from "./shared_style";
 // css
 const ConfirmationButton = styled(BaseButton)`
   height: 2.2rem;
   padding: 0 1rem;
   font-size: 1rem;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 `;
 
 const CloseButton = styled(ConfirmationButton)`
-  border: .0125rem solid royalblue;
+  border: 0.0125rem solid royalblue;
   background-color: white;
   color: royalblue;
-  :hover{
+  :hover {
     background-color: royalblue;
     color: white;
   }
 `;
 
 const DeleteButton = styled(ConfirmationButton)`
-border: .0125rem solid red;
-background-color: white;
-color: red;
-:hover{
-  background-color: red;
-  color: white;
-}
+  border: 0.0125rem solid red;
+  background-color: white;
+  color: red;
+  :hover {
+    background-color: red;
+    color: white;
+  }
 `;
 
 // 型
@@ -50,7 +56,7 @@ interface IConfirmDialogProps {
   onClose(): void;
 }
 
-export const ConfirmDialog:VFC<IConfirmDialogProps> = ({
+export const ConfirmDialog: VFC<IConfirmDialogProps> = ({
   isOpen,
   title,
   contentText,
@@ -58,35 +64,35 @@ export const ConfirmDialog:VFC<IConfirmDialogProps> = ({
   onDelete,
   onClose,
 }) => {
-  return(
+  return (
     <Dialog
       open={isOpen}
       onClose={onClose}
       fullWidth
-      data-testid='confirmDialog'
+      data-testid="confirmDialog"
     >
-      <DialogTitle data-testid='confirmDialogTitle'>{title}</DialogTitle>
+      <DialogTitle data-testid="confirmDialogTitle">{title}</DialogTitle>
       <DialogContent>
-        <DialogContentText data-testid='confirmDialogContent'>
+        <DialogContentText data-testid="confirmDialogContent">
           {contentText}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <DeleteButton
-          type='button'
+          type="button"
           onClick={() => onDelete(obj)}
-          data-testid='deleteButton'
+          data-testid="deleteButton"
         >
           削除
         </DeleteButton>
         <CloseButton
-          type='button'
+          type="button"
           onClick={onClose}
-          data-testid='confirmDialogCloseButton'
+          data-testid="confirmDialogCloseButton"
         >
           閉じる
         </CloseButton>
       </DialogActions>
     </Dialog>
   );
-}
+};

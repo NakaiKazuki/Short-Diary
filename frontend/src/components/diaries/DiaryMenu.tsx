@@ -1,18 +1,18 @@
-import React, { VFC, Fragment } from 'react';
-import { MenuItem, withStyles, Menu, ListItemIcon } from '@material-ui/core';
-import { MenuProps } from '@material-ui/core/Menu';
-import styled from 'styled-components';
+import React, { VFC, Fragment } from "react";
+import { MenuItem, withStyles, Menu, ListItemIcon } from "@material-ui/core";
+import { MenuProps } from "@material-ui/core/Menu";
+import styled from "styled-components";
 
 // icons
-import { MenuIcon, DeleteIcon, EditIcon, VisibilityIcon } from '../Icons';
+import { MenuIcon, DeleteIcon, EditIcon, VisibilityIcon } from "../Icons";
 
 // css
 
 const MenuIconWrapper = styled.span`
   margin: 0 0 0 auto;
-  padding: .6rem .6rem 0 0;
+  padding: 0.6rem 0.6rem 0 0;
   color: royalblue;
-  :hover{
+  :hover {
     cursor: pointer;
   }
 `;
@@ -20,19 +20,19 @@ const MenuIconWrapper = styled.span`
 // Material Ui のMenuデザイン変更
 const StyledMenu = withStyles({
   paper: {
-    border: '.025rem solid white',
+    border: ".025rem solid white",
   },
 })((props: MenuProps) => (
   <Menu
     elevation={4}
     getContentAnchorEl={null}
     anchorOrigin={{
-      vertical: 'top',
-      horizontal: 'left',
+      vertical: "top",
+      horizontal: "left",
     }}
     transformOrigin={{
-      vertical: 'top',
-      horizontal: 'center',
+      vertical: "top",
+      horizontal: "center",
     }}
     {...props}
   />
@@ -41,25 +41,25 @@ const StyledMenu = withStyles({
 // Material Ui のMenuItemデザイン変更
 const StyledMenuItem = withStyles(() => ({
   root: {
-    backgroundColor: 'white',
-    color: 'royalblue',
+    backgroundColor: "white",
+    color: "royalblue",
     borderRadius: 5,
-    margin: '0 .5rem',
-    '& .MuiListItemIcon-root': {
-      color: 'royalblue',
+    margin: "0 .5rem",
+    "& .MuiListItemIcon-root": {
+      color: "royalblue",
     },
-    '&:hover': {
-      backgroundColor: 'royalblue',
-      color: 'white',
-      '& .MuiListItemIcon-root': {
-        color: 'white',
+    "&:hover": {
+      backgroundColor: "royalblue",
+      color: "white",
+      "& .MuiListItemIcon-root": {
+        color: "white",
       },
     },
-    '&:focus': {
-      backgroundColor: 'royalblue',
-      color: 'white',
-      '& .MuiListItemIcon-root': {
-        color: 'white',
+    "&:focus": {
+      backgroundColor: "royalblue",
+      color: "white",
+      "& .MuiListItemIcon-root": {
+        color: "white",
       },
     },
   },
@@ -67,25 +67,25 @@ const StyledMenuItem = withStyles(() => ({
 
 const StyledMenuItemDelete = withStyles(() => ({
   root: {
-    backgroundColor: 'white',
-    color: 'red',
+    backgroundColor: "white",
+    color: "red",
     borderRadius: 5,
-    margin: '0 .5rem',
-    '& .MuiListItemIcon-root': {
-      color: 'red',
+    margin: "0 .5rem",
+    "& .MuiListItemIcon-root": {
+      color: "red",
     },
-    '&:hover': {
-      backgroundColor: 'red',
-      color: 'white',
-      '& .MuiListItemIcon-root': {
-        color: 'white',
+    "&:hover": {
+      backgroundColor: "red",
+      color: "white",
+      "& .MuiListItemIcon-root": {
+        color: "white",
       },
     },
-    '&:focus': {
-      backgroundColor: 'red',
-      color: 'white',
-      '& .MuiListItemIcon-root': {
-        color: 'white',
+    "&:focus": {
+      backgroundColor: "red",
+      color: "white",
+      "& .MuiListItemIcon-root": {
+        color: "white",
       },
     },
   },
@@ -103,7 +103,7 @@ interface IDiaryMenuProps {
   onDiaryShowMode(): void;
 }
 
-export const DiaryMenu:VFC<IDiaryMenuProps> = ({
+export const DiaryMenu: VFC<IDiaryMenuProps> = ({
   anchorEl,
   isOpenDiaryEdit,
   onMenuOpen,
@@ -112,14 +112,14 @@ export const DiaryMenu:VFC<IDiaryMenuProps> = ({
   onDiaryEditMode,
   onOpenCofirmationDialog,
 }) => {
-  return(
+  return (
     <Fragment>
       <MenuIconWrapper
-        aria-haspopup='true'
+        aria-haspopup="true"
         onClick={onMenuOpen}
-        data-testid='menuIcon'
+        data-testid="menuIcon"
       >
-        <MenuIcon fontSize='large' />
+        <MenuIcon fontSize="large" />
       </MenuIconWrapper>
 
       <StyledMenu
@@ -127,24 +127,39 @@ export const DiaryMenu:VFC<IDiaryMenuProps> = ({
         keepMounted
         open={Boolean(anchorEl)}
         onClose={onMenuClose}
-        data-testid='diaryMenuBar'
+        data-testid="diaryMenuBar"
       >
-        {isOpenDiaryEdit ?
-          <StyledMenuItem onClick={() => onDiaryShowMode()} data-testid='MenuItemDiaryShow'>
-            <ListItemIcon><VisibilityIcon data-testid='visibilityIcon'/></ListItemIcon>
-              閲覧
+        {isOpenDiaryEdit ? (
+          <StyledMenuItem
+            onClick={() => onDiaryShowMode()}
+            data-testid="MenuItemDiaryShow"
+          >
+            <ListItemIcon>
+              <VisibilityIcon data-testid="visibilityIcon" />
+            </ListItemIcon>
+            閲覧
           </StyledMenuItem>
-        :
-          <StyledMenuItem onClick={() => onDiaryEditMode()} data-testid='MenuItemDiaryEdit'>
-            <ListItemIcon><EditIcon data-testid='editIcon'/></ListItemIcon>
-              編集
+        ) : (
+          <StyledMenuItem
+            onClick={() => onDiaryEditMode()}
+            data-testid="MenuItemDiaryEdit"
+          >
+            <ListItemIcon>
+              <EditIcon data-testid="editIcon" />
+            </ListItemIcon>
+            編集
           </StyledMenuItem>
-        }
-        <StyledMenuItemDelete onClick={onOpenCofirmationDialog} data-testid='MenuItemDiaryDelete'>
-          <ListItemIcon><DeleteIcon data-testid='deleteIcon'/></ListItemIcon>
-            削除
+        )}
+        <StyledMenuItemDelete
+          onClick={onOpenCofirmationDialog}
+          data-testid="MenuItemDiaryDelete"
+        >
+          <ListItemIcon>
+            <DeleteIcon data-testid="deleteIcon" />
+          </ListItemIcon>
+          削除
         </StyledMenuItemDelete>
       </StyledMenu>
     </Fragment>
   );
-}
+};

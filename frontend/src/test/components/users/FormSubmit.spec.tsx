@@ -1,48 +1,38 @@
-import React from 'react';
-import { render , screen, cleanup } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { FormSubmit } from '../../../components/users';
+import React from "react";
+import { render, screen, cleanup } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { FormSubmit } from "../../../components/users";
 
 const el = screen.getByTestId;
 
 afterEach(cleanup);
 
-describe('formSubmit コンポーネント', () => {
-  it('Submitボタン 活性時', () => {
-    render(
-      <FormSubmit
-        isDisabled={false}
-        onSubmitText={'NotDisabled'}
-      />
-    )
-    const formSubmit = el('formSubmit');
+describe("formSubmit コンポーネント", () => {
+  it("Submitボタン 活性時", () => {
+    render(<FormSubmit isDisabled={false} onSubmitText={"NotDisabled"} />);
+    const formSubmit = el("formSubmit");
 
     // 表示確認
-    expect(formSubmit).toHaveAttribute('type', 'submit');
+    expect(formSubmit).toHaveAttribute("type", "submit");
 
     // 受け取ったプロパティによって表示内容が変わる
-    expect(formSubmit).toHaveTextContent('NotDisabled');
+    expect(formSubmit).toHaveTextContent("NotDisabled");
 
     // 受け取ったプロパティによって状態が変わる
     expect(formSubmit).not.toBeDisabled();
-  })
+  });
 
-  it('Submitボタン 非活性時', () => {
-    render(
-      <FormSubmit
-        isDisabled={true}
-        onSubmitText={'Disabled'}
-      />
-    )
-    const formSubmit = el('formSubmit');
+  it("Submitボタン 非活性時", () => {
+    render(<FormSubmit isDisabled={true} onSubmitText={"Disabled"} />);
+    const formSubmit = el("formSubmit");
 
     // 表示確認
-    expect(formSubmit).toHaveAttribute('type', 'submit');
+    expect(formSubmit).toHaveAttribute("type", "submit");
 
     // 受け取ったプロパティによって表示内容が変わる
-    expect(formSubmit).toHaveTextContent('Disabled');
+    expect(formSubmit).toHaveTextContent("Disabled");
 
     // 受け取ったプロパティによって状態が変わる
     expect(formSubmit).toBeDisabled();
-  })
+  });
 });

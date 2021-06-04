@@ -1,27 +1,27 @@
-import React, { VFC, useContext, useState } from 'react';
-import {useHistory, Link } from 'react-router-dom';
-import {AppBar, Toolbar } from '@material-ui/core';
-import styled from 'styled-components';
+import React, { VFC, useContext, useState } from "react";
+import { useHistory, Link } from "react-router-dom";
+import { AppBar, Toolbar } from "@material-ui/core";
+import styled from "styled-components";
 
 //contexts
-import { CurrentUserContext } from '../contexts/CurrentUser';
+import { CurrentUserContext } from "../contexts/CurrentUser";
 
 // components
-import { BaseButton } from '../components/shared_style';
-import { UserMenu } from '../components/users/UserMenu';
+import { BaseButton } from "../components/shared_style";
+import { UserMenu } from "../components/users/UserMenu";
 
 // helpers
-import { isLoggedIn } from '../helpers';
+import { isLoggedIn } from "../helpers";
 
 // apis
-import { deleteSession } from '../apis/users/sessions';
+import { deleteSession } from "../apis/users/sessions";
 
 // images
-import mainLogo from '../images/logo.png';
+import mainLogo from "../images/logo.png";
 
 // css
 const AppHeader = styled(AppBar)`
-  height:auto;
+  height: auto;
 `;
 
 const MainLogo = styled.img`
@@ -43,51 +43,45 @@ const LoginLink = styled(BaseButton)`
   color: white;
 `;
 
-export const Header:VFC = () => {
+export const Header: VFC = () => {
   const history = useHistory();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-  const [ anchorEl, setAnchorEl ] = useState<HTMLElement | null>(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   // ユーザのログアウト処理
-  const onSignOut = (): void =>{
+  const onSignOut = (): void => {
     deleteSession(currentUser!.headers)
-    .then(() => {
-      setCurrentUser(undefined);
-      setAnchorEl(null);
-      history.push('/');
-    })
-    .catch(e => {
-      throw e;
-    });
+      .then(() => {
+        setCurrentUser(undefined);
+        setAnchorEl(null);
+        history.push("/");
+      })
+      .catch((e) => {
+        throw e;
+      });
   };
 
   return (
-    <AppHeader position='fixed' color='inherit' data-testid='header'>
+    <AppHeader position="fixed" color="inherit" data-testid="header">
       <Toolbar>
-        <Link to ='/' data-testid='homeLink'>
-           <MainLogo src={mainLogo} alt='main logo' />
+        <Link to="/" data-testid="homeLink">
+          <MainLogo src={mainLogo} alt="main logo" />
         </Link>
-        {
-          isLoggedIn(currentUser) ?
+        {isLoggedIn(currentUser) ? (
           <UserMenu
             anchorEl={anchorEl}
-            onMenuOpen={(e: React.MouseEvent<HTMLElement>): void => setAnchorEl(e.currentTarget)}
+            onMenuOpen={(e: React.MouseEvent<HTMLElement>): void =>
+              setAnchorEl(e.currentTarget)
+            }
             onMenuClose={(): void => setAnchorEl(null)}
             onSignOut={onSignOut}
           />
-        :
-        <SessionLink
-          to='/login'
-          data-testid='loginLink'
-        >
-          <LoginLink
-            type='button'
-          >
-            Login
-          </LoginLink>
-        </SessionLink>
-        }
+        ) : (
+          <SessionLink to="/login" data-testid="loginLink">
+            <LoginLink type="button">Login</LoginLink>
+          </SessionLink>
+        )}
       </Toolbar>
     </AppHeader>
   );
-}
+};

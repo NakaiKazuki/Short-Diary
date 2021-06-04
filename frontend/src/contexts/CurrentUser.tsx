@@ -1,8 +1,8 @@
-import { createContext, useState, VFC } from 'react';
+import { createContext, useState, VFC } from "react";
 
 // 型
 interface IHeaders {
-  'access-token': string;
+  "access-token": string;
   client: string;
   uid: string;
 }
@@ -21,11 +21,11 @@ interface ICurrentUser {
 interface ICurrentUserContext {
   currentUser: ICurrentUser | undefined;
   setCurrentUser: React.Dispatch<React.SetStateAction<undefined>>;
-};
+}
 
-export const CurrentUserContext = createContext({} as ICurrentUserContext );
+export const CurrentUserContext = createContext({} as ICurrentUserContext);
 
-export const CurrentUserProvider:VFC<any> = ({children}):JSX.Element => {
+export const CurrentUserProvider: VFC<any> = ({ children }): JSX.Element => {
   const [currentUser, setCurrentUser] = useState(undefined);
 
   return (

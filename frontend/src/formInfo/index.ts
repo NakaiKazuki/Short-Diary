@@ -1,9 +1,3 @@
-export {
-  signUpFormInfo,
-  signUpLinkInfo
-} from './signup';
+export { signUpFormInfo, signUpLinkInfo } from "./signup";
 
-export {
-  loginFormInfo,
-  loginLinkInfo
-} from './login';
+export { loginFormInfo, loginLinkInfo } from "./login";

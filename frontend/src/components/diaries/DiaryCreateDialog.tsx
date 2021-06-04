@@ -1,9 +1,9 @@
-import React, { VFC } from 'react';
-import { Dialog, DialogTitle } from '@material-ui/core';
-import styled from 'styled-components';
+import React, { VFC } from "react";
+import { Dialog, DialogTitle } from "@material-ui/core";
+import styled from "styled-components";
 
 // components
-import { FormArea } from './FromArea';
+import { FormArea } from "./FromArea";
 
 const FromTitle = styled(DialogTitle)`
   text-align: center;
@@ -25,18 +25,18 @@ interface IDiaryCreateDialogProps {
   control: any;
   errors: any;
   register: any;
-  apiErrors?: IApiErrors;
+  apiErrors: IApiErrors | undefined;
   onSubmitText: string;
   isDisabled: boolean;
   contentCount: number;
   dateToday: string;
   setFileName: string | undefined;
   onSubmit(): void;
-  onFileChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
+  onFileChange(e: any): void;
   onClose(): void;
 }
 
-export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
+export const DiaryCreateDialog: VFC<IDiaryCreateDialogProps> = ({
   isOpen,
   control,
   errors,
@@ -55,11 +55,11 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
     <Dialog
       open={isOpen}
       onClose={onClose}
-      maxWidth='sm'
+      maxWidth="sm"
       fullWidth
-      data-testid='diaryCreateDialog'
+      data-testid="diaryCreateDialog"
     >
-      <FromTitle data-testid='diaryCreateDialogTitle'>日記作成</FromTitle>
+      <FromTitle data-testid="diaryCreateDialogTitle">日記作成</FromTitle>
       <FormArea
         control={control}
         errors={errors}
@@ -69,12 +69,12 @@ export const DiaryCreateDialog:VFC<IDiaryCreateDialogProps> = ({
         isDisabled={isDisabled}
         contentCount={contentCount}
         defaultDate={dateToday}
-        defaultTag={''}
-        defaultContent={''}
+        defaultTag={""}
+        defaultContent={""}
         setFileName={setFileName}
         onSubmit={onSubmit}
         onFileChange={onFileChange}
       />
     </Dialog>
   );
-}
+};

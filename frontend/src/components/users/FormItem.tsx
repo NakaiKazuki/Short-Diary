@@ -1,7 +1,7 @@
-import React, { VFC } from 'react';
-import { Controller } from 'react-hook-form';
-import { TextField, InputLabel } from '@material-ui/core'
-import styled from 'styled-components';
+import React, { VFC } from "react";
+import { Controller } from "react-hook-form";
+import { TextField, InputLabel } from "@material-ui/core";
+import styled from "styled-components";
 
 // css
 const FormItemWrapper = styled.div`
@@ -13,9 +13,9 @@ const Input = styled(TextField)`
 `;
 
 const ErrorMessage = styled.p`
-  margin: .6rem auto auto auto;
+  margin: 0.6rem auto auto auto;
   color: red;
-  font-size: .9rem;
+  font-size: 0.9rem;
 `;
 
 // 型
@@ -44,25 +44,28 @@ interface IFormItemProps {
   formInfo: IFormInfoProps;
 }
 
-export const FormItem:VFC<IFormItemProps> = ({
-  formInfo
-}) => {
+export const FormItem: VFC<IFormItemProps> = ({ formInfo }) => {
   return (
     <FormItemWrapper data-testid={`FormItem-${formInfo.nameAttribute}`}>
       <InputLabel>
         {formInfo.formLabel}
-        {formInfo.errorsProperty &&
-          <ErrorMessage data-testid={`${formInfo.nameAttribute}ErrorMessage`}>{formInfo.errorMessage}</ErrorMessage>
-        }
-        {formInfo.apiErrorProperty?.map((message: string, index: number) =>
-          <ErrorMessage key={`${formInfo.nameAttribute}-${index}`} data-testid={`${formInfo.nameAttribute}ApiError`}>
-            {`${formInfo.apiMessagePropertyName}${message}`}
+        {formInfo.errorsProperty && (
+          <ErrorMessage data-testid={`${formInfo.nameAttribute}ErrorMessage`}>
+            {formInfo.errorMessage}
           </ErrorMessage>
         )}
+        {formInfo.apiErrorProperty?.map((message: string, index: number) => (
+          <ErrorMessage
+            key={`${formInfo.nameAttribute}-${index}`}
+            data-testid={`${formInfo.nameAttribute}ApiError`}
+          >
+            {`${formInfo.apiMessagePropertyName}${message}`}
+          </ErrorMessage>
+        ))}
         <Controller
           name={formInfo.nameAttribute}
           control={formInfo.control}
-          rules={ formInfo.rules }
+          rules={formInfo.rules}
           defaultValue={formInfo.defaultValue}
           as={
             <Input
@@ -71,7 +74,7 @@ export const FormItem:VFC<IFormItemProps> = ({
               autoComplete={formInfo.autoComplete}
               fullWidth
               inputProps={{
-                'data-testid': `${formInfo.nameAttribute}Area`,
+                "data-testid": `${formInfo.nameAttribute}Area`,
               }}
             />
           }
@@ -79,4 +82,4 @@ export const FormItem:VFC<IFormItemProps> = ({
       </InputLabel>
     </FormItemWrapper>
   );
-}
+};

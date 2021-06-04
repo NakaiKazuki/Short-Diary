@@ -1,21 +1,21 @@
-import React, { VFC, Fragment } from 'react';
-import { MenuItem, withStyles, Menu, ListItemIcon } from '@material-ui/core';
-import { MenuProps } from '@material-ui/core/Menu';
-import styled from 'styled-components';
+import React, { VFC, Fragment } from "react";
+import { MenuItem, withStyles, Menu, ListItemIcon } from "@material-ui/core";
+import { MenuProps } from "@material-ui/core/Menu";
+import styled from "styled-components";
 
 // icons
-import { LogoutIcon,UserIcon } from '../Icons';
+import { LogoutIcon, UserIcon } from "../Icons";
 
 // css
 const UserIconWrapper = styled.span`
-  padding: .3rem .7rem;
+  padding: 0.3rem 0.7rem;
   width: auto;
   margin: 0 0 0 auto;
-  border: .0125rem solid #22a398;
-  border-radius: .5rem;
+  border: 0.0125rem solid #22a398;
+  border-radius: 0.5rem;
   background-color: white;
   color: #22a398;
-  letter-spacing: .2rem;
+  letter-spacing: 0.2rem;
   :hover {
     cursor: pointer;
     background-color: #22a398;
@@ -26,19 +26,19 @@ const UserIconWrapper = styled.span`
 // Material Ui のMenuデザイン変更
 const StyledMenu = withStyles({
   paper: {
-    border: '.025rem solid white',
+    border: ".025rem solid white",
   },
 })((props: MenuProps) => (
   <Menu
     elevation={4}
     getContentAnchorEl={null}
     anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'center',
+      vertical: "bottom",
+      horizontal: "center",
     }}
     transformOrigin={{
-      vertical: 'top',
-      horizontal: 'center',
+      vertical: "top",
+      horizontal: "center",
     }}
     {...props}
   />
@@ -47,25 +47,25 @@ const StyledMenu = withStyles({
 // Material Ui のMenuItemデザイン変更
 const StyledMenuItem = withStyles(() => ({
   root: {
-    backgroundColor: 'white',
-    color: 'royalblue',
+    backgroundColor: "white",
+    color: "royalblue",
     borderRadius: 5,
-    margin: '0 .5rem',
-    '& .MuiListItemIcon-root': {
-      color: 'royalblue',
+    margin: "0 .5rem",
+    "& .MuiListItemIcon-root": {
+      color: "royalblue",
     },
-    '&:hover': {
-      backgroundColor: 'royalblue',
-      color: 'white',
-      '& .MuiListItemIcon-root': {
-        color: 'white',
+    "&:hover": {
+      backgroundColor: "royalblue",
+      color: "white",
+      "& .MuiListItemIcon-root": {
+        color: "white",
       },
     },
-    '&:focus': {
-      backgroundColor: 'royalblue',
-      color: 'white',
-      '& .MuiListItemIcon-root': {
-        color: 'white',
+    "&:focus": {
+      backgroundColor: "royalblue",
+      color: "white",
+      "& .MuiListItemIcon-root": {
+        color: "white",
       },
     },
   },
@@ -78,19 +78,16 @@ interface IDiaryMenuProps {
   onSignOut(): void;
 }
 
-export const UserMenu:VFC<IDiaryMenuProps> = ({
+export const UserMenu: VFC<IDiaryMenuProps> = ({
   anchorEl,
   onMenuOpen,
   onMenuClose,
   onSignOut,
 }) => {
-  return(
+  return (
     <Fragment>
-      <UserIconWrapper
-        aria-haspopup='true'
-        onClick={onMenuOpen}
-      >
-        <UserIcon viewBox='0 0 24 20' data-testid='userIcon'/>
+      <UserIconWrapper aria-haspopup="true" onClick={onMenuOpen}>
+        <UserIcon viewBox="0 0 24 20" data-testid="userIcon" />
       </UserIconWrapper>
 
       <StyledMenu
@@ -98,13 +95,15 @@ export const UserMenu:VFC<IDiaryMenuProps> = ({
         keepMounted
         open={Boolean(anchorEl)}
         onClose={onMenuClose}
-        data-testid='menuBar'
+        data-testid="menuBar"
       >
-        <StyledMenuItem onClick={onSignOut} data-testid='logoutButton'>
-          <ListItemIcon><LogoutIcon /></ListItemIcon>
-            Logout
+        <StyledMenuItem onClick={onSignOut} data-testid="logoutButton">
+          <ListItemIcon>
+            <LogoutIcon />
+          </ListItemIcon>
+          Logout
         </StyledMenuItem>
       </StyledMenu>
     </Fragment>
   );
-}
+};

@@ -1,10 +1,10 @@
-import { VFC, useState, useReducer, useContext } from 'react';
-import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
+import { VFC, useState, useReducer, useContext } from "react";
+import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 
 //contexts
-import { CurrentUserContext } from '../contexts/CurrentUser';
+import { CurrentUserContext } from "../contexts/CurrentUser";
 
 // components
 import {
@@ -13,32 +13,26 @@ import {
   FormLinks,
   FormTitle,
   FormWrapper,
-} from '../components/users';
+} from "../components/users";
 
 // apis
-import { createSession } from '../apis/users/sessions';
+import { createSession } from "../apis/users/sessions";
 
 // constants
-import { HTTP_STATUS_CODE } from '../constants';
+import { HTTP_STATUS_CODE } from "../constants";
 
 // forminfo
-import {
-  loginFormInfo,
-  loginLinkInfo } from '../formInfo';
+import { loginFormInfo, loginLinkInfo } from "../formInfo";
 
 // reducers
 import {
   initialState,
   submitActionTypes,
   submitReducer,
-} from '../reducers/submit';
+} from "../reducers/submit";
 
 // helpers
-import {
-  onSubmitText,
-  isDisabled,
-} from '../helpers';
-
+import { onSubmitText, isDisabled } from "../helpers";
 
 // css
 const LoginWrapper = styled.div`
@@ -63,59 +57,53 @@ interface IApiErrors {
   password?: TApiError;
 }
 
-export const Login:VFC = () => {
+export const Login: VFC = () => {
   const history = useHistory();
-  const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined >(undefined);
+  const [apiErrors, setErrorMessage] =
+    useState<IApiErrors | undefined>(undefined);
   const [state, dispatch] = useReducer(submitReducer, initialState);
-  const {currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { handleSubmit, control, errors } = useForm<IFormValues>();
   const formInfo = loginFormInfo(errors, control, apiErrors);
   const onSubmit = (formValues: IFormValues): void => {
-    dispatch({ type: submitActionTypes.POSTING});
+    dispatch({ type: submitActionTypes.POSTING });
     createSession({
       email: formValues.email,
       password: formValues.password,
     })
-    .then(res => {
-      dispatch({ type: submitActionTypes.POST_SUCCESS });
-      setCurrentUser({
-        ...currentUser,
-        ...res.data,
-        headers: res.headers,
+      .then((res) => {
+        dispatch({ type: submitActionTypes.POST_SUCCESS });
+        setCurrentUser({
+          ...currentUser,
+          ...res.data,
+          headers: res.headers,
+        });
+        history.push("/");
       })
-      history.push('/')
-    })
-    .catch(e => {
-      dispatch({ type: submitActionTypes.POST_INITIAL });
-      if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-        setErrorMessage(e.response.data.errors);
-      } else {
-        throw e;
-      }
-    });
+      .catch((e) => {
+        dispatch({ type: submitActionTypes.POST_INITIAL });
+        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          setErrorMessage(e.response.data.errors);
+        } else {
+          throw e;
+        }
+      });
   };
 
-  return(
+  return (
     <LoginWrapper>
       <FormTitle>Login</FormTitle>
-      <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid='loginForm'>
+      <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="loginForm">
+        <FormItem formInfo={formInfo.email} />
 
-        <FormItem
-          formInfo={formInfo.email}
-        />
-
-        <FormItem
-          formInfo={formInfo.password}
-        />
+        <FormItem formInfo={formInfo.password} />
 
         <FormSubmit
           isDisabled={isDisabled(state.postState)}
-          onSubmitText={onSubmitText(state.postState, 'Login!')}
+          onSubmitText={onSubmitText(state.postState, "Login!")}
         />
       </FormWrapper>
-      <FormLinks
-        linkInfo={loginLinkInfo}
-      />
+      <FormLinks linkInfo={loginLinkInfo} />
     </LoginWrapper>
   );
-}
+};

@@ -1,9 +1,9 @@
-import React, { VFC, Fragment } from 'react';
-import { DialogTitle } from '@material-ui/core';
-import styled from 'styled-components';
+import React, { VFC, Fragment } from "react";
+import { DialogTitle } from "@material-ui/core";
+import styled from "styled-components";
 
 // components
-import { FormArea } from './FromArea';
+import { FormArea } from "./FromArea";
 
 const FromTitle = styled(DialogTitle)`
   text-align: center;
@@ -33,16 +33,16 @@ interface IDiaryEditProps {
   control: any;
   errors: any;
   register: any;
-  apiErrors?: IApiErrors;
+  apiErrors: IApiErrors| undefined;
   onSubmitText: string;
   isDisabled: boolean;
   contentCount: number;
   setFileName: string | undefined;
   onEditSubmit(): void;
-  onFileChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
+  onFileChange(e: any): void;
 }
 
-export const DiaryEdit:VFC<IDiaryEditProps> = ({
+export const DiaryEdit: VFC<IDiaryEditProps> = ({
   diary,
   control,
   errors,
@@ -57,7 +57,7 @@ export const DiaryEdit:VFC<IDiaryEditProps> = ({
 }) => {
   return (
     <Fragment>
-      <FromTitle data-testid='diaryEditTitle'>日記編集</FromTitle>
+      <FromTitle data-testid="diaryEditTitle">日記編集</FromTitle>
       <FormArea
         control={control}
         errors={errors}
@@ -67,7 +67,7 @@ export const DiaryEdit:VFC<IDiaryEditProps> = ({
         isDisabled={isDisabled}
         contentCount={contentCount}
         defaultDate={diary.date}
-        defaultTag={diary.tag_list.join(',')}
+        defaultTag={diary.tag_list.join(",")}
         defaultContent={diary.content}
         setFileName={setFileName}
         onSubmit={onEditSubmit}
@@ -75,4 +75,4 @@ export const DiaryEdit:VFC<IDiaryEditProps> = ({
       />
     </Fragment>
   );
-}
+};

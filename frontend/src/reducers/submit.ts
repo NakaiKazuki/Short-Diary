@@ -1,4 +1,4 @@
-import { REQUEST_STATE } from '../constants';
+import { REQUEST_STATE } from "../constants";
 
 // 型
 interface IInitialState {
@@ -6,26 +6,29 @@ interface IInitialState {
 }
 
 interface ISubmitActionTypes {
-  POST_INITIAL: 'INITIAL';
-  POSTING: 'POSTING';
-  POST_SUCCESS: 'POST_SUCCESS';
+  POST_INITIAL: "INITIAL";
+  POSTING: "POSTING";
+  POST_SUCCESS: "POST_SUCCESS";
 }
 
 interface IAction {
-  type: 'INITIAL' | 'POSTING' | 'POST_SUCCESS';
+  type: "INITIAL" | "POSTING" | "POST_SUCCESS";
 }
 
 export const submitActionTypes: ISubmitActionTypes = {
-  POST_INITIAL: 'INITIAL',
-  POSTING: 'POSTING',
-  POST_SUCCESS: 'POST_SUCCESS',
+  POST_INITIAL: "INITIAL",
+  POSTING: "POSTING",
+  POST_SUCCESS: "POST_SUCCESS",
 };
 
 export const initialState: IInitialState = {
   postState: REQUEST_STATE.INITIAL,
 };
 
-export const submitReducer = (state: IInitialState, action: IAction ): IInitialState => {
+export const submitReducer = (
+  state: IInitialState,
+  action: IAction
+): IInitialState => {
   switch (action.type) {
     case submitActionTypes.POST_INITIAL:
       return {

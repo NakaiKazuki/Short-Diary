@@ -1,8 +1,8 @@
 // 型
 interface IREQUEST_STATE {
-  INITIAL: 'INITIAL';
-  LOADING: 'LOADING';
-  OK: 'OK';
+  INITIAL: "INITIAL";
+  LOADING: "LOADING";
+  OK: "OK";
 }
 
 interface IHTTP_STATUS_CODE {
@@ -12,9 +12,9 @@ interface IHTTP_STATUS_CODE {
 }
 
 export const REQUEST_STATE: IREQUEST_STATE = {
-  INITIAL: 'INITIAL',
-  LOADING: 'LOADING',
-  OK: 'OK',
+  INITIAL: "INITIAL",
+  LOADING: "LOADING",
+  OK: "OK",
 };
 
 export const HTTP_STATUS_CODE: IHTTP_STATUS_CODE = {

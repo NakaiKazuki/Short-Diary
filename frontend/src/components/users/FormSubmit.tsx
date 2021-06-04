@@ -1,6 +1,6 @@
-import { VFC } from 'react';
-import styled from 'styled-components';
-import { BaseButton } from '../shared_style';
+import { VFC } from "react";
+import styled from "styled-components";
+import { BaseButton } from "../shared_style";
 
 const Submit = styled(BaseButton)`
   margin: 2rem auto 0 auto;
@@ -22,13 +22,9 @@ export const FormSubmit: VFC<IFormSubmitProps> = ({
   isDisabled,
   onSubmitText,
 }) => {
-  return(
-    <Submit
-      type='submit'
-      disabled={isDisabled}
-      data-testid='formSubmit'
-    >
+  return (
+    <Submit type="submit" disabled={isDisabled} data-testid="formSubmit">
       {onSubmitText}
     </Submit>
   );
-}
+};

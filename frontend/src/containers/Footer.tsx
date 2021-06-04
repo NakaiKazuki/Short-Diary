@@ -1,9 +1,9 @@
-import { VFC } from 'react';
-import { Link as BaseLink } from 'react-router-dom';
-import styled from 'styled-components';
+import { VFC } from "react";
+import { Link as BaseLink } from "react-router-dom";
+import styled from "styled-components";
 
 // components
-import { BaseButton } from '../components/shared_style';
+import { BaseButton } from "../components/shared_style";
 
 const AppFooter = styled.footer`
   height: 5.5vh;
@@ -26,12 +26,16 @@ const LinkItem = styled(BaseButton)`
   color: royalblue;
 `;
 
-export const Footer:VFC = () => {
-  return(
-    <AppFooter data-testid='footer'>
-      <Link to={{ pathname: 'https://twitter.com/k_kyube' }} target='_blank' data-testid='twitterLink' >
+export const Footer: VFC = () => {
+  return (
+    <AppFooter data-testid="footer">
+      <Link
+        to={{ pathname: "https://twitter.com/k_kyube" }}
+        target="_blank"
+        data-testid="twitterLink"
+      >
         <LinkItem>制作者Twitter</LinkItem>
       </Link>
     </AppFooter>
   );
-}
+};

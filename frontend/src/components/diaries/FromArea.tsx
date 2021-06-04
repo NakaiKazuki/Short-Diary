@@ -1,11 +1,11 @@
-import React, { VFC } from 'react';
-import { TextField } from '@material-ui/core';
-import { Controller } from 'react-hook-form';
-import styled from 'styled-components';
+import React, { VFC } from "react";
+import { TextField } from "@material-ui/core";
+import { Controller } from "react-hook-form";
+import styled from "styled-components";
 
 // components
-import { BaseButton } from '../shared_style';
-import { AddPictureIcon } from '../Icons';
+import { BaseButton } from "../shared_style";
+import { AddPictureIcon } from "../Icons";
 
 const FormWrapper = styled.form`
   padding: 0 10% 5% 10%;
@@ -17,9 +17,9 @@ const FormItemWrapper = styled.div`
 
 const ErrorMessage = styled.p`
   text-align: center;
-  margin: .4rem auto;
+  margin: 0.4rem auto;
   color: red;
-  font-size: .9rem;
+  font-size: 0.9rem;
 `;
 
 const ContentCount = styled.span`
@@ -40,10 +40,10 @@ const Submit = styled(BaseButton)`
 const Picture = styled.label`
   width: 100%;
   text-align: center;
-  padding: .6rem 0;
+  padding: 0.6rem 0;
   color: royalblue;
   background-color: white;
-  border: .0125rem solid royalblue;
+  border: 0.0125rem solid royalblue;
   border-radius: 1rem;
   display: inline-block;
   :hover {
@@ -52,7 +52,7 @@ const Picture = styled.label`
 `;
 
 const FileNameArea = styled.span`
-  margin-left: .6rem;
+  margin-left: 0.6rem;
 `;
 
 const InputPictureArea = styled.input`
@@ -74,7 +74,7 @@ interface IFormAreaProps {
   control: any;
   errors: any;
   register: any;
-  apiErrors?: IApiErrors;
+  apiErrors: IApiErrors | undefined;
   onSubmitText: string;
   isDisabled: boolean;
   contentCount: number;
@@ -83,10 +83,10 @@ interface IFormAreaProps {
   defaultContent: string;
   setFileName: string | undefined;
   onSubmit(): void;
-  onFileChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
+  onFileChange(e: any): void;
 }
 
-export const FormArea:VFC<IFormAreaProps> = ({
+export const FormArea: VFC<IFormAreaProps> = ({
   control,
   errors,
   register,
@@ -101,106 +101,120 @@ export const FormArea:VFC<IFormAreaProps> = ({
   onSubmit,
   onFileChange,
 }) => {
-  return(
-    <FormWrapper onSubmit={onSubmit} data-testid='diaryForm'>
-      <FormItemWrapper data-testid='FormItem-date'>
-        {apiErrors?.date?.map((message: string, index: number) =>
-          <ErrorMessage key={`date-${index}`} data-testid='dateApiError'>{`日付${message}`}</ErrorMessage>
-        )}
+  return (
+    <FormWrapper onSubmit={onSubmit} data-testid="diaryForm">
+      <FormItemWrapper data-testid="FormItem-date">
+        {apiErrors?.date?.map((message: string, index: number) => (
+          <ErrorMessage
+            key={`date-${index}`}
+            data-testid="dateApiError"
+          >{`日付${message}`}</ErrorMessage>
+        ))}
         <Controller
-          name='date'
+          name="date"
           control={control}
-          rules={{ required: true, pattern: /(\d{4})-(\d{2})-(\d{2})/}}
+          rules={{ required: true, pattern: /(\d{4})-(\d{2})-(\d{2})/ }}
           defaultValue={defaultDate}
           as={
             <TextField
-              label='Date'
-              type={'date'}
+              label="Date"
+              type={"date"}
               inputProps={{
-                'data-testid': 'dateArea',
+                "data-testid": "dateArea",
               }}
             />
           }
         />
       </FormItemWrapper>
 
-      <FormItemWrapper data-testid='FormItem-tag_list'>
-        {apiErrors?.tag_list?.map((message: string, index: number) =>
-          <ErrorMessage key={`tag_list-${index}`} data-testid='tag_listApiError'>{`タグ${message}`}</ErrorMessage>
-        )}
+      <FormItemWrapper data-testid="FormItem-tag_list">
+        {apiErrors?.tag_list?.map((message: string, index: number) => (
+          <ErrorMessage
+            key={`tag_list-${index}`}
+            data-testid="tag_listApiError"
+          >{`タグ${message}`}</ErrorMessage>
+        ))}
         <Controller
-          name='tag_list'
+          name="tag_list"
           control={control}
           defaultValue={defaultTag}
           as={
             <TextField
-              label='Tag'
-              type='textarea'
-              placeholder='「,」区切りで複数設定 Tag1,Tag2,Tag3...'
+              label="Tag"
+              type="textarea"
+              placeholder="「,」区切りで複数設定 Tag1,Tag2,Tag3..."
               fullWidth
               inputProps={{
-                'data-testid': 'tag_listArea',
+                "data-testid": "tag_listArea",
               }}
             />
           }
         />
-      </ FormItemWrapper>
+      </FormItemWrapper>
 
-      <FormItemWrapper data-testid='FormItem-content'>
-        {errors?.content &&
-          <ErrorMessage data-testid='contentErrorMessage'>1文字以上、200文字以内で入力してください</ErrorMessage>
-        }
-        {apiErrors?.content?.map((message: string, index: number) =>
-          <ErrorMessage key={`content-${index}`} data-testid='contentApiError'>{`日記内容${message}`}</ErrorMessage>
+      <FormItemWrapper data-testid="FormItem-content">
+        {errors?.content && (
+          <ErrorMessage data-testid="contentErrorMessage">
+            1文字以上、200文字以内で入力してください
+          </ErrorMessage>
         )}
+        {apiErrors?.content?.map((message: string, index: number) => (
+          <ErrorMessage
+            key={`content-${index}`}
+            data-testid="contentApiError"
+          >{`日記内容${message}`}</ErrorMessage>
+        ))}
         <Controller
-          name='content'
+          name="content"
           control={control}
-          rules={{ required: true , maxLength: 200 }}
+          rules={{ required: true, maxLength: 200 }}
           defaultValue={defaultContent}
           as={
             <TextField
-              label='Content'
-              type='textarea'
+              label="Content"
+              type="textarea"
               autoFocus={true}
-              rows='8'
-              placeholder='200文字以内で日記の内容を入力してください'
+              rows="8"
+              placeholder="200文字以内で日記の内容を入力してください"
               multiline
               fullWidth
-              helperText = {<ContentCount data-testid='contentCount'>{contentCount}/200</ContentCount>}
+              helperText={
+                <ContentCount data-testid="contentCount">
+                  {contentCount}/200
+                </ContentCount>
+              }
               inputProps={{
-                'data-testid': 'contentArea',
+                "data-testid": "contentArea",
               }}
             />
           }
         />
-      </ FormItemWrapper>
+      </FormItemWrapper>
 
-      <FormItemWrapper data-testid='FormItem-picture'>
-        {apiErrors?.picture?.map((message: string, index: number) =>
-          <ErrorMessage key={`picture-${index}`} data-testid='pictureApiError'>{`画像${message}`}</ErrorMessage>
-        )}
+      <FormItemWrapper data-testid="FormItem-picture">
+        {apiErrors?.picture?.map((message: string, index: number) => (
+          <ErrorMessage
+            key={`picture-${index}`}
+            data-testid="pictureApiError"
+          >{`画像${message}`}</ErrorMessage>
+        ))}
         <Picture>
-          <AddPictureIcon/>
+          <AddPictureIcon />
           <FileNameArea>{setFileName}</FileNameArea>
           <InputPictureArea
             ref={register}
-            name='picture'
-            type='file'
+            name="picture"
+            type="file"
             onChange={onFileChange}
-            accept='image/*,.png,.jpg,.jpeg,.gif'
-            data-testid='pictureArea'
+            accept="image/*,.png,.jpg,.jpeg,.gif"
+            data-testid="pictureArea"
           />
         </Picture>
       </FormItemWrapper>
 
-      <Submit
-        type='submit'
-        disabled={isDisabled}
-        data-testid='formSubmit'
-      >
+      <Submit type="submit" disabled={isDisabled} data-testid="formSubmit">
         {onSubmitText}
       </Submit>
     </FormWrapper>
   );
-}
+};

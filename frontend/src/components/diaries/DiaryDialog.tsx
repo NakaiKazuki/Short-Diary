@@ -1,10 +1,10 @@
-import React, { VFC, Fragment } from 'react';
-import { Chip, Dialog } from '@material-ui/core';
-import styled from 'styled-components';
+import React, { VFC, Fragment } from "react";
+import { Chip, Dialog } from "@material-ui/core";
+import styled from "styled-components";
 
 // components
-import { DiaryMenu } from './DiaryMenu';
-import { DiaryEdit } from './DiaryEdit';
+import { DiaryMenu } from "./DiaryMenu";
+import { DiaryEdit } from "./DiaryEdit";
 
 // css
 
@@ -14,13 +14,13 @@ const Date = styled.h2`
   font-weight: normal;
   font-family: cursive, Century;
   width: 50%;
-  margin: 0 auto .6rem auto;
+  margin: 0 auto 0.6rem auto;
 `;
 
 const ContentHeading = styled.h4`
   margin: 0 auto 0 5%;
   font-weight: normal;
-  opacity: .6;
+  opacity: 0.6;
   color: mediumblue;
 `;
 
@@ -30,15 +30,15 @@ const TagWrapper = styled.span`
 `;
 
 const Tag = styled(Chip)`
-  margin: .3rem;
+  margin: 0.3rem;
 `;
 
 const PictureWrapper = styled.div`
   min-height: 15rem;
-  margin: .5rem auto 2.5rem auto;
+  margin: 0.5rem auto 2.5rem auto;
   width: 80%;
-  border: .0125rem solid green;
-  border-radius: .5rem;
+  border: 0.0125rem solid green;
+  border-radius: 0.5rem;
 `;
 
 const Content = styled.div`
@@ -79,7 +79,7 @@ interface IDiaryDialogProps {
   control: any;
   errors: any;
   register: any;
-  apiErrors?: IApiErrors;
+  apiErrors: IApiErrors| undefined;
   onSubmitText: string;
   isDisabled: boolean;
   contentCount: number;
@@ -90,13 +90,13 @@ interface IDiaryDialogProps {
   onOpenCofirmationDialog(): void;
   onDiaryEditMode(): void;
   onDiaryShowMode(): void;
-  onFileChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
+  onFileChange(e: any): void;
   onClose(): void;
   onMenuOpen(e: React.MouseEvent<HTMLElement>): void;
   onMenuClose(): void;
 }
 
-export const DiaryDialog:VFC<IDiaryDialogProps> = ({
+export const DiaryDialog: VFC<IDiaryDialogProps> = ({
   isOpen,
   isOpenDiaryEdit,
   diary,
@@ -118,13 +118,13 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
   onMenuOpen,
   onMenuClose,
 }) => {
-  return(
+  return (
     <Dialog
       open={isOpen}
       onClose={onClose}
-      maxWidth='sm'
+      maxWidth="sm"
       fullWidth
-      data-testid='diaryDialog'
+      data-testid="diaryDialog"
     >
       <DiaryMenu
         anchorEl={anchorEl}
@@ -135,52 +135,51 @@ export const DiaryDialog:VFC<IDiaryDialogProps> = ({
         onDiaryEditMode={onDiaryEditMode}
         onOpenCofirmationDialog={onOpenCofirmationDialog}
       />
-      {
-        isOpenDiaryEdit ?
-          <DiaryEdit
-            diary={diary}
-            control={control}
-            errors={errors}
-            register={register}
-            apiErrors={apiErrors}
-            onSubmitText={onSubmitText}
-            isDisabled={isDisabled}
-            contentCount={contentCount}
-            setFileName={setFileName}
-            onEditSubmit={onEditSubmit}
-            onFileChange={onFileChange}
-          />
-        :
-          <Fragment>
-            <Date data-testid='diaryDate'>{diary.date}</Date>
-            <TagWrapper>
-              {
-                diary.tag_list.map((tag: string | null, index: number): JSX.Element => {
-                  return (
-                    <Tag
-                      label={tag}
-                      color='primary'
-                      size='small'
-                      key={`diary-tag-${index}`}
-                      data-testid={`diaryTag-${index}`}
-                    />
-                  )
-                })
+      {isOpenDiaryEdit ? (
+        <DiaryEdit
+          diary={diary}
+          control={control}
+          errors={errors}
+          register={register}
+          apiErrors={apiErrors}
+          onSubmitText={onSubmitText}
+          isDisabled={isDisabled}
+          contentCount={contentCount}
+          setFileName={setFileName}
+          onEditSubmit={onEditSubmit}
+          onFileChange={onFileChange}
+        />
+      ) : (
+        <Fragment>
+          <Date data-testid="diaryDate">{diary.date}</Date>
+          <TagWrapper>
+            {diary.tag_list.map(
+              (tag: string | null, index: number): JSX.Element => {
+                return (
+                  <Tag
+                    label={tag}
+                    color="primary"
+                    size="small"
+                    key={`diary-tag-${index}`}
+                    data-testid={`diaryTag-${index}`}
+                  />
+                );
               }
-            </TagWrapper>
-            <ContentHeading>Content</ContentHeading>
-            <PictureWrapper>
-              <Content data-testid='diaryContent'>{diary.content}</Content>
-              {
-                diary.picture_url &&
-                <Picture
-                  src={diary.picture_url} alt='日記画像'
-                  data-testid='diaryPicture'
-                />
-              }
-            </PictureWrapper>
-          </Fragment>
-      }
+            )}
+          </TagWrapper>
+          <ContentHeading>Content</ContentHeading>
+          <PictureWrapper>
+            <Content data-testid="diaryContent">{diary.content}</Content>
+            {diary.picture_url && (
+              <Picture
+                src={diary.picture_url}
+                alt="日記画像"
+                data-testid="diaryPicture"
+              />
+            )}
+          </PictureWrapper>
+        </Fragment>
+      )}
     </Dialog>
   );
-}
+};

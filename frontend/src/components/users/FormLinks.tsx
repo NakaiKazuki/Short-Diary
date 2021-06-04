@@ -1,6 +1,6 @@
-import { VFC, Fragment } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { VFC, Fragment } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 // css
 const LinkListWrapper = styled.div`
@@ -21,9 +21,9 @@ const LinkArea = styled.li`
 const FormLink = styled(Link)`
   cursor: pointer;
   display: block;
-  padding: .5rem;
-  border: .0125rem solid royalblue;
-  border-radius: .25rem;
+  padding: 0.5rem;
+  border: 0.0125rem solid royalblue;
+  border-radius: 0.25rem;
   color: royalblue;
   background-color: white;
   text-decoration: none;
@@ -43,26 +43,24 @@ interface IFormLinks {
   linkInfo: Array<IlinkInfo>;
 }
 
-export const FormLinks:VFC<IFormLinks> = ({
-  linkInfo
-}) => {
-  return(
+export const FormLinks: VFC<IFormLinks> = ({ linkInfo }) => {
+  return (
     <Fragment>
-    {
-      linkInfo.map((obj: IlinkInfo, index: number) => {
+      {linkInfo.map((obj: IlinkInfo, index: number) => {
         return (
           <Fragment key={`formLinkArea-${index}`}>
             <LinkListWrapper>
-            <LinkList>
-              <LinkArea>
-                <FormLink to={obj.url} data-testid={`formLink-${index}`}>{obj.text}</FormLink>
-              </LinkArea>
-            </LinkList>
-          </LinkListWrapper>
+              <LinkList>
+                <LinkArea>
+                  <FormLink to={obj.url} data-testid={`formLink-${index}`}>
+                    {obj.text}
+                  </FormLink>
+                </LinkArea>
+              </LinkList>
+            </LinkListWrapper>
           </Fragment>
-        )
-      })
-    }
+        );
+      })}
     </Fragment>
   );
-}
+};

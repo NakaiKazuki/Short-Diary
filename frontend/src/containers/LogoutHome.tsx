@@ -1,33 +1,29 @@
-import { VFC, useContext, useReducer } from 'react';
-import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
+import { VFC, useContext, useReducer } from "react";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 
 //contexts
-import { CurrentUserContext } from '../contexts/CurrentUser';
+import { CurrentUserContext } from "../contexts/CurrentUser";
 
 // apis
-import { newGuestSession } from '../apis/users/sessions';
-
+import { newGuestSession } from "../apis/users/sessions";
 
 // helpers
-import {
-  onSubmitText,
-  isDisabled
-} from '../helpers';
+import { onSubmitText, isDisabled } from "../helpers";
 
 // reducers
 import {
   initialState,
   submitActionTypes,
   submitReducer,
-} from '../reducers/submit';
+} from "../reducers/submit";
 
 // components
-import { BaseButton } from '../components/shared_style';
+import { BaseButton } from "../components/shared_style";
 
 // images
-import HomeBackGround from '../images/homebackground.jpg';
+import HomeBackGround from "../images/homebackground.jpg";
 
 // css
 const LogoutHomeWrapper = styled.div`
@@ -37,10 +33,10 @@ const LogoutHomeWrapper = styled.div`
   background-image: url(${HomeBackGround});
   background-repeat: no-repeat;
   background-position: 50% 50%;
-  background-size:cover;
+  background-size: cover;
   @media screen and (max-width: 480px) {
     height: 84vh;
-  };
+  } ;
 `;
 
 const Contents = styled.div`
@@ -48,17 +44,17 @@ const Contents = styled.div`
   display: inline-block;
   @media screen and (min-width: 481px) {
     margin-left: 10vw;
-  };
+  } ;
 `;
 
 const Heading = styled.h1`
   position: relative;
-  padding: .5rem;
+  padding: 0.5rem;
   background: royalblue;
   color: white;
   &:before {
     position: absolute;
-    content: '';
+    content: "";
     top: 100%;
     left: 0;
     border: none;
@@ -71,7 +67,7 @@ const Paragraph = styled.p`
   margin: 10% 0 0 5%;
   padding: 5%;
   line-height: 1.7;
-  border-left :solid 0.3rem royalblue;
+  border-left: solid 0.3rem royalblue;
 `;
 
 const ButtonsWrapper = styled.span`
@@ -85,7 +81,7 @@ const HomeButton = styled(BaseButton)`
   height: 2.5rem;
   width: 10rem;
   border-style: none;
-  letter-spacing: .2rem;
+  letter-spacing: 0.2rem;
   color: white;
   font-size: 0.95rem;
 `;
@@ -98,61 +94,55 @@ const GuestLogin = styled(HomeButton)`
   background-color: limegreen;
 `;
 
-
 export const LogoutHome: VFC = () => {
-  const { currentUser ,setCurrentUser } = useContext(CurrentUserContext);
-  const [ state, dispatch ] = useReducer(submitReducer, initialState);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const [state, dispatch] = useReducer(submitReducer, initialState);
   const history = useHistory();
 
   const onGuestLoginButton = (): void => {
-    dispatch({ type: submitActionTypes.POSTING});
+    dispatch({ type: submitActionTypes.POSTING });
     newGuestSession()
-    .then(res => {
-      dispatch({ type: submitActionTypes.POST_SUCCESS });
-      setCurrentUser({
-        ...currentUser,
-        ...res.data,
-        headers: res.headers,
+      .then((res) => {
+        dispatch({ type: submitActionTypes.POST_SUCCESS });
+        setCurrentUser({
+          ...currentUser,
+          ...res.data,
+          headers: res.headers,
+        });
+        history.push("/");
       })
-      history.push('/')
-    })
-    .catch(e => {
-      throw e;
-    });
+      .catch((e) => {
+        throw e;
+      });
   };
 
-  return(
+  return (
     <LogoutHomeWrapper>
       <Contents>
-        <Heading>
-          毎日の出来事を記録しよう
-        </Heading>
+        <Heading>毎日の出来事を記録しよう</Heading>
         <Paragraph>
-          日記を付けたいけど、文章を書くのは面倒だと思ったことはありませんか？<br />
-          Short Diaryでは日々の日記を一言二言の内容で書くことで、<br />
-          メモ感覚で日記をつけることができます。<br />
+          日記を付けたいけど、文章を書くのは面倒だと思ったことはありませんか？
+          <br />
+          Short Diaryでは日々の日記を一言二言の内容で書くことで、
+          <br />
+          メモ感覚で日記をつけることができます。
+          <br />
           Short Diaryを使って日記を付けよう！
         </Paragraph>
         <ButtonsWrapper>
-          <Link
-            to='/signup'
-            data-testid='signUpLink'
-          >
-            <SignUpButton
-              type='button'
-            >
-              ユーザー登録
-            </SignUpButton>
+          <Link to="/signup" data-testid="signUpLink">
+            <SignUpButton type="button">ユーザー登録</SignUpButton>
           </Link>
           <GuestLogin
-            type='button'
-            onClick ={onGuestLoginButton}
+            type="button"
+            onClick={onGuestLoginButton}
             disabled={isDisabled(state.postState)}
-            data-testid='guestLoginButton'>
-            {onSubmitText(state.postState, 'ゲストログイン')}
+            data-testid="guestLoginButton"
+          >
+            {onSubmitText(state.postState, "ゲストログイン")}
           </GuestLogin>
         </ButtonsWrapper>
       </Contents>
     </LogoutHomeWrapper>
   );
-}
+};
