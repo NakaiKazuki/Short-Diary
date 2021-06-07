@@ -64,7 +64,7 @@ jobs:
         environment:
           - MYSQL_ROOT_PASSWORD: password
           - MYSQL_USER: root
-          - MYSQL_ROOT_HOST: '%'
+          - MYSQL_ROOT_HOST: "%"
     steps:
       - checkout
       - ruby/install-deps
@@ -84,11 +84,11 @@ jobs:
     steps:
       - checkout
       - node/install-packages:
-          app-dir: './frontend'
+          app-dir: "./frontend"
           pkg-manager: yarn
-          cache-path: './frontend/yarn.lock'
+          cache-path: "./frontend/yarn.lock"
       - run:
-          working_directory: './frontend'
+          working_directory: "./frontend"
           name: Run FrontEnd Test
           command: yarn test
 
