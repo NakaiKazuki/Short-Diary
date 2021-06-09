@@ -142,6 +142,7 @@ interface IInitialState {
   fetchState: "INITIAL" | "LOADING" | "OK";
   pagy: IPagy | undefined;
   selectedDiary: IDiary | null;
+  isOpenCalendar: boolean;
   isOpenDiaryCreateDialog: boolean;
   isOpenDiaryDialog: boolean;
   isOpenDiaryEdit: boolean;
@@ -174,6 +175,7 @@ export const LoginHome: VFC = () => {
     fetchState: REQUEST_STATE.INITIAL,
     pagy: undefined,
     selectedDiary: null,
+    isOpenCalendar: false,
     isOpenDiaryCreateDialog: false,
     isOpenDiaryDialog: false,
     isOpenDiaryEdit: false,
@@ -452,24 +454,32 @@ export const LoginHome: VFC = () => {
           <CircularProgress />
         </CircularProgressWrapper>
       ) : (
-        state.diaries != null &&
-        state.pagy != null && (
-          <Fragment>
-            {state.diaries.length ? (
-              <Fragment>
-                <DiaryIndex
-                  diaries={state.diaries}
-                  onOpenDiaryDialog={onOpenDiaryDialog}
-                />
-                <PagenationArea onPageChange={onPageChange} pagy={state.pagy} />
-              </Fragment>
-            ) : (
-              <EmptyMessageWrapper>
-                <EmptyMessage>日記がありません</EmptyMessage>
-              </EmptyMessageWrapper>
-            )}
-          </Fragment>
-        )
+        <Fragment>
+          {state.diaries?.length ? (
+            <Fragment>
+              {state.isOpenCalendar ? (
+                <h1>カレンダー表示</h1>
+              ) : (
+                <Fragment>
+                  <DiaryIndex
+                    diaries={state.diaries}
+                    onOpenDiaryDialog={onOpenDiaryDialog}
+                  />
+                  {state.pagy != null && (
+                    <PagenationArea
+                      onPageChange={onPageChange}
+                      pagy={state.pagy}
+                    />
+                  )}
+                </Fragment>
+              )}
+            </Fragment>
+          ) : (
+            <EmptyMessageWrapper>
+              <EmptyMessage>日記がありません</EmptyMessage>
+            </EmptyMessageWrapper>
+          )}
+        </Fragment>
       )}
       {state.isOpenDiaryCreateDialog && (
         <DiaryCreateDialog
