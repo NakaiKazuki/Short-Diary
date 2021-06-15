@@ -27,6 +27,7 @@ import {
   DiaryIndex,
   DiaryCreateDialog,
   DiaryDialog,
+  DiarySearch,
 } from "../components/diaries";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -34,7 +35,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { HTTP_STATUS_CODE, REQUEST_STATE } from "../constants";
 
 // helpers
-import { dateToday, onSubmitText, isDisabled } from "../helpers";
+import { onSubmitText, isDisabled } from "../helpers";
 
 // reducers
 import {
@@ -141,8 +142,8 @@ interface IInitialState {
   diaries: Array<IDiary> | undefined;
   fetchState: "INITIAL" | "LOADING" | "OK";
   pagy: IPagy | undefined;
+  selectedDate: null | Date;
   selectedDiary: IDiary | null;
-  isOpenCalendar: boolean;
   isOpenDiaryCreateDialog: boolean;
   isOpenDiaryDialog: boolean;
   isOpenDiaryEdit: boolean;
@@ -174,8 +175,8 @@ export const LoginHome: VFC = () => {
     diaries: undefined,
     fetchState: REQUEST_STATE.INITIAL,
     pagy: undefined,
+    selectedDate: null,
     selectedDiary: null,
-    isOpenCalendar: false,
     isOpenDiaryCreateDialog: false,
     isOpenDiaryDialog: false,
     isOpenDiaryEdit: false,
@@ -186,7 +187,11 @@ export const LoginHome: VFC = () => {
   // ここからPagenationAreaで使う関数
   // ページネションのページ番号が選択されたら、その番号に応じてデータを受け取る
   const onPageChange = (page: number): void => {
-    getDiaies(currentUser!.headers, page)
+    getDiaies(
+      currentUser!.headers,
+      page,
+      state.selectedDate?.toISOString().split("T")[0]
+    )
       .then((data) => {
         setState({
           ...state,
@@ -203,6 +208,29 @@ export const LoginHome: VFC = () => {
       });
   };
   // ここまでPagenationAreaで使う関数
+
+  // SearchFieldで使う関数
+  // 日付を変更したときに使用
+  const onDateChange = (selectedDate: null | Date): void => {
+    fetchHome(currentUser!.headers, selectedDate?.toISOString().split("T")[0])
+      .then((data): void => {
+        setState({
+          ...state,
+          selectedDate: selectedDate,
+          diaries: data.diaries,
+          pagy: data.pagy,
+          fetchState: REQUEST_STATE.OK,
+        });
+      })
+      .catch((e): void => {
+        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          setCurrentUser(undefined);
+        } else {
+          throw e;
+        }
+      });
+  };
+  // ここまでSearchFieldで使う関数
 
   // ここから DiaryIndexで使う関数
   // Diaries内でユーザがクリックした日記のデータを取得し、DiaryDialogへ投げて開く
@@ -268,6 +296,7 @@ export const LoginHome: VFC = () => {
         }
       });
   };
+
   // CreateDialogを開く
   const onOpenDiaryCreateDialog = (): void => {
     setState({
@@ -308,6 +337,7 @@ export const LoginHome: VFC = () => {
           pagy: data.pagy,
           isOpenDiaryEdit: false,
           isOpenDiaryDialog: false,
+          selectedDate: null,
         });
       })
       .catch((e): void => {
@@ -362,6 +392,7 @@ export const LoginHome: VFC = () => {
           isOpenConfirmDialog: false,
           isOpenDiaryEdit: false,
           isOpenDiaryDialog: false,
+          selectedDate: null,
         });
       })
       .catch((e): void => {
@@ -419,7 +450,6 @@ export const LoginHome: VFC = () => {
     });
     fetchHome(currentUser!.headers)
       .then((data): void => {
-        // console.log(data.diaries)
         setState({
           ...state,
           diaries: data.diaries,
@@ -449,30 +479,23 @@ export const LoginHome: VFC = () => {
         </IconWrapper>
         日記作成
       </DiaryCreateOpenButton>
+      <DiarySearch
+        selectedDate={state.selectedDate}
+        onDateChange={(date) => onDateChange(date)}
+      />
       {state.fetchState === REQUEST_STATE.LOADING ? (
         <CircularProgressWrapper>
           <CircularProgress />
         </CircularProgressWrapper>
       ) : (
         <Fragment>
-          {state.diaries?.length ? (
+          {state.diaries?.length && state.pagy != null ? (
             <Fragment>
-              {state.isOpenCalendar ? (
-                <h1>カレンダー表示</h1>
-              ) : (
-                <Fragment>
-                  <DiaryIndex
-                    diaries={state.diaries}
-                    onOpenDiaryDialog={onOpenDiaryDialog}
-                  />
-                  {state.pagy != null && (
-                    <PagenationArea
-                      onPageChange={onPageChange}
-                      pagy={state.pagy}
-                    />
-                  )}
-                </Fragment>
-              )}
+              <DiaryIndex
+                diaries={state.diaries}
+                onOpenDiaryDialog={onOpenDiaryDialog}
+              />
+              <PagenationArea onPageChange={onPageChange} pagy={state.pagy} />
             </Fragment>
           ) : (
             <EmptyMessageWrapper>
@@ -486,7 +509,7 @@ export const LoginHome: VFC = () => {
           apiErrors={state.apiErrors}
           contentCount={watch("content", "").length}
           control={control}
-          dateToday={dateToday()}
+          dateToday={new Date().toISOString().split("T")[0]}
           errors={errors}
           isOpen={state.isOpenDiaryCreateDialog}
           isDisabled={isDisabled(reducerState.postState)}

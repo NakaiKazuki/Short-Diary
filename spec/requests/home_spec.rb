@@ -26,9 +26,38 @@ RSpec.describe 'Homes', type: :request do
           JSON.parse(response.body)
         }
 
-        # 値がないと空の配列が返る
-        it 'diaries' do
-          expect(json_body['diaries']).to be_truthy
+        it 'picture_url' do
+          create(:diary, :add_picture, user: user)
+          expect(json_body['diaries'][0]['picture_url']).to be_truthy
+        end
+
+        describe 'diaries' do
+          it '値がないと空の配列が返る' do
+            expect(json_body['diaries']).to eq []
+          end
+
+          describe '検索機能' do
+            let(:search_json_body) {
+              get api_v1_root_path, params: {
+                date_cont: Time.zone.today.strftime('%Y-%m-%d')
+              }, headers: auth_tokens
+              JSON.parse(response.body)
+            }
+
+            it '値がないと空の配列が返る' do
+              expect(search_json_body['diaries']).to eq []
+            end
+
+            it '検索対象のデータが見つかった場合' do
+              create(:diary, user: user)
+              expect(search_json_body['diaries'][0]['date']).to eq Time.zone.today.strftime('%Y-%m-%d')
+            end
+
+            it '検索対象のデータが見つからなかった場合' do
+              create(:diary, user: user, date: Time.zone.today + 1)
+              expect(search_json_body['diaries']).to eq []
+            end
+          end
         end
 
         describe 'pagy' do

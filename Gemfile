@@ -17,6 +17,7 @@ gem 'rack-attack' # F5アタック対策
 gem 'rack-cors' # apiで使うのに必要なやつ
 gem 'rails', '~> 6.1.3'
 gem 'rails-i18n' # 日本語化
+gem 'ransack' # 検索
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

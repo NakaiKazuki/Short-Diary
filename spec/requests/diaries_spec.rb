@@ -15,7 +15,7 @@ RSpec.describe 'Diaries', type: :request do
     def post_information(content, tokens)
       post api_v1_diaries_path, params: {
         diary: {
-          date: Time.zone.today,
+          date: Time.zone.today.strftime('%Y-%m-%d'),
           content: content,
           tag_list: 'testTag1, testTag2'
         }
@@ -26,7 +26,7 @@ RSpec.describe 'Diaries', type: :request do
     def post_information_add_picture(tokens)
       post api_v1_diaries_path, params: {
         diary: {
-          date: Time.zone.today,
+          date: Time.zone.today.strftime('%Y-%m-%d'),
           content: 'テストcontent'
         },
         picture: {
@@ -153,7 +153,7 @@ RSpec.describe 'Diaries', type: :request do
       patch api_v1_diary_path(diary), params: {
         diary: {
           id: diary.id,
-          date: Time.zone.today - 1,
+          date: (Time.zone.today - 1).strftime('%Y-%m-%d'),
           content: content,
           tag_list: 'Path Tag1, Path Tag2'
         }
@@ -165,7 +165,7 @@ RSpec.describe 'Diaries', type: :request do
       patch api_v1_diary_path(diary), params: {
         diary: {
           id: diary.id,
-          date: Time.zone.today - 1,
+          date: (Time.zone.today - 1).strftime('%Y-%m-%d'),
           content: 'テスト編集済みContent'
         },
         picture: {

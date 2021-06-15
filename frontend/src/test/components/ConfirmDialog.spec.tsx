@@ -1,11 +1,11 @@
 import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ConfirmDialog } from "../../components/ConfirmDialog";
-import { dateToday } from "../../helpers";
 
+const dateToday = new Date().toISOString().split("T")[0];
 const diary = {
   id: 1,
-  date: dateToday(),
+  date: dateToday,
   content: "Test Text",
   tag_list: [],
   picture_url: null,

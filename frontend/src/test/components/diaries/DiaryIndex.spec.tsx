@@ -1,10 +1,8 @@
-import React from "react";
 import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { DiaryIndex } from "../../../components/diaries";
-import { dateToday } from "../../../helpers";
 
-const date = dateToday();
+const date = new Date().toISOString().split("T")[0];
 const testTContent: string =
   "A123456789B123456789C123456789D123456789E123456789F123456789";
 const diaries = [

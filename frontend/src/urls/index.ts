@@ -13,5 +13,3 @@ export const guestSignIn: string = `${DEVISE_PATH}/guest_sign_in`;
 
 // Diary
 export const diary: string = `${DEFAULT_API_LOCALHOST}/diaries`;
-// Pagination 関連のurl
-export const homePagination: string = `${DEFAULT_API_LOCALHOST}?page=`;

@@ -4,10 +4,17 @@ class Api::V1::HomeController < ApplicationController
   before_action :authenticate_user!
 
   def home
-    @pagy, diaries = pagy(current_user.diaries.all)
+    search = current_user.diaries.ransack(search_params)
+    @pagy, diaries = pagy(search.result(distinct: true))
     render json: {
       diaries: diaries,
       pagy: pagy_metadata(@pagy)
     }, methods: [:picture_url], status: :ok
   end
+
+  private
+
+    def search_params
+      params.permit(:date_cont)
+    end
 end
