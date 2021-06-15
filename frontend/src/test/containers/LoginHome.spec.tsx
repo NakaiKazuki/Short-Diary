@@ -6,7 +6,6 @@ import axios from "axios";
 import userEvent from "@testing-library/user-event";
 import { CurrentUserContext } from "../../contexts/CurrentUser";
 import { LoginHome } from "../../containers/LoginHome";
-import { dateToday } from "../../helpers";
 import { home, diary } from "../../urls";
 
 // 型
@@ -53,13 +52,13 @@ const providerProps = {
     setCurrentUser: jest.fn(),
   },
 };
-
+const dateToday = new Date().toISOString().split("T")[0];
 // Apiから返ってくるデータ
 const returnData = {
   diaries: [
     {
       id: 1,
-      date: dateToday(),
+      date: dateToday,
       content: "Test Content",
       tag_list: [],
       picture_url: null,
@@ -67,7 +66,7 @@ const returnData = {
     },
     {
       id: 2,
-      date: dateToday(),
+      date: dateToday,
       content: "A123456789B123456789C123456789D123456789E123456789F123456789",
       tag_list: ["testTag1", "testTag2"],
       picture_url: "/testurl",
@@ -94,7 +93,7 @@ const returnErrorData = {
 const formInfo = [
   {
     testId: "dateArea",
-    value: dateToday(),
+    value: dateToday,
   },
   {
     testId: "contentArea",
@@ -134,6 +133,10 @@ describe("LoginHome", () => {
 
   it("PagenationBarが表示", () => {
     expect(el("pagenationBar")).toBeTruthy();
+  });
+
+  it("日記検索欄が表示", () => {
+    expect(el("diarySearchField")).toBeTruthy();
   });
 
   describe("DiaryCreateDialog", () => {
@@ -238,7 +241,7 @@ describe("LoginHome", () => {
       describe("入力欄", () => {
         it("入力欄初期値", () => {
           // date
-          expect(el("dateArea")).toHaveValue(dateToday());
+          expect(el("dateArea")).toHaveValue(dateToday);
           // tag_list
           expect(el("tag_listArea")).toHaveValue("");
           // content
