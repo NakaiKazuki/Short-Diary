@@ -54,6 +54,7 @@
       - 本番環境ではS3に保存
   - ページネーション機能(pagy)
   - タグ機能(acts-as-taggable-on)
+  - 検索機能(ransack)
 
 - React
   - デザイン
