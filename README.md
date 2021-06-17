@@ -30,16 +30,16 @@
 - Docker/Docker-compose
 - MySQL 8.0
 - Rails(API)
-  - Ruby 3.0.1
-  - Rails 6.1.3
+  - Ruby 3.0
+  - Rails 6.1
   - Puma
   - RSpec
 - React(CRA)
-  - Node 14.17.0
+  - Node 14.17
   - TypeScript
   - React
   - React Testing Library
-- Nginx 1.20.0
+- Nginx 1.20
 
 ## CircleCi
 
