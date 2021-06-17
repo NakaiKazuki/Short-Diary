@@ -4,7 +4,7 @@ import { render, screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createMemoryHistory } from "history";
 import "@testing-library/jest-dom";
-import { CurrentUserContext } from "../../contexts/CurrentUser";
+import { AuthContext } from "../../contexts/Auth";
 import { Header } from "../../containers/Header";
 
 interface IHeaders {
@@ -38,9 +38,9 @@ const customRender = (
   const history = createMemoryHistory();
   return render(
     <Router history={history}>
-      <CurrentUserContext.Provider {...providerProps}>
+      <AuthContext.Provider {...providerProps}>
         {ui}
-      </CurrentUserContext.Provider>
+      </AuthContext.Provider>
     </Router>
   );
 };

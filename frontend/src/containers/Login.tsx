@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 //contexts
-import { CurrentUserContext } from "../contexts/CurrentUser";
+import { AuthContext } from "../contexts/Auth";
 
 // components
 import {
@@ -62,7 +62,7 @@ export const Login: VFC = () => {
   const [apiErrors, setErrorMessage] =
     useState<IApiErrors | undefined>(undefined);
   const [state, dispatch] = useReducer(submitReducer, initialState);
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const { handleSubmit, control, errors } = useForm<IFormValues>();
   const formInfo = loginFormInfo(errors, control, apiErrors);
   const onSubmit = (formValues: IFormValues): void => {

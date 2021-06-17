@@ -4,7 +4,7 @@ import { AppBar, Toolbar } from "@material-ui/core";
 import styled from "styled-components";
 
 //contexts
-import { CurrentUserContext } from "../contexts/CurrentUser";
+import { AuthContext } from "../contexts/Auth";
 
 // components
 import { BaseButton } from "../components/shared_style";
@@ -45,7 +45,7 @@ const LoginLink = styled(BaseButton)`
 
 export const Header: VFC = () => {
   const history = useHistory();
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   // ユーザのログアウト処理

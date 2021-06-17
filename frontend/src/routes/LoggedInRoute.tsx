@@ -1,6 +1,6 @@
 import { VFC, useContext } from "react";
 //contexts
-import { CurrentUserContext } from "../contexts/CurrentUser";
+import { AuthContext } from "../contexts/Auth";
 
 // helpers
 import { isLoggedIn } from "../helpers";
@@ -13,6 +13,6 @@ interface ILoggedInRouteProps {
 }
 
 export const LoggedInRoute: VFC<ILoggedInRouteProps> = ({ login, logout }) => {
-  const { currentUser } = useContext(CurrentUserContext);
+  const { currentUser } = useContext(AuthContext);
   return isLoggedIn(currentUser) ? { ...login } : { ...logout };
 };

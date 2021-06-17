@@ -4,7 +4,7 @@ import { render, screen, cleanup, act, waitFor } from "@testing-library/react";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
-import { CurrentUserContext } from "../../contexts/CurrentUser";
+import { AuthContext } from "../../contexts/Auth";
 import { LoginHome } from "../../containers/LoginHome";
 import { home, diary } from "../../urls";
 
@@ -108,9 +108,9 @@ const customRender = (
   { providerProps }: { providerProps: IProviderProps }
 ) => {
   return render(
-    <CurrentUserContext.Provider {...providerProps}>
+    <AuthContext.Provider {...providerProps}>
       {ui}
-    </CurrentUserContext.Provider>
+    </AuthContext.Provider>
   );
 };
 

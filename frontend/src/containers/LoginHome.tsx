@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
 // contexts
-import { CurrentUserContext } from "../contexts/CurrentUser";
+import { AuthContext } from "../contexts/Auth";
 
 // apis
 import { fetchHome, getDiaies } from "../apis/home";
@@ -162,7 +162,7 @@ interface IFormValues {
 type TClickHTMLElement = React.MouseEvent<HTMLElement>;
 
 export const LoginHome: VFC = () => {
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const { handleSubmit, control, watch, register, errors } =
     useForm<IFormValues>();
   const [reducerState, dispatch] = useReducer(

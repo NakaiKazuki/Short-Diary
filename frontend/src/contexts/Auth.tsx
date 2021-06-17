@@ -18,19 +18,19 @@ interface ICurrentUser {
   headers: IHeaders;
 }
 
-interface ICurrentUserContext {
+interface IAuthContext {
   currentUser: ICurrentUser | undefined;
   setCurrentUser: React.Dispatch<React.SetStateAction<undefined>>;
 }
 
-export const CurrentUserContext = createContext({} as ICurrentUserContext);
+export const AuthContext = createContext({} as IAuthContext);
 
-export const CurrentUserProvider: VFC<any> = ({ children }): JSX.Element => {
+export const AuthProvider: VFC<any> = ({ children }): JSX.Element => {
   const [currentUser, setCurrentUser] = useState(undefined);
 
   return (
-    <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
+    <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
       {children}
-    </CurrentUserContext.Provider>
+    </AuthContext.Provider>
   );
 };

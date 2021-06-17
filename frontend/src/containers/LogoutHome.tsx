@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 //contexts
-import { CurrentUserContext } from "../contexts/CurrentUser";
+import { AuthContext } from "../contexts/Auth";
 
 // apis
 import { newGuestSession } from "../apis/users/sessions";
@@ -95,7 +95,7 @@ const GuestLogin = styled(HomeButton)`
 `;
 
 export const LogoutHome: VFC = () => {
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const history = useHistory();
 

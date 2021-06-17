@@ -2,7 +2,7 @@ import { VFC, useContext } from "react";
 import { Redirect } from "react-router-dom";
 
 // contexts
-import { CurrentUserContext } from "../contexts/CurrentUser";
+import { AuthContext } from "../contexts/Auth";
 
 // helpers
 import { isLoggedIn } from "../helpers";
@@ -14,7 +14,7 @@ interface IGuestRouteProps {
 }
 
 export const GuestRoute: VFC<IGuestRouteProps> = ({ children }) => {
-  const { currentUser } = useContext(CurrentUserContext);
+  const { currentUser } = useContext(AuthContext);
 
   return isLoggedIn(currentUser) ? <Redirect to="/" /> : { ...children };
 };

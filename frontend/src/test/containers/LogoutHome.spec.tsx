@@ -6,7 +6,7 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
 import { createMemoryHistory } from "history";
-import { CurrentUserContext } from "../../contexts/CurrentUser";
+import { AuthContext } from "../../contexts/Auth";
 import { LogoutHome } from "../../containers/LogoutHome";
 import { guestSignIn } from "../../urls";
 
@@ -57,9 +57,9 @@ const customRender = (
   const history = createMemoryHistory();
   return render(
     <Router history={history}>
-      <CurrentUserContext.Provider {...providerProps}>
+      <AuthContext.Provider {...providerProps}>
         {ui}
-      </CurrentUserContext.Provider>
+      </AuthContext.Provider>
     </Router>
   );
 };

@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 
 // cotexts
-import { CurrentUserProvider } from "./contexts/CurrentUser";
+import { AuthProvider } from "./contexts/Auth";
 
 // routes
 import { GuestRoute, LoggedInRoute } from "./routes";
@@ -17,7 +17,7 @@ import { Login } from "./containers/Login";
 function App() {
   return (
     <Router>
-      <CurrentUserProvider>
+      <AuthProvider>
         <Header />
         <Switch>
           <LoggedInRoute
@@ -29,7 +29,7 @@ function App() {
           <GuestRoute exact path="/signup" children={<SignUp />} />
           <GuestRoute exact path="/login" children={<Login />} />
         </Switch>
-      </CurrentUserProvider>
+      </AuthProvider>
       <Footer />
     </Router>
   );
