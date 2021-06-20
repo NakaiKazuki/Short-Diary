@@ -159,8 +159,6 @@ interface IFormValues {
   picture: TPicture | undefined;
 }
 
-type TClickHTMLElement = React.MouseEvent<HTMLElement>;
-
 export const LoginHome: VFC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const { handleSubmit, control, watch, register, errors } =
@@ -426,7 +424,7 @@ export const LoginHome: VFC = () => {
   };
 
   // メニューバーを開く
-  const onMenuOpen = (e: TClickHTMLElement): void => {
+  const onMenuOpen = (e: React.MouseEvent<HTMLElement>): void => {
     setState({
       ...state,
       anchorEl: e.currentTarget,

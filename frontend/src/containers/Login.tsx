@@ -50,11 +50,9 @@ interface IFormValues {
 }
 
 // エラーメッセージ
-type TApiError = Array<string>;
-
 interface IApiErrors {
-  email?: TApiError;
-  password?: TApiError;
+  email?: Array<string>;
+  password?: Array<string>;
 }
 
 export const Login: VFC = () => {
