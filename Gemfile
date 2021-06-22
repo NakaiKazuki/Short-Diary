@@ -20,7 +20,6 @@ gem 'rails-i18n' # 日本語化
 gem 'ransack' # 検索
 
 group :development, :test do
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails' # テスト用
   gem 'faker' # テスト用
   gem 'rspec-rails' # テスト用
