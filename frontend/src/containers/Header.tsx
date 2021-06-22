@@ -70,6 +70,7 @@ export const Header: VFC = () => {
         {isLoggedIn(currentUser) ? (
           <UserMenu
             anchorEl={anchorEl}
+            currentUserName={currentUser!.data.name}
             onMenuOpen={(e: React.MouseEvent<HTMLElement>): void =>
               setAnchorEl(e.currentTarget)
             }

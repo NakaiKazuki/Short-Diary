@@ -7,9 +7,9 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { createMemoryHistory } from "history";
 import { AuthContext } from "../../contexts/Auth";
-import { Login } from "../../containers/Login";
-import { signIn } from "../../urls";
-import { loginLinkInfo as linkInfo } from "../../formInfo";
+import { UserEdit } from "../../containers/UserEdit";
+import { registration } from "../../urls";
+import { UserEditLinkInfo as linkInfo } from "../../formInfo";
 
 interface IHeaders {
   "access-token": string;
@@ -35,6 +35,20 @@ interface IProviderProps {
   };
 }
 
+// ユーザデータ
+const currentUser = {
+  headers: {
+    "access-token": "testtoken",
+    client: "testclient",
+    uid: "test@example.com",
+  },
+  data: {
+    id: 1,
+    name: "test",
+    email: "test@example.com",
+  },
+};
+
 const mockAxios = new MockAdapter(axios);
 const returnData = {
   headers: {
@@ -49,27 +63,47 @@ const returnData = {
   },
 };
 
-const returnErrorData = {
-  data: {
-    errors: ["testError"],
-  },
-};
-
 // 正しいForm情報
 const formInfo = [
   {
-    testId: "emailArea",
-    value: "test@example.com",
+    testId: "nameArea",
+    value: "testName",
   },
   {
     testId: "passwordArea",
     value: "testPassword",
   },
+  {
+    testId: "password_confirmationArea",
+    value: "testPassword",
+  },
+  {
+    testId: "current_passwordArea",
+    value: "testPassword",
+  },
+];
+
+const returnErrorData = {
+  data: {
+    errors: {
+      name: ["name ApiError"],
+      password: ["password ApiError"],
+      password_confirmation: ["password_confirmation ApiError"],
+      current_password: ["current_password ApiError"],
+    },
+  },
+};
+
+const idNames = [
+  "name",
+  "password",
+  "password_confirmation",
+  "current_password",
 ];
 
 const providerProps = {
   value: {
-    currentUser: undefined,
+    currentUser: currentUser,
     setCurrentUser: jest.fn(),
   },
 };
@@ -81,39 +115,35 @@ const customRender = (
   const history = createMemoryHistory();
   return render(
     <Router history={history}>
-      <AuthContext.Provider {...providerProps}>
-        {ui}
-      </AuthContext.Provider>
+      <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
     </Router>
   );
 };
-
-const idNames = ["email", "password"];
 
 const el = screen.getByTestId;
 
 afterEach(cleanup);
 
-describe("Loginコンポーネント", () => {
+describe("UserEditコンポーネント", () => {
   beforeEach(() => {
-    customRender(<Login />, { providerProps });
+    customRender(<UserEdit />, { providerProps });
   });
 
   describe("Form欄", () => {
     it("Formがある", () => {
-      expect(el("loginForm")).toBeTruthy();
+      expect(el("userEditForm")).toBeTruthy();
     });
 
     describe("Form入力欄", () => {
       it("Form内に各入力欄がある", () => {
         idNames.forEach((idName) =>
-          expect(el("loginForm")).toContainElement(el(`FormItem-${idName}`))
+          expect(el("userEditForm")).toContainElement(el(`FormItem-${idName}`))
         );
       });
 
       it("エラーメッセージ", async () => {
         // ApiResponse
-        mockAxios.onPost(signIn).reply(200, returnData);
+        mockAxios.onPut(registration).reply(200, returnData);
 
         // 各項目に無効な値を入力
         formInfo.forEach((obj) => userEvent.clear(el(obj.testId)));
@@ -123,15 +153,13 @@ describe("Loginコンポーネント", () => {
 
         // 各項目に対応したエラーメッセージが表示
         await waitFor(() => {
-          idNames.forEach((idName) =>
-            expect(el(`${idName}ErrorMessage`)).toBeTruthy()
-          );
+          expect(el(`current_passwordErrorMessage`)).toBeTruthy();
         });
       });
 
       it("Apiエラーメッセージ", () => {
         // ApiResponse
-        mockAxios.onPost(signIn).reply(401, returnErrorData);
+        mockAxios.onPut(registration).reply(422, returnErrorData);
 
         // 各項目に値を入力
         formInfo.forEach((obj) => userEvent.type(el(obj.testId), obj.value));
@@ -153,13 +181,13 @@ describe("Loginコンポーネント", () => {
 
       it("送信状況に応じてボタンの要素が変化 Status200", async () => {
         // ApiResponse
-        mockAxios.onPost(signIn).reply(200, returnData);
+        mockAxios.onPut(registration).reply(200, returnData);
 
         // 各項目に有効な値を入力
         formInfo.forEach((obj) => userEvent.type(el(obj.testId), obj.value));
 
         // 初期値
-        expect(el("formSubmit")).toHaveTextContent("Login!");
+        expect(el("formSubmit")).toHaveTextContent("Profile Edit!");
         expect(el("formSubmit")).not.toBeDisabled();
 
         // ユーザが送信ボタンをクリック
@@ -174,13 +202,13 @@ describe("Loginコンポーネント", () => {
 
       it("送信状況に応じてボタンの要素が変化 Status401", async () => {
         // ApiResponse
-        mockAxios.onPost(signIn).reply(401, returnErrorData);
+        mockAxios.onPut(registration).reply(401, returnErrorData);
 
         // 各項目に有効な値を入力
         formInfo.forEach((obj) => userEvent.type(el(obj.testId), obj.value));
 
         // 初期値
-        expect(el("formSubmit")).toHaveTextContent("Login!");
+        expect(el("formSubmit")).toHaveTextContent("Profile Edit!");
         expect(el("formSubmit")).not.toBeDisabled();
 
         // ユーザが送信ボタンをクリック
@@ -188,7 +216,7 @@ describe("Loginコンポーネント", () => {
 
         // APIからエラーが返ってくると初期値に戻る
         await waitFor(() => {
-          expect(el("formSubmit")).toHaveTextContent("Login!");
+          expect(el("formSubmit")).toHaveTextContent("Profile Edit!");
           expect(el("formSubmit")).not.toBeDisabled();
         });
       });

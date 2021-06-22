@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import { VFC } from "react";
 import { Controller } from "react-hook-form";
 import { TextField, InputLabel } from "@material-ui/core";
 import styled from "styled-components";
@@ -20,7 +20,7 @@ const ErrorMessage = styled.p`
 
 // 型
 interface IRurles {
-  required: boolean;
+  required?: boolean;
   maxLength: number;
   minLength?: number;
 }

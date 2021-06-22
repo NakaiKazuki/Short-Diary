@@ -3,9 +3,9 @@ import { diary } from "../urls";
 
 interface IParams {
   date: string;
-  tag_list: string| undefined;
+  tag_list: string | undefined;
   content: string;
-  picture: { data: string; name: string }| undefined;
+  picture: { data: string; name: string } | undefined;
 }
 
 interface ICurrentUserHeaders {
@@ -22,9 +22,7 @@ export const createDiary = (
 ): Promise<any> => {
   return axios
     .post(diary, {
-      "access-token": currentUserHeaders["access-token"],
-      client: currentUserHeaders.client,
-      uid: currentUserHeaders.uid,
+      ...currentUserHeaders,
       date: params.date,
       tag_list: params.tag_list ? params.tag_list : null,
       content: params.content,
@@ -46,9 +44,7 @@ export const updateDiary = (
 ): Promise<any> => {
   return axios
     .patch(`${diary}/${diaryId}`, {
-      "access-token": currentUserHeaders["access-token"],
-      client: currentUserHeaders.client,
-      uid: currentUserHeaders.uid,
+      ...currentUserHeaders,
       date: params.date,
       tag_list: params.tag_list ? params.tag_list : null,
       content: params.content,

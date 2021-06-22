@@ -31,6 +31,26 @@ interface IProviderProps {
   };
 }
 
+const currentUser = {
+  headers: {
+    "access-token": "testtoken",
+    client: "testclient",
+    uid: "test@example.com",
+  },
+  data: {
+    id: 1,
+    name: "test",
+    email: "test@example.com",
+  },
+};
+
+const providerProps = {
+  value: {
+    currentUser: undefined,
+    setCurrentUser: jest.fn(),
+  },
+};
+
 const customRender = (
   ui: JSX.Element,
   { providerProps }: { providerProps: IProviderProps }
@@ -45,31 +65,12 @@ const customRender = (
   );
 };
 
-const currentUser = {
-  headers: {
-    "access-token": "testtoken",
-    client: "testclient",
-    uid: "test@example.com",
-  },
-  data: {
-    id: 1,
-    name: "test",
-    email: "test@example.com",
-  },
-};
-
 const el = screen.getByTestId;
 
 afterEach(cleanup);
 
 describe("Header コンポーネント", () => {
   describe("ログアウト時", () => {
-    const providerProps = {
-      value: {
-        currentUser: undefined,
-        setCurrentUser: jest.fn(),
-      },
-    };
 
     beforeEach(() => {
       customRender(<Header />, { providerProps });

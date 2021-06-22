@@ -46,12 +46,7 @@ const currentUser = {
     email: "test@example.com",
   },
 };
-const providerProps = {
-  value: {
-    currentUser: currentUser,
-    setCurrentUser: jest.fn(),
-  },
-};
+
 const dateToday = new Date().toISOString().split("T")[0];
 // Apiから返ってくるデータ
 const returnData = {
@@ -101,18 +96,26 @@ const formInfo = [
   },
 ];
 
-const idNames = ["date", "tag_list", "content", "picture"];
+
+const providerProps = {
+  value: {
+    currentUser: currentUser,
+    setCurrentUser: jest.fn(),
+  },
+};
 
 const customRender = (
   ui: JSX.Element,
   { providerProps }: { providerProps: IProviderProps }
-) => {
-  return render(
-    <AuthContext.Provider {...providerProps}>
+  ) => {
+    return render(
+      <AuthContext.Provider {...providerProps}>
       {ui}
     </AuthContext.Provider>
   );
 };
+
+const idNames = ["date", "tag_list", "content", "picture"];
 
 const mockAxios = new MockAdapter(axios);
 mockAxios.onGet(home).reply(200, returnData);

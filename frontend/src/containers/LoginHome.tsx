@@ -7,6 +7,7 @@ import React, {
   useReducer,
 } from "react";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 // contexts
@@ -161,6 +162,7 @@ interface IFormValues {
 
 export const LoginHome: VFC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const history = useHistory();
   const { handleSubmit, control, watch, register, errors } =
     useForm<IFormValues>();
   const [reducerState, dispatch] = useReducer(
@@ -200,6 +202,7 @@ export const LoginHome: VFC = () => {
       .catch((e) => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
+          history.push("/login");
         } else {
           throw e;
         }
@@ -289,6 +292,9 @@ export const LoginHome: VFC = () => {
             ...state,
             apiErrors: e.response.data.errors,
           });
+        } else if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          setCurrentUser(undefined);
+          history.push("/login");
         } else {
           throw e;
         }
@@ -345,6 +351,12 @@ export const LoginHome: VFC = () => {
             ...state,
             apiErrors: e.response.data.errors,
           });
+        } else if (
+          e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
+          e.response.status === HTTP_STATUS_CODE.FORBIDDEN
+        ) {
+          setCurrentUser(undefined);
+          history.push("/login");
         } else {
           throw e;
         }
@@ -395,10 +407,11 @@ export const LoginHome: VFC = () => {
       })
       .catch((e): void => {
         if (
-          e.response.status ===
-          (HTTP_STATUS_CODE.FORBIDDEN || HTTP_STATUS_CODE.UNAUTHORIZED)
+          e.response.status === HTTP_STATUS_CODE.FORBIDDEN ||
+          e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED
         ) {
           setCurrentUser(undefined);
+          history.push("/login");
         } else {
           throw e;
         }
@@ -458,6 +471,7 @@ export const LoginHome: VFC = () => {
       .catch((e): void => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
+          history.push("/login");
         } else {
           throw e;
         }
@@ -472,9 +486,9 @@ export const LoginHome: VFC = () => {
         onClick={onOpenDiaryCreateDialog}
         data-testid="diaryCreateOpenButton"
       >
-        <IconWrapper>
-          <CreateIcon fontSize={"small"} data-testid="createIcon" />
-        </IconWrapper>
+        <IconWrapper
+          children={<CreateIcon fontSize={"small"} data-testid="createIcon" />}
+        />
         日記作成
       </DiaryCreateOpenButton>
       <DiarySearch

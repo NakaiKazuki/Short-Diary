@@ -1,13 +1,14 @@
 import React, { VFC, Fragment } from "react";
 import { MenuItem, withStyles, Menu, ListItemIcon } from "@material-ui/core";
 import { MenuProps } from "@material-ui/core/Menu";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 // icons
-import { LogoutIcon, UserIcon } from "../Icons";
+import { LogoutIcon, UserIcon, EditIcon } from "../Icons";
 
 // css
-const UserIconWrapper = styled.span`
+const UserWrapper = styled.span`
   padding: 0.3rem 0.7rem;
   width: auto;
   margin: 0 0 0 auto;
@@ -21,6 +22,16 @@ const UserIconWrapper = styled.span`
     background-color: #22a398;
     color: white;
   }
+`;
+
+const UserNameWrapper = styled.span`
+  margin-left: 0.3rem;
+  font-size: 0.8rem;
+`;
+
+const MenuItemLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
 `;
 
 // Material Ui のMenuデザイン変更
@@ -48,6 +59,32 @@ const StyledMenu = withStyles({
 const StyledMenuItem = withStyles(() => ({
   root: {
     backgroundColor: "white",
+    color: "green",
+    borderRadius: 5,
+    margin: "0 .5rem",
+    "& .MuiListItemIcon-root": {
+      color: "green",
+    },
+    "&:hover": {
+      backgroundColor: "green",
+      color: "white",
+      "& .MuiListItemIcon-root": {
+        color: "white",
+      },
+    },
+    "&:focus": {
+      backgroundColor: "green",
+      color: "white",
+      "& .MuiListItemIcon-root": {
+        color: "white",
+      },
+    },
+  },
+}))(MenuItem);
+
+const StyledMenuItemLogout = withStyles(() => ({
+  root: {
+    backgroundColor: "white",
     color: "royalblue",
     borderRadius: 5,
     margin: "0 .5rem",
@@ -73,6 +110,7 @@ const StyledMenuItem = withStyles(() => ({
 
 interface IDiaryMenuProps {
   anchorEl: HTMLElement | null;
+  currentUserName: string;
   onMenuOpen(e: React.MouseEvent<HTMLElement>): void;
   onMenuClose(): void;
   onSignOut(): void;
@@ -80,15 +118,17 @@ interface IDiaryMenuProps {
 
 export const UserMenu: VFC<IDiaryMenuProps> = ({
   anchorEl,
+  currentUserName,
   onMenuOpen,
   onMenuClose,
   onSignOut,
 }) => {
   return (
     <Fragment>
-      <UserIconWrapper aria-haspopup="true" onClick={onMenuOpen}>
+      <UserWrapper aria-haspopup="true" onClick={onMenuOpen} data-testid="userWrapper">
         <UserIcon viewBox="0 0 24 20" data-testid="userIcon" />
-      </UserIconWrapper>
+        <UserNameWrapper data-testid="userName">{currentUserName}</UserNameWrapper>
+      </UserWrapper>
 
       <StyledMenu
         anchorEl={anchorEl}
@@ -97,12 +137,14 @@ export const UserMenu: VFC<IDiaryMenuProps> = ({
         onClose={onMenuClose}
         data-testid="menuBar"
       >
-        <StyledMenuItem onClick={onSignOut} data-testid="logoutButton">
-          <ListItemIcon>
-            <LogoutIcon />
-          </ListItemIcon>
-          Logout
+        <StyledMenuItem data-testid="userEditLink">
+          <ListItemIcon children={<EditIcon />} />
+          <MenuItemLink to="/userEdit">ProfileEdit</MenuItemLink>
         </StyledMenuItem>
+        <StyledMenuItemLogout onClick={onSignOut} data-testid="logoutButton">
+          <ListItemIcon children={<LogoutIcon />} />
+          Logout
+        </StyledMenuItemLogout>
       </StyledMenu>
     </Fragment>
   );

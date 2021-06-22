@@ -50,6 +50,13 @@ mockAxios.onPost(guestSignIn).reply(200, {
   },
 });
 
+const providerProps = {
+  value: {
+    currentUser: undefined,
+    setCurrentUser: jest.fn(),
+  },
+};
+
 const customRender = (
   ui: JSX.Element,
   { providerProps }: { providerProps: IProviderProps }
@@ -67,13 +74,6 @@ const customRender = (
 afterEach(cleanup);
 
 describe("LogoutHome", () => {
-  const providerProps = {
-    value: {
-      currentUser: undefined,
-      setCurrentUser: jest.fn(),
-    },
-  };
-
   beforeEach(() => {
     customRender(<LogoutHome />, { providerProps });
   });
