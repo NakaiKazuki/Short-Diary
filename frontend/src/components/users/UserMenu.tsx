@@ -138,8 +138,10 @@ export const UserMenu: VFC<IDiaryMenuProps> = ({
         data-testid="menuBar"
       >
         <StyledMenuItem data-testid="userEditLink">
-          <ListItemIcon children={<EditIcon />} />
-          <MenuItemLink to="/userEdit">ProfileEdit</MenuItemLink>
+          <MenuItemLink to="/userEdit">
+            <ListItemIcon children={<EditIcon />} />
+            ProfileEdit
+          </MenuItemLink>
         </StyledMenuItem>
         <StyledMenuItemLogout onClick={onSignOut} data-testid="logoutButton">
           <ListItemIcon children={<LogoutIcon />} />
