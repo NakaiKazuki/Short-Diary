@@ -62,8 +62,9 @@ interface IApiErrors {
 
 export const UserEdit: VFC = () => {
   const history = useHistory();
-  const [apiErrors, setErrorMessage] =
-    useState<IApiErrors | undefined>(undefined);
+  const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined>(
+    undefined
+  );
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const { handleSubmit, control, errors } = useForm<IFormValues>();
@@ -96,7 +97,8 @@ export const UserEdit: VFC = () => {
         if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
           setErrorMessage(e.response.data.errors);
         } else if (
-          e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED || e.response.status === HTTP_STATUS_CODE.FORBIDDEN
+          e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
+          e.response.status === HTTP_STATUS_CODE.FORBIDDEN
         ) {
           setCurrentUser(undefined);
           history.push("/login");
