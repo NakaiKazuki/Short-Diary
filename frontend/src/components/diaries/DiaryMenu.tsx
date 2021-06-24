@@ -134,9 +134,9 @@ export const DiaryMenu: VFC<IDiaryMenuProps> = ({
             onClick={() => onDiaryShowMode()}
             data-testid="MenuItemDiaryShow"
           >
-            <ListItemIcon>
-              <VisibilityIcon data-testid="visibilityIcon" />
-            </ListItemIcon>
+            <ListItemIcon
+              children={<VisibilityIcon data-testid="visibilityIcon" />}
+            />
             閲覧
           </StyledMenuItem>
         ) : (
@@ -144,9 +144,7 @@ export const DiaryMenu: VFC<IDiaryMenuProps> = ({
             onClick={() => onDiaryEditMode()}
             data-testid="MenuItemDiaryEdit"
           >
-            <ListItemIcon>
-              <EditIcon data-testid="editIcon" />
-            </ListItemIcon>
+            <ListItemIcon children={<EditIcon data-testid="editIcon" />} />
             編集
           </StyledMenuItem>
         )}
@@ -154,9 +152,7 @@ export const DiaryMenu: VFC<IDiaryMenuProps> = ({
           onClick={onOpenCofirmationDialog}
           data-testid="MenuItemDiaryDelete"
         >
-          <ListItemIcon>
-            <DeleteIcon data-testid="deleteIcon" />
-          </ListItemIcon>
+          <ListItemIcon children={<DeleteIcon data-testid="deleteIcon" />} />
           削除
         </StyledMenuItemDelete>
       </StyledMenu>

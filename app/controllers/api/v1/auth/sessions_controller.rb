@@ -25,7 +25,7 @@ class Api::V1::Auth::SessionsController < DeviseTokenAuth::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
 
-  # ゲストユーザ作成とログイン DeviseTokenAuth からパクったなんで動いてるのかは知らん
+  # ゲストユーザ作成とログイン DeviseTokenAuth からパクった
   def new_guest
     @resource = User.guest
     @token = @resource.create_token

@@ -16,13 +16,13 @@ import {
 } from "../components/users";
 
 // apis
-import { createSession } from "../apis/users/sessions";
+import { putRegistration } from "../apis/users/registrations";
 
 // constants
 import { HTTP_STATUS_CODE } from "../constants";
 
 // forminfo
-import { loginFormInfo, loginLinkInfo } from "../formInfo";
+import { UserEditFormInfo, UserEditLinkInfo } from "../formInfo";
 
 // reducers
 import {
@@ -35,7 +35,7 @@ import {
 import { onSubmitText, isDisabled } from "../helpers";
 
 // css
-const LoginWrapper = styled.div`
+const UserEditWrapper = styled.div`
   width: 100vw;
   min-height: 81vh;
   margin-top: 6.6vh;
@@ -45,25 +45,42 @@ const LoginWrapper = styled.div`
 // 型
 // Formから送信される情報
 interface IFormValues {
-  email: string;
+  name: string;
+  // email: string;
   password: string;
+  password_confirmation: string;
+  current_password: string;
 }
 
 // エラーメッセージ
+interface IApiErrors {
+  name?: Array<string>;
+  password?: Array<string>;
+  password_confirmation?: Array<string>;
+  current_password?: Array<string>;
+}
 
-export const Login: VFC = () => {
+export const UserEdit: VFC = () => {
   const history = useHistory();
   const [apiErrors, setErrorMessage] =
-    useState<Array<string> | undefined>(undefined);
+    useState<IApiErrors | undefined>(undefined);
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const { handleSubmit, control, errors } = useForm<IFormValues>();
-  const formInfo = loginFormInfo(errors, control, apiErrors);
+  const formInfo = UserEditFormInfo(
+    errors,
+    control,
+    apiErrors,
+    currentUser!.data
+  );
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING });
-    createSession({
-      email: formValues.email,
+    putRegistration(currentUser!.headers, {
+      name: formValues.name,
+      // email: formValues.email,
       password: formValues.password,
+      password_confirmation: formValues.password_confirmation,
+      current_password: formValues.current_password,
     })
       .then((res) => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
@@ -76,8 +93,13 @@ export const Login: VFC = () => {
       })
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED || e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+        if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
           setErrorMessage(e.response.data.errors);
+        } else if (
+          e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED || e.response.status === HTTP_STATUS_CODE.FORBIDDEN
+        ) {
+          setCurrentUser(undefined);
+          history.push("/login");
         } else {
           throw e;
         }
@@ -85,19 +107,23 @@ export const Login: VFC = () => {
   };
 
   return (
-    <LoginWrapper>
-      <FormTitle>Login</FormTitle>
-      <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="loginForm">
-        <FormItem formInfo={formInfo.email} />
+    <UserEditWrapper>
+      <FormTitle>Profile Edit</FormTitle>
+      <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="userEditForm">
+        <FormItem formInfo={formInfo.name} />
 
         <FormItem formInfo={formInfo.password} />
 
+        <FormItem formInfo={formInfo.password_confirmation} />
+
+        <FormItem formInfo={formInfo.current_password} />
+
         <FormSubmit
           isDisabled={isDisabled(state.postState)}
-          onSubmitText={onSubmitText(state.postState, "Login!")}
+          onSubmitText={onSubmitText(state.postState, "Profile Edit!")}
         />
       </FormWrapper>
-      <FormLinks linkInfo={loginLinkInfo} />
-    </LoginWrapper>
+      <FormLinks linkInfo={UserEditLinkInfo} />
+    </UserEditWrapper>
   );
 };

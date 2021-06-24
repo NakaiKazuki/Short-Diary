@@ -35,20 +35,6 @@ interface IProviderProps {
   };
 }
 
-const customRender = (
-  ui: JSX.Element,
-  { providerProps }: { providerProps: IProviderProps }
-) => {
-  const history = createMemoryHistory();
-  return render(
-    <Router history={history}>
-      <AuthContext.Provider {...providerProps}>
-        {ui}
-      </AuthContext.Provider>
-    </Router>
-  );
-};
-
 // 正しいForm情報
 const formInfo = [
   {
@@ -68,6 +54,7 @@ const formInfo = [
     value: "testPassword",
   },
 ];
+
 const returnErrorData = {
   data: {
     errors: {
@@ -86,6 +73,20 @@ const providerProps = {
   },
 };
 
+const customRender = (
+  ui: JSX.Element,
+  { providerProps }: { providerProps: IProviderProps }
+) => {
+  const history = createMemoryHistory();
+  return render(
+    <Router history={history}>
+      <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
+    </Router>
+  );
+};
+
+const idNames = ["name", "email", "password", "password_confirmation"];
+
 const el = screen.getByTestId;
 const mockAxios = new MockAdapter(axios);
 
@@ -102,8 +103,6 @@ describe("SignUpコンポーネント", () => {
     });
 
     describe("Form入力欄", () => {
-      const idNames = ["name", "email", "password", "password_confirmation"];
-
       it("各入力欄のブロックがある", () => {
         idNames.forEach((idName) =>
           expect(el("signUpForm")).toContainElement(el(`FormItem-${idName}`))

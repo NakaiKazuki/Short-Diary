@@ -19,11 +19,6 @@ interface IObject {
   rules: IRurles;
 }
 
-interface ILoginApiErrors {
-  email?: Array<string>;
-  password?: Array<string>;
-}
-
 interface IFormInfo {
   email: IObject;
   password: IObject;
@@ -32,15 +27,15 @@ interface IFormInfo {
 export const loginFormInfo = (
   errors: any,
   control: object,
-  apiErrors: ILoginApiErrors | undefined
+  apiErrors: Array<string> | undefined,
 ): IFormInfo => {
   return {
     email: {
       formLabel: "Email:",
       errorsProperty: errors.email,
       errorMessage: "登録したメールアドレスを入力してください",
-      apiErrorProperty: apiErrors?.email,
-      apiMessagePropertyName: "メールアドレス",
+      apiErrorProperty: apiErrors,
+      apiMessagePropertyName: "",
       nameAttribute: "email",
       typeAttribute: "email",
       control: control,
@@ -53,8 +48,8 @@ export const loginFormInfo = (
       formLabel: "パスワード: ",
       errorsProperty: errors.password,
       errorMessage: "正しいパスワードを入力してください",
-      apiErrorProperty: apiErrors?.password,
-      apiMessagePropertyName: "パスワード",
+      apiErrorProperty: apiErrors,
+      apiMessagePropertyName: "",
       nameAttribute: "password",
       typeAttribute: "password",
       control: control,
