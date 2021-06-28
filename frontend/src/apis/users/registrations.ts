@@ -16,7 +16,7 @@ interface IPostParams {
 
 interface IPutParams {
   name: string;
-  // email: string;
+  email: string;
   password: string;
   password_confirmation: string;
   current_password: string;
@@ -43,7 +43,7 @@ export const putRegistration = (
     .put(registration, {
       ...currentUserHeaders,
       name: params.name,
-      // email: params.email,
+      email: params.email,
       password: params.password,
       password_confirmation: params.password_confirmation,
       current_password: params.current_password,

@@ -46,7 +46,7 @@ const UserEditWrapper = styled.div`
 // Formから送信される情報
 interface IFormValues {
   name: string;
-  // email: string;
+  email: string;
   password: string;
   password_confirmation: string;
   current_password: string;
@@ -78,12 +78,13 @@ export const UserEdit: VFC = () => {
     dispatch({ type: submitActionTypes.POSTING });
     putRegistration(currentUser!.headers, {
       name: formValues.name,
-      // email: formValues.email,
+      email: formValues.email,
       password: formValues.password,
       password_confirmation: formValues.password_confirmation,
       current_password: formValues.current_password,
     })
       .then((res) => {
+        console.log(res.data)
         dispatch({ type: submitActionTypes.POST_SUCCESS });
         setCurrentUser({
           ...currentUser,
@@ -95,6 +96,7 @@ export const UserEdit: VFC = () => {
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
         if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+          console.log(e.response)
           setErrorMessage(e.response.data.errors);
         } else if (
           e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
@@ -113,6 +115,8 @@ export const UserEdit: VFC = () => {
       <FormTitle>Profile Edit</FormTitle>
       <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="userEditForm">
         <FormItem formInfo={formInfo.name} />
+
+        <FormItem formInfo={formInfo.email} />
 
         <FormItem formInfo={formInfo.password} />
 

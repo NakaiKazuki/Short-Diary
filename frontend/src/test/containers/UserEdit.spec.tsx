@@ -70,6 +70,10 @@ const formInfo = [
     value: "testName",
   },
   {
+    testId: "emailArea",
+    value: "test@example.com",
+  },
+  {
     testId: "passwordArea",
     value: "testPassword",
   },
@@ -87,6 +91,7 @@ const returnErrorData = {
   data: {
     errors: {
       name: ["name ApiError"],
+      email: ["email ApiError"],
       password: ["password ApiError"],
       password_confirmation: ["password_confirmation ApiError"],
       current_password: ["current_password ApiError"],
@@ -96,6 +101,7 @@ const returnErrorData = {
 
 const idNames = [
   "name",
+  "email",
   "password",
   "password_confirmation",
   "current_password",
