@@ -3,7 +3,7 @@
 class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
   before_action :configure_sign_up_params, only: %i[create]
   before_action :configure_account_update_params, only: %i[update]
-  before_action :validate_email, only: %i[update]
+  before_action :unique_email, only: %i[update]
   # GET /resource/sign_up
   # def new
   #   super
@@ -62,10 +62,6 @@ class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsCon
 
   private
 
-    def sign_up_params
-      params.permit(:name, :email, :password, :password_confirmation)
-    end
-
     def account_update_params
       params.permit(:name, :email, :password, :password_confirmation, :current_password)
     end
@@ -78,10 +74,10 @@ class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsCon
       devise_parameter_sanitizer.permit(:account_update, keys: %i[name email])
     end
 
-    def validate_email
+    def unique_email
       return unless current_user[:email] != account_update_params[:email] || User.find_by(email: account_update_params[:email])
 
-      # ログインしているユーザのメールアドレスと一致しないorユーザが見つからない場合に実行
+      # ログインしているユーザのメールアドレスと一致しないorDBにユーザが見つからない場合に実行
       render json: { errors: { email: ['は既に使用されています。'] } }, status: :unprocessable_entity # status: 422
     end
 end

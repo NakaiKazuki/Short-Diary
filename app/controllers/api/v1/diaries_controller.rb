@@ -26,7 +26,7 @@ class Api::V1::DiariesController < ApplicationController
     file_decode if params[:picture]
 
     if @diary.update(diary_params)
-      @pagy, diaries = pagy(current_user.diaries.all, page: params[:page])
+      @pagy, diaries = pagy(current_user.diaries.all, page: pagy_params[:page])
       render json: {
         diaries: diaries,
         pagy: pagy_metadata(@pagy)
@@ -38,7 +38,7 @@ class Api::V1::DiariesController < ApplicationController
 
   def destroy
     @diary.destroy
-    @pagy, diaries = pagy(current_user.diaries.all, page: params[:page])
+    @pagy, diaries = pagy(current_user.diaries.all, page: pagy_params[:page])
     render json: {
       diaries: diaries,
       pagy: pagy_metadata(@pagy)
@@ -49,6 +49,10 @@ class Api::V1::DiariesController < ApplicationController
 
     def diary_params
       params.require(:diary).permit(:date, :content, :tag_list, :picture)
+    end
+
+    def pagy_params
+      params.permit(:page)
     end
 
     def correct_user
