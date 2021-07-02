@@ -2,7 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe 'SessionsNewGuests', type: :request do
+RSpec.describe 'Sessions', type: :request do
+  let(:user) { create(:user) }
+  let(:auth_tokens) { sign_in(user) }
   describe 'POST api/v1/auth/guest_sign_in' do
     it 'ゲストユーザのデータが無ければ作成' do
       expect {
