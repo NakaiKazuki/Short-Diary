@@ -31,19 +31,18 @@
 #
 FactoryBot.define do
   factory :user, class: 'User' do
-    id { 1 }
     name { Faker::Name.name }
     sequence(:email) { |n| "#{n}_" + Faker::Internet.email }
     password { 'password' }
     password_confirmation { 'password' }
     # confirmed_at { Time.current }
 
+    trait :other_email do
+      email { 'otheremail@example.com' }
+    end
+
     # trait :non_activate do
     #   confirmed_at { nil }
-    # end
-
-    # trait :other_email do
-    #   email { 'another@example.com' }
     # end
 
     # trait :account_freeze do
@@ -52,7 +51,6 @@ FactoryBot.define do
   end
 
   factory :guest, class: 'User' do
-    id { 2 }
     name { 'ゲストユーザ' }
     email { 'guest@example.com' }
     password { 'password' }

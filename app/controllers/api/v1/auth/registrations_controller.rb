@@ -75,7 +75,7 @@ class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsCon
     end
 
     def unique_email
-      return unless current_user[:email] != account_update_params[:email] || User.find_by(email: account_update_params[:email])
+      return if current_user[:email] == account_update_params[:email] || !User.find_by(email: account_update_params[:email])
 
       # ログインしているユーザのメールアドレスと一致しないorDBにユーザが見つからない場合に実行
       render json: { errors: { email: ['は既に使用されています。'] } }, status: :unprocessable_entity # status: 422
