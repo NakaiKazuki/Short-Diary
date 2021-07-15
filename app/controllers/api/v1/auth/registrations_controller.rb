@@ -3,6 +3,7 @@
 class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
   before_action :configure_sign_up_params, only: %i[create]
   before_action :configure_account_update_params, only: %i[update]
+  before_action :without_guest, only: %i[update]
   before_action :unique_email, only: %i[update]
   # GET /resource/sign_up
   # def new
@@ -72,6 +73,12 @@ class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsCon
 
     def configure_account_update_params
       devise_parameter_sanitizer.permit(:account_update, keys: %i[name email])
+    end
+
+    def without_guest
+      return unless current_user[:email] == 'guest@example.com'
+
+      render json: { errors: { guest: 'ゲストユーザの登録情報は編集できません。' } }, status: :unprocessable_entity # status: 422
     end
 
     def unique_email
