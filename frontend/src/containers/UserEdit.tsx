@@ -42,6 +42,13 @@ const UserEditWrapper = styled.div`
   padding-top: 5.4vh;
 `;
 
+const GuestErrorMessage = styled.p`
+  text-align: center;
+  margin: 0.6rem auto auto auto;
+  color: red;
+  font-size: 0.9rem;
+`;
+
 // 型
 // Formから送信される情報
 interface IFormValues {
@@ -58,6 +65,7 @@ interface IApiErrors {
   password?: Array<string>;
   password_confirmation?: Array<string>;
   current_password?: Array<string>;
+  guest?: Array<string>;
 }
 
 export const UserEdit: VFC = () => {
@@ -84,7 +92,6 @@ export const UserEdit: VFC = () => {
       current_password: formValues.current_password,
     })
       .then((res) => {
-        console.log(res.data)
         dispatch({ type: submitActionTypes.POST_SUCCESS });
         setCurrentUser({
           ...currentUser,
@@ -96,7 +103,6 @@ export const UserEdit: VFC = () => {
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
         if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
-          console.log(e.response)
           setErrorMessage(e.response.data.errors);
         } else if (
           e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
@@ -113,7 +119,17 @@ export const UserEdit: VFC = () => {
   return (
     <UserEditWrapper>
       <FormTitle>Profile Edit</FormTitle>
+
       <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="userEditForm">
+        {apiErrors?.guest?.map((message: string, index: number) => (
+          <GuestErrorMessage
+            key={`guestError-${index}`}
+            data-testid="guestApiError"
+          >
+            {message}
+          </GuestErrorMessage>
+        ))}
+
         <FormItem formInfo={formInfo.name} />
 
         <FormItem formInfo={formInfo.email} />

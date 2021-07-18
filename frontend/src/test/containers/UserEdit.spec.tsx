@@ -90,6 +90,7 @@ const formInfo = [
 const returnErrorData = {
   data: {
     errors: {
+      guest: ["guest ApiError"],
       name: ["name ApiError"],
       email: ["email ApiError"],
       password: ["password ApiError"],
@@ -106,6 +107,8 @@ const idNames = [
   "password_confirmation",
   "current_password",
 ];
+
+const guestIdNames = ["guest"];
 
 const providerProps = {
   value: {
@@ -173,10 +176,26 @@ describe("UserEditコンポーネント", () => {
         // ユーザが送信ボタンをクリック
         userEvent.click(el("formSubmit"));
 
-        // 各項目に対応したApiエラーメッセージが表示
-        idNames.forEach(async (idName) =>
-          expect(await screen.findByTestId(`${idName}ApiError`)).toBeTruthy()
-        );
+        idNames.forEach(async (idName) => {
+          expect(await screen.findByTestId(`${idName}ApiError`)).toBeTruthy();
+        });
+      });
+
+      it("ゲストユーザ専用エラーメッセージ", async () => {
+        mockAxios.onPut(registration).reply(422, returnErrorData);
+
+        // 各項目に値を入力
+        formInfo.forEach((obj) => userEvent.type(el(obj.testId), obj.value));
+
+        // ユーザが送信ボタンをクリック
+        userEvent.click(el("formSubmit"));
+
+        // ゲストエラーの項目にメッセージが表示
+        guestIdNames.forEach(async (guestIdName) => {
+          expect(
+            await screen.findByTestId(`${guestIdName}ApiError`)
+          ).toBeTruthy();
+        });
       });
     });
 

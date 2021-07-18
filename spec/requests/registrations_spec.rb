@@ -62,7 +62,7 @@ RSpec.describe 'Registrations', type: :request do
         end
 
         it 'ゲストユーザ用エラーメッセージ' do
-          expect(put_guest['errors']['guest']).to eq 'ゲストユーザの登録情報は編集できません。'
+          expect(put_guest['errors']['guest'][0]).to eq 'ゲストユーザの登録情報は編集できません。'
         end
       end
 
