@@ -1,4 +1,4 @@
-import React, { VFC, useContext, useState } from "react";
+import React, { VFC, useContext, useState, Fragment } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { AppBar, Toolbar } from "@material-ui/core";
 import styled from "styled-components";
@@ -29,12 +29,17 @@ const MainLogo = styled.img`
   padding: 1.15vh 0;
 `;
 
-const SessionLink = styled(Link)`
+const SignUpLink = styled(Link)`
   float: right;
   margin: 0 0 0 auto;
 `;
 
-const LoginLink = styled(BaseButton)`
+const LoginLink = styled(Link)`
+  float: right;
+  margin: 0 0 0 1rem;
+`;
+
+const LinkItem = styled(BaseButton)`
   height: 2.5rem;
   padding: 0 1rem;
   font-size: 1.2rem;
@@ -78,9 +83,14 @@ export const Header: VFC = () => {
             onSignOut={onSignOut}
           />
         ) : (
-          <SessionLink to="/login" data-testid="loginLink">
-            <LoginLink type="button">Login</LoginLink>
-          </SessionLink>
+          <Fragment>
+            <SignUpLink to="/signup" data-testid="signUpLink">
+              <LinkItem type="button">Sign Up</LinkItem>
+            </SignUpLink>
+            <LoginLink to="/login" data-testid="loginLink">
+              <LinkItem type="button">Login</LinkItem>
+            </LoginLink>
+          </Fragment>
         )}
       </Toolbar>
     </AppHeader>

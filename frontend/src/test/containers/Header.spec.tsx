@@ -83,6 +83,10 @@ describe("Header コンポーネント", () => {
     it("ログインページへのリンク", () => {
       expect(el("loginLink")).toHaveAttribute("href", "/login");
     });
+
+    it("新規登録ページへのリンク", () => {
+      expect(el("signUpLink")).toHaveAttribute("href", "/signup");
+    });
   });
 
   describe("ログイン時", () => {
