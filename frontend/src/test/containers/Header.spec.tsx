@@ -58,9 +58,7 @@ const customRender = (
   const history = createMemoryHistory();
   return render(
     <Router history={history}>
-      <AuthContext.Provider {...providerProps}>
-        {ui}
-      </AuthContext.Provider>
+      <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
     </Router>
   );
 };
@@ -71,7 +69,6 @@ afterEach(cleanup);
 
 describe("Header コンポーネント", () => {
   describe("ログアウト時", () => {
-
     beforeEach(() => {
       customRender(<Header />, { providerProps });
     });
