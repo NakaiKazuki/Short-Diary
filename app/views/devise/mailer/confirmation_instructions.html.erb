@@ -1,0 +1,5 @@
+<h1>Short Diaryからお知らせ</h1>
+
+<p>下記の『アカウントを有効化する』から本人確認を済ませることでアカウントを利用できます。</p>
+
+<p><%= link_to 'アカウントを有効化する', confirmation_url(@resource, {confirmation_token: @token, config: message['client-config'].to_s, redirect_url: message['redirect-url']}).html_safe %></p>

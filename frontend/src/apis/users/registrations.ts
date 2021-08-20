@@ -29,6 +29,8 @@ export const postRegistration = (params: IPostParams): Promise<any> => {
       email: params.email,
       password: params.password,
       password_confirmation: params.password_confirmation,
+      confirm_success_url: "http://localhost:3000/login",
+      // redirect_url: "localhost:3000/login",
     })
     .catch((e) => {
       throw e;
@@ -47,6 +49,7 @@ export const putRegistration = (
       password: params.password,
       password_confirmation: params.password_confirmation,
       current_password: params.current_password,
+      // redirect_url: DEFAULT_API_LOCALHOST
     })
     .catch((e) => {
       throw e;

@@ -20,6 +20,10 @@ RSpec.describe 'Sessions', type: :request do
     end
 
     describe 'Response' do
+      before do
+        create(:guest)
+      end
+
       it 'Response Status' do
         post api_v1_auth_guest_sign_in_path
         expect(response.status).to eq(200)

@@ -59,9 +59,9 @@ DeviseTokenAuth.setup do |config|
 
   # 追加
   # ユーザー登録メール送信後のリダイレクト先
-  # config.default_confirm_success_url = "/"
+  config.default_confirm_success_url = 'http://localhost:3000/login'
 
   # パスワードリセットメール送信後のリダイレクト先
-  # config.default_password_reset_url = default_nil
+  # config.default_password_reset_url = 'short-diary.com/login'
   config.check_current_password_before_update = :password
 end

@@ -15,5 +15,5 @@ Rails.application.routes.draw do
     registrations: 'api/v1/auth/registrations'
   }
 
-  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: 'api/v1/letter_opener' if Rails.env.development?
 end

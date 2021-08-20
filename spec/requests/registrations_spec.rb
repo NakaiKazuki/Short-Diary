@@ -7,6 +7,23 @@ RSpec.describe 'Registrations', type: :request do
   let(:guest) { create(:guest) }
   let(:auth_tokens) { sign_in(user) }
 
+  describe 'POST /api/v1/auth' do
+    before do
+      ActionMailer::Base.deliveries.clear
+    end
+
+    it '有効な情報の場合メールが送信される' do
+      expect {
+        post user_registration_path, params: {
+          name: 'テストユーザ',
+          email: 'test@example.com',
+          password: 'password',
+          password_confirmation: 'password'
+        }
+      }.to change { ActionMailer::Base.deliveries.size }.by(1)
+    end
+  end
+
   describe 'Put /api/v1/auth' do
     context 'ログインしていない場合' do
       it 'Response 422' do
