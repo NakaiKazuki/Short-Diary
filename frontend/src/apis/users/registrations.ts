@@ -22,6 +22,8 @@ interface IPutParams {
   current_password: string;
 }
 
+const CONFIRM_SUCCESS_URL: string = process.env.REACT_APP_CONFIRM_SUCCESS_URL!;
+
 export const postRegistration = (params: IPostParams): Promise<any> => {
   return axios
     .post(registration, {
@@ -29,8 +31,7 @@ export const postRegistration = (params: IPostParams): Promise<any> => {
       email: params.email,
       password: params.password,
       password_confirmation: params.password_confirmation,
-      confirm_success_url: "http://localhost:3000/login",
-      // redirect_url: "localhost:3000/login",
+      confirm_success_url: CONFIRM_SUCCESS_URL,
     })
     .catch((e) => {
       throw e;
@@ -49,7 +50,6 @@ export const putRegistration = (
       password: params.password,
       password_confirmation: params.password_confirmation,
       current_password: params.current_password,
-      // redirect_url: DEFAULT_API_LOCALHOST
     })
     .catch((e) => {
       throw e;

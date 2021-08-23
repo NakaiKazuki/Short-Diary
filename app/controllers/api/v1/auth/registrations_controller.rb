@@ -68,7 +68,7 @@ class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsCon
     end
 
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: %i[name])
+      devise_parameter_sanitizer.permit(:sign_up, keys: %i[name email password password_confirmation])
     end
 
     def configure_account_update_params

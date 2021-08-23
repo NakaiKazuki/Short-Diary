@@ -60,7 +60,7 @@ class User < ApplicationRecord
     find_or_create_by!(email: 'guest@example.com') do |user|
       user.name = 'ゲストユーザ'
       user.password = SecureRandom.urlsafe_base64
-      # user.confirmed_at = Time.current # メール認証使用時はコメントアウト
+      user.confirmed_at = Time.current # メール認証使用時はコメントアウト
     end
   end
 
