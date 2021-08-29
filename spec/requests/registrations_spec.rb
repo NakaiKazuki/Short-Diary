@@ -18,7 +18,8 @@ RSpec.describe 'Registrations', type: :request do
           name: 'テストユーザ',
           email: 'test@example.com',
           password: 'password',
-          password_confirmation: 'password'
+          password_confirmation: 'password',
+          confirm_success_url: 'http://localhost:4444/login',
         }
       }.to change { ActionMailer::Base.deliveries.size }.by(1)
     end
