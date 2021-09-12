@@ -1,7 +1,10 @@
-import { VFC, useState, useReducer } from "react";
+import { VFC, useState, useReducer, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+
+//contexts
+import { MessageContext } from "../contexts/Message";
 
 // components
 import {
@@ -61,6 +64,7 @@ export const SignUp: VFC = () => {
   const [apiErrors, setErrorMessage] =
     useState<IApiErrors | undefined>(undefined);
   const [state, dispatch] = useReducer(submitReducer, initialState);
+  const { setMessage } = useContext(MessageContext);
   const { handleSubmit, control, errors } = useForm<IFormValues>();
   const formInfo = signUpFormInfo(errors, control, apiErrors);
 
@@ -74,6 +78,7 @@ export const SignUp: VFC = () => {
     })
       .then(() => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
+        setMessage("確認用メールを送信しました!")
         history.push("/login");
       })
       .catch((e) => {

@@ -1,13 +1,10 @@
 import { createContext, useState, VFC } from "react";
 
 // 型
-interface IMessage {
-  message: string;
-}
 
 interface IMessageContext {
-  message: IMessage | undefined;
-  setMessage: React.Dispatch<React.SetStateAction<undefined>>;
+  message: string | undefined;
+  setMessage: React.Dispatch<React.SetStateAction<any>>;
 }
 
 export const MessageContext = createContext({} as IMessageContext);
