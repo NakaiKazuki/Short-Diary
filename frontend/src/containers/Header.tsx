@@ -62,7 +62,7 @@ export const Header: VFC = () => {
         history.push("/");
       })
       .catch((e) => {
-        throw e;
+        alert(e);
       });
   };
 

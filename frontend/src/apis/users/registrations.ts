@@ -33,9 +33,6 @@ export const postRegistration = (params: IPostParams): Promise<any> => {
       password_confirmation: params.password_confirmation,
       confirm_success_url: CONFIRM_SUCCESS_URL,
     })
-    .catch((e) => {
-      throw e;
-    });
 };
 
 export const putRegistration = (
@@ -51,7 +48,4 @@ export const putRegistration = (
       password_confirmation: params.password_confirmation,
       current_password: params.current_password,
     })
-    .catch((e) => {
-      throw e;
-    });
 };

@@ -79,7 +79,7 @@ export const Login: VFC = () => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED || e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
           setErrorMessage(e.response.data.errors);
         } else {
-          throw e;
+          alert(e);
         }
       });
   };

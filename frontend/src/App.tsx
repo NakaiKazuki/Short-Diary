@@ -9,6 +9,7 @@ import { GuestRoute, PrivateRoute, LoggedInRoute } from "./routes";
 
 // components
 import { Header } from "./containers/Header";
+import { Message } from "./containers/Message";
 import { Footer } from "./containers/Footer";
 import { LogoutHome } from "./containers/LogoutHome";
 import { LoginHome } from "./containers/LoginHome";
@@ -22,6 +23,7 @@ function App() {
       <AuthProvider>
         <MessageProvider>
           <Header />
+          <Message />
           <Switch>
             <LoggedInRoute
               exact

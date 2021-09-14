@@ -111,9 +111,7 @@ export const LogoutHome: VFC = () => {
         });
         history.push("/");
       })
-      .catch((e) => {
-        throw e;
-      });
+      .catch(e => alert(e))
   };
 
   return (

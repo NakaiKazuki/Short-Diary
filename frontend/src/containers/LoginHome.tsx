@@ -358,7 +358,7 @@ export const LoginHome: VFC = () => {
           setCurrentUser(undefined);
           history.push("/login");
         } else {
-          throw e;
+          alert(e);
         }
       });
   };

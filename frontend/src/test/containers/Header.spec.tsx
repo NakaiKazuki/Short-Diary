@@ -53,7 +53,7 @@ const providerProps = {
 
 const customRender = (
   ui: JSX.Element,
-  { providerProps }: { providerProps: IProviderProps }
+  providerProps: IProviderProps
 ) => {
   const history = createMemoryHistory();
   return render(
@@ -70,7 +70,7 @@ afterEach(cleanup);
 describe("Header コンポーネント", () => {
   describe("ログアウト時", () => {
     beforeEach(() => {
-      customRender(<Header />, { providerProps });
+      customRender(<Header />, providerProps);
     });
 
     it("ホーム画面へのリンク", () => {
@@ -95,7 +95,7 @@ describe("Header コンポーネント", () => {
     };
 
     beforeEach(() => {
-      customRender(<Header />, { providerProps });
+      customRender(<Header />, providerProps);
     });
 
     it("ホーム画面へのリンク", () => {

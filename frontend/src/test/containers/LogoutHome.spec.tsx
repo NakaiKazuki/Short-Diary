@@ -59,7 +59,7 @@ const providerProps = {
 
 const customRender = (
   ui: JSX.Element,
-  { providerProps }: { providerProps: IProviderProps }
+  providerProps:IProviderProps
 ) => {
   const history = createMemoryHistory();
   return render(
@@ -75,7 +75,7 @@ afterEach(cleanup);
 
 describe("LogoutHome", () => {
   beforeEach(() => {
-    customRender(<LogoutHome />, { providerProps });
+    customRender(<LogoutHome />, providerProps);
   });
 
   it("ユーザ登録画面へのリンクがある", () => {

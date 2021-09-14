@@ -17,9 +17,6 @@ export const fetchHome = (
       params: {date_cont: searchWord},
     })
     .then((res) => res.data)
-    .catch((e) => {
-      throw e;
-    });
 };
 
 export const getDiaies = (
@@ -33,7 +30,4 @@ export const getDiaies = (
       params: {date_cont: searchWord, page: page},
     })
     .then((res) => res.data)
-    .catch((e) => {
-      throw e;
-    });
 };

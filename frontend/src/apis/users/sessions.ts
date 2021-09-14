@@ -18,9 +18,6 @@ export const createSession = (params: IParams): Promise<any> => {
       email: params.email,
       password: params.password,
     })
-    .catch((e) => {
-      throw e;
-    });
 };
 
 export const deleteSession = (
@@ -30,13 +27,8 @@ export const deleteSession = (
     .delete(signOut, {
       headers: currentUserHeaders,
     })
-    .catch((e) => {
-      throw e;
-    });
 };
 
 export const newGuestSession = (): Promise<any> => {
-  return axios.post(guestSignIn).catch((e) => {
-    throw e;
-  });
+  return axios.post(guestSignIn);
 };

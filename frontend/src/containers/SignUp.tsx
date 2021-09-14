@@ -61,8 +61,9 @@ export interface IApiErrors {
 
 export const SignUp: VFC = () => {
   const history = useHistory();
-  const [apiErrors, setErrorMessage] =
-    useState<IApiErrors | undefined>(undefined);
+  const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined>(
+    undefined
+  );
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const { setMessage } = useContext(MessageContext);
   const { handleSubmit, control, errors } = useForm<IFormValues>();
@@ -78,15 +79,20 @@ export const SignUp: VFC = () => {
     })
       .then(() => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
-        setMessage("確認用メールを送信しました!")
-        history.push("/login");
+        setMessage(
+          "認証用メールを送信しました。登録時のメールアドレスから認証を済ませてください。"
+        );
+        history.push("/");
       })
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED || e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+        if (
+          e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
+          e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE
+        ) {
           setErrorMessage(e.response.data.errors);
         } else {
-          throw e;
+          alert(e);
         }
       });
   };
