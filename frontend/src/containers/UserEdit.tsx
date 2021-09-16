@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 //contexts
 import { AuthContext } from "../contexts/Auth";
+import { MessageContext } from "../contexts/Message";
 
 // components
 import {
@@ -75,6 +76,7 @@ export const UserEdit: VFC = () => {
   );
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { setMessage } = useContext(MessageContext);
   const { handleSubmit, control, errors } = useForm<IFormValues>();
   const formInfo = UserEditFormInfo(
     errors,
@@ -98,6 +100,7 @@ export const UserEdit: VFC = () => {
           ...res.data,
           headers: res.headers,
         });
+        setMessage("登録情報の編集に成功しました。");
         history.push("/");
       })
       .catch((e) => {

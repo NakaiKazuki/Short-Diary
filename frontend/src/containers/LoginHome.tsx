@@ -12,6 +12,7 @@ import styled from "styled-components";
 
 // contexts
 import { AuthContext } from "../contexts/Auth";
+import { MessageContext } from "../contexts/Message";
 
 // apis
 import { fetchHome, getDiaies } from "../apis/home";
@@ -162,6 +163,7 @@ interface IFormValues {
 
 export const LoginHome: VFC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { setMessage } = useContext(MessageContext);
   const history = useHistory();
   const { handleSubmit, control, watch, register, errors } =
     useForm<IFormValues>();
@@ -284,6 +286,7 @@ export const LoginHome: VFC = () => {
           isOpenDiaryCreateDialog: false,
           pagy: data.pagy,
         });
+        setMessage("日記の作成に成功しました。");
       })
       .catch((e): void => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
@@ -343,6 +346,7 @@ export const LoginHome: VFC = () => {
           isOpenDiaryDialog: false,
           selectedDate: null,
         });
+        setMessage("日記内容の編集に成功しました。");
       })
       .catch((e): void => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
@@ -404,6 +408,7 @@ export const LoginHome: VFC = () => {
           isOpenDiaryDialog: false,
           selectedDate: null,
         });
+        setMessage("選択した日記を削除しました。");
       })
       .catch((e): void => {
         if (
