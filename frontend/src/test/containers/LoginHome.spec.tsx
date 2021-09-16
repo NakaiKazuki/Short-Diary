@@ -106,7 +106,7 @@ const providerProps = {
 
 const customRender = (
   ui: JSX.Element,
-  { providerProps }: { providerProps: IProviderProps }
+  providerProps: IProviderProps
   ) => {
     return render(
       <AuthContext.Provider {...providerProps}>
@@ -126,7 +126,7 @@ afterEach(cleanup);
 describe("LoginHome", () => {
   beforeEach(async () => {
     await act(async () => {
-      customRender(<LoginHome />, { providerProps });
+      customRender(<LoginHome />, providerProps);
     });
   });
 

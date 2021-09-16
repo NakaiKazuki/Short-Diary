@@ -31,9 +31,6 @@ export const createDiary = (
         : null,
     })
     .then((res) => res.data)
-    .catch((e) => {
-      throw e;
-    });
 };
 
 export const updateDiary = (
@@ -54,9 +51,6 @@ export const updateDiary = (
       page: page,
     })
     .then((res) => res.data)
-    .catch((e) => {
-      throw e;
-    });
 };
 
 export const deleteDiary = (
@@ -70,7 +64,4 @@ export const deleteDiary = (
       data: { page: page },
     })
     .then((res) => res.data)
-    .catch((e) => {
-      throw e;
-    });
 };

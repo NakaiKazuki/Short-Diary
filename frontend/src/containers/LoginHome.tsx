@@ -204,7 +204,8 @@ export const LoginHome: VFC = () => {
           setCurrentUser(undefined);
           history.push("/login");
         } else {
-          throw e;
+          console.error(e);
+          process.exit(1);
         }
       });
   };
@@ -227,7 +228,8 @@ export const LoginHome: VFC = () => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
         } else {
-          throw e;
+          console.error(e);
+          process.exit(1);
         }
       });
   };
@@ -296,7 +298,8 @@ export const LoginHome: VFC = () => {
           setCurrentUser(undefined);
           history.push("/login");
         } else {
-          throw e;
+          console.error(e);
+          process.exit(1);
         }
       });
   };
@@ -358,7 +361,7 @@ export const LoginHome: VFC = () => {
           setCurrentUser(undefined);
           history.push("/login");
         } else {
-          throw e;
+          alert(e);
         }
       });
   };
@@ -413,7 +416,8 @@ export const LoginHome: VFC = () => {
           setCurrentUser(undefined);
           history.push("/login");
         } else {
-          throw e;
+          console.error(e);
+          process.exit(1);
         }
       });
   };
@@ -473,7 +477,8 @@ export const LoginHome: VFC = () => {
           setCurrentUser(undefined);
           history.push("/login");
         } else {
-          throw e;
+          console.error(e);
+          process.exit(1);
         }
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps

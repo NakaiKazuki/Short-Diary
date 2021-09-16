@@ -76,7 +76,7 @@ const providerProps = {
 
 const customRender = (
   ui: JSX.Element,
-  { providerProps }: { providerProps: IProviderProps }
+  providerProps: IProviderProps
 ) => {
   const history = createMemoryHistory();
   return render(
@@ -96,7 +96,7 @@ afterEach(cleanup);
 
 describe("Loginコンポーネント", () => {
   beforeEach(() => {
-    customRender(<Login />, { providerProps });
+    customRender(<Login />, providerProps);
   });
 
   describe("Form欄", () => {

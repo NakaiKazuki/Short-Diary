@@ -1,7 +1,10 @@
-import { VFC, useState, useReducer } from "react";
+import { VFC, useState, useReducer, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+
+//contexts
+import { MessageContext } from "../contexts/Message";
 
 // components
 import {
@@ -58,9 +61,11 @@ export interface IApiErrors {
 
 export const SignUp: VFC = () => {
   const history = useHistory();
-  const [apiErrors, setErrorMessage] =
-    useState<IApiErrors | undefined>(undefined);
+  const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined>(
+    undefined
+  );
   const [state, dispatch] = useReducer(submitReducer, initialState);
+  const { setMessage } = useContext(MessageContext);
   const { handleSubmit, control, errors } = useForm<IFormValues>();
   const formInfo = signUpFormInfo(errors, control, apiErrors);
 
@@ -74,14 +79,21 @@ export const SignUp: VFC = () => {
     })
       .then(() => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
-        history.push("/login");
+        setMessage(
+          "認証用メールを送信しました。登録時のメールアドレスから認証を済ませてください。"
+        );
+        history.push("/");
       })
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED || e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+        if (
+          e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
+          e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE
+        ) {
           setErrorMessage(e.response.data.errors);
         } else {
-          throw e;
+          console.error(e);
+          process.exit(1);
         }
       });
   };

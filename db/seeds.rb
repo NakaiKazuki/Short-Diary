@@ -12,7 +12,7 @@ User.create!(
   email: 'guest@example.com',
   password: password,
   password_confirmation: password,
-  # confirmed_at: Time.current
+  confirmed_at: Time.current
 )
 
 50.times do |m|

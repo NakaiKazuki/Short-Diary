@@ -119,7 +119,7 @@ const providerProps = {
 
 const customRender = (
   ui: JSX.Element,
-  { providerProps }: { providerProps: IProviderProps }
+  providerProps : IProviderProps
 ) => {
   const history = createMemoryHistory();
   return render(
@@ -135,7 +135,7 @@ afterEach(cleanup);
 
 describe("UserEditコンポーネント", () => {
   beforeEach(() => {
-    customRender(<UserEdit />, { providerProps });
+    customRender(<UserEdit />, providerProps);
   });
 
   describe("Form欄", () => {

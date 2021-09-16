@@ -73,10 +73,7 @@ const providerProps = {
   },
 };
 
-const customRender = (
-  ui: JSX.Element,
-  { providerProps }: { providerProps: IProviderProps }
-) => {
+const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   const history = createMemoryHistory();
   return render(
     <Router history={history}>
@@ -94,7 +91,7 @@ afterEach(cleanup);
 
 describe("SignUpコンポーネント", () => {
   beforeEach(() => {
-    customRender(<SignUp />, { providerProps });
+    customRender(<SignUp />, providerProps);
   });
 
   describe("Form欄", () => {
