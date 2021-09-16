@@ -114,7 +114,8 @@ export const UserEdit: VFC = () => {
           setCurrentUser(undefined);
           history.push("/login");
         } else {
-          alert(e);
+          console.error(e);
+          process.exit(1);
         }
       });
   };

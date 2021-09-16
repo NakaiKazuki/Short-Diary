@@ -92,7 +92,8 @@ export const SignUp: VFC = () => {
         ) {
           setErrorMessage(e.response.data.errors);
         } else {
-          alert(e);
+          console.error(e);
+          process.exit(1);
         }
       });
   };

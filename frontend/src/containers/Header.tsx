@@ -62,7 +62,8 @@ export const Header: VFC = () => {
         history.push("/");
       })
       .catch((e) => {
-        alert(e);
+        console.error(e);
+        process.exit(1);
       });
   };
 
