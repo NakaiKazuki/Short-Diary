@@ -1,15 +1,15 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@4.4.0
-  ruby: circleci/ruby@1.1.3
+  node: circleci/node@4.7.0
+  ruby: circleci/ruby@1.2.0
 
 jobs:
   rails_best_practices:
     docker:
-      - image: cimg/ruby:3.0.1
+      - image: cimg/ruby:3.0.2
         environment:
-          - BUNDLER_VERSION: 2.2.15
+          - BUNDLER_VERSION: 2.2.29
     steps:
       - checkout
       - ruby/install-deps
@@ -19,9 +19,9 @@ jobs:
 
   brakeman:
     docker:
-      - image: cimg/ruby:3.0.1
+      - image: cimg/ruby:3.0.2
         environment:
-          - BUNDLER_VERSION: 2.2.15
+          - BUNDLER_VERSION: 2.2.29
     steps:
       - checkout
       - ruby/install-deps
@@ -31,9 +31,9 @@ jobs:
 
   bundle-audit:
     docker:
-      - image: cimg/ruby:3.0.1
+      - image: cimg/ruby:3.0.2
         environment:
-          - BUNDLER_VERSION: 2.2.15
+          - BUNDLER_VERSION: 2.2.29
     steps:
       - checkout
       - ruby/install-deps
@@ -43,9 +43,9 @@ jobs:
 
   rubocop:
     docker:
-      - image: cimg/ruby:3.0.1
+      - image: cimg/ruby:3.0.2
         environment:
-          - BUNDLER_VERSION: 2.2.15
+          - BUNDLER_VERSION: 2.2.29
     steps:
       - checkout
       - ruby/install-deps
@@ -53,11 +53,11 @@ jobs:
 
   rspec:
     docker:
-      - image: cimg/ruby:3.0.1
+      - image: cimg/ruby:3.0.2
         environment:
           - DB_HOST: 127.0.0.1
           - RAILS_ENV: test
-          - BUNDLER_VERSION: 2.2.15
+          - BUNDLER_VERSION: 2.2.29
       - image: circleci/mysql:8.0.22
         command: |
           mysqld --default-authentication-plugin=mysql_native_password
@@ -80,7 +80,7 @@ jobs:
 
   frontendTest:
     docker:
-      - image: cimg/node:14.17.0
+      - image: cimg/node:14.18.1
     steps:
       - checkout
       - node/install-packages:
