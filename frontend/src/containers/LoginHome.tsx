@@ -163,8 +163,13 @@ interface IFormValues {
 export const LoginHome: VFC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const history = useHistory();
-  const { handleSubmit, control, watch, register, errors } =
-    useForm<IFormValues>();
+  const {
+    handleSubmit,
+    control,
+    watch,
+    register,
+    formState: { errors },
+  } = useForm<IFormValues>();
   const [reducerState, dispatch] = useReducer(
     submitReducer,
     reducerInitialState
@@ -524,7 +529,7 @@ export const LoginHome: VFC = () => {
       {state.isOpenDiaryCreateDialog && (
         <DiaryCreateDialog
           apiErrors={state.apiErrors}
-          contentCount={watch("content", "").length}
+          contentCount={watch("content") ? watch("content", "").length : 0}
           control={control}
           dateToday={new Date().toISOString().split("T")[0]}
           errors={errors}
@@ -542,7 +547,7 @@ export const LoginHome: VFC = () => {
         <DiaryDialog
           anchorEl={state.anchorEl}
           apiErrors={state.apiErrors}
-          contentCount={watch("content", state.selectedDiary.content).length}
+          contentCount={watch("content") ? watch("content", "").length : state.selectedDiary.content.length}
           control={control}
           diary={state.selectedDiary}
           errors={errors}

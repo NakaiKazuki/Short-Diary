@@ -77,7 +77,11 @@ export const UserEdit: VFC = () => {
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const { setMessage } = useContext(MessageContext);
-  const { handleSubmit, control, errors } = useForm<IFormValues>();
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<IFormValues>();
   const formInfo = UserEditFormInfo(
     errors,
     control,

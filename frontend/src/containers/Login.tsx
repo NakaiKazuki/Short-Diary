@@ -53,11 +53,16 @@ interface IFormValues {
 
 export const Login: VFC = () => {
   const history = useHistory();
-  const [apiErrors, setErrorMessage] =
-    useState<Array<string> | undefined>(undefined);
+  const [apiErrors, setErrorMessage] = useState<Array<string> | undefined>(
+    undefined
+  );
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const { currentUser, setCurrentUser } = useContext(AuthContext);
-  const { handleSubmit, control, errors } = useForm<IFormValues>();
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<IFormValues>();
   const formInfo = loginFormInfo(errors, control, apiErrors);
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING });
@@ -76,7 +81,10 @@ export const Login: VFC = () => {
       })
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED || e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+        if (
+          e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
+          e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE
+        ) {
           setErrorMessage(e.response.data.errors);
         } else {
           console.error(e);

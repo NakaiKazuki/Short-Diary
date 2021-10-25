@@ -113,17 +113,18 @@ export const FormArea: VFC<IFormAreaProps> = ({
         <Controller
           name="date"
           control={control}
-          rules={{ required: true, pattern: /(\d{4})-(\d{2})-(\d{2})/ }}
           defaultValue={defaultDate}
-          as={
+          rules={{ required: true, pattern: /(\d{4})-(\d{2})-(\d{2})/ }}
+          render={({ field }) => (
             <TextField
               label="Date"
-              type={"date"}
+              type="date"
               inputProps={{
                 "data-testid": "dateArea",
               }}
+              {...field}
             />
-          }
+          )}
         />
       </FormItemWrapper>
 
@@ -138,7 +139,7 @@ export const FormArea: VFC<IFormAreaProps> = ({
           name="tag_list"
           control={control}
           defaultValue={defaultTag}
-          as={
+          render={({ field }) => (
             <TextField
               label="Tag"
               type="textarea"
@@ -147,8 +148,9 @@ export const FormArea: VFC<IFormAreaProps> = ({
               inputProps={{
                 "data-testid": "tag_listArea",
               }}
+              {...field}
             />
-          }
+          )}
         />
       </FormItemWrapper>
 
@@ -169,7 +171,7 @@ export const FormArea: VFC<IFormAreaProps> = ({
           control={control}
           rules={{ required: true, maxLength: 200 }}
           defaultValue={defaultContent}
-          as={
+          render={({ field }) => (
             <TextField
               label="Content"
               type="textarea"
@@ -186,8 +188,9 @@ export const FormArea: VFC<IFormAreaProps> = ({
               inputProps={{
                 "data-testid": "contentArea",
               }}
+              {...field}
             />
-          }
+          )}
         />
       </FormItemWrapper>
 
@@ -202,8 +205,7 @@ export const FormArea: VFC<IFormAreaProps> = ({
           <AddPictureIcon />
           <FileNameArea>{setFileName}</FileNameArea>
           <InputPictureArea
-            ref={register}
-            name="picture"
+            {...register("picture")}
             type="file"
             onChange={onFileChange}
             accept="image/*,.png,.jpg,.jpeg,.gif"
