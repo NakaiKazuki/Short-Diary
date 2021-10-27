@@ -66,7 +66,11 @@ export const SignUp: VFC = () => {
   );
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const { setMessage } = useContext(MessageContext);
-  const { handleSubmit, control, errors } = useForm<IFormValues>();
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<IFormValues>();
   const formInfo = signUpFormInfo(errors, control, apiErrors);
 
   const onSubmit = (formValues: IFormValues): void => {

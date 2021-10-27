@@ -8,9 +8,9 @@ const FormItemWrapper = styled.div`
   margin-top: 1rem;
 `;
 
-const Input = styled(TextField)`
-  margin-bottom: 1.2rem;
-`;
+// const Input = styled(TextField)`
+//   margin-bottom: 1.2rem;
+// `;
 
 const ErrorMessage = styled.p`
   margin: 0.6rem auto auto auto;
@@ -62,13 +62,15 @@ export const FormItem: VFC<IFormItemProps> = ({ formInfo }) => {
             {`${formInfo.apiMessagePropertyName}${message}`}
           </ErrorMessage>
         ))}
+
         <Controller
           name={formInfo.nameAttribute}
           control={formInfo.control}
           rules={formInfo.rules}
           defaultValue={formInfo.defaultValue}
-          as={
-            <Input
+          render={({ field }) => (
+            <TextField
+              {...field}
               type={formInfo.typeAttribute}
               autoFocus={formInfo.autoFocus}
               autoComplete={formInfo.autoComplete}
@@ -77,7 +79,7 @@ export const FormItem: VFC<IFormItemProps> = ({ formInfo }) => {
                 "data-testid": `${formInfo.nameAttribute}Area`,
               }}
             />
-          }
+          )}
         />
       </InputLabel>
     </FormItemWrapper>
