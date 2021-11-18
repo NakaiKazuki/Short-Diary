@@ -13,7 +13,7 @@
 
 ## URL
 
-<https://short-diary.com>
+<https://short-diary.jp>
 
 「ゲストとしてログイン」のボタンから、メールアドレスとパスワードを入力せずにログインできます。
 
