@@ -205,9 +205,10 @@ export const FormArea: VFC<IFormAreaProps> = ({
           <AddPictureIcon />
           <FileNameArea>{setFileName}</FileNameArea>
           <InputPictureArea
-            {...register("picture")}
+            {...register("picture", {
+              onChange: onFileChange,
+            })}
             type="file"
-            onChange={onFileChange}
             accept="image/*,.png,.jpg,.jpeg,.gif"
             data-testid="pictureArea"
           />
