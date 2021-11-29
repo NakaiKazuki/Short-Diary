@@ -48,6 +48,7 @@ module ShortDiary
 
     # rack-attack 使えるようにする
     config.middleware.use Rack::Attack
+    config.active_storage.routes_prefix = '/api/v1'
 
     # devise関連
     config.middleware.use ActionDispatch::Flash

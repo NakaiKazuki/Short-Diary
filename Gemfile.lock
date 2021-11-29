@@ -69,7 +69,7 @@ GEM
       rake (>= 10.4, < 14.0)
     ast (2.4.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.534.0)
+    aws-partitions (1.535.0)
     aws-sdk-core (3.123.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
@@ -160,6 +160,7 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (1.0.2)
     method_source (1.0.0)
+    mini_magick (4.11.0)
     mini_mime (1.1.2)
     minitest (5.14.4)
     msgpack (1.4.2)
@@ -318,6 +319,7 @@ DEPENDENCIES
   letter_opener
   letter_opener_web
   listen
+  mini_magick
   mysql2
   pagy (~> 4)
   puma
@@ -340,4 +342,4 @@ RUBY VERSION
    ruby 3.0.2p64
 
 BUNDLED WITH
-   2.2.29
+   2.2.32
