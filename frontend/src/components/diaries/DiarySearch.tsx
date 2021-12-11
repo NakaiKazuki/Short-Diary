@@ -103,3 +103,6 @@ export const DiarySearch: VFC<IDiarySearchProps> = ({
     </Fragment>
   );
 };
+
+
+// Drawer で改善予定

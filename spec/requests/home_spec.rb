@@ -39,7 +39,7 @@ RSpec.describe 'Homes', type: :request do
           describe '検索機能' do
             let(:search_json_body) {
               get api_v1_root_path, params: {
-                date_cont: Time.zone.today.strftime('%Y-%m-%d')
+                content_or_date_cont: Time.zone.today.strftime('%Y-%m-%d')
               }, headers: auth_tokens
               JSON.parse(response.body)
             }
