@@ -9,12 +9,12 @@ interface ICurrentUserHeaders {
 
 export const fetchHome = (
   currentUserHeaders: ICurrentUserHeaders,
-  searchWord: undefined | string = undefined,
+  searchItem: any = undefined,
 ): Promise<any> => {
   return axios
     .get(home, {
       headers: currentUserHeaders,
-      params: {date_cont: searchWord},
+      params: {content_or_date_cont: searchItem},
     })
     .then((res) => res.data)
 };
@@ -27,7 +27,7 @@ export const getDiaies = (
   return axios
     .get(home, {
       headers: currentUserHeaders,
-      params: {date_cont: searchWord, page: page},
+      params: {date_or_content_cont: searchWord, page: page},
     })
     .then((res) => res.data)
 };

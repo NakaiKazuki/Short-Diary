@@ -6,7 +6,7 @@ import { PictureIcon } from "../Icons";
 
 // css
 const DiariesWrapper = styled.ul`
-  margin-top: 2rem;
+  margin-top: 3rem;
   padding-inline-start: 0;
   @media screen and (min-width: 480px) {
     display: flex;

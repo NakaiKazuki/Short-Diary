@@ -145,6 +145,7 @@ interface IInitialState {
   pagy: IPagy | undefined;
   selectedDate: null | Date;
   selectedDiary: IDiary | null;
+  searchWord: undefined | string;
   isOpenDiaryCreateDialog: boolean;
   isOpenDiaryDialog: boolean;
   isOpenDiaryEdit: boolean;
@@ -158,8 +159,12 @@ interface IFormValues {
   tag_list: string | undefined;
   content: string;
   picture: TPicture | undefined;
+  searchWord: string | undefined;
 }
 
+interface ISearchFormValue {
+  searchWord: string | undefined;
+}
 export const LoginHome: VFC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const history = useHistory();
@@ -169,6 +174,7 @@ export const LoginHome: VFC = () => {
     watch,
     register,
     formState: { errors },
+    reset
   } = useForm<IFormValues>();
   const [reducerState, dispatch] = useReducer(
     submitReducer,
@@ -182,6 +188,7 @@ export const LoginHome: VFC = () => {
     pagy: undefined,
     selectedDate: null,
     selectedDiary: null,
+    searchWord: undefined,
     isOpenDiaryCreateDialog: false,
     isOpenDiaryDialog: false,
     isOpenDiaryEdit: false,
@@ -217,13 +224,39 @@ export const LoginHome: VFC = () => {
   // ここまでPagenationAreaで使う関数
 
   // SearchFieldで使う関数
-  // 日付を変更したときに使用
+  // 日付を指定して検索する場合に使用
   const onDateChange = (selectedDate: null | Date): void => {
     fetchHome(currentUser!.headers, selectedDate?.toISOString().split("T")[0])
       .then((data): void => {
         setState({
           ...state,
           selectedDate: selectedDate,
+          searchWord: undefined,
+          diaries: data.diaries,
+          pagy: data.pagy,
+          fetchState: REQUEST_STATE.OK,
+        });
+        reset({ searchWord: "" });
+      })
+      .catch((e): void => {
+        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          setCurrentUser(undefined);
+          history.push("/login");
+        } else {
+          console.error(e);
+          process.exit(1);
+        }
+      });
+  };
+
+  // 単語を指定して検索する場合に使用
+  const onWordSearchSubmit = (formValues: ISearchFormValue ): void => {
+    fetchHome(currentUser!.headers, formValues.searchWord)
+      .then((data): void => {
+        setState({
+          ...state,
+          selectedDate: null,
+          searchWord: formValues.searchWord,
           diaries: data.diaries,
           pagy: data.pagy,
           fetchState: REQUEST_STATE.OK,
@@ -232,12 +265,39 @@ export const LoginHome: VFC = () => {
       .catch((e): void => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
+          history.push("/login");
         } else {
           console.error(e);
           process.exit(1);
         }
       });
   };
+
+  // 検索内容を消去するボタンに使用
+
+  const onSearchClearButton = (): void => {
+    fetchHome(currentUser!.headers)
+    .then((data): void => {
+      setState({
+        ...state,
+        selectedDate: null,
+        searchWord: undefined,
+        diaries: data.diaries,
+        pagy: data.pagy,
+        fetchState: REQUEST_STATE.OK,
+      });
+      reset({ searchWord: "" });
+    })
+    .catch((e): void => {
+      if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+        setCurrentUser(undefined);
+        history.push("/login");
+      } else {
+        console.error(e);
+        process.exit(1);
+      }
+    });
+};
   // ここまでSearchFieldで使う関数
 
   // ここから DiaryIndexで使う関数
@@ -502,9 +562,12 @@ export const LoginHome: VFC = () => {
         日記作成
       </DiaryCreateOpenButton>
       <DiarySearch
+        control={control}
         selectedDate={state.selectedDate}
-        onDateChange={(date) => onDateChange(date)}
-      />
+        onClearButton={onSearchClearButton}
+        onSubmit={handleSubmit(onWordSearchSubmit)}
+        onDateChange={(date: Date | null):void => onDateChange(date)}
+        />
       {state.fetchState === REQUEST_STATE.LOADING ? (
         <CircularProgressWrapper>
           <CircularProgress />
