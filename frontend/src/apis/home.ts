@@ -9,25 +9,25 @@ interface ICurrentUserHeaders {
 
 export const fetchHome = (
   currentUserHeaders: ICurrentUserHeaders,
-  searchItem: any = undefined,
+  searchItem: any = undefined
 ): Promise<any> => {
   return axios
     .get(home, {
       headers: currentUserHeaders,
-      params: {content_or_date_cont: searchItem},
+      params: { content_or_date_cont: searchItem },
     })
-    .then((res) => res.data)
+    .then((res) => res.data);
 };
 
 export const getDiaies = (
   currentUserHeaders: ICurrentUserHeaders,
   page: number,
-  searchWord: undefined | string,
+  searchWord: undefined | string
 ): Promise<any> => {
   return axios
     .get(home, {
       headers: currentUserHeaders,
-      params: {date_or_content_cont: searchWord, page: page},
+      params: { date_or_content_cont: searchWord, page: page },
     })
-    .then((res) => res.data)
+    .then((res) => res.data);
 };

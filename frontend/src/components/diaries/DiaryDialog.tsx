@@ -79,7 +79,7 @@ interface IDiaryDialogProps {
   control: any;
   errors: any;
   register: any;
-  apiErrors: IApiErrors| undefined;
+  apiErrors: IApiErrors | undefined;
   onSubmitText: string;
   isDisabled: boolean;
   contentCount: number;

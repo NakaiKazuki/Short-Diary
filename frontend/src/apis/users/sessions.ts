@@ -13,20 +13,18 @@ interface ICurrentUserHeaders {
 }
 
 export const createSession = (params: IParams): Promise<any> => {
-  return axios
-    .post(signIn, {
-      email: params.email,
-      password: params.password,
-    })
+  return axios.post(signIn, {
+    email: params.email,
+    password: params.password,
+  });
 };
 
 export const deleteSession = (
   currentUserHeaders: ICurrentUserHeaders
 ): Promise<any> => {
-  return axios
-    .delete(signOut, {
-      headers: currentUserHeaders,
-    })
+  return axios.delete(signOut, {
+    headers: currentUserHeaders,
+  });
 };
 
 export const newGuestSession = (): Promise<any> => {

@@ -125,9 +125,15 @@ export const UserMenu: VFC<IDiaryMenuProps> = ({
 }) => {
   return (
     <Fragment>
-      <UserWrapper aria-haspopup="true" onClick={onMenuOpen} data-testid="userWrapper">
+      <UserWrapper
+        aria-haspopup="true"
+        onClick={onMenuOpen}
+        data-testid="userWrapper"
+      >
         <UserIcon viewBox="0 0 24 20" data-testid="userIcon" />
-        <UserNameWrapper data-testid="userName">{currentUserName}</UserNameWrapper>
+        <UserNameWrapper data-testid="userName">
+          {currentUserName}
+        </UserNameWrapper>
       </UserWrapper>
 
       <StyledMenu

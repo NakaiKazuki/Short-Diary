@@ -174,7 +174,7 @@ export const LoginHome: VFC = () => {
     watch,
     register,
     formState: { errors },
-    reset
+    reset,
   } = useForm<IFormValues>();
   const [reducerState, dispatch] = useReducer(
     submitReducer,
@@ -250,7 +250,7 @@ export const LoginHome: VFC = () => {
   };
 
   // 単語を指定して検索する場合に使用
-  const onWordSearchSubmit = (formValues: ISearchFormValue ): void => {
+  const onWordSearchSubmit = (formValues: ISearchFormValue): void => {
     fetchHome(currentUser!.headers, formValues.searchWord)
       .then((data): void => {
         setState({
@@ -277,27 +277,27 @@ export const LoginHome: VFC = () => {
 
   const onSearchClearButton = (): void => {
     fetchHome(currentUser!.headers)
-    .then((data): void => {
-      setState({
-        ...state,
-        selectedDate: null,
-        searchWord: undefined,
-        diaries: data.diaries,
-        pagy: data.pagy,
-        fetchState: REQUEST_STATE.OK,
+      .then((data): void => {
+        setState({
+          ...state,
+          selectedDate: null,
+          searchWord: undefined,
+          diaries: data.diaries,
+          pagy: data.pagy,
+          fetchState: REQUEST_STATE.OK,
+        });
+        reset({ searchWord: "" });
+      })
+      .catch((e): void => {
+        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          setCurrentUser(undefined);
+          history.push("/login");
+        } else {
+          console.error(e);
+          process.exit(1);
+        }
       });
-      reset({ searchWord: "" });
-    })
-    .catch((e): void => {
-      if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-        setCurrentUser(undefined);
-        history.push("/login");
-      } else {
-        console.error(e);
-        process.exit(1);
-      }
-    });
-};
+  };
   // ここまでSearchFieldで使う関数
 
   // ここから DiaryIndexで使う関数
@@ -566,8 +566,8 @@ export const LoginHome: VFC = () => {
         selectedDate={state.selectedDate}
         onClearButton={onSearchClearButton}
         onSubmit={handleSubmit(onWordSearchSubmit)}
-        onDateChange={(date: Date | null):void => onDateChange(date)}
-        />
+        onDateChange={(date: Date | null): void => onDateChange(date)}
+      />
       {state.fetchState === REQUEST_STATE.LOADING ? (
         <CircularProgressWrapper>
           <CircularProgress />
@@ -610,7 +610,11 @@ export const LoginHome: VFC = () => {
         <DiaryDialog
           anchorEl={state.anchorEl}
           apiErrors={state.apiErrors}
-          contentCount={watch("content") ? watch("content", "").length : state.selectedDiary.content.length}
+          contentCount={
+            watch("content")
+              ? watch("content", "").length
+              : state.selectedDiary.content.length
+          }
           control={control}
           diary={state.selectedDiary}
           errors={errors}

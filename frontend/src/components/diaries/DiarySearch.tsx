@@ -79,7 +79,7 @@ export const DiarySearch: VFC<IDiarySearchProps> = ({
               "aria-label": "change date",
             }}
             inputProps={{
-              "disabled": true,
+              disabled: true,
             }}
           />
         </DatePickerWrapper>
@@ -90,18 +90,16 @@ export const DiarySearch: VFC<IDiarySearchProps> = ({
           control={control}
           render={({ field }) => (
             <TextField
-            fullWidth
+              fullWidth
               label="Search by Word"
               type="search"
               {...field}
             />
           )}
         />
-        <Submit type="submit"/>
+        <Submit type="submit" />
       </WordSearchForm>
-      <ClearButton onClick={onClearButton}>
-        Clear
-      </ClearButton>
+      <ClearButton onClick={onClearButton}>Clear</ClearButton>
     </Fragment>
   );
 };

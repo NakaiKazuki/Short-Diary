@@ -30,7 +30,7 @@ export const createDiary = (
         ? { data: params.picture!.data, name: params.picture!.name }
         : null,
     })
-    .then((res) => res.data)
+    .then((res) => res.data);
 };
 
 export const updateDiary = (
@@ -50,7 +50,7 @@ export const updateDiary = (
         : null,
       page: page,
     })
-    .then((res) => res.data)
+    .then((res) => res.data);
 };
 
 export const deleteDiary = (
@@ -63,5 +63,5 @@ export const deleteDiary = (
       headers: currentUserHeaders,
       data: { page: page },
     })
-    .then((res) => res.data)
+    .then((res) => res.data);
 };
