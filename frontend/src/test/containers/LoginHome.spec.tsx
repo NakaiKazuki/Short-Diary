@@ -48,6 +48,7 @@ const currentUser = {
 };
 
 const dateToday = new Date().toISOString().split("T")[0];
+
 // Apiから返ってくるデータ
 const returnData = {
   diaries: [
@@ -96,7 +97,6 @@ const formInfo = [
   },
 ];
 
-
 const providerProps = {
   value: {
     currentUser: currentUser,
@@ -104,14 +104,9 @@ const providerProps = {
   },
 };
 
-const customRender = (
-  ui: JSX.Element,
-  providerProps: IProviderProps
-  ) => {
-    return render(
-      <AuthContext.Provider {...providerProps}>
-      {ui}
-    </AuthContext.Provider>
+const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
+  return render(
+    <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
   );
 };
 
@@ -139,7 +134,22 @@ describe("LoginHome", () => {
   });
 
   it("日記検索欄が表示", () => {
-    expect(el("diarySearchField")).toBeTruthy();
+    // デフォルトは非表示
+    const searchDrawer = screen.queryByTestId("searchDrawer");
+    expect(searchDrawer).toBeNull();
+
+    // ユーザがクリックすることで表示
+    userEvent.click(el("drawerOpenButton"));
+    expect(el("searchDrawer")).toBeTruthy();
+
+    // 日付検索欄
+    expect(el("dateSearchField")).toBeTruthy();
+
+    // 単語検索欄
+    expect(el("wordSearchField")).toBeTruthy();
+
+    // 検索初期化ボタン
+    expect(el("clearButton")).toBeTruthy();
   });
 
   describe("DiaryCreateDialog", () => {

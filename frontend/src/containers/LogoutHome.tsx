@@ -112,7 +112,6 @@ export const LogoutHome: VFC = () => {
         history.push("/");
       })
       .catch((e) => {
-        console.error(e);
         process.exit(1);
       });
   };

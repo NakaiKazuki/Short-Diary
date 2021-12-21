@@ -10,6 +10,11 @@ const MessageWrapper = styled.div`
   background-color: limegreen;
   position: fixed;
   z-index: 1;
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
 `;
 
 const TextWrapper = styled.p`
