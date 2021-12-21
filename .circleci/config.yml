@@ -80,7 +80,7 @@ jobs:
 
   frontendTest:
     docker:
-      - image: cimg/node:14.18.1
+      - image: cimg/node:17.3.0
     steps:
       - checkout
       - node/install-packages:
