@@ -6,11 +6,14 @@ import { PictureIcon } from "../Icons";
 
 // css
 const DiariesWrapper = styled.ul`
-  margin-top: 3rem;
+  margin-top: 1.5rem;
   padding-inline-start: 0;
-  @media screen and (min-width: 480px) {
+  @media screen and (min-width: 481px) {
     display: flex;
     flex-wrap: wrap;
+  }
+  @media screen and (max-width: 480px) {
+    margin-top: 5rem;
   }
 `;
 

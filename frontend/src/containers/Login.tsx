@@ -87,7 +87,6 @@ export const Login: VFC = () => {
         ) {
           setErrorMessage(e.response.data.errors);
         } else {
-          console.error(e);
           process.exit(1);
         }
       });

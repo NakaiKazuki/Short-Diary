@@ -14,7 +14,7 @@ export const fetchHome = (
   return axios
     .get(home, {
       headers: currentUserHeaders,
-      params: { content_or_date_cont: searchItem },
+      params: { date_or_content_cont: searchItem },
     })
     .then((res) => res.data);
 };
