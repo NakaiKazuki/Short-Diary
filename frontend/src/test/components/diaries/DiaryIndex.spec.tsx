@@ -29,11 +29,11 @@ const el = screen.getByTestId;
 afterEach(cleanup);
 
 describe("DiaryIndex コンポーネント", () => {
-  beforeEach(() => {
+  const setup = () =>
     render(<DiaryIndex diaries={diaries} onOpenDiaryDialog={jest.fn()} />);
-  });
 
   it("プロパティで受け取るデータを元に表示", () => {
+    setup();
     diaries.forEach((obj, index) => {
       // 配列の要素数だけ表示
       expect(el(`diary-${index}`)).toBeTruthy();

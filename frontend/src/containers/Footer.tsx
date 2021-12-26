@@ -1,5 +1,4 @@
 import { VFC } from "react";
-import { Link as BaseLink } from "react-router-dom";
 import styled from "styled-components";
 
 // components
@@ -11,7 +10,7 @@ const AppFooter = styled.footer`
   background-color: #25cec0;
 `;
 
-const Link = styled(BaseLink)`
+const Link = styled.a`
   float: right;
   margin: 0 0 0 auto;
 `;
@@ -30,7 +29,7 @@ export const Footer: VFC = () => {
   return (
     <AppFooter data-testid="footer">
       <Link
-        to={{ pathname: "https://twitter.com/k_kyube" }}
+        href="https://twitter.com/k_kyube"
         target="_blank"
         data-testid="twitterLink"
       >

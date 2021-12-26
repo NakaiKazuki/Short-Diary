@@ -51,13 +51,10 @@ const providerProps = {
   },
 };
 
-const customRender = (
-  ui: JSX.Element,
-  providerProps: IProviderProps
-) => {
+const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   const history = createMemoryHistory();
   return render(
-    <Router history={history}>
+    <Router location={history.location} navigator={history}>
       <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
     </Router>
   );
@@ -69,19 +66,20 @@ afterEach(cleanup);
 
 describe("Header コンポーネント", () => {
   describe("ログアウト時", () => {
-    beforeEach(() => {
-      customRender(<Header />, providerProps);
-    });
+    const setup = () => customRender(<Header />, providerProps);
 
     it("ホーム画面へのリンク", () => {
+      setup();
       expect(el("homeLink")).toBeTruthy();
     });
 
     it("ログインページへのリンク", () => {
+      setup();
       expect(el("loginLink")).toHaveAttribute("href", "/login");
     });
 
     it("新規登録ページへのリンク", () => {
+      setup();
       expect(el("signUpLink")).toHaveAttribute("href", "/signup");
     });
   });
@@ -94,20 +92,21 @@ describe("Header コンポーネント", () => {
       },
     };
 
-    beforeEach(() => {
-      customRender(<Header />, providerProps);
-    });
+    const setup = () => customRender(<Header />, providerProps);
 
     it("ホーム画面へのリンク", () => {
+      setup();
       expect(el("homeLink")).toHaveAttribute("href", "/");
     });
 
     it("ユーザアイコンが表示", () => {
+      setup();
       expect(el("userIcon")).toBeTruthy();
     });
 
     describe("MenuBar", () => {
       it("MenuBarの表示", () => {
+        setup();
         // デフォルトは非表示
         expect(el("menuBar")).toHaveStyle("visibility: hidden");
 
@@ -117,6 +116,7 @@ describe("Header コンポーネント", () => {
       });
 
       it("Logoutボタン", () => {
+        setup();
         expect(el("menuBar")).toContainElement(el("logoutButton"));
       });
     });

@@ -117,13 +117,10 @@ const providerProps = {
   },
 };
 
-const customRender = (
-  ui: JSX.Element,
-  providerProps : IProviderProps
-) => {
+const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   const history = createMemoryHistory();
   return render(
-    <Router history={history}>
+    <Router location={history.location} navigator={history}>
       <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
     </Router>
   );
@@ -134,23 +131,24 @@ const el = screen.getByTestId;
 afterEach(cleanup);
 
 describe("UserEditコンポーネント", () => {
-  beforeEach(() => {
-    customRender(<UserEdit />, providerProps);
-  });
+  const setup = () => customRender(<UserEdit />, providerProps);
 
   describe("Form欄", () => {
     it("Formがある", () => {
+      setup();
       expect(el("userEditForm")).toBeTruthy();
     });
 
     describe("Form入力欄", () => {
       it("Form内に各入力欄がある", () => {
+        setup();
         idNames.forEach((idName) =>
           expect(el("userEditForm")).toContainElement(el(`FormItem-${idName}`))
         );
       });
 
       it("エラーメッセージ", async () => {
+        setup();
         // ApiResponse
         mockAxios.onPut(registration).reply(200, returnData);
 
@@ -161,12 +159,13 @@ describe("UserEditコンポーネント", () => {
         userEvent.click(el("formSubmit"));
 
         // 各項目に対応したエラーメッセージが表示
-        await waitFor(() => {
-          expect(el(`current_passwordErrorMessage`)).toBeTruthy();
-        });
+        await waitFor(() =>
+          expect(el(`current_passwordErrorMessage`)).toBeTruthy()
+        );
       });
 
       it("Apiエラーメッセージ", () => {
+        setup();
         // ApiResponse
         mockAxios.onPut(registration).reply(422, returnErrorData);
 
@@ -182,6 +181,7 @@ describe("UserEditコンポーネント", () => {
       });
 
       it("ゲストユーザ専用エラーメッセージ", async () => {
+        setup();
         mockAxios.onPut(registration).reply(422, returnErrorData);
 
         // 各項目に値を入力
@@ -201,10 +201,12 @@ describe("UserEditコンポーネント", () => {
 
     describe("送信ボタン", () => {
       it("送信ボタンがある", () => {
+        setup();
         expect(el("formSubmit")).toHaveAttribute("type", "submit");
       });
 
       it("送信状況に応じてボタンの要素が変化 Status200", async () => {
+        setup();
         // ApiResponse
         mockAxios.onPut(registration).reply(200, returnData);
 
@@ -219,13 +221,13 @@ describe("UserEditコンポーネント", () => {
         userEvent.click(el("formSubmit"));
 
         // 送信完了
-        await waitFor(() => {
-          expect(el("formSubmit")).toHaveTextContent("送信完了!");
-          expect(el("formSubmit")).toBeDisabled();
-        });
+        await waitFor(() =>
+          expect(el("formSubmit")).toHaveTextContent("送信完了!")
+        );
       });
 
       it("送信状況に応じてボタンの要素が変化 Status401", async () => {
+        setup();
         // ApiResponse
         mockAxios.onPut(registration).reply(401, returnErrorData);
 
@@ -240,16 +242,16 @@ describe("UserEditコンポーネント", () => {
         userEvent.click(el("formSubmit"));
 
         // APIからエラーが返ってくると初期値に戻る
-        await waitFor(() => {
-          expect(el("formSubmit")).toHaveTextContent("Profile Edit!");
-          expect(el("formSubmit")).not.toBeDisabled();
-        });
+        await waitFor(() =>
+          expect(el("formSubmit")).toHaveTextContent("Profile Edit!")
+        );
       });
     });
   });
 
   it("Links", () => {
     linkInfo.forEach((obj, index) => {
+      setup();
       expect(el(`formLink-${index}`)).toHaveAttribute(`href`, obj.url);
       expect(el(`formLink-${index}`)).toHaveTextContent(obj.text);
     });

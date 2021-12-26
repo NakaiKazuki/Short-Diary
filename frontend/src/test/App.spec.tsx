@@ -5,17 +5,16 @@ import App from "../App";
 const el = screen.getByTestId;
 
 afterEach(cleanup);
-
 describe("App", () => {
-  beforeEach(() => {
-    render(<App />);
-  });
+  const setup = () => render(<App />);
 
   it("Headerコンポーネント", () => {
+    setup();
     expect(el("header")).toBeTruthy();
   });
 
   it("footerコンポーネント", () => {
+    setup();
     expect(el("footer")).toBeTruthy();
   });
 });

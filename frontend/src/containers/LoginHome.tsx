@@ -7,7 +7,7 @@ import React, {
   useReducer,
 } from "react";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // contexts
@@ -187,7 +187,7 @@ interface ISearchFormValue {
 }
 export const LoginHome: VFC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
-  const history = useHistory();
+  const navigate = useNavigate();
   const {
     handleSubmit,
     control,
@@ -235,7 +235,7 @@ export const LoginHome: VFC = () => {
       .catch((e) => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           process.exit(1);
         }
@@ -269,7 +269,7 @@ export const LoginHome: VFC = () => {
       .catch((e): void => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           process.exit(1);
         }
@@ -292,7 +292,7 @@ export const LoginHome: VFC = () => {
       .catch((e): void => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           process.exit(1);
         }
@@ -317,7 +317,7 @@ export const LoginHome: VFC = () => {
       .catch((e): void => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           process.exit(1);
         }
@@ -386,7 +386,7 @@ export const LoginHome: VFC = () => {
           });
         } else if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           process.exit(1);
         }
@@ -448,7 +448,7 @@ export const LoginHome: VFC = () => {
           e.response.status === HTTP_STATUS_CODE.FORBIDDEN
         ) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           alert(e);
         }
@@ -503,7 +503,7 @@ export const LoginHome: VFC = () => {
           e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED
         ) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           process.exit(1);
         }
@@ -546,7 +546,8 @@ export const LoginHome: VFC = () => {
   // ここまでDiaryMenuで使う関数
 
   // このコンポーネントが開かれた時にだけ実行される
-  useEffect((): void => {
+  useEffect(() => {
+    let abortController = new AbortController();
     setState({
       ...state,
       fetchState: REQUEST_STATE.LOADING,
@@ -563,11 +564,13 @@ export const LoginHome: VFC = () => {
       .catch((e): void => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           process.exit(1);
         }
       });
+
+      return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

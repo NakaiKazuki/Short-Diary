@@ -58,7 +58,7 @@ const customRender = (
 ) => {
   const history = createMemoryHistory();
   return render(
-    <Router history={history}>
+    <Router location={history.location} navigator={history}>
       <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
     </Router>
   );
@@ -67,7 +67,7 @@ const customRender = (
 afterEach(cleanup);
 
 describe("UserMenu コンポーネント", () => {
-  beforeEach(() => {
+  const setup = () =>
     customRender(
       <UserMenu
         anchorEl={null}
@@ -78,9 +78,9 @@ describe("UserMenu コンポーネント", () => {
       />,
       { providerProps }
     );
-  });
 
   it("UserWrapper", () => {
+    setup();
     const userWrapper = el("userWrapper");
     // UserIconが表示
     expect(userWrapper).toContainElement(el("userIcon"));
@@ -89,10 +89,12 @@ describe("UserMenu コンポーネント", () => {
   });
 
   it("メニューは基本非表示", () => {
+    setup();
     expect(el("menuBar")).toHaveStyle("visibility: hidden");
   });
 
   it("メニュー項目", () => {
+    setup();
     const menuBar = el("menuBar");
 
     // ユーザ情報編集リンク

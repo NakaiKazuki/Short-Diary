@@ -57,16 +57,11 @@ const providerProps = {
   },
 };
 
-const customRender = (
-  ui: JSX.Element,
-  providerProps:IProviderProps
-) => {
+const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   const history = createMemoryHistory();
   return render(
-    <Router history={history}>
-      <AuthContext.Provider {...providerProps}>
-        {ui}
-      </AuthContext.Provider>
+    <Router location={history.location} navigator={history}>
+      <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
     </Router>
   );
 };
@@ -74,20 +69,21 @@ const customRender = (
 afterEach(cleanup);
 
 describe("LogoutHome", () => {
-  beforeEach(() => {
-    customRender(<LogoutHome />, providerProps);
-  });
+  const setup = () => customRender(<LogoutHome />, providerProps);
 
   it("ユーザ登録画面へのリンクがある", () => {
+    setup();
     expect(el("signUpLink")).toHaveAttribute("href", "/signup");
   });
 
   describe("ゲストログインボタン", () => {
     it("ゲストログインボタン", () => {
+      setup();
       expect(el("guestLoginButton")).toHaveAttribute("type", "button");
     });
 
     it("送信状況に応じてボタンの要素が変化", async () => {
+      setup();
       // 初期値
       expect(el("guestLoginButton")).toHaveTextContent("ゲストログイン");
       expect(el("guestLoginButton")).not.toBeDisabled();
@@ -100,10 +96,10 @@ describe("LogoutHome", () => {
       expect(el("guestLoginButton")).toBeDisabled();
 
       // 送信完了
-      await waitFor(() => {
-        expect(el("guestLoginButton")).toHaveTextContent("送信完了!");
-        expect(el("guestLoginButton")).toBeDisabled();
-      });
+      await waitFor(() =>
+        expect(el("guestLoginButton")).toHaveTextContent("送信完了!")
+      );
+      await waitFor(() => expect(el("guestLoginButton")).toBeDisabled());
     });
   });
 });

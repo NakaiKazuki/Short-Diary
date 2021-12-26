@@ -76,7 +76,7 @@ const providerProps = {
 const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   const history = createMemoryHistory();
   return render(
-    <Router history={history}>
+    <Router location={history.location} navigator={history}>
       <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
     </Router>
   );
@@ -90,23 +90,24 @@ const mockAxios = new MockAdapter(axios);
 afterEach(cleanup);
 
 describe("SignUpコンポーネント", () => {
-  beforeEach(() => {
-    customRender(<SignUp />, providerProps);
-  });
+  const setup = () => customRender(<SignUp />, providerProps);
 
   describe("Form欄", () => {
     it("Formがある", () => {
+      setup();
       expect(el("signUpForm")).toBeTruthy();
     });
 
     describe("Form入力欄", () => {
       it("各入力欄のブロックがある", () => {
+        setup();
         idNames.forEach((idName) =>
           expect(el("signUpForm")).toContainElement(el(`FormItem-${idName}`))
         );
       });
 
       it("エラーメッセージ", async () => {
+        setup();
         // ApiResponse
         mockAxios.onPost(registration).reply(200);
 
@@ -117,14 +118,15 @@ describe("SignUpコンポーネント", () => {
         userEvent.click(el("formSubmit"));
 
         // 各項目に対応したエラーメッセージが表示
-        await waitFor(() => {
+        await waitFor(() =>
           idNames.forEach((idName) =>
             expect(el(`${idName}ErrorMessage`)).toBeTruthy()
-          );
-        });
+          )
+        );
       });
 
       it("Apiエラーメッセージ", () => {
+        setup();
         // ApiResponse
         mockAxios.onPost(registration).reply(401, returnErrorData);
 
@@ -143,10 +145,12 @@ describe("SignUpコンポーネント", () => {
 
     describe("送信ボタン", () => {
       it("送信ボタンがある", () => {
+        setup();
         expect(el("formSubmit")).toHaveAttribute("type", "submit");
       });
 
       it("送信状況に応じてボタンの要素が変化 Status200", async () => {
+        setup();
         // ApiResponse
         mockAxios.onPost(registration).reply(200);
 
@@ -161,13 +165,13 @@ describe("SignUpコンポーネント", () => {
         userEvent.click(el("formSubmit"));
 
         // 送信完了
-        await waitFor(() => {
-          expect(el("formSubmit")).toHaveTextContent("送信完了!");
-          expect(el("formSubmit")).toBeDisabled();
-        });
+        await waitFor(() =>
+          expect(el("formSubmit")).toHaveTextContent("送信完了!")
+        );
       });
 
       it("送信状況に応じてボタンの要素が変化 Status401", async () => {
+        setup();
         // ApiResponse
         mockAxios.onPost(registration).reply(401, returnErrorData);
 
@@ -182,15 +186,15 @@ describe("SignUpコンポーネント", () => {
         userEvent.click(el("formSubmit"));
 
         // APIからエラーが返ってくると初期値に戻る
-        await waitFor(() => {
-          expect(el("formSubmit")).toHaveTextContent("SignUp!");
-          expect(el("formSubmit")).not.toBeDisabled();
-        });
+        await waitFor(() =>
+          expect(el("formSubmit")).toHaveTextContent("SignUp!")
+        );
       });
     });
   });
 
   it("Links", () => {
+    setup();
     linkInfo.forEach((obj, index) => {
       expect(el(`formLink-${index}`)).toHaveAttribute(`href`, obj.url);
       expect(el(`formLink-${index}`)).toHaveTextContent(obj.text);

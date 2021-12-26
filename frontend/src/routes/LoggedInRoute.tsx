@@ -6,13 +6,19 @@ import { AuthContext } from "../contexts/Auth";
 import { isLoggedIn } from "../helpers";
 
 interface ILoggedInRouteProps {
-  exact: true;
-  path: string;
   login: JSX.Element;
   logout: JSX.Element;
 }
 
-export const LoggedInRoute: VFC<ILoggedInRouteProps> = ({ login, logout }) => {
+export const LoggedInRoute: VFC<ILoggedInRouteProps> = ({
+  login,
+  logout,
+}) => {
   const { currentUser } = useContext(AuthContext);
-  return isLoggedIn(currentUser) ? { ...login } : { ...logout };
+
+  return isLoggedIn(currentUser) ? (
+    login
+  ) : (
+    logout
+  );
 };

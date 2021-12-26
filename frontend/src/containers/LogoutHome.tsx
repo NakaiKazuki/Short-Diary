@@ -1,6 +1,6 @@
 import { VFC, useContext, useReducer } from "react";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 //contexts
@@ -97,7 +97,7 @@ const GuestLogin = styled(HomeButton)`
 export const LogoutHome: VFC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [state, dispatch] = useReducer(submitReducer, initialState);
-  const history = useHistory();
+  const navigate= useNavigate();
 
   const onGuestLoginButton = (): void => {
     dispatch({ type: submitActionTypes.POSTING });
@@ -109,7 +109,7 @@ export const LogoutHome: VFC = () => {
           ...res.data,
           headers: res.headers,
         });
-        history.push("/");
+        navigate("/");
       })
       .catch((e) => {
         process.exit(1);
@@ -127,7 +127,7 @@ export const LogoutHome: VFC = () => {
           <br />
           メモ感覚で日記をつけることができます。
           <br />
-          Short Diaryを使って日記を付けよう！
+          Short Diaryを使って日記を付けよう!
         </Paragraph>
         <ButtonsWrapper>
           <Link to="/signup" data-testid="signUpLink">
