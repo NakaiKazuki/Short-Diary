@@ -237,7 +237,9 @@ export const LoginHome: VFC = () => {
           setCurrentUser(undefined);
           navigate("/login");
         } else {
-          process.exit(1);
+          console.error(e);
+          console.error(e);
+          throw(e);
         }
       });
   };
@@ -271,7 +273,8 @@ export const LoginHome: VFC = () => {
           setCurrentUser(undefined);
           navigate("/login");
         } else {
-          process.exit(1);
+          console.error(e);
+          throw(e);
         }
       });
   };
@@ -294,7 +297,8 @@ export const LoginHome: VFC = () => {
           setCurrentUser(undefined);
           navigate("/login");
         } else {
-          process.exit(1);
+          console.error(e);
+          throw(e);
         }
       });
   };
@@ -319,7 +323,8 @@ export const LoginHome: VFC = () => {
           setCurrentUser(undefined);
           navigate("/login");
         } else {
-          process.exit(1);
+          console.error(e);
+          throw(e);
         }
       });
   };
@@ -388,7 +393,8 @@ export const LoginHome: VFC = () => {
           setCurrentUser(undefined);
           navigate("/login");
         } else {
-          process.exit(1);
+          console.error(e);
+          throw(e);
         }
       });
   };
@@ -505,7 +511,8 @@ export const LoginHome: VFC = () => {
           setCurrentUser(undefined);
           navigate("/login");
         } else {
-          process.exit(1);
+          console.error(e);
+          throw(e);
         }
       });
   };
@@ -566,11 +573,11 @@ export const LoginHome: VFC = () => {
           setCurrentUser(undefined);
           navigate("/login");
         } else {
-          process.exit(1);
+          console.error(e);
         }
       });
 
-      return () => abortController.abort();
+    return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

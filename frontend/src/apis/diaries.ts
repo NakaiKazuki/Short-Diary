@@ -60,7 +60,7 @@ export const deleteDiary = (
 ): Promise<any> => {
   return axios
     .delete(`${diary}/${diaryId}`, {
-      headers: currentUserHeaders,
+      headers: {...currentUserHeaders},
       data: { page: page },
     })
     .then((res) => res.data);

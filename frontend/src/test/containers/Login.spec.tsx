@@ -91,23 +91,21 @@ afterEach(cleanup);
 
 describe("Loginコンポーネント", () => {
   const setup = () => customRender(<Login />, providerProps);
-
+  // eslint-disable-next-line testing-library/no-render-in-setup
+  beforeEach(() => setup());
   describe("Form欄", () => {
     it("Formがある", () => {
-      setup();
       expect(el("loginForm")).toBeTruthy();
     });
 
     describe("Form入力欄", () => {
       it("Form内に各入力欄がある", () => {
-        setup();
         idNames.forEach((idName) =>
           expect(el("loginForm")).toContainElement(el(`FormItem-${idName}`))
         );
       });
 
-      it("エラーメッセージ", async () => {
-        setup();
+      it("エラーメッセージ", async() => {
         // ApiResponse
         mockAxios.onPost(signIn).reply(200, returnData);
 
@@ -118,15 +116,14 @@ describe("Loginコンポーネント", () => {
         userEvent.click(el("formSubmit"));
 
         // 各項目に対応したエラーメッセージが表示
-        await waitFor(() =>
+        await waitFor(() =>{
           idNames.forEach((idName) =>
             expect(el(`${idName}ErrorMessage`)).toBeTruthy()
-          )
-        );
+          );
+        });
       });
 
       it("Apiエラーメッセージ", () => {
-        setup();
         // ApiResponse
         mockAxios.onPost(signIn).reply(401, returnErrorData);
 
@@ -145,12 +142,10 @@ describe("Loginコンポーネント", () => {
 
     describe("送信ボタン", () => {
       it("送信ボタンがある", () => {
-        setup();
         expect(el("formSubmit")).toHaveAttribute("type", "submit");
       });
 
-      it("送信状況に応じてボタンの要素が変化 Status200", async () => {
-        setup();
+      it("送信結果に応じてボタンの要素が変化 Status200", async () => {
         // ApiResponse
         mockAxios.onPost(signIn).reply(200, returnData);
 
@@ -170,8 +165,7 @@ describe("Loginコンポーネント", () => {
         );
       });
 
-      it("送信状況に応じてボタンの要素が変化 Status401", async () => {
-        setup();
+      it("送信結果に応じてボタンの要素が変化 Status401", async () => {
         // ApiResponse
         mockAxios.onPost(signIn).reply(401, returnErrorData);
 
@@ -194,7 +188,6 @@ describe("Loginコンポーネント", () => {
   });
 
   it("Links", () => {
-    setup();
     linkInfo.forEach((obj, index) => {
       expect(el(`formLink-${index}`)).toHaveAttribute(`href`, obj.url);
       expect(el(`formLink-${index}`)).toHaveTextContent(obj.text);

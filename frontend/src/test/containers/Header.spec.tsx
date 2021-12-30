@@ -67,19 +67,17 @@ afterEach(cleanup);
 describe("Header コンポーネント", () => {
   describe("ログアウト時", () => {
     const setup = () => customRender(<Header />, providerProps);
-
+    // eslint-disable-next-line testing-library/no-render-in-setup
+    beforeEach(() => setup());
     it("ホーム画面へのリンク", () => {
-      setup();
       expect(el("homeLink")).toBeTruthy();
     });
 
     it("ログインページへのリンク", () => {
-      setup();
       expect(el("loginLink")).toHaveAttribute("href", "/login");
     });
 
     it("新規登録ページへのリンク", () => {
-      setup();
       expect(el("signUpLink")).toHaveAttribute("href", "/signup");
     });
   });
@@ -93,20 +91,18 @@ describe("Header コンポーネント", () => {
     };
 
     const setup = () => customRender(<Header />, providerProps);
-
+    // eslint-disable-next-line testing-library/no-render-in-setup
+    beforeEach(() => setup());
     it("ホーム画面へのリンク", () => {
-      setup();
       expect(el("homeLink")).toHaveAttribute("href", "/");
     });
 
     it("ユーザアイコンが表示", () => {
-      setup();
       expect(el("userIcon")).toBeTruthy();
     });
 
     describe("MenuBar", () => {
       it("MenuBarの表示", () => {
-        setup();
         // デフォルトは非表示
         expect(el("menuBar")).toHaveStyle("visibility: hidden");
 
@@ -116,7 +112,6 @@ describe("Header コンポーネント", () => {
       });
 
       it("Logoutボタン", () => {
-        setup();
         expect(el("menuBar")).toContainElement(el("logoutButton"));
       });
     });

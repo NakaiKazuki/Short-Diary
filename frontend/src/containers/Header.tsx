@@ -62,7 +62,8 @@ export const Header: VFC = () => {
         navigate("/");
       })
       .catch((e) => {
-        process.exit(1);
+        console.error(e);
+        throw(e);
       });
   };
 

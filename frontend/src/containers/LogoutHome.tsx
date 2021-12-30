@@ -97,7 +97,7 @@ const GuestLogin = styled(HomeButton)`
 export const LogoutHome: VFC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [state, dispatch] = useReducer(submitReducer, initialState);
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
   const onGuestLoginButton = (): void => {
     dispatch({ type: submitActionTypes.POSTING });
@@ -112,7 +112,8 @@ export const LogoutHome: VFC = () => {
         navigate("/");
       })
       .catch((e) => {
-        process.exit(1);
+        console.error(e);
+        throw(e);
       });
   };
 

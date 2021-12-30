@@ -70,20 +70,19 @@ afterEach(cleanup);
 
 describe("LogoutHome", () => {
   const setup = () => customRender(<LogoutHome />, providerProps);
+  // eslint-disable-next-line testing-library/no-render-in-setup
+  beforeEach(() => setup());
 
   it("ユーザ登録画面へのリンクがある", () => {
-    setup();
     expect(el("signUpLink")).toHaveAttribute("href", "/signup");
   });
 
   describe("ゲストログインボタン", () => {
     it("ゲストログインボタン", () => {
-      setup();
       expect(el("guestLoginButton")).toHaveAttribute("type", "button");
     });
 
-    it("送信状況に応じてボタンの要素が変化", async () => {
-      setup();
+    it("送信結果に応じてボタンの要素が変化", async () => {
       // 初期値
       expect(el("guestLoginButton")).toHaveTextContent("ゲストログイン");
       expect(el("guestLoginButton")).not.toBeDisabled();

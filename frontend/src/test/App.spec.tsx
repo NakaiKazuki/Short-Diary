@@ -7,14 +7,13 @@ const el = screen.getByTestId;
 afterEach(cleanup);
 describe("App", () => {
   const setup = () => render(<App />);
-
+  // eslint-disable-next-line testing-library/no-render-in-setup
+  beforeEach(() => setup());
   it("Headerコンポーネント", () => {
-    setup();
     expect(el("header")).toBeTruthy();
   });
 
   it("footerコンポーネント", () => {
-    setup();
     expect(el("footer")).toBeTruthy();
   });
 });

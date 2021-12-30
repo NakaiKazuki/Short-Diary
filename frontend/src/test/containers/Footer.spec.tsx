@@ -7,14 +7,13 @@ afterEach(cleanup);
 
 describe("Footer", () => {
   const setup = () => render(<Footer />);
-
+  // eslint-disable-next-line testing-library/no-render-in-setup
+  beforeEach(() => setup());
   it("footerが表示", () => {
-    setup();
     expect(el("footer")).toBeTruthy();
   });
 
   it("LinkItems", () => {
-    setup();
     // 制作者TwitterLink
     expect(el("twitterLink")).toHaveAttribute(
       "href",
