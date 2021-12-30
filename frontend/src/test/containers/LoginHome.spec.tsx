@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { render, screen, cleanup, waitFor, } from "@testing-library/react";
+import { render, screen, cleanup, waitFor } from "@testing-library/react";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
