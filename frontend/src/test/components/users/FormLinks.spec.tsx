@@ -7,7 +7,11 @@ import { FormLinks } from "../../../components/users";
 
 const renderWithRouter = (component: any) => {
   const history = createMemoryHistory();
-  return render(<Router history={history}>{component}</Router>);
+  return render(
+    <Router location={history.location} navigator={history}>
+      {component}
+    </Router>
+  );
 };
 
 const linkInfo = [
@@ -26,11 +30,9 @@ const el = screen.getByTestId;
 afterEach(cleanup);
 
 describe("FormLinks コンポーネント", () => {
-  beforeEach(() => {
-    renderWithRouter(<FormLinks linkInfo={linkInfo} />);
-  });
-
+  const setup = () => renderWithRouter(<FormLinks linkInfo={linkInfo} />);
   it("配列の要素の数、要素の内容次第で変化する", () => {
+    setup();
     // linkInfo[0] によって表示される内容
     linkInfo.forEach((obj, index) => {
       expect(el(`formLink-${index}`)).toHaveAttribute(`href`, obj.url);

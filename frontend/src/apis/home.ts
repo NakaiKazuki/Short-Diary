@@ -13,7 +13,7 @@ export const fetchHome = (
 ): Promise<any> => {
   return axios
     .get(home, {
-      headers: currentUserHeaders,
+      headers: {...currentUserHeaders},
       params: { date_or_content_cont: searchItem },
     })
     .then((res) => res.data);
@@ -26,7 +26,7 @@ export const getDiaies = (
 ): Promise<any> => {
   return axios
     .get(home, {
-      headers: currentUserHeaders,
+      headers: {...currentUserHeaders},
       params: { date_or_content_cont: searchWord, page: page },
     })
     .then((res) => res.data);

@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { render, screen, cleanup, act, waitFor } from "@testing-library/react";
+import { render, screen, cleanup, waitFor } from "@testing-library/react";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
@@ -8,6 +8,7 @@ import { AuthContext } from "../../contexts/Auth";
 import { LoginHome } from "../../containers/LoginHome";
 import { home, diary } from "../../urls";
 
+import { BrowserRouter as Router } from "react-router-dom";
 // 型
 interface IHeaders {
   "access-token": string;
@@ -104,26 +105,32 @@ const providerProps = {
   },
 };
 
+const mockAxios = new MockAdapter(axios);
+
+// ApiResponseを設定
+mockAxios.onGet(home).reply(200, returnData);
+
 const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   return render(
-    <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
+    <Router>
+      <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
+    </Router>
   );
 };
 
 const idNames = ["date", "tag_list", "content", "picture"];
 
-const mockAxios = new MockAdapter(axios);
-mockAxios.onGet(home).reply(200, returnData);
-
 const el = screen.getByTestId;
+
 afterEach(cleanup);
 
 describe("LoginHome", () => {
-  beforeEach(async () => {
-    await act(async () => {
-      customRender(<LoginHome />, providerProps);
-    });
-  });
+  const setup = () => {
+    customRender(<LoginHome />, providerProps);
+    jest.useFakeTimers();
+  };
+
+  beforeEach(() => setup());
 
   it("日記一覧が表示", () => {
     expect(el("diaryIndex")).toBeTruthy();
@@ -141,20 +148,18 @@ describe("LoginHome", () => {
     // ユーザがクリックすることで表示
     userEvent.click(el("drawerOpenButton"));
     expect(el("searchDrawer")).toBeTruthy();
-
     // 日付検索欄
     expect(el("dateSearchField")).toBeTruthy();
-
     // 単語検索欄
     expect(el("wordSearchField")).toBeTruthy();
-
-    // 検索初期化ボタン
+    // 検索初期化ボタ
     expect(el("clearButton")).toBeTruthy();
   });
 
   describe("DiaryCreateDialog", () => {
     it("OpenButton", () => {
       expect(el("diaryCreateOpenButton")).toContainElement(el("createIcon"));
+
       expect(el("diaryCreateOpenButton")).toHaveTextContent("日記作成");
     });
 
@@ -181,31 +186,27 @@ describe("LoginHome", () => {
       formInfo.forEach((obj) => userEvent.type(el(obj.testId), obj.value));
       // ユーザが送信ボタンをクリック
       userEvent.click(el("formSubmit"));
-
-      await waitFor(() => {
-        const dialog = screen.queryByTestId("diaryCreateDialog");
-        expect(dialog).toBeNull();
-      });
+      await waitFor(() =>
+        expect(screen.queryByTestId("diaryCreateDialog")).toBeNull()
+      );
     });
 
-    it("データの作成に失敗した場合Dialogは閉じない", async () => {
+    it("データの作成に失敗した場合Dialogは閉じない", () => {
       // ApiResponseを設定
       mockAxios.onPost(diary).reply(422, returnErrorData);
       // Dialogを開く
       userEvent.click(el("diaryCreateOpenButton"));
-      // 各項目に有効な値を入力
+      // 各項目に無効な値を入力
       formInfo.forEach((obj) => userEvent.clear(el(obj.testId)));
       // ユーザが送信ボタンをクリック
       userEvent.click(el("formSubmit"));
-
-      await waitFor(() => {
-        const dialog = screen.queryByTestId("diaryCreateDialog");
-        expect(dialog).toBeTruthy();
-      });
+      expect(el("diaryCreateDialog")).toBeTruthy();
     });
 
     describe("Form欄", () => {
-      beforeEach(() => userEvent.click(el("diaryCreateOpenButton")));
+      beforeEach(() => {
+        userEvent.click(el("diaryCreateOpenButton"));
+      });
 
       it("各入力欄のブロックがある", () => {
         idNames.forEach((idName) => {
@@ -223,12 +224,12 @@ describe("LoginHome", () => {
         // ユーザが送信ボタンをクリック
         userEvent.click(el("formSubmit"));
 
-        // エラーメッセージが表示(contentにのみ表示
-        await waitFor(() =>
+        // エラーメッセージが表示(contentにのみ表示)
+        await waitFor(() => {
           expect(el("FormItem-content")).toContainElement(
             el("contentErrorMessage")
-          )
-        );
+          );
+        });
       });
 
       it("APIErrorMessage", async () => {
@@ -278,7 +279,7 @@ describe("LoginHome", () => {
           expect(el("formSubmit")).toHaveTextContent("日記作成");
         });
 
-        it("送信状況によってボタンが変化 Status422", async () => {
+        it("送信結果によってボタンが変化 Status422", async () => {
           // ApiResponse
           mockAxios.onPost(diary).reply(422, returnErrorData);
 
@@ -286,6 +287,7 @@ describe("LoginHome", () => {
           formInfo.forEach((obj) => userEvent.type(el(obj.testId), obj.value));
 
           // 初期値
+
           expect(el("formSubmit")).toHaveTextContent("日記作成");
           expect(el("formSubmit")).not.toBeDisabled();
 
@@ -293,24 +295,25 @@ describe("LoginHome", () => {
           userEvent.click(el("formSubmit"));
 
           // APIからエラーが返ってくると初期値に戻る
-          await waitFor(() => {
-            expect(el("formSubmit")).toHaveTextContent("日記作成");
-            expect(el("formSubmit")).not.toBeDisabled();
-          });
+          await waitFor(() =>
+            expect(el("formSubmit")).toHaveTextContent("日記作成")
+          );
+          await waitFor(() => expect(el("formSubmit")).not.toBeDisabled());
         });
       });
     });
   });
 
   describe("DiaryDialog", () => {
-    it("日記をクリックすると表示", () => {
+    beforeEach(() => {
       userEvent.click(el("diary-0"));
+    });
+
+    it("日記をクリックすると表示", () => {
       expect(el("diaryDialog")).toBeTruthy();
     });
 
     it("初期値(タグ無し, 画像無し)", () => {
-      // 日記データをクリック
-      userEvent.click(el("diary-0"));
       // MenuIconが表示
       expect(el("menuIcon")).toBeTruthy();
       // 日付が表示
@@ -318,35 +321,16 @@ describe("LoginHome", () => {
       // タグが空配列なら表示しない
       expect(screen.queryByTestId("diaryTag-0")).toBeNull();
       // 日記内容が表示
+
       expect(el("diaryContent")).toHaveTextContent(
         returnData.diaries[0].content
       );
+
       // 画像がない場合は表示しない
       expect(screen.queryByTestId("diaryPicture")).toBeNull();
     });
 
-    it("初期値(タグあり, 画像あり)", () => {
-      // 日記データをクリック
-      userEvent.click(el("diary-1"));
-      // MenuIconが表示
-      expect(el("menuIcon")).toBeTruthy();
-      // タグがあれば表示
-      returnData.diaries[0].tag_list.forEach((tag, index) => {
-        expect(el(`diaryTag-${index}`)).toHaveTextContent(tag);
-      });
-      // 日付が表示
-      expect(el("diaryDate")).toHaveTextContent(returnData.diaries[1].date);
-      // 日記内容が表示
-      expect(el("diaryContent")).toHaveTextContent(
-        returnData.diaries[1].content
-      );
-      // 画像があれば表示
-      expect(el("diaryPicture")).toBeTruthy();
-    });
-
     it("MenuBarの編集クリックで編集用画面に変更", () => {
-      // 日記データを開く
-      userEvent.click(el("diary-0"));
       // メニューを開く
       userEvent.click(el("menuIcon"));
       // 編集をクリック
@@ -355,18 +339,18 @@ describe("LoginHome", () => {
     });
 
     it("MenuBarの削除クリックで確認用Dialog表示", () => {
-      // 日記データを開く
-      userEvent.click(el("diary-0"));
       // メニューを開く
       userEvent.click(el("menuIcon"));
-      // 編集をクリック
+      // 削除をクリック
       userEvent.click(el("MenuItemDiaryDelete"));
       expect(el("confirmDialog")).toBeTruthy();
     });
 
     describe("DiaryEdit", () => {
       beforeEach(() => {
-        userEvent.click(el("diary-0"));
+        // メニューを開く
+        userEvent.click(el("menuIcon"));
+        // 編集をクリック
         userEvent.click(el("MenuItemDiaryEdit"));
       });
 
@@ -376,7 +360,7 @@ describe("LoginHome", () => {
         });
       });
 
-      it("ErrorMessage", async () => {
+      it("エラーメッセージ", async () => {
         // ApiResponseを設定
         mockAxios
           .onPatch(`${diary}/${returnData.diaries[0].id}`)
@@ -388,25 +372,24 @@ describe("LoginHome", () => {
         userEvent.click(el("formSubmit"));
 
         // エラーメッセージが表示(contentにのみ表示
-        await waitFor(() =>
+        await waitFor(() => {
           expect(el("FormItem-content")).toContainElement(
             el("contentErrorMessage")
-          )
-        );
+          );
+        });
       });
 
-      it("APIErrorMessage", async () => {
+      it("APIエラーメッセージ", async () => {
         // ApiResponseを設定
         mockAxios
           .onPatch(`${diary}/${returnData.diaries[0].id}`)
           .reply(422, returnErrorData);
 
-        // 各項目に有効な値を入力
+        // 各項目に値を入力
         formInfo.forEach((obj) => userEvent.type(el(obj.testId), obj.value));
 
         // ユーザが送信ボタンをクリック
         userEvent.click(el("formSubmit"));
-
         // 各項目に対応したApiからのエラーメッセージが表示
         await waitFor(() =>
           idNames.forEach((idName) =>
@@ -441,10 +424,11 @@ describe("LoginHome", () => {
       describe("送信ボタン", () => {
         it("送信ボタンがある", () => {
           expect(el("formSubmit")).toHaveAttribute("type", "submit");
+
           expect(el("formSubmit")).toHaveTextContent("日記編集");
         });
 
-        it("送信状況によってボタンが変化 Status422", async () => {
+        it("送信結果によってボタンが変化 Status422", async () => {
           // ApiResponse
           mockAxios
             .onPatch(`${diary}/${returnData.diaries[0].id}`)
@@ -455,24 +439,26 @@ describe("LoginHome", () => {
 
           // 初期値
           expect(el("formSubmit")).toHaveTextContent("日記編集");
+
           expect(el("formSubmit")).not.toBeDisabled();
 
           // ユーザが送信ボタンをクリック
           userEvent.click(el("formSubmit"));
 
           // APIからエラーが返ってくると初期値に戻る
-          await waitFor(() => {
-            expect(el("formSubmit")).toHaveTextContent("日記編集");
-            expect(el("formSubmit")).not.toBeDisabled();
-          });
+          await waitFor(() =>
+            expect(el("formSubmit")).toHaveTextContent("日記編集")
+          );
+          await waitFor(() => expect(el("formSubmit")).not.toBeDisabled());
         });
       });
     });
 
     describe("ConfirmDilog", () => {
       beforeEach(() => {
-        // 日記データを開く
-        userEvent.click(el("diary-0"));
+        mockAxios
+          .onDelete(`${diary}/${returnData.diaries[0].id}`)
+          .reply(200, returnData);
         // メニューを開く
         userEvent.click(el("menuIcon"));
         // 削除をクリック
@@ -486,18 +472,33 @@ describe("LoginHome", () => {
         );
       });
 
-      it("削除クリックで全てConfirmDialogとDiaryDialogを閉じる", async () => {
-        mockAxios
-          .onDelete(`${diary}/${returnData.diaries[0].id}`)
-          .reply(200, returnData);
-        // 削除をクリック
+      it("削除クリックでConfirmDialogとDiaryDialogを閉じる", async () => {
         userEvent.click(el("deleteButton"));
-
-        await waitFor(() => {
-          expect(screen.queryByTestId("diaryDialog")).toBeNull();
-          expect(screen.queryByTestId("confirmDialog")).toBeNull();
-        });
+        await waitFor(() =>
+          expect(screen.queryByTestId("diaryDialog")).toBeNull()
+        );
+        await waitFor(() =>
+          expect(screen.queryByTestId("confirmDialog")).toBeNull()
+        );
       });
+    });
+
+    it("DiaryDialog初期値(タグあり, 画像あり)", () => {
+      userEvent.click(el("diary-1"));
+      expect(el("menuIcon")).toBeTruthy();
+
+      // タグがあれば表示
+      returnData.diaries[1].tag_list.forEach((tag, index) => {
+        expect(el(`diaryTag-${index}`)).toHaveTextContent(tag);
+      });
+      // 日付が表示
+      expect(el("diaryDate")).toHaveTextContent(returnData.diaries[1].date);
+      // 日記内容が表示
+      expect(el("diaryContent")).toHaveTextContent(
+        returnData.diaries[1].content
+      );
+      // 画像があれば表示
+      expect(el("diaryPicture")).toBeTruthy();
     });
   });
 });

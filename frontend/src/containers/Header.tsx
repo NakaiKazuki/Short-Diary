@@ -1,5 +1,5 @@
 import React, { VFC, useContext, useState, Fragment } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AppBar, Toolbar } from "@material-ui/core";
 import styled from "styled-components";
 
@@ -49,7 +49,7 @@ const LinkItem = styled(BaseButton)`
 `;
 
 export const Header: VFC = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -59,10 +59,11 @@ export const Header: VFC = () => {
       .then(() => {
         setCurrentUser(undefined);
         setAnchorEl(null);
-        history.push("/");
+        navigate("/");
       })
       .catch((e) => {
-        process.exit(1);
+        console.error(e);
+        throw(e);
       });
   };
 

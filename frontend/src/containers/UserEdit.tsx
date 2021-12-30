@@ -1,6 +1,6 @@
 import { VFC, useState, useReducer, useContext } from "react";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 //contexts
@@ -70,7 +70,7 @@ interface IApiErrors {
 }
 
 export const UserEdit: VFC = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined>(
     undefined
   );
@@ -105,7 +105,7 @@ export const UserEdit: VFC = () => {
           headers: res.headers,
         });
         setMessage("登録情報の編集に成功しました。");
-        history.push("/");
+        navigate("/");
       })
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
@@ -116,9 +116,10 @@ export const UserEdit: VFC = () => {
           e.response.status === HTTP_STATUS_CODE.FORBIDDEN
         ) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
-          process.exit(1);
+          console.error(e);
+          throw(e);
         }
       });
   };

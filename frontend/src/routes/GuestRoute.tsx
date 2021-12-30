@@ -1,5 +1,5 @@
 import { VFC, useContext } from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate} from "react-router-dom";
 
 // contexts
 import { AuthContext } from "../contexts/Auth";
@@ -8,13 +8,15 @@ import { AuthContext } from "../contexts/Auth";
 import { isLoggedIn } from "../helpers";
 
 interface IGuestRouteProps {
-  exact: true;
-  path: string;
   children: JSX.Element;
 }
 
 export const GuestRoute: VFC<IGuestRouteProps> = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
 
-  return isLoggedIn(currentUser) ? <Redirect to="/" /> : { ...children };
+  return isLoggedIn(currentUser) ? (
+    <Navigate to="/" />
+  ) : (
+    children
+  );
 };

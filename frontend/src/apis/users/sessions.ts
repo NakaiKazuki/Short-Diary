@@ -23,7 +23,7 @@ export const deleteSession = (
   currentUserHeaders: ICurrentUserHeaders
 ): Promise<any> => {
   return axios.delete(signOut, {
-    headers: currentUserHeaders,
+    headers: {...currentUserHeaders},
   });
 };
 
