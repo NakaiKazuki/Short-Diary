@@ -146,7 +146,7 @@ describe("SignUpコンポーネント", () => {
         expect(el("formSubmit")).toHaveAttribute("type", "submit");
       });
 
-       // なんかcatchのほうにいってるんやけど？
+      // なんかcatchのほうにいってるんやけど？
       // it("送信結果に応じてボタンの要素が変化 Status200", async () => {
       //   // ApiResponse
       //   mockAxios.onPost(registration).reply(200, {});
