@@ -127,10 +127,9 @@ afterEach(cleanup);
 describe("LoginHome", () => {
   const setup = () => {
     customRender(<LoginHome />, providerProps);
-    jest.useFakeTimers();
   };
 
-  beforeEach(() => setup());
+  beforeEach(async() => await waitFor(() => setup()));
 
   it("日記一覧が表示", () => {
     expect(el("diaryIndex")).toBeTruthy();
@@ -191,7 +190,7 @@ describe("LoginHome", () => {
       );
     });
 
-    it("データの作成に失敗した場合Dialogは閉じない", () => {
+    it("データの作成に失敗した場合Dialogは閉じない", async() => {
       // ApiResponseを設定
       mockAxios.onPost(diary).reply(422, returnErrorData);
       // Dialogを開く
@@ -200,7 +199,9 @@ describe("LoginHome", () => {
       formInfo.forEach((obj) => userEvent.clear(el(obj.testId)));
       // ユーザが送信ボタンをクリック
       userEvent.click(el("formSubmit"));
-      expect(el("diaryCreateDialog")).toBeTruthy();
+      await waitFor(() =>
+        expect(el("diaryCreateDialog")).toBeTruthy()
+      );
     });
 
     describe("Form欄", () => {
