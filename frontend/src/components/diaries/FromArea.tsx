@@ -143,7 +143,7 @@ export const FormArea: VFC<IFormAreaProps> = ({
             <TextField
               label="Tag"
               type="textarea"
-              placeholder="「,」区切りで複数設定 Tag1,Tag2,Tag3..."
+              placeholder="「,」で複数設定 Tag1,Tag2,Tag3..."
               fullWidth
               inputProps={{
                 "data-testid": "tag_listArea",
