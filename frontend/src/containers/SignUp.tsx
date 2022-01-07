@@ -1,6 +1,6 @@
 import { VFC, useState, useReducer, useContext } from "react";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 //contexts
@@ -60,7 +60,7 @@ export interface IApiErrors {
 }
 
 export const SignUp: VFC = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined>(
     undefined
   );
@@ -86,7 +86,7 @@ export const SignUp: VFC = () => {
         setMessage(
           "認証用メールを送信しました。登録時のメールアドレスから認証を済ませてください。"
         );
-        history.push("/");
+        navigate("/");
       })
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
@@ -97,7 +97,7 @@ export const SignUp: VFC = () => {
           setErrorMessage(e.response.data.errors);
         } else {
           console.error(e);
-          process.exit(1);
+          throw(e);
         }
       });
   };

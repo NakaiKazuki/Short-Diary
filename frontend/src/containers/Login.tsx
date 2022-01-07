@@ -1,6 +1,6 @@
 import { VFC, useState, useReducer, useContext } from "react";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 //contexts
@@ -52,7 +52,7 @@ interface IFormValues {
 // エラーメッセージ
 
 export const Login: VFC = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [apiErrors, setErrorMessage] = useState<Array<string> | undefined>(
     undefined
   );
@@ -77,7 +77,7 @@ export const Login: VFC = () => {
           ...res.data,
           headers: res.headers,
         });
-        history.push("/");
+        navigate("/");
       })
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
@@ -88,7 +88,7 @@ export const Login: VFC = () => {
           setErrorMessage(e.response.data.errors);
         } else {
           console.error(e);
-          process.exit(1);
+          throw(e);
         }
       });
   };

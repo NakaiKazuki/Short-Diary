@@ -17,7 +17,7 @@ const el = screen.getByTestId;
 afterEach(cleanup);
 
 describe("ConfirmDialog コンポーネント", () => {
-  beforeEach(() => {
+  const setup = () =>
     render(
       <ConfirmDialog
         isOpen={true}
@@ -28,25 +28,30 @@ describe("ConfirmDialog コンポーネント", () => {
         onClose={jest.fn()}
       />
     );
-  });
 
   describe("要素の表示確認", () => {
     it("DialogTitle", () => {
+      setup();
       // プロパティによって内容が変わる
       expect(el("confirmDialogTitle")).toHaveTextContent("Test Title");
     });
 
     it("DialogContentText", () => {
+      setup();
       // プロパティによって内容が変わる
       expect(el("confirmDialogContent")).toHaveTextContent(diary.content);
     });
 
     it("DialogCloseButton", () => {
+      setup();
+
       expect(el("confirmDialogCloseButton")).toHaveAttribute("type", "button");
       expect(el("confirmDialogCloseButton")).toHaveTextContent("閉じる");
     });
 
     it("deleteButton", () => {
+      setup();
+
       expect(el("deleteButton")).toHaveAttribute("type", "button");
       expect(el("deleteButton")).toHaveTextContent("削除");
     });

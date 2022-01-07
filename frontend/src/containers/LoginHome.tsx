@@ -7,7 +7,7 @@ import React, {
   useReducer,
 } from "react";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // contexts
@@ -18,7 +18,7 @@ import { fetchHome, getDiaies } from "../apis/home";
 import { createDiary, updateDiary, deleteDiary } from "../apis/diaries";
 
 // icons
-import { CreateIcon } from "../components/Icons";
+import { CreateIcon, SearchIcon } from "../components/Icons";
 
 // components
 import { BaseButton } from "../components/shared_style";
@@ -28,7 +28,7 @@ import {
   DiaryIndex,
   DiaryCreateDialog,
   DiaryDialog,
-  DiarySearch,
+  DiarySearchDrawer,
 } from "../components/diaries";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -65,13 +65,32 @@ const DiaryCreateOpenButton = styled(BaseButton)`
   border: 0.0125rem solid green;
   letter-spacing: 0.2rem;
   font-size: 0.95rem;
-  background-color: green;
-  color: white;
+  background-color: white;
+  color: green;
   :hover {
     opacity: 0.8;
+    background-color: green;
+    color: white;
   }
   @media screen and (max-width: 480px) {
     width: 100%;
+  }
+`;
+
+const DrawerOpenButton = styled(BaseButton)`
+  height: 2.4rem;
+  width: 8rem;
+  border: 0.0125rem solid royalblue;
+  letter-spacing: 0.2rem;
+  font-size: 0.95rem;
+  background-color: white;
+  color: royalblue;
+  float: right;
+  margin-top: 0.8rem;
+  :hover {
+    opacity: 0.8;
+    background-color: royalblue;
+    color: white;
   }
 `;
 
@@ -150,6 +169,7 @@ interface IInitialState {
   isOpenDiaryDialog: boolean;
   isOpenDiaryEdit: boolean;
   isOpenConfirmDialog: boolean;
+  isOpenDrawer: boolean;
 }
 
 // Formから送信される情報
@@ -167,7 +187,7 @@ interface ISearchFormValue {
 }
 export const LoginHome: VFC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
-  const history = useHistory();
+  const navigate = useNavigate();
   const {
     handleSubmit,
     control,
@@ -193,6 +213,7 @@ export const LoginHome: VFC = () => {
     isOpenDiaryDialog: false,
     isOpenDiaryEdit: false,
     isOpenConfirmDialog: false,
+    isOpenDrawer: false,
   };
   const [state, setState] = useState<IInitialState>(initialState);
 
@@ -214,16 +235,25 @@ export const LoginHome: VFC = () => {
       .catch((e) => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           console.error(e);
-          process.exit(1);
+          console.error(e);
+          throw(e);
         }
       });
   };
   // ここまでPagenationAreaで使う関数
 
-  // SearchFieldで使う関数
+  // 検索用Drawerで使う関数
+  // Drawerの開閉に使用
+  const onDrawerOpenButton = (open: boolean) => () => {
+    setState({
+      ...state,
+      isOpenDrawer: open,
+    });
+  };
+
   // 日付を指定して検索する場合に使用
   const onDateChange = (selectedDate: null | Date): void => {
     fetchHome(currentUser!.headers, selectedDate?.toISOString().split("T")[0])
@@ -241,10 +271,10 @@ export const LoginHome: VFC = () => {
       .catch((e): void => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           console.error(e);
-          process.exit(1);
+          throw(e);
         }
       });
   };
@@ -265,16 +295,15 @@ export const LoginHome: VFC = () => {
       .catch((e): void => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           console.error(e);
-          process.exit(1);
+          throw(e);
         }
       });
   };
 
   // 検索内容を消去するボタンに使用
-
   const onSearchClearButton = (): void => {
     fetchHome(currentUser!.headers)
       .then((data): void => {
@@ -284,6 +313,7 @@ export const LoginHome: VFC = () => {
           searchWord: undefined,
           diaries: data.diaries,
           pagy: data.pagy,
+          isOpenDrawer: false,
           fetchState: REQUEST_STATE.OK,
         });
         reset({ searchWord: "" });
@@ -291,10 +321,10 @@ export const LoginHome: VFC = () => {
       .catch((e): void => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           console.error(e);
-          process.exit(1);
+          throw(e);
         }
       });
   };
@@ -361,10 +391,10 @@ export const LoginHome: VFC = () => {
           });
         } else if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           console.error(e);
-          process.exit(1);
+          throw(e);
         }
       });
   };
@@ -424,7 +454,7 @@ export const LoginHome: VFC = () => {
           e.response.status === HTTP_STATUS_CODE.FORBIDDEN
         ) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           alert(e);
         }
@@ -479,10 +509,10 @@ export const LoginHome: VFC = () => {
           e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED
         ) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           console.error(e);
-          process.exit(1);
+          throw(e);
         }
       });
   };
@@ -523,7 +553,8 @@ export const LoginHome: VFC = () => {
   // ここまでDiaryMenuで使う関数
 
   // このコンポーネントが開かれた時にだけ実行される
-  useEffect((): void => {
+  useEffect(() => {
+    let abortController = new AbortController();
     setState({
       ...state,
       fetchState: REQUEST_STATE.LOADING,
@@ -540,12 +571,13 @@ export const LoginHome: VFC = () => {
       .catch((e): void => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          history.push("/login");
+          navigate("/login");
         } else {
           console.error(e);
-          process.exit(1);
         }
       });
+
+    return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -561,9 +593,20 @@ export const LoginHome: VFC = () => {
         />
         日記作成
       </DiaryCreateOpenButton>
-      <DiarySearch
+      <DrawerOpenButton
+        onClick={onDrawerOpenButton(true)}
+        data-testid="drawerOpenButton"
+      >
+        <IconWrapper
+          children={<SearchIcon fontSize={"small"} data-testid="SearchIcon" />}
+        />
+        Search
+      </DrawerOpenButton>
+      <DiarySearchDrawer
         control={control}
         selectedDate={state.selectedDate}
+        isOpenDrawer={state.isOpenDrawer}
+        onOpenButton={(open) => onDrawerOpenButton(open)}
         onClearButton={onSearchClearButton}
         onSubmit={handleSubmit(onWordSearchSubmit)}
         onDateChange={(date: Date | null): void => onDateChange(date)}

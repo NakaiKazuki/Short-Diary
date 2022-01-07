@@ -51,13 +51,10 @@ const providerProps = {
   },
 };
 
-const customRender = (
-  ui: JSX.Element,
-  providerProps: IProviderProps
-) => {
+const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   const history = createMemoryHistory();
   return render(
-    <Router history={history}>
+    <Router location={history.location} navigator={history}>
       <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
     </Router>
   );
@@ -69,10 +66,9 @@ afterEach(cleanup);
 
 describe("Header コンポーネント", () => {
   describe("ログアウト時", () => {
-    beforeEach(() => {
-      customRender(<Header />, providerProps);
-    });
-
+    const setup = () => customRender(<Header />, providerProps);
+    // eslint-disable-next-line testing-library/no-render-in-setup
+    beforeEach(() => setup());
     it("ホーム画面へのリンク", () => {
       expect(el("homeLink")).toBeTruthy();
     });
@@ -94,10 +90,9 @@ describe("Header コンポーネント", () => {
       },
     };
 
-    beforeEach(() => {
-      customRender(<Header />, providerProps);
-    });
-
+    const setup = () => customRender(<Header />, providerProps);
+    // eslint-disable-next-line testing-library/no-render-in-setup
+    beforeEach(() => setup());
     it("ホーム画面へのリンク", () => {
       expect(el("homeLink")).toHaveAttribute("href", "/");
     });

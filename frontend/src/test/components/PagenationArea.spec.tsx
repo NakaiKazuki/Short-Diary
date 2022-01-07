@@ -12,11 +12,11 @@ const el = screen.getByTestId;
 afterEach(cleanup);
 
 describe("PagenationArea コンポーネント", () => {
-  beforeEach(() => {
+  const setup = () =>
     render(<PagenationArea pagy={pagy} onPageChange={jest.fn()} />);
-  });
 
   it("Pagenation欄がある", () => {
+    setup();
     expect(el("pagenationBar")).toBeTruthy();
   });
 });
