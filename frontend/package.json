@@ -25,7 +25,7 @@
     "date-fns": "^2.28.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-hook-form": "^7.22.2",
+    "react-hook-form": "^7.22.5",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "styled-components": "^5.2.1",

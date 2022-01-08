@@ -164,7 +164,7 @@ interface IInitialState {
   pagy: IPagy | undefined;
   selectedDate: null | Date;
   selectedDiary: IDiary | null;
-  searchWord: undefined | string;
+  searchWord: string;
   isOpenDiaryCreateDialog: boolean;
   isOpenDiaryDialog: boolean;
   isOpenDiaryEdit: boolean;
@@ -183,8 +183,9 @@ interface IFormValues {
 }
 
 interface ISearchFormValue {
-  searchWord: string | undefined;
+  searchWord: string;
 }
+
 export const LoginHome: VFC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -208,7 +209,7 @@ export const LoginHome: VFC = () => {
     pagy: undefined,
     selectedDate: null,
     selectedDiary: null,
-    searchWord: undefined,
+    searchWord: "",
     isOpenDiaryCreateDialog: false,
     isOpenDiaryDialog: false,
     isOpenDiaryEdit: false,
@@ -239,7 +240,7 @@ export const LoginHome: VFC = () => {
         } else {
           console.error(e);
           console.error(e);
-          throw(e);
+          throw e;
         }
       });
   };
@@ -261,9 +262,10 @@ export const LoginHome: VFC = () => {
         setState({
           ...state,
           selectedDate: selectedDate,
-          searchWord: undefined,
+          searchWord: "",
           diaries: data.diaries,
           pagy: data.pagy,
+          isOpenDrawer: false,
           fetchState: REQUEST_STATE.OK,
         });
         reset({ searchWord: "" });
@@ -274,7 +276,7 @@ export const LoginHome: VFC = () => {
           navigate("/login");
         } else {
           console.error(e);
-          throw(e);
+          throw e;
         }
       });
   };
@@ -289,8 +291,10 @@ export const LoginHome: VFC = () => {
           searchWord: formValues.searchWord,
           diaries: data.diaries,
           pagy: data.pagy,
+          isOpenDrawer: false,
           fetchState: REQUEST_STATE.OK,
         });
+        console.log(data);
       })
       .catch((e): void => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
@@ -298,7 +302,7 @@ export const LoginHome: VFC = () => {
           navigate("/login");
         } else {
           console.error(e);
-          throw(e);
+          throw e;
         }
       });
   };
@@ -310,7 +314,7 @@ export const LoginHome: VFC = () => {
         setState({
           ...state,
           selectedDate: null,
-          searchWord: undefined,
+          searchWord: "",
           diaries: data.diaries,
           pagy: data.pagy,
           isOpenDrawer: false,
@@ -324,7 +328,7 @@ export const LoginHome: VFC = () => {
           navigate("/login");
         } else {
           console.error(e);
-          throw(e);
+          throw e;
         }
       });
   };
@@ -394,7 +398,7 @@ export const LoginHome: VFC = () => {
           navigate("/login");
         } else {
           console.error(e);
-          throw(e);
+          throw e;
         }
       });
   };
@@ -512,7 +516,7 @@ export const LoginHome: VFC = () => {
           navigate("/login");
         } else {
           console.error(e);
-          throw(e);
+          throw e;
         }
       });
   };

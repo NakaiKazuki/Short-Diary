@@ -15,6 +15,6 @@ class Api::V1::HomeController < ApplicationController
   private
 
     def search_params
-      params.permit(:date_or_content_cont)
+      params.permit(:content_or_date_cont)
     end
 end
