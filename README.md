@@ -29,13 +29,13 @@
   - RDS(MySQL 8.0)
 - Docker/Docker-compose
 - MySQL 8.0
-- Rails(API)
+- Rails
   - Ruby 3.0
   - Rails 6.1
   - Puma
   - RSpec
-- React(CRA)
-  - Node 14.17
+- React
+  - Node 16.13
   - TypeScript
   - React
   - React Testing Library
