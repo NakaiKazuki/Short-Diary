@@ -164,7 +164,7 @@ interface IInitialState {
   pagy: IPagy | undefined;
   selectedDate: null | Date;
   selectedDiary: IDiary | null;
-  searchWord: string;
+  searchWord: string | undefined;
   isOpenDiaryCreateDialog: boolean;
   isOpenDiaryDialog: boolean;
   isOpenDiaryEdit: boolean;
@@ -183,7 +183,7 @@ interface IFormValues {
 }
 
 interface ISearchFormValue {
-  searchWord: string;
+  searchWord: string | undefined;
 }
 
 export const LoginHome: VFC = () => {
