@@ -8,6 +8,9 @@ import { MessageProvider } from "./contexts/Message";
 // routes
 import { GuestRoute, PrivateRoute, LoggedInRoute } from "./routes";
 
+// hooks
+import { useTracking } from "./hooks/useTracking";
+
 // components
 import { Header } from "./containers/Header";
 import { Message } from "./containers/Message";
@@ -19,6 +22,9 @@ import { Login } from "./containers/Login";
 import { UserEdit } from "./containers/UserEdit";
 
 function App() {
+  useTracking(process.env.REACT_APP_GA_UA);
+  useTracking(process.env.REACT_APP_GA_G);
+
   return (
     <Fragment>
       <Router>
@@ -31,22 +37,22 @@ function App() {
                 path="/"
                 element={
                   <LoggedInRoute
-                  login={<LoginHome />}
-                  logout={<LogoutHome />}
-                />
+                    login={<LoginHome />}
+                    logout={<LogoutHome />}
+                  />
                 }
               />
               <Route
                 path="/signup"
-                element={<GuestRoute children={<SignUp />}/>}
+                element={<GuestRoute children={<SignUp />} />}
               />
               <Route
                 path="/login"
-                element={<GuestRoute children={<Login />}/>}
+                element={<GuestRoute children={<Login />} />}
               />
               <Route
                 path="/userEdit"
-                element={<PrivateRoute children={<UserEdit />}/>}
+                element={<PrivateRoute children={<UserEdit />} />}
               />
             </Routes>
           </MessageProvider>
