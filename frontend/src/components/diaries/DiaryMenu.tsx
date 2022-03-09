@@ -124,7 +124,6 @@ export const DiaryMenu: VFC<IDiaryMenuProps> = ({
 
       <StyledMenu
         anchorEl={anchorEl}
-        keepMounted
         open={Boolean(anchorEl)}
         onClose={onMenuClose}
         data-testid="diaryMenuBar"
