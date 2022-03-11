@@ -104,14 +104,23 @@ describe("Header コンポーネント", () => {
     describe("MenuBar", () => {
       it("MenuBarの表示", () => {
         // デフォルトは非表示
-        expect(el("menuBar")).toHaveStyle("visibility: hidden");
+        expect(screen.queryByTestId("menuBar")).toBeNull();
 
         // ユーザがクリックすることで表示
         userEvent.click(el("userIcon"));
         expect(el("menuBar")).toHaveStyle("visibility: visible");
       });
 
+      it("ユーザ情報編集リンク", () => {
+        userEvent.click(el("userIcon"));
+        // ユーザ情報編集リンク
+        expect(el("menuBar")).toContainElement(
+          el("userEditLink")
+        );
+      });
+
       it("Logoutボタン", () => {
+        userEvent.click(el("userIcon"));
         expect(el("menuBar")).toContainElement(el("logoutButton"));
       });
     });

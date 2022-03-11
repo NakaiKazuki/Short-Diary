@@ -310,6 +310,10 @@ describe("LoginHome", () => {
       expect(el("diaryDialog")).toBeTruthy();
     });
 
+    it("MenuIconがある", () => {
+      expect(el("menuIcon")).toBeTruthy();
+    });
+
     it("初期値(タグ無し, 画像無し)", () => {
       // MenuIconが表示
       expect(el("menuIcon")).toBeTruthy();
@@ -343,12 +347,49 @@ describe("LoginHome", () => {
       expect(el("confirmDialog")).toBeTruthy();
     });
 
+    describe("メニューバー(閲覧時)", () => {
+      it("メニューバーは基本非表示", () => {
+        expect(screen.queryByTestId("diaryMenuBar")).toBeNull();
+      });
+
+      describe("メニュー項目", () => {
+        beforeEach(() => {
+          userEvent.click(el("menuIcon"));
+        });
+
+        it("編集ボタン", () => {
+          // 編集に変更ボタン
+          expect(el("diaryMenuBar")).toContainElement(el("MenuItemDiaryEdit"));
+          // Icon
+          expect(el("MenuItemDiaryEdit")).toContainElement(el("editIcon"));
+          // Text
+          expect(el("MenuItemDiaryEdit")).toHaveTextContent("編集");
+        });
+
+        it("削除ボタン", () => {
+          expect(el("diaryMenuBar")).toContainElement(el("MenuItemDiaryDelete"));
+          // Icon
+          expect(el("MenuItemDiaryDelete")).toContainElement(el("deleteIcon"));
+          // Text
+          expect(el("MenuItemDiaryDelete")).toHaveTextContent("削除");
+        });
+      });
+    });
+
     describe("DiaryEdit", () => {
       beforeEach(() => {
         // メニューを開く
         userEvent.click(el("menuIcon"));
         // 編集をクリック
         userEvent.click(el("MenuItemDiaryEdit"));
+      });
+
+      it("メニューバー(編集時)", () => {
+        userEvent.click(el("menuIcon"));
+        // 閲覧に変更ボタン
+        expect(el("diaryMenuBar")).toContainElement(el("MenuItemDiaryShow"));
+        // 削除ボタン
+        expect(el("diaryMenuBar")).toContainElement(el("MenuItemDiaryDelete"));
       });
 
       it("各入力欄のブロックがある", () => {
@@ -465,7 +506,7 @@ describe("LoginHome", () => {
       it("確認用Dialogが表示、MenuBarは見えなくなる", async () => {
         expect(el("confirmDialog")).toBeTruthy();
         await waitFor(() =>
-          expect(el("diaryMenuBar")).toHaveStyle("visibility: hidden")
+          expect(screen.queryByTestId("diaryMenuBar")).toBeNull()
         );
       });
 

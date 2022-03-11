@@ -31,7 +31,9 @@ const UserNameWrapper = styled.span`
 
 const MenuItemLink = styled(Link)`
   text-decoration: none;
-  color: inherit;
+  :visited {
+    color: inherit;
+  }
 `;
 
 // Material Ui のMenuデザイン変更
