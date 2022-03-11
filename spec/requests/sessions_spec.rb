@@ -68,7 +68,7 @@ RSpec.describe 'Sessions', type: :request do
 
         # 画像は追加していないためnilを返す
         it 'image' do
-          expect(json_body['data']['image']).to eq nil
+          expect(json_body['data']['image']).to be_nil
         end
       end
     end

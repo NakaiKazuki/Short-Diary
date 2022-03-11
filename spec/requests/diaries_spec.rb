@@ -113,7 +113,7 @@ RSpec.describe 'Diaries', type: :request do
             end
 
             it 'picture_url(画像無し)' do
-              expect(diary_json['picture_url']).to eq nil
+              expect(diary_json['picture_url']).to be_nil
             end
 
             it 'tag_list' do
@@ -263,7 +263,7 @@ RSpec.describe 'Diaries', type: :request do
             end
 
             it 'picture_url(画像無し)' do
-              expect(diary_json['picture_url']).to eq nil
+              expect(diary_json['picture_url']).to be_nil
             end
 
             it 'picture_url(画像あり)' do
@@ -354,7 +354,7 @@ RSpec.describe 'Diaries', type: :request do
 
           describe 'diaries' do
             it 'diary' do
-              expect(diary_json).to eq nil
+              expect(diary_json).to be_nil
             end
           end
 

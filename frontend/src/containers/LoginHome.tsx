@@ -36,7 +36,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { HTTP_STATUS_CODE, REQUEST_STATE } from "../constants";
 
 // helpers
-import { onSubmitText, isDisabled } from "../helpers";
+import { onSubmitText, isDisabled, dateToday } from "../helpers";
 
 // reducers
 import {
@@ -164,7 +164,7 @@ interface IInitialState {
   pagy: IPagy | undefined;
   selectedDate: null | Date;
   selectedDiary: IDiary | null;
-  searchWord: string;
+  searchWord: string | undefined;
   isOpenDiaryCreateDialog: boolean;
   isOpenDiaryDialog: boolean;
   isOpenDiaryEdit: boolean;
@@ -183,7 +183,7 @@ interface IFormValues {
 }
 
 interface ISearchFormValue {
-  searchWord: string;
+  searchWord: string | undefined;
 }
 
 export const LoginHome: VFC = () => {
@@ -254,10 +254,31 @@ export const LoginHome: VFC = () => {
       isOpenDrawer: open,
     });
   };
-
   // 日付を指定して検索する場合に使用
   const onDateChange = (selectedDate: null | Date): void => {
-    fetchHome(currentUser!.headers, selectedDate?.toISOString().split("T")[0])
+    console.log(
+      selectedDate
+        ? new Date(new Date(selectedDate))
+            .toISOString()
+            .replace(/\..*/, "-09:00")
+        : undefined
+    );
+    console.log(
+      selectedDate
+        ? new Date(new Date(selectedDate))
+            .toISOString()
+            .replace(/\..*/, "+09:00")
+        : undefined
+    );
+    fetchHome(
+      currentUser!.headers,
+      selectedDate
+        ? new Date(new Date(selectedDate))
+            .toISOString()
+            .replace(/\..*/, "-09:00")
+            .split("T")[0]
+        : undefined
+    )
       .then((data): void => {
         setState({
           ...state,
@@ -641,7 +662,7 @@ export const LoginHome: VFC = () => {
           apiErrors={state.apiErrors}
           contentCount={watch("content") ? watch("content", "").length : 0}
           control={control}
-          dateToday={new Date().toISOString().split("T")[0]}
+          dateToday={dateToday()}
           errors={errors}
           isOpen={state.isOpenDiaryCreateDialog}
           isDisabled={isDisabled(reducerState.postState)}

@@ -7,7 +7,7 @@ import userEvent from "@testing-library/user-event";
 import { AuthContext } from "../../contexts/Auth";
 import { LoginHome } from "../../containers/LoginHome";
 import { home, diary } from "../../urls";
-
+import { dateToday } from "../../helpers";
 import { BrowserRouter as Router } from "react-router-dom";
 // 型
 interface IHeaders {
@@ -48,14 +48,12 @@ const currentUser = {
   },
 };
 
-const dateToday = new Date().toISOString().split("T")[0];
-
 // Apiから返ってくるデータ
 const returnData = {
   diaries: [
     {
       id: 1,
-      date: dateToday,
+      date: dateToday(),
       content: "Test Content",
       tag_list: [],
       picture_url: null,
@@ -63,7 +61,7 @@ const returnData = {
     },
     {
       id: 2,
-      date: dateToday,
+      date: dateToday(),
       content: "A123456789B123456789C123456789D123456789E123456789F123456789",
       tag_list: ["testTag1", "testTag2"],
       picture_url: "/testurl",
@@ -90,7 +88,7 @@ const returnErrorData = {
 const formInfo = [
   {
     testId: "dateArea",
-    value: dateToday,
+    value: dateToday(),
   },
   {
     testId: "contentArea",
@@ -129,7 +127,7 @@ describe("LoginHome", () => {
     customRender(<LoginHome />, providerProps);
   };
 
-  beforeEach(async() => await waitFor(() => setup()));
+  beforeEach(async () => await waitFor(() => setup()));
 
   it("日記一覧が表示", () => {
     expect(el("diaryIndex")).toBeTruthy();
@@ -190,7 +188,7 @@ describe("LoginHome", () => {
       );
     });
 
-    it("データの作成に失敗した場合Dialogは閉じない", async() => {
+    it("データの作成に失敗した場合Dialogは閉じない", async () => {
       // ApiResponseを設定
       mockAxios.onPost(diary).reply(422, returnErrorData);
       // Dialogを開く
@@ -199,9 +197,7 @@ describe("LoginHome", () => {
       formInfo.forEach((obj) => userEvent.clear(el(obj.testId)));
       // ユーザが送信ボタンをクリック
       userEvent.click(el("formSubmit"));
-      await waitFor(() =>
-        expect(el("diaryCreateDialog")).toBeTruthy()
-      );
+      await waitFor(() => expect(el("diaryCreateDialog")).toBeTruthy());
     });
 
     describe("Form欄", () => {
@@ -256,7 +252,7 @@ describe("LoginHome", () => {
       describe("入力欄", () => {
         it("入力欄初期値", () => {
           // date
-          expect(el("dateArea")).toHaveValue(dateToday);
+          expect(el("dateArea")).toHaveValue(dateToday());
           // tag_list
           expect(el("tag_listArea")).toHaveValue("");
           // content
@@ -314,6 +310,10 @@ describe("LoginHome", () => {
       expect(el("diaryDialog")).toBeTruthy();
     });
 
+    it("MenuIconがある", () => {
+      expect(el("menuIcon")).toBeTruthy();
+    });
+
     it("初期値(タグ無し, 画像無し)", () => {
       // MenuIconが表示
       expect(el("menuIcon")).toBeTruthy();
@@ -347,12 +347,49 @@ describe("LoginHome", () => {
       expect(el("confirmDialog")).toBeTruthy();
     });
 
+    describe("メニューバー(閲覧時)", () => {
+      it("メニューバーは基本非表示", () => {
+        expect(screen.queryByTestId("diaryMenuBar")).toBeNull();
+      });
+
+      describe("メニュー項目", () => {
+        beforeEach(() => {
+          userEvent.click(el("menuIcon"));
+        });
+
+        it("編集ボタン", () => {
+          // 編集に変更ボタン
+          expect(el("diaryMenuBar")).toContainElement(el("MenuItemDiaryEdit"));
+          // Icon
+          expect(el("MenuItemDiaryEdit")).toContainElement(el("editIcon"));
+          // Text
+          expect(el("MenuItemDiaryEdit")).toHaveTextContent("編集");
+        });
+
+        it("削除ボタン", () => {
+          expect(el("diaryMenuBar")).toContainElement(el("MenuItemDiaryDelete"));
+          // Icon
+          expect(el("MenuItemDiaryDelete")).toContainElement(el("deleteIcon"));
+          // Text
+          expect(el("MenuItemDiaryDelete")).toHaveTextContent("削除");
+        });
+      });
+    });
+
     describe("DiaryEdit", () => {
       beforeEach(() => {
         // メニューを開く
         userEvent.click(el("menuIcon"));
         // 編集をクリック
         userEvent.click(el("MenuItemDiaryEdit"));
+      });
+
+      it("メニューバー(編集時)", () => {
+        userEvent.click(el("menuIcon"));
+        // 閲覧に変更ボタン
+        expect(el("diaryMenuBar")).toContainElement(el("MenuItemDiaryShow"));
+        // 削除ボタン
+        expect(el("diaryMenuBar")).toContainElement(el("MenuItemDiaryDelete"));
       });
 
       it("各入力欄のブロックがある", () => {
@@ -469,7 +506,7 @@ describe("LoginHome", () => {
       it("確認用Dialogが表示、MenuBarは見えなくなる", async () => {
         expect(el("confirmDialog")).toBeTruthy();
         await waitFor(() =>
-          expect(el("diaryMenuBar")).toHaveStyle("visibility: hidden")
+          expect(screen.queryByTestId("diaryMenuBar")).toBeNull()
         );
       });
 
