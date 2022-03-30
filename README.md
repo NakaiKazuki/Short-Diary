@@ -1,10 +1,10 @@
 # Short Diary
 
- 200文字以内の日記を投稿するサイトです。
+ 200文字以内の日記を作成するサイトです。
 
  日記の内容を短くすることで継続しやすくしています。
 
- スマホからもご利用いただけます。
+ スマホからもご利用可能です。
 ![Short-Diary-ss-1](https://user-images.githubusercontent.com/62586169/120081349-39dae000-c0f8-11eb-81f0-3f78de98e9ee.png)
 
 ![Short-Diary-ss-2](https://user-images.githubusercontent.com/62586169/120081352-3c3d3a00-c0f8-11eb-9faf-08dbb0eab588.png)
@@ -39,6 +39,8 @@
   - TypeScript
   - React
   - React Testing Library
+- Google Analytics
+  - gtag.js
 - Nginx 1.20
 
 ## CircleCi
@@ -67,9 +69,8 @@
 
 - Rails
   - RSpec
-    - モデルテスト(model)
-    - コントローラーテスト(request)
-    - ブラウザテスト(system)
+    - モデルテスト(models)
+    - コントローラーテスト(requests)
 
 - React
   - React Testing Library
