@@ -23,7 +23,7 @@
 - AWS
   - VPC
   - EC2(インスタンス内でDocker-composeを実行([使用ファイル](https://github.com/NakaiKazuki/Short-Diary/blob/main/docker-compose-prod.yml))
-  - Route53s
+  - Route53
   - Certificate Manager
   - S3
   - RDS(MySQL 8.0)
@@ -36,8 +36,8 @@
   - RSpec
 - React
   - Node 16.13
-  - TypeScript
-  - React
+  - TypeScript 4.6
+  - React 17.0
   - React Testing Library
 - Google Analytics
   - gtag.js
