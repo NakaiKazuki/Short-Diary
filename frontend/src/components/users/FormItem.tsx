@@ -68,6 +68,7 @@ export const FormItem: VFC<IFormItemProps> = ({ formInfo }) => {
           control={formInfo.control}
           rules={formInfo.rules}
           defaultValue={formInfo.defaultValue}
+          shouldUnregister
           render={({ field }) => (
             <TextField
               {...field}

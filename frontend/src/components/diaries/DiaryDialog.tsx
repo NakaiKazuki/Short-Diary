@@ -25,7 +25,6 @@ const ContentHeading = styled.h4`
 `;
 
 const TagWrapper = styled.span`
-  text-align: right;
   display: inline-block;
 `;
 

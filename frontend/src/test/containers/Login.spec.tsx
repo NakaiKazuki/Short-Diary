@@ -50,9 +50,7 @@ const returnData = {
 };
 
 const returnErrorData = {
-  data: {
-    errors: ["testError"],
-  },
+  errors: ["ApiError"],
 };
 
 // 正しいForm情報
@@ -90,6 +88,9 @@ const el = screen.getByTestId;
 afterEach(cleanup);
 
 describe("Loginコンポーネント", () => {
+  afterEach(() => {
+    mockAxios.resetHistory();
+  });
   const setup = () => customRender(<Login />, providerProps);
   // eslint-disable-next-line testing-library/no-render-in-setup
   beforeEach(() => setup());
@@ -105,38 +106,42 @@ describe("Loginコンポーネント", () => {
         );
       });
 
-      it("エラーメッセージ", async() => {
+      it("エラーメッセージ", async () => {
         // ApiResponse
         mockAxios.onPost(signIn).reply(200, returnData);
 
         // 各項目に無効な値を入力
-        formInfo.forEach((obj) => userEvent.clear(el(obj.testId)));
+        formInfo.forEach(async (obj) => await userEvent.clear(el(obj.testId)));
 
         // ユーザが送信ボタンをクリック
-        userEvent.click(el("formSubmit"));
+        await userEvent.click(el("formSubmit"));
 
         // 各項目に対応したエラーメッセージが表示
-        await waitFor(() =>{
+        await waitFor(() => {
           idNames.forEach((idName) =>
             expect(el(`${idName}ErrorMessage`)).toBeTruthy()
           );
         });
       });
 
-      it("Apiエラーメッセージ", () => {
+      it("Apiエラーメッセージ", async () => {
         // ApiResponse
         mockAxios.onPost(signIn).reply(401, returnErrorData);
 
         // 各項目に値を入力
-        formInfo.forEach((obj) => userEvent.type(el(obj.testId), obj.value));
+        await userEvent.type(el(formInfo[0].testId), formInfo[0].value);
+        await userEvent.type(el(formInfo[1].testId), formInfo[1].value);
 
         // ユーザが送信ボタンをクリック
-        userEvent.click(el("formSubmit"));
+        await userEvent.click(el("formSubmit"));
 
         // 各項目に対応したApiエラーメッセージが表示
-        idNames.forEach(async (idName) =>
-          expect(await screen.findByTestId(`${idName}ApiError`)).toBeTruthy()
-        );
+        await waitFor(() => {
+          expect(el(`${idNames[0]}ApiError`)).toBeTruthy();
+        });
+        await waitFor(() => {
+          expect(el(`${idNames[1]}ApiError`)).toBeTruthy();
+        });
       });
     });
 
@@ -149,15 +154,16 @@ describe("Loginコンポーネント", () => {
         // ApiResponse
         mockAxios.onPost(signIn).reply(200, returnData);
 
-        // 各項目に有効な値を入力
-        formInfo.forEach((obj) => userEvent.type(el(obj.testId), obj.value));
-
         // 初期値
         expect(el("formSubmit")).toHaveTextContent("Login!");
         expect(el("formSubmit")).not.toBeDisabled();
 
+        // 各項目に有効な値を入力
+        await userEvent.type(el(formInfo[0].testId), formInfo[0].value);
+        await userEvent.type(el(formInfo[1].testId), formInfo[1].value);
+
         // ユーザが送信ボタンをクリック
-        userEvent.click(el("formSubmit"));
+        await userEvent.click(el("formSubmit"));
 
         // 送信完了
         await waitFor(() =>
@@ -169,15 +175,16 @@ describe("Loginコンポーネント", () => {
         // ApiResponse
         mockAxios.onPost(signIn).reply(401, returnErrorData);
 
-        // 各項目に有効な値を入力
-        formInfo.forEach((obj) => userEvent.type(el(obj.testId), obj.value));
-
         // 初期値
         expect(el("formSubmit")).toHaveTextContent("Login!");
         expect(el("formSubmit")).not.toBeDisabled();
 
+        // 各項目に有効な値を入力
+        await userEvent.type(el(formInfo[0].testId), formInfo[0].value);
+        await userEvent.type(el(formInfo[1].testId), formInfo[1].value);
+
         // ユーザが送信ボタンをクリック
-        userEvent.click(el("formSubmit"));
+        await userEvent.click(el("formSubmit"));
 
         // APIからエラーが返ってくると初期値に戻る
         await waitFor(() =>

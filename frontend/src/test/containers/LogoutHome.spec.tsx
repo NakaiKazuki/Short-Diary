@@ -69,6 +69,9 @@ const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
 afterEach(cleanup);
 
 describe("LogoutHome", () => {
+  afterEach(() => {
+    mockAxios.resetHistory();
+  });
   const setup = () => customRender(<LogoutHome />, providerProps);
   // eslint-disable-next-line testing-library/no-render-in-setup
   beforeEach(() => setup());
@@ -88,7 +91,7 @@ describe("LogoutHome", () => {
       expect(el("guestLoginButton")).not.toBeDisabled();
 
       // ユーザがゲストログインボタンをクリック
-      userEvent.click(el("guestLoginButton"));
+      await userEvent.click(el("guestLoginButton"));
 
       // 送信中
       expect(el("guestLoginButton")).toHaveTextContent("送信中...");

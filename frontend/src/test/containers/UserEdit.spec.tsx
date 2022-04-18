@@ -7,6 +7,7 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { createMemoryHistory } from "history";
 import { AuthContext } from "../../contexts/Auth";
+import { MessageContext } from "../../contexts/Message";
 import { UserEdit } from "../../containers/UserEdit";
 import { registration } from "../../urls";
 import { UserEditLinkInfo as linkInfo } from "../../formInfo";
@@ -67,11 +68,11 @@ const returnData = {
 const formInfo = [
   {
     testId: "nameArea",
-    value: "testName",
+    value: "",
   },
   {
     testId: "emailArea",
-    value: "test@example.com",
+    value: "",
   },
   {
     testId: "passwordArea",
@@ -88,15 +89,13 @@ const formInfo = [
 ];
 
 const returnErrorData = {
-  data: {
-    errors: {
-      guest: ["guest ApiError"],
-      name: ["name ApiError"],
-      email: ["email ApiError"],
-      password: ["password ApiError"],
-      password_confirmation: ["password_confirmation ApiError"],
-      current_password: ["current_password ApiError"],
-    },
+  errors: {
+    guest: ["guest ApiError"],
+    name: ["name ApiError"],
+    email: ["email ApiError"],
+    password: ["password ApiError"],
+    password_confirmation: ["password_confirmation ApiError"],
+    current_password: ["current_password ApiError"],
   },
 };
 
@@ -108,7 +107,7 @@ const idNames = [
   "current_password",
 ];
 
-// const guestIdNames = ["guest"];
+const guestIdNames = ["guest"];
 
 const providerProps = {
   value: {
@@ -117,12 +116,21 @@ const providerProps = {
   },
 };
 
+const messageProps = {
+  value: {
+    message: undefined,
+    setMessage: jest.fn(),
+  },
+};
+
 const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   const history = createMemoryHistory();
   return render(
-    <Router location={history.location} navigator={history}>
-      <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
-    </Router>
+    <MessageContext.Provider {...messageProps}>
+      <Router location={history.location} navigator={history}>
+        <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
+      </Router>
+    </MessageContext.Provider>
   );
 };
 
@@ -131,6 +139,9 @@ const el = screen.getByTestId;
 afterEach(cleanup);
 
 describe("UserEditコンポーネント", () => {
+  afterEach(() => {
+    mockAxios.resetHistory();
+  });
   const setup = () => customRender(<UserEdit />, providerProps);
   // eslint-disable-next-line testing-library/no-render-in-setup
   beforeEach(() => setup());
@@ -154,7 +165,7 @@ describe("UserEditコンポーネント", () => {
         formInfo.forEach((obj) => userEvent.clear(el(obj.testId)));
 
         // ユーザが送信ボタンをクリック
-        userEvent.click(el("formSubmit"));
+        await userEvent.click(el("formSubmit"));
 
         // 各項目に対応したエラーメッセージが表示
         await waitFor(() => {
@@ -162,38 +173,51 @@ describe("UserEditコンポーネント", () => {
         });
       });
 
-      // it("Apiエラーメッセージ", async () => {
-      //   // ApiResponse
-      //   mockAxios.onPut(registration).reply(422, returnErrorData);
+      it("Apiエラーメッセージ", async () => {
+        // ApiResponse
+        mockAxios.onPut(registration).reply(422, returnErrorData);
 
-      //   // 各項目に値を入力
-      //   formInfo.forEach((obj) => userEvent.type(el(obj.testId), obj.value));
+        // 各項目に値を入力
+        await userEvent.type(el(formInfo[2].testId), formInfo[2].value);
+        await userEvent.type(el(formInfo[3].testId), formInfo[3].value);
+        await userEvent.type(el(formInfo[4].testId), formInfo[4].value);
 
-      //   // ユーザが送信ボタンをクリック
-      //   userEvent.click(el("formSubmit"));
-      //   await waitFor(() => {
-      //     idNames.forEach(async (idName) => {
-      //       expect(el(`${idName}ApiError`)).toBeTruthy();
-      //     });
-      //   });
-      // });
+        // ユーザが送信ボタンをクリック
+        await userEvent.click(el("formSubmit"));
+        // 各項目に対応したApiからのエラーメッセージが表示
+        await waitFor(() => {
+          expect(el(`${idNames[0]}ApiError`)).toBeTruthy();
+        });
+        await waitFor(() => {
+          expect(el(`${idNames[1]}ApiError`)).toBeTruthy();
+        });
+        await waitFor(() => {
+          expect(el(`${idNames[2]}ApiError`)).toBeTruthy();
+        });
+        await waitFor(() => {
+          expect(el(`${idNames[3]}ApiError`)).toBeTruthy();
+        });
+        await waitFor(() => {
+          expect(el(`${idNames[4]}ApiError`)).toBeTruthy();
+        });
+      });
 
-      // it("ゲストユーザ専用エラーメッセージ", async() => {
-      //   mockAxios.onPut(registration).reply(422, returnErrorData);
+      it("ゲストユーザ専用エラーメッセージ", async () => {
+        mockAxios.onPut(registration).reply(422, returnErrorData);
 
-      //   // 各項目に値を入力
-      //   formInfo.forEach((obj) => userEvent.type(el(obj.testId), obj.value));
+        // 各項目に値を入力
+        await userEvent.type(el(formInfo[2].testId), formInfo[2].value);
+        await userEvent.type(el(formInfo[3].testId), formInfo[3].value);
+        await userEvent.type(el(formInfo[4].testId), formInfo[4].value);
 
-      //   // ユーザが送信ボタンをクリック
-      //   userEvent.click(el("formSubmit"));
+        // ユーザが送信ボタンをクリック
+        await userEvent.click(el("formSubmit"));
 
-      //   // ゲストエラーの項目にメッセージが表示
-      //   await waitFor(() => {
-      //     guestIdNames.forEach((guestIdName) => {
-      //       expect(el(`${guestIdName}ApiError`)).toBeTruthy();
-      //     });
-      //   });
-      // });
+        // ゲストエラーの項目にメッセージが表示
+        await waitFor(() => {
+          expect(el(`${guestIdNames[0]}ApiError`)).toBeTruthy();
+        });
+      });
     });
 
     describe("送信ボタン", () => {
@@ -201,39 +225,43 @@ describe("UserEditコンポーネント", () => {
         expect(el("formSubmit")).toHaveAttribute("type", "submit");
       });
 
-      // it("送信結果に応じてボタンの要素が変化 Status200", async () => {
-      //   // ApiResponse
-      //   mockAxios.onPut(registration).reply(200, returnData);
-
-      //   // 各項目に有効な値を入力
-      //   formInfo.forEach((obj) => userEvent.type(el(obj.testId), obj.value));
-
-      //   // 初期値
-      //   expect(el("formSubmit")).toHaveTextContent("Profile Edit!");
-      //   expect(el("formSubmit")).not.toBeDisabled();
-
-      //   // ユーザが送信ボタンをクリック
-      //   userEvent.click(el("formSubmit"));
-
-      //   // 送信完了
-      //   await waitFor(() =>
-      //     expect(el("formSubmit")).toHaveTextContent("送信完了!")
-      //   );
-      // });
-
-      it("送信結果に応じてボタンの要素が変化 Status401", async () => {
+      it("送信結果に応じてボタンの要素が変化 Status200", async () => {
         // ApiResponse
-        mockAxios.onPut(registration).reply(401, returnErrorData);
+        mockAxios.onPut(registration).reply(200, returnData);
 
         // 各項目に有効な値を入力
-        formInfo.forEach((obj) => userEvent.type(el(obj.testId), obj.value));
+        await userEvent.type(el(formInfo[2].testId), formInfo[2].value);
+        await userEvent.type(el(formInfo[3].testId), formInfo[3].value);
+        await userEvent.type(el(formInfo[4].testId), formInfo[4].value);
 
         // 初期値
         expect(el("formSubmit")).toHaveTextContent("Profile Edit!");
         expect(el("formSubmit")).not.toBeDisabled();
 
         // ユーザが送信ボタンをクリック
-        userEvent.click(el("formSubmit"));
+        await userEvent.click(el("formSubmit"));
+
+        // 送信完了
+        await waitFor(() =>
+          expect(el("formSubmit")).toHaveTextContent("送信完了!")
+        );
+      });
+
+      it("送信結果に応じてボタンの要素が変化 Status401", async () => {
+        // ApiResponse
+        mockAxios.onPut(registration).reply(401, returnErrorData);
+
+        // 各項目に有効な値を入力
+        await userEvent.type(el(formInfo[2].testId), formInfo[2].value);
+        await userEvent.type(el(formInfo[3].testId), formInfo[3].value);
+        await userEvent.type(el(formInfo[4].testId), formInfo[4].value);
+
+        // 初期値
+        expect(el("formSubmit")).toHaveTextContent("Profile Edit!");
+        expect(el("formSubmit")).not.toBeDisabled();
+
+        // ユーザが送信ボタンをクリック
+        await userEvent.click(el("formSubmit"));
 
         // APIからエラーが返ってくると初期値に戻る
         await waitFor(() =>

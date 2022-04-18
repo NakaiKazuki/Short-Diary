@@ -52,7 +52,7 @@ interface IFormValues {
 }
 
 // エラーメッセージ
-export interface IApiErrors {
+interface IApiErrors {
   name?: Array<string>;
   email?: Array<string>;
   password?: Array<string>;

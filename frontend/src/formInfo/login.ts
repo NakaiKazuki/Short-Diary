@@ -23,11 +23,12 @@ interface IFormInfo {
   email: IObject;
   password: IObject;
 }
+
 // Loginページのフォーム欄を表示するために必要な情報群
 export const loginFormInfo = (
   errors: any,
   control: object,
-  apiErrors: Array<string> | undefined,
+  apiErrors: Array<string> | undefined
 ): IFormInfo => {
   return {
     email: {

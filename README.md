@@ -37,7 +37,7 @@
 - React
   - Node 16.13
   - TypeScript 4.6
-  - React 17.0
+  - React 18.0
   - React Testing Library
 - Google Analytics
   - gtag.js

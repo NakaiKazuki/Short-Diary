@@ -8,6 +8,7 @@ import { AuthProvider } from "./contexts/Auth";
 import { MessageProvider } from "./contexts/Message";
 // components
 import { Header } from "./containers/Header";
+import { Message } from "./containers/Message";
 import { Footer } from "./containers/Footer";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <AuthProvider>
           <MessageProvider>
             <Header />
+            <Message />
             <InnnerComponent />
           </MessageProvider>
         </AuthProvider>

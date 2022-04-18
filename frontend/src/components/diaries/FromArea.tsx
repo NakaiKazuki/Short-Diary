@@ -115,6 +115,7 @@ export const FormArea: VFC<IFormAreaProps> = ({
           control={control}
           defaultValue={defaultDate}
           rules={{ required: true, pattern: /(\d{4})-(\d{2})-(\d{2})/ }}
+          shouldUnregister
           render={({ field }) => (
             <TextField
               label="Date"
@@ -139,6 +140,7 @@ export const FormArea: VFC<IFormAreaProps> = ({
           name="tag_list"
           control={control}
           defaultValue={defaultTag}
+          shouldUnregister
           render={({ field }) => (
             <TextField
               label="Tag"
@@ -171,12 +173,13 @@ export const FormArea: VFC<IFormAreaProps> = ({
           control={control}
           rules={{ required: true, maxLength: 200 }}
           defaultValue={defaultContent}
+          shouldUnregister
           render={({ field }) => (
             <TextField
               label="Content"
               type="textarea"
               autoFocus={true}
-              rows="8"
+              minRows="8"
               placeholder="200文字以内で日記の内容を入力してください"
               multiline
               fullWidth

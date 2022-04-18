@@ -101,26 +101,23 @@ describe("Header コンポーネント", () => {
       expect(el("userIcon")).toBeTruthy();
     });
 
-    describe("MenuBar", () => {
-      it("MenuBarの表示", () => {
+    describe("MenuBar表示", () => {
+      it("MenuBarの表示", async () => {
         // デフォルトは非表示
         expect(screen.queryByTestId("menuBar")).toBeNull();
-
         // ユーザがクリックすることで表示
-        userEvent.click(el("userIcon"));
+        await userEvent.click(el("userIcon"));
         expect(el("menuBar")).toHaveStyle("visibility: visible");
       });
 
-      it("ユーザ情報編集リンク", () => {
-        userEvent.click(el("userIcon"));
+      it("ユーザ情報編集リンク", async () => {
         // ユーザ情報編集リンク
-        expect(el("menuBar")).toContainElement(
-          el("userEditLink")
-        );
+        await userEvent.click(el("userIcon"));
+        expect(el("menuBar")).toContainElement(el("userEditLink"));
       });
 
-      it("Logoutボタン", () => {
-        userEvent.click(el("userIcon"));
+      it("Logoutボタン", async () => {
+        await userEvent.click(el("userIcon"));
         expect(el("menuBar")).toContainElement(el("logoutButton"));
       });
     });
