@@ -79,7 +79,7 @@ const DiaryCreateOpenButton = styled(BaseButton)`
 
 const DrawerOpenButton = styled(BaseButton)`
   height: 2.4rem;
-  width: 8rem;
+  width: 8.5rem;
   border: 0.0125rem solid royalblue;
   letter-spacing: 0.2rem;
   font-size: 0.95rem;
