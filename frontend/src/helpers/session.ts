@@ -9,7 +9,7 @@ interface IUserData {
   id: number;
   name: string;
   email: string;
-  // image: string | null; // 使うようになったらコメントアウト
+  // image: string | null;
 }
 
 interface IUser {

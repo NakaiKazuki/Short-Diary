@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useContext,
   useReducer,
+  useRef,
 } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -220,6 +221,8 @@ export const LoginHome: VFC = () => {
 
   // ここからPagenationAreaで使う関数
   // ページネションのページ番号が選択されたら、その番号に応じてデータを受け取る
+
+  const scrollIndexTopRef = useRef<HTMLDivElement>(null);
   const onPageChange = (page: number): void => {
     getDiaies(
       currentUser!.headers,
@@ -232,6 +235,7 @@ export const LoginHome: VFC = () => {
           diaries: data.diaries,
           pagy: data.pagy,
         });
+        scrollIndexTopRef?.current?.scrollIntoView();
       })
       .catch((e) => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
@@ -607,7 +611,7 @@ export const LoginHome: VFC = () => {
   }, []);
 
   return (
-    <LoginHomeWrapper>
+    <LoginHomeWrapper ref={scrollIndexTopRef}>
       <Heading data-testid="pageTitle">Diaries</Heading>
       <DiaryCreateOpenButton
         onClick={onOpenDiaryCreateDialog}
