@@ -131,7 +131,7 @@ describe("LoginHome", () => {
     customRender(<LoginHome />, providerProps);
   };
 
-  beforeEach(async() => await act(async() => await waitFor(() => setup())));
+  beforeEach(async () => await act(async () => await waitFor(() => setup())));
 
   it("日記一覧が表示", async () => {
     await waitFor(() => expect(el("diaryIndex")).toBeTruthy());
@@ -283,9 +283,7 @@ describe("LoginHome", () => {
         it("content欄は入力した文字数が表示", async () => {
           await userEvent.clear(el("contentArea"));
           await waitFor(() =>
-            expect(el("contentCount")).toHaveTextContent(
-              "0/200"
-            )
+            expect(el("contentCount")).toHaveTextContent("0/200")
           );
         });
       });
@@ -507,7 +505,7 @@ describe("LoginHome", () => {
             .reply(422, returnErrorData);
 
           // 有効な値を入力
-          await userEvent.type(el(formInfo[1].testId), formInfo[1].value)
+          await userEvent.type(el(formInfo[1].testId), formInfo[1].value);
           // 初期値
           expect(el("formSubmit")).toHaveTextContent("日記編集");
 
@@ -526,7 +524,7 @@ describe("LoginHome", () => {
     });
 
     describe("ConfirmDilog", () => {
-      beforeEach(async() => {
+      beforeEach(async () => {
         mockAxios
           .onDelete(`${diary}/${returnData.diaries[0].id}`)
           .reply(200, returnData);
@@ -554,13 +552,17 @@ describe("LoginHome", () => {
       });
     });
 
-    it("DiaryDialog初期値(タグあり, 画像あり)", async() => {
+    it("DiaryDialog初期値(タグあり, 画像あり)", async () => {
       await userEvent.click(el("diary-1"));
       expect(el("menuIcon")).toBeTruthy();
 
       // タグがあれば表示
-      expect(el("diaryTag-0")).toHaveTextContent(returnData.diaries[1].tag_list[0]);
-      expect(el("diaryTag-1")).toHaveTextContent(returnData.diaries[1].tag_list[1]);
+      expect(el("diaryTag-0")).toHaveTextContent(
+        returnData.diaries[1].tag_list[0]
+      );
+      expect(el("diaryTag-1")).toHaveTextContent(
+        returnData.diaries[1].tag_list[1]
+      );
       // 日付が表示
       expect(el("diaryDate")).toHaveTextContent(returnData.diaries[1].date);
       // 日記内容が表示
