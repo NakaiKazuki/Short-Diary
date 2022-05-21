@@ -46,7 +46,7 @@ RSpec.describe 'Diaries', type: :request do
       it '無効' do
         expect {
           post_information('テストcontent', nil)
-        }.to change(Diary, :count).by(0)
+        }.not_to change(Diary, :count)
       end
     end
 
@@ -60,7 +60,7 @@ RSpec.describe 'Diaries', type: :request do
         it 'データは作成されない' do
           expect {
             post_information(nil, auth_tokens)
-          }.to change(Diary, :count).by(0)
+          }.not_to change(Diary, :count)
         end
 
         describe 'JSON' do
@@ -312,7 +312,7 @@ RSpec.describe 'Diaries', type: :request do
       it '無効' do
         expect {
           delete_information(nil)
-        }.to change(Diary, :count).by(0)
+        }.not_to change(Diary, :count)
       end
     end
 
@@ -326,7 +326,7 @@ RSpec.describe 'Diaries', type: :request do
         it 'データは削除されない' do
           expect {
             delete_information(sign_in(create(:guest)))
-          }.to change(Diary, :count).by(0)
+          }.not_to change(Diary, :count)
         end
       end
 
