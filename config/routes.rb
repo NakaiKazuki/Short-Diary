@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       root 'home#home'
+
       resources :diaries, only: %i[create update destroy]
+      get 'photo_galleary', to: 'diaries#photo_galleary'
 
       devise_scope :user do
         post 'auth/guest_sign_in', to: 'auth/sessions#new_guest'

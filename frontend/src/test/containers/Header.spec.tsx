@@ -93,6 +93,11 @@ describe("Header コンポーネント", () => {
     const setup = () => customRender(<Header />, providerProps);
     // eslint-disable-next-line testing-library/no-render-in-setup
     beforeEach(() => setup());
+
+    it("MenuIcon", () => {
+      expect(el("menuIcon")).toBeTruthy();
+    });
+
     it("ホーム画面へのリンク", () => {
       expect(el("homeLink")).toHaveAttribute("href", "/");
     });

@@ -1,4 +1,4 @@
-import { VFC, Fragment } from "react";
+import { FC, Fragment } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -43,7 +43,7 @@ interface IFormLinks {
   linkInfo: Array<IlinkInfo>;
 }
 
-export const FormLinks: VFC<IFormLinks> = ({ linkInfo }) => {
+export const FormLinks: FC<IFormLinks> = ({ linkInfo }) => {
   return (
     <Fragment>
       {linkInfo.map((obj: IlinkInfo, index: number) => {

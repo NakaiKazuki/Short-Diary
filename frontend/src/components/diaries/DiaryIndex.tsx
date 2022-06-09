@@ -1,8 +1,8 @@
-import { VFC } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 
 // components
-import { PictureIcon } from "../Icons";
+import { PictureIcon } from "../icons";
 
 // css
 const DiariesWrapper = styled.ul`
@@ -77,7 +77,7 @@ interface DiariesProps {
   onOpenDiaryDialog(diary: IDiary): void;
 }
 
-export const DiaryIndex: VFC<DiariesProps> = ({
+export const DiaryIndex: FC<DiariesProps> = ({
   diaries,
   onOpenDiaryDialog,
 }) => {

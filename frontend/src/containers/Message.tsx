@@ -1,4 +1,4 @@
-import { VFC, useContext, useEffect } from "react";
+import { FC, useContext, useEffect } from "react";
 import styled from "styled-components";
 
 // contexts
@@ -24,7 +24,7 @@ const TextWrapper = styled.p`
   font-size: 1rem;
 `;
 
-export const Message: VFC = () => {
+export const Message: FC = () => {
   const { message, setMessage } = useContext(MessageContext);
 
   useEffect((): void => {

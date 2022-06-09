@@ -1,4 +1,4 @@
-import { createContext, useState, VFC } from "react";
+import { createContext, useState, FC } from "react";
 
 // 型
 interface IHeaders {
@@ -25,7 +25,7 @@ interface IAuthContext {
 
 export const AuthContext = createContext({} as IAuthContext);
 
-export const AuthProvider: VFC<any> = ({ children }): JSX.Element => {
+export const AuthProvider: FC<any> = ({ children }): JSX.Element => {
   const [currentUser, setCurrentUser] = useState(undefined);
 
   return (

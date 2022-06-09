@@ -1,5 +1,5 @@
 import React, {
-  VFC,
+  FC,
   Fragment,
   useState,
   useEffect,
@@ -19,7 +19,7 @@ import { fetchHome, getDiaies } from "../apis/home";
 import { createDiary, updateDiary, deleteDiary } from "../apis/diaries";
 
 // icons
-import { CreateIcon, SearchIcon } from "../components/Icons";
+import { CreateIcon, SearchIcon } from "../components/icons";
 
 // components
 import { BaseButton } from "../components/shared_style";
@@ -187,7 +187,7 @@ interface ISearchFormValue {
   searchWord: string | undefined;
 }
 
-export const LoginHome: VFC = () => {
+export const LoginHome: FC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const {
@@ -260,20 +260,6 @@ export const LoginHome: VFC = () => {
   };
   // 日付を指定して検索する場合に使用
   const onDateChange = (selectedDate: null | Date): void => {
-    console.log(
-      selectedDate
-        ? new Date(new Date(selectedDate))
-            .toISOString()
-            .replace(/\..*/, "-09:00")
-        : undefined
-    );
-    console.log(
-      selectedDate
-        ? new Date(new Date(selectedDate))
-            .toISOString()
-            .replace(/\..*/, "+09:00")
-        : undefined
-    );
     fetchHome(
       currentUser!.headers,
       selectedDate

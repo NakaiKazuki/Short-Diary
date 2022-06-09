@@ -1,11 +1,11 @@
-import React, { VFC } from "react";
+import React, { FC } from "react";
 import { TextField } from "@material-ui/core";
 import { Controller } from "react-hook-form";
 import styled from "styled-components";
 
 // components
 import { BaseButton } from "../shared_style";
-import { AddPictureIcon } from "../Icons";
+import { AddPictureIcon } from "../icons";
 
 const FormWrapper = styled.form`
   padding: 0 10% 5% 10%;
@@ -86,7 +86,7 @@ interface IFormAreaProps {
   onFileChange(e: any): void;
 }
 
-export const FormArea: VFC<IFormAreaProps> = ({
+export const FormArea: FC<IFormAreaProps> = ({
   control,
   errors,
   register,

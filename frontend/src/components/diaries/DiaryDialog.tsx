@@ -1,4 +1,4 @@
-import React, { VFC, Fragment } from "react";
+import React, { FC, Fragment } from "react";
 import { Chip, Dialog } from "@material-ui/core";
 import styled from "styled-components";
 
@@ -95,7 +95,7 @@ interface IDiaryDialogProps {
   onMenuClose(): void;
 }
 
-export const DiaryDialog: VFC<IDiaryDialogProps> = ({
+export const DiaryDialog: FC<IDiaryDialogProps> = ({
   isOpen,
   isOpenDiaryEdit,
   diary,

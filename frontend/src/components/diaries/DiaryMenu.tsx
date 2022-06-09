@@ -1,14 +1,14 @@
-import React, { VFC, Fragment } from "react";
+import React, { FC, Fragment } from "react";
 import { MenuItem, withStyles, Menu, ListItemIcon } from "@material-ui/core";
 import { MenuProps } from "@material-ui/core/Menu";
 import styled from "styled-components";
 
 // icons
-import { MenuIcon, DeleteIcon, EditIcon, VisibilityIcon } from "../Icons";
+import { MenuOpenIcon, DeleteIcon, EditIcon, VisibilityIcon } from "../icons";
 
 // css
 
-const MenuIconWrapper = styled.span`
+const MenuOpenIconWrapper = styled.span`
   margin: 0 0 0 auto;
   padding: 0.6rem 0.6rem 0 0;
   color: royalblue;
@@ -103,7 +103,7 @@ interface IDiaryMenuProps {
   onDiaryShowMode(): void;
 }
 
-export const DiaryMenu: VFC<IDiaryMenuProps> = ({
+export const DiaryMenu: FC<IDiaryMenuProps> = ({
   anchorEl,
   isOpenDiaryEdit,
   onMenuOpen,
@@ -114,13 +114,13 @@ export const DiaryMenu: VFC<IDiaryMenuProps> = ({
 }) => {
   return (
     <Fragment>
-      <MenuIconWrapper
+      <MenuOpenIconWrapper
         aria-haspopup="true"
         onClick={onMenuOpen}
-        data-testid="menuIcon"
+        data-testid="menuOpenIcon"
       >
-        <MenuIcon fontSize="large" />
-      </MenuIconWrapper>
+        <MenuOpenIcon fontSize="large" />
+      </MenuOpenIconWrapper>
 
       <StyledMenu
         anchorEl={anchorEl}

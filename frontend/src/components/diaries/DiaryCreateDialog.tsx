@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import React, { FC } from "react";
 import { Dialog, DialogTitle } from "@material-ui/core";
 import styled from "styled-components";
 
@@ -36,7 +36,7 @@ interface IDiaryCreateDialogProps {
   onClose(): void;
 }
 
-export const DiaryCreateDialog: VFC<IDiaryCreateDialogProps> = ({
+export const DiaryCreateDialog: FC<IDiaryCreateDialogProps> = ({
   isOpen,
   control,
   errors,

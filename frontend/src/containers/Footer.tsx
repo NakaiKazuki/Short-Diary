@@ -1,4 +1,4 @@
-import { VFC } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 
 // components
@@ -25,7 +25,7 @@ const LinkItem = styled(BaseButton)`
   color: royalblue;
 `;
 
-export const Footer: VFC = () => {
+export const Footer: FC = () => {
   return (
     <AppFooter data-testid="footer">
       <Link
