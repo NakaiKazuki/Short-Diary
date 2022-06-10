@@ -4,7 +4,7 @@ import { MenuProps } from "@material-ui/core/Menu";
 import styled from "styled-components";
 
 // icons
-import { MenuOpenIcon, DeleteIcon, EditIcon, VisibilityIcon } from "../icons";
+import { MenuOpenIcon, DeleteIcon, EditIcon, VisibilityIcon } from "../icon";
 
 // css
 

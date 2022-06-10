@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 // components
 import { BaseButton } from "../shared_style";
-import { AddPictureIcon } from "../icons";
+import { AddPictureIcon } from "../icon";
 
 const FormWrapper = styled.form`
   padding: 0 10% 5% 10%;

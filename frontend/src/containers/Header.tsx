@@ -8,7 +8,7 @@ import { AuthContext } from "../contexts/Auth";
 import { DrawerContext } from "../contexts/Drawer";
 
 // icons
-import { MenuIcon } from "../components/icons";
+import { MenuIcon } from "../components/icon";
 
 // components
 import { BaseButton } from "../components/shared_style";

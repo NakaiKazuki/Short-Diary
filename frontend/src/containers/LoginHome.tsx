@@ -19,7 +19,7 @@ import { fetchHome, getDiaies } from "../apis/home";
 import { createDiary, updateDiary, deleteDiary } from "../apis/diaries";
 
 // icons
-import { CreateIcon, SearchIcon } from "../components/icons";
+import { CreateIcon, SearchIcon } from "../components/icon";
 
 // components
 import { BaseButton } from "../components/shared_style";

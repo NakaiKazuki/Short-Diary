@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 // icons
-import { LogoutIcon, UserIcon, EditIcon } from "../icons";
+import { LogoutIcon, UserIcon, EditIcon } from "../icon";
 
 // css
 const UserWrapper = styled.span`

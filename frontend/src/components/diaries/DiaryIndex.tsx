@@ -2,7 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 
 // components
-import { PictureIcon } from "../icons";
+import { PictureIcon } from "../icon";
 
 // css
 const DiariesWrapper = styled.ul`
