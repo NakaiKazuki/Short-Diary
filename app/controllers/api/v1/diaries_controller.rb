@@ -45,7 +45,7 @@ class Api::V1::DiariesController < ApplicationController
     }, methods: [:picture_url], status: :ok
   end
 
-  def photo_galleary
+  def photo_gallery
     items = []
     diaries = current_user.diaries
     diaries.each do |diary|

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       root 'home#home'
 
       resources :diaries, only: %i[create update destroy]
-      get 'photo_galleary', to: 'diaries#photo_galleary'
+      get 'photo_gallery', to: 'diaries#photo_gallery'
 
       devise_scope :user do
         post 'auth/guest_sign_in', to: 'auth/sessions#new_guest'

@@ -376,7 +376,7 @@ RSpec.describe 'Diaries', type: :request do
     end
   end
 
-  describe 'GET /api/v1/diaries/photo_galleay' do
+  describe 'GET /api/v1/diaries/photo_gallery' do
     subject(:json_body) {
       get api_v1_photo_gallery_path(auth_tokens)
       JSON.parse(response.body)
