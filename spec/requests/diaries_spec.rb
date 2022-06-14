@@ -375,4 +375,20 @@ RSpec.describe 'Diaries', type: :request do
       end
     end
   end
+
+  describe 'GET /api/v1/diaries/photo_gallery' do
+    subject(:json_body) {
+      get api_v1_photo_gallery_path(auth_tokens)
+      JSON.parse(response.body)
+    }
+
+    it '画像あり' do
+      create(:diary, :add_picture, user: user)
+      expect(json_body['items'][0]).to be_truthy
+    end
+
+    it '画像無し' do
+      expect(json_body['items'][0]).to be_nil
+    end
+  end
 end

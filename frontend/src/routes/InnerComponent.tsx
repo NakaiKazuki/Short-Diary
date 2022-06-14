@@ -1,4 +1,4 @@
-import { VFC } from "react";
+import { FC } from "react";
 import { Routes, Route } from "react-router-dom";
 
 // routes
@@ -15,8 +15,9 @@ import { LoginHome } from "../containers/LoginHome";
 import { SignUp } from "../containers/SignUp";
 import { Login } from "../containers/Login";
 import { UserEdit } from "../containers/UserEdit";
+import { PhotoGallery } from "../containers/PhotoGallery";
 
-export const InnnerComponent: VFC = () => {
+export const InnnerComponent: FC = () => {
   useTracking(process.env.REACT_APP_GA_UA);
   useTracking(process.env.REACT_APP_GA_G);
 
@@ -33,6 +34,10 @@ export const InnnerComponent: VFC = () => {
       <Route
         path="/userEdit"
         element={<PrivateRoute children={<UserEdit />} />}
+      />
+      <Route
+        path="/photoGalley"
+        element={<PrivateRoute children={<PhotoGallery />} />}
       />
     </Routes>
   );

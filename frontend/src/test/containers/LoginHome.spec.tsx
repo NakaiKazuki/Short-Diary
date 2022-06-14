@@ -327,13 +327,13 @@ describe("LoginHome", () => {
       expect(el("diaryDialog")).toBeTruthy();
     });
 
-    it("MenuIconがある", () => {
-      expect(el("menuIcon")).toBeTruthy();
+    it("menuOpenIconがある", () => {
+      expect(el("menuOpenIcon")).toBeTruthy();
     });
 
     it("初期値(タグ無し, 画像無し)", () => {
-      // MenuIconが表示
-      expect(el("menuIcon")).toBeTruthy();
+      // menuOpenIconが表示
+      expect(el("menuOpenIcon")).toBeTruthy();
       // 日付が表示
       expect(el("diaryDate")).toHaveTextContent(returnData.diaries[0].date);
       // タグが空配列なら表示しない
@@ -350,7 +350,7 @@ describe("LoginHome", () => {
 
     it("MenuBarの編集クリックで編集用画面に変更", async () => {
       // メニューを開く
-      await userEvent.click(el("menuIcon"));
+      await userEvent.click(el("menuOpenIcon"));
       // 編集をクリック
       await userEvent.click(el("MenuItemDiaryEdit"));
       expect(el("diaryEditTitle")).toHaveTextContent("日記編集");
@@ -358,7 +358,7 @@ describe("LoginHome", () => {
 
     it("MenuBarの削除クリックで確認用Dialog表示", async () => {
       // メニューを開く
-      await userEvent.click(el("menuIcon"));
+      await userEvent.click(el("menuOpenIcon"));
       // 削除をクリック
       await userEvent.click(el("MenuItemDiaryDelete"));
       expect(el("confirmDialog")).toBeTruthy();
@@ -371,7 +371,7 @@ describe("LoginHome", () => {
 
       describe("メニュー項目", () => {
         beforeEach(async () => {
-          await userEvent.click(el("menuIcon"));
+          await userEvent.click(el("menuOpenIcon"));
         });
 
         it("編集ボタン", () => {
@@ -398,13 +398,13 @@ describe("LoginHome", () => {
     describe("DiaryEdit", () => {
       beforeEach(async () => {
         // メニューを開く
-        await userEvent.click(el("menuIcon"));
+        await userEvent.click(el("menuOpenIcon"));
         // 編集をクリック
         await userEvent.click(el("MenuItemDiaryEdit"));
       });
 
       it("メニューバー(編集時)", async () => {
-        await userEvent.click(el("menuIcon"));
+        await userEvent.click(el("menuOpenIcon"));
         // 閲覧に変更ボタン
         expect(el("diaryMenuBar")).toContainElement(el("MenuItemDiaryShow"));
         // 削除ボタン
@@ -425,7 +425,7 @@ describe("LoginHome", () => {
           .reply(200, returnData);
 
         // 無効な値を入力
-        await userEvent.clear(el( formInfo[1].testId));
+        await userEvent.clear(el(formInfo[1].testId));
         // ユーザが送信ボタンをクリック
         await act(async () => await userEvent.click(el("formSubmit")));
 
@@ -529,7 +529,7 @@ describe("LoginHome", () => {
           .onDelete(`${diary}/${returnData.diaries[0].id}`)
           .reply(200, returnData);
         // メニューを開く
-        await userEvent.click(el("menuIcon"));
+        await userEvent.click(el("menuOpenIcon"));
         // 削除をクリック
         await userEvent.click(el("MenuItemDiaryDelete"));
       });
@@ -554,7 +554,7 @@ describe("LoginHome", () => {
 
     it("DiaryDialog初期値(タグあり, 画像あり)", async () => {
       await userEvent.click(el("diary-1"));
-      expect(el("menuIcon")).toBeTruthy();
+      expect(el("menuOpenIcon")).toBeTruthy();
 
       // タグがあれば表示
       expect(el("diaryTag-0")).toHaveTextContent(

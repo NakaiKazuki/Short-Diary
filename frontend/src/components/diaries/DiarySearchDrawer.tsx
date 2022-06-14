@@ -1,4 +1,4 @@
-import { VFC, Fragment } from "react";
+import { FC, Fragment } from "react";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -47,7 +47,7 @@ interface IDiarySearchDrawerProps {
   onSubmit(): void;
 }
 
-export const DiarySearchDrawer: VFC<IDiarySearchDrawerProps> = ({
+export const DiarySearchDrawer: FC<IDiarySearchDrawerProps> = ({
   control,
   selectedDate,
   isOpenDrawer,

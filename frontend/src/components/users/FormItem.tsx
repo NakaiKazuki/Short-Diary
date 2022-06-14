@@ -1,4 +1,4 @@
-import { VFC } from "react";
+import { FC } from "react";
 import { Controller } from "react-hook-form";
 import { TextField, InputLabel } from "@material-ui/core";
 import styled from "styled-components";
@@ -44,7 +44,7 @@ interface IFormItemProps {
   formInfo: IFormInfoProps;
 }
 
-export const FormItem: VFC<IFormItemProps> = ({ formInfo }) => {
+export const FormItem: FC<IFormItemProps> = ({ formInfo }) => {
   return (
     <FormItemWrapper data-testid={`FormItem-${formInfo.nameAttribute}`}>
       <InputLabel>

@@ -1,10 +1,14 @@
-import React, { VFC, useContext, useState, Fragment } from "react";
+import React, { FC, useContext, useState, Fragment } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AppBar, Toolbar } from "@material-ui/core";
 import styled from "styled-components";
 
 //contexts
 import { AuthContext } from "../contexts/Auth";
+import { DrawerContext } from "../contexts/Drawer";
+
+// icons
+import { MenuIcon } from "../components/icon";
 
 // components
 import { BaseButton } from "../components/shared_style";
@@ -22,6 +26,11 @@ import mainLogo from "../images/logo.png";
 // css
 const AppHeader = styled(AppBar)`
   height: auto;
+`;
+
+const MenuIconWrapper = styled.span`
+  margin: auto 0.8rem auto 0;
+  cursor: pointer;
 `;
 
 const MainLogo = styled.img`
@@ -48,10 +57,11 @@ const LinkItem = styled(BaseButton)`
   color: white;
 `;
 
-export const Header: VFC = () => {
+export const Header: FC = () => {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const { setOpenDrawer } = useContext(DrawerContext);
 
   // ユーザのログアウト処理
   const onSignOut = (): void => {
@@ -63,13 +73,21 @@ export const Header: VFC = () => {
       })
       .catch((e) => {
         console.error(e);
-        throw(e);
+        throw e;
       });
   };
 
   return (
     <AppHeader position="fixed" color="inherit" data-testid="header">
       <Toolbar>
+        {isLoggedIn(currentUser) && (
+          <MenuIconWrapper
+            onClick={(): void => setOpenDrawer(true)}
+            data-testid="menuIcon"
+          >
+            <MenuIcon />
+          </MenuIconWrapper>
+        )}
         <Link to="/" data-testid="homeLink">
           <MainLogo src={mainLogo} alt="main logo" />
         </Link>

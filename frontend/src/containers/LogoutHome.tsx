@@ -1,4 +1,4 @@
-import { VFC, useContext, useReducer } from "react";
+import { FC, useContext, useReducer } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -94,7 +94,7 @@ const GuestLogin = styled(HomeButton)`
   background-color: limegreen;
 `;
 
-export const LogoutHome: VFC = () => {
+export const LogoutHome: FC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [state, dispatch] = useReducer(submitReducer, initialState);
   const navigate = useNavigate();
@@ -113,7 +113,7 @@ export const LogoutHome: VFC = () => {
       })
       .catch((e) => {
         console.error(e);
-        throw(e);
+        throw e;
       });
   };
 

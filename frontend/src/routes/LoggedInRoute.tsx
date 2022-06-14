@@ -1,4 +1,4 @@
-import { VFC, useContext } from "react";
+import { FC, useContext } from "react";
 //contexts
 import { AuthContext } from "../contexts/Auth";
 
@@ -10,7 +10,7 @@ interface ILoggedInRouteProps {
   logout: JSX.Element;
 }
 
-export const LoggedInRoute: VFC<ILoggedInRouteProps> = ({
+export const LoggedInRoute: FC<ILoggedInRouteProps> = ({
   login,
   logout,
 }) => {

@@ -1,4 +1,4 @@
-import { createContext, useState, VFC } from "react";
+import { createContext, useState, FC } from "react";
 
 // 型
 
@@ -9,7 +9,7 @@ interface IMessageContext {
 
 export const MessageContext = createContext({} as IMessageContext);
 
-export const MessageProvider: VFC<any> = ({ children }): JSX.Element => {
+export const MessageProvider: FC<any> = ({ children }): JSX.Element => {
   const [message, setMessage] = useState(undefined);
 
   return (

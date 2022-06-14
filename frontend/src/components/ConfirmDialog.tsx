@@ -1,4 +1,4 @@
-import { VFC } from "react";
+import { FC } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -56,7 +56,7 @@ interface IConfirmDialogProps {
   onClose(): void;
 }
 
-export const ConfirmDialog: VFC<IConfirmDialogProps> = ({
+export const ConfirmDialog: FC<IConfirmDialogProps> = ({
   isOpen,
   title,
   contentText,

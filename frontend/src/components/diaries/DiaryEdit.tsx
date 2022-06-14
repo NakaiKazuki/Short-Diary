@@ -1,4 +1,4 @@
-import React, { VFC, Fragment } from "react";
+import React, { FC, Fragment } from "react";
 import { DialogTitle } from "@material-ui/core";
 import styled from "styled-components";
 
@@ -42,7 +42,7 @@ interface IDiaryEditProps {
   onFileChange(e: any): void;
 }
 
-export const DiaryEdit: VFC<IDiaryEditProps> = ({
+export const DiaryEdit: FC<IDiaryEditProps> = ({
   diary,
   control,
   errors,

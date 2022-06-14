@@ -13,3 +13,4 @@ export const guestSignIn: string = `${DEVISE_PATH}/guest_sign_in`;
 
 // Diary
 export const diary: string = `${DEFAULT_API_LOCALHOST}/diaries`;
+export const photoGallery: string = `${DEFAULT_API_LOCALHOST}/photo_gallery`;

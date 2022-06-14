@@ -1,4 +1,4 @@
-import { VFC, useState, useReducer, useContext } from "react";
+import { FC, useState, useReducer, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -50,7 +50,7 @@ interface IFormValues {
 }
 
 // エラーメッセージ
-export const Login: VFC = () => {
+export const Login: FC = () => {
   const navigate = useNavigate();
   const [apiErrors, setErrorMessage] = useState<Array<string> | undefined>(
     undefined
@@ -87,7 +87,7 @@ export const Login: VFC = () => {
           setErrorMessage(e.response.data.errors);
         } else {
           console.error(e);
-          throw(e);
+          throw e;
         }
       });
   };

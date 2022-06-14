@@ -1,4 +1,4 @@
-import { VFC } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 import { BaseButton } from "../shared_style";
 
@@ -18,7 +18,7 @@ interface IFormSubmitProps {
   onSubmitText: string;
 }
 
-export const FormSubmit: VFC<IFormSubmitProps> = ({
+export const FormSubmit: FC<IFormSubmitProps> = ({
   isDisabled,
   onSubmitText,
 }) => {

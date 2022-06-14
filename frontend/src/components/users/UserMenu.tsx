@@ -1,11 +1,11 @@
-import React, { VFC, Fragment } from "react";
+import React, { FC, Fragment } from "react";
 import { MenuItem, withStyles, Menu, ListItemIcon } from "@material-ui/core";
 import { MenuProps } from "@material-ui/core/Menu";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 // icons
-import { LogoutIcon, UserIcon, EditIcon } from "../Icons";
+import { LogoutIcon, UserIcon, EditIcon } from "../icon";
 
 // css
 const UserWrapper = styled.span`
@@ -118,7 +118,7 @@ interface IDiaryMenuProps {
   onSignOut(): void;
 }
 
-export const UserMenu: VFC<IDiaryMenuProps> = ({
+export const UserMenu: FC<IDiaryMenuProps> = ({
   anchorEl,
   currentUserName,
   onMenuOpen,

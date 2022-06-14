@@ -1,5 +1,5 @@
 import axios from "axios";
-import { diary } from "../urls";
+import { diary, photoGallery } from "../urls";
 
 interface IParams {
   date: string;
@@ -62,6 +62,16 @@ export const deleteDiary = (
     .delete(`${diary}/${diaryId}`, {
       headers: {...currentUserHeaders},
       data: { page: page },
+    })
+    .then((res) => res.data);
+};
+
+export const fetchPhotoGallery = (
+  currentUserHeaders: ICurrentUserHeaders,
+): Promise<any> => {
+  return axios
+    .get(photoGallery, {
+      headers: {...currentUserHeaders},
     })
     .then((res) => res.data);
 };

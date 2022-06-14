@@ -1,4 +1,4 @@
-import { VFC, useState, useReducer, useContext } from "react";
+import { FC, useState, useReducer, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -59,7 +59,7 @@ interface IApiErrors {
   password_confirmation?: Array<string>;
 }
 
-export const SignUp: VFC = () => {
+export const SignUp: FC = () => {
   const navigate = useNavigate();
   const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined>(
     undefined
@@ -97,7 +97,7 @@ export const SignUp: VFC = () => {
           setErrorMessage(e.response.data.errors);
         } else {
           console.error(e);
-          throw(e);
+          throw e;
         }
       });
   };
