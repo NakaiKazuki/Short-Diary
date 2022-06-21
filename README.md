@@ -1,6 +1,6 @@
 # Short Diary
 
- 200文字以内の日記を作成するサイトです。
+ 200文字以内の日記を作成するためのアプリケーションです。
 
  日記の内容を短くすることで継続しやすくしています。
 
@@ -64,6 +64,8 @@
     - styled-components
   - Form
     - React Hook Form
+  - PhotoGallery
+    - React Image Gallery
 
 ## テスト
 

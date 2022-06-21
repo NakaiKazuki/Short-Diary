@@ -210,6 +210,7 @@ export const FormArea: FC<IFormAreaProps> = ({
           <InputPictureArea
             {...register("picture", {
               onChange: onFileChange,
+              shouldUnregister: true,
             })}
             type="file"
             accept="image/*,.png,.jpg,.jpeg,.gif"

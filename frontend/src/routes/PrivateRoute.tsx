@@ -14,5 +14,5 @@ interface IPrivateRouteProps {
 export const PrivateRoute: FC<IPrivateRouteProps> = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
 
-  return isLoggedIn(currentUser) ? children : <Navigate to="login" />;
+  return isLoggedIn(currentUser) ? children : <Navigate to="/login" />;
 };

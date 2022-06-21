@@ -76,7 +76,7 @@ export const Login: FC = () => {
           ...res.data,
           headers: res.headers,
         });
-        navigate("/");
+        navigate("/", { replace: true });
       })
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });

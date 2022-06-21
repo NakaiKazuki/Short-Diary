@@ -86,7 +86,7 @@ export const SignUp: FC = () => {
         setMessage(
           "認証用メールを送信しました。登録時のメールアドレスから認証を済ませてください。"
         );
-        navigate("/");
+        navigate("/", { replace: true });
       })
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });

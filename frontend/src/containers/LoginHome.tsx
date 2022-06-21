@@ -284,7 +284,7 @@ export const LoginHome: FC = () => {
       .catch((e): void => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          navigate("/login");
+          navigate("/login", { replace: true });
         } else {
           console.error(e);
           throw e;

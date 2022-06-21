@@ -105,7 +105,7 @@ export const UserEdit: FC = () => {
           headers: res.headers,
         });
         setMessage("登録情報の編集に成功しました。");
-        navigate("/");
+        navigate("../", { replace: true });
       })
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
@@ -116,7 +116,7 @@ export const UserEdit: FC = () => {
           e.response.status === HTTP_STATUS_CODE.FORBIDDEN
         ) {
           setCurrentUser(undefined);
-          navigate("/login");
+          navigate("../login", { replace: true });
         } else {
           console.error(e);
           throw e;
