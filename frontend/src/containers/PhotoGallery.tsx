@@ -204,6 +204,7 @@ export const PhotoGallery: FC = () => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return state.fetchState === REQUEST_STATE.LOADING ? (
     <CircularProgressWrapper>
       <CircularProgress />
