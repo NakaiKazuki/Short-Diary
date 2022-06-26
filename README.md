@@ -5,11 +5,13 @@
  日記の内容を短くすることで継続しやすくしています。
 
  スマホからもご利用可能です。
-![Short-Diary-ss-1](https://user-images.githubusercontent.com/62586169/120081349-39dae000-c0f8-11eb-81f0-3f78de98e9ee.png)
+![スクリーンショット (14)](https://user-images.githubusercontent.com/62586169/175801488-bfeabe49-ba55-4d74-a417-45c13b49e7e7.png)
 
-![Short-Diary-ss-2](https://user-images.githubusercontent.com/62586169/120081352-3c3d3a00-c0f8-11eb-9faf-08dbb0eab588.png)
+![スクリーンショット (13)](https://user-images.githubusercontent.com/62586169/175801483-c92a036e-7f62-4ae4-948a-10d16c596156.png)
 
-![Short-Diary-ss-4](https://user-images.githubusercontent.com/62586169/120081354-3f382a80-c0f8-11eb-8e56-01b93ef7278b.png)
+![スクリーンショット (11)](https://user-images.githubusercontent.com/62586169/175801478-e6f0fc35-45e3-4345-a420-755552a03af9.png)
+
+![スクリーンショット (12)](https://user-images.githubusercontent.com/62586169/175801481-c7d2089c-7813-4023-bd34-40d88a52f4e7.png)
 
 ## URL
 
