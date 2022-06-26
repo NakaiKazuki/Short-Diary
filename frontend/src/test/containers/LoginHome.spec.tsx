@@ -131,7 +131,9 @@ describe("LoginHome", () => {
     customRender(<LoginHome />, providerProps);
   };
 
-  beforeEach(async () => await act(async () => await waitFor(() => setup())));
+  beforeEach(async () => await act(async () => {
+    setup();
+  }));
 
   it("日記一覧が表示", async () => {
     await waitFor(() => expect(el("diaryIndex")).toBeTruthy());

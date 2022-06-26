@@ -85,17 +85,13 @@ describe("LogoutHome", () => {
       expect(el("guestLoginButton")).toHaveAttribute("type", "button");
     });
 
-    it("送信結果に応じてボタンの要素が変化", async () => {
+    it("ボタンの要素が変化", async () => {
       // 初期値
       expect(el("guestLoginButton")).toHaveTextContent("ゲストログイン");
       expect(el("guestLoginButton")).not.toBeDisabled();
 
       // ユーザがゲストログインボタンをクリック
       await userEvent.click(el("guestLoginButton"));
-
-      // 送信中
-      expect(el("guestLoginButton")).toHaveTextContent("送信中...");
-      expect(el("guestLoginButton")).toBeDisabled();
 
       // 送信完了
       await waitFor(() =>
