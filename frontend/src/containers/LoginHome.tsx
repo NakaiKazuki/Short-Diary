@@ -120,6 +120,7 @@ const EmptyMessageWrapper = styled.div`
     width: 44%;
   }
   @media screen and (max-width: 480px) {
+    margin-top: 4rem;
     height: 10rem;
     width: 100%;
   }
