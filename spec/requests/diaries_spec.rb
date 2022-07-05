@@ -40,7 +40,7 @@ RSpec.describe 'Diaries', type: :request do
     context 'ログインしていない場合' do
       it 'Response' do
         post_information('テストcontent', nil)
-        expect(response.status).to eq(401)
+        expect(response).to have_http_status(:unauthorized)
       end
 
       it '無効' do
@@ -54,7 +54,7 @@ RSpec.describe 'Diaries', type: :request do
       describe '無効なパラメータを送信' do
         it 'Response' do
           post_information(nil, auth_tokens)
-          expect(response.status).to eq(422)
+          expect(response).to have_http_status(:unprocessable_entity)
         end
 
         it 'データは作成されない' do
@@ -78,7 +78,7 @@ RSpec.describe 'Diaries', type: :request do
       describe '有効なパラメータを送信' do
         it 'Response' do
           post_information('テストcontent', auth_tokens)
-          expect(response.status).to eq(200)
+          expect(response).to have_http_status(:ok)
         end
 
         it 'データは作成される' do
@@ -178,7 +178,7 @@ RSpec.describe 'Diaries', type: :request do
     context 'ログインしていない場合' do
       it 'Response' do
         patch_information('テスト編集済みcontent', nil)
-        expect(response.status).to eq(401)
+        expect(response).to have_http_status(:unauthorized)
       end
 
       it '無効' do
@@ -191,7 +191,7 @@ RSpec.describe 'Diaries', type: :request do
       context 'データと一致しないユーザでログインしている場合' do
         it '無効' do
           patch_information('テスト編集済みcontent', sign_in(create(:guest)))
-          expect(response.status).to eq(403)
+          expect(response).to have_http_status(:forbidden)
         end
 
         it 'データは編集されない' do
@@ -203,7 +203,7 @@ RSpec.describe 'Diaries', type: :request do
       context '無効なパラメータを送信' do
         it 'Response' do
           patch_information(nil, auth_tokens)
-          expect(response.status).to eq(422)
+          expect(response).to have_http_status(:unprocessable_entity)
         end
 
         it 'データは変更されない' do
@@ -226,7 +226,7 @@ RSpec.describe 'Diaries', type: :request do
       context '有効なパラメータを送信' do
         it 'Response' do
           patch_information('テスト編集済みcontent', auth_tokens)
-          expect(response.status).to eq(200)
+          expect(response).to have_http_status(:ok)
         end
 
         it 'データは編集される' do
@@ -306,7 +306,7 @@ RSpec.describe 'Diaries', type: :request do
     context 'ログインしていない場合は無効' do
       it 'Response' do
         delete_information(nil)
-        expect(response.status).to eq(401)
+        expect(response).to have_http_status(:unauthorized)
       end
 
       it '無効' do
@@ -320,7 +320,7 @@ RSpec.describe 'Diaries', type: :request do
       context 'データと一致しないユーザでログインしている場合' do
         it '無効' do
           delete_information(sign_in(create(:guest)))
-          expect(response.status).to eq(403)
+          expect(response).to have_http_status(:forbidden)
         end
 
         it 'データは削除されない' do
@@ -333,7 +333,7 @@ RSpec.describe 'Diaries', type: :request do
       context '有効なパラメータを送信' do
         it 'Response' do
           delete_information(auth_tokens)
-          expect(response.status).to eq(200)
+          expect(response).to have_http_status(:ok)
         end
 
         it 'データは削除される' do

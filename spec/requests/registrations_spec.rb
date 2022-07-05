@@ -29,7 +29,7 @@ RSpec.describe 'Registrations', type: :request do
     context 'ログインしていない場合' do
       it 'Response 422' do
         put user_registration_path
-        expect(response.status).to eq(422)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
 
@@ -71,12 +71,12 @@ RSpec.describe 'Registrations', type: :request do
 
         it '使用中のパスワードが一致しなかった場合' do
           incorrect_password
-          expect(response.status).to eq(422)
+          expect(response).to have_http_status(:unprocessable_entity)
         end
 
         it 'ゲストユーザの編集は無効' do
           put_guest_information
-          expect(response.status).to eq(422)
+          expect(response).to have_http_status(:unprocessable_entity)
         end
 
         it 'ゲストユーザ用エラーメッセージ' do
@@ -94,7 +94,7 @@ RSpec.describe 'Registrations', type: :request do
 
         it 'ログインしているユーザのメールアドレスを送信した場合' do
           put_information
-          expect(response.status).to eq(200)
+          expect(response).to have_http_status(:ok)
         end
       end
     end

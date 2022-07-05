@@ -16,7 +16,7 @@ RSpec.describe 'Sessions', type: :request do
     it 'ゲストユーザのデータがあればデータを返す' do
       create(:guest)
       post api_v1_auth_guest_sign_in_path
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:ok)
     end
 
     describe 'Response' do
@@ -26,7 +26,7 @@ RSpec.describe 'Sessions', type: :request do
 
       it 'Response Status' do
         post api_v1_auth_guest_sign_in_path
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
       end
 
       describe 'Response Headers Properties' do
