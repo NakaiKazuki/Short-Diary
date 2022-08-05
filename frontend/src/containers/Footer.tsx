@@ -1,5 +1,8 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import styled from "styled-components";
+
+//contexts
+import { ContactContext } from "../contexts/Contact";
 
 // components
 import { BaseButton } from "../components/shared_style";
@@ -15,19 +18,30 @@ const Link = styled.a`
   margin: 0 0 0 auto;
 `;
 
-const LinkItem = styled(BaseButton)`
+const Base = styled(BaseButton)`
   height: 4.5vh;
   padding: 0 1rem;
   margin-bottom: 1vh;
   font-size: 1rem;
   border-style: none;
   background-color: white;
+`;
+
+const LinkItem = styled(Base)`
   color: royalblue;
 `;
 
+const ContactButton = styled(Base)`
+  color: #25cec0;
+`;
+
 export const Footer: FC = () => {
+  const { setOpenContact } = useContext(ContactContext);
   return (
     <AppFooter data-testid="footer">
+      <ContactButton
+        onClick = {():void => setOpenContact(true)}
+      >Contact</ContactButton>
       <Link
         href="https://twitter.com/k_kyube"
         target="_blank"
