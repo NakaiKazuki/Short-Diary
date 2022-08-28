@@ -23,8 +23,8 @@ WORKDIR $APP_ROOT
 COPY Gemfile $APP_ROOT/Gemfile
 COPY Gemfile.lock $APP_ROOT/Gemfile.lock
 
-RUN gem install bundler && \
-    bundle install
+RUN gem install bundler -v 2.3.15 && \
+    bundle install --verbose
 
 COPY . $APP_ROOT
 RUN mkdir -p tmp/sockets tmp/pids log
