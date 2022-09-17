@@ -96,7 +96,7 @@ const GuestLogin = styled(HomeButton)`
 
 export const LogoutHome: FC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
-  const [state, dispatch] = useReducer(submitReducer, initialState);
+  const [submitState, dispatch] = useReducer(submitReducer, initialState);
   const navigate = useNavigate();
 
   const onGuestLoginButton = (): void => {
@@ -137,10 +137,10 @@ export const LogoutHome: FC = () => {
           <GuestLogin
             type="button"
             onClick={onGuestLoginButton}
-            disabled={isDisabled(state.postState)}
+            disabled={isDisabled(submitState.postState)}
             data-testid="guestLoginButton"
           >
-            {onSubmitText(state.postState, "ゲストログイン")}
+            {onSubmitText(submitState.postState, "ゲストログイン")}
           </GuestLogin>
         </ButtonsWrapper>
       </Contents>

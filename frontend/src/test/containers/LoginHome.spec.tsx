@@ -130,10 +130,12 @@ describe("LoginHome", () => {
   const setup = () => {
     customRender(<LoginHome />, providerProps);
   };
-
-  beforeEach(async () => await act(async () => {
-    setup();
-  }));
+  beforeEach(
+    async () =>
+      await act(async () => {
+        setup();
+      })
+  );
 
   it("日記一覧が表示", async () => {
     await waitFor(() => expect(el("diaryIndex")).toBeTruthy());
@@ -189,7 +191,7 @@ describe("LoginHome", () => {
       // 各項目に有効な値を入力
       await userEvent.type(el(formInfo[1].testId), formInfo[1].value);
       // ユーザが送信ボタンをクリック
-      await act(async () => await userEvent.click(el("formSubmit")));
+      await userEvent.click(el("formSubmit"));
       await waitFor(() =>
         expect(screen.queryByTestId("diaryCreateDialog")).toBeNull()
       );
@@ -203,7 +205,7 @@ describe("LoginHome", () => {
       // 各項目に無効な値を入力
       await userEvent.clear(el(formInfo[1].testId));
       // ユーザが送信ボタンをクリック
-      await act(async () => await userEvent.click(el("formSubmit")));
+      await userEvent.click(el("formSubmit"));
       await waitFor(() => expect(el("diaryCreateDialog")).toBeTruthy());
     });
 
@@ -228,7 +230,7 @@ describe("LoginHome", () => {
         await userEvent.clear(el(formInfo[1].testId));
 
         // ユーザが送信ボタンをクリック
-        await act(async () => await userEvent.click(el("formSubmit")));
+        await userEvent.click(el("formSubmit"));
 
         // エラーメッセージが表示(contentにのみ表示)
         await waitFor(() => {
@@ -245,7 +247,7 @@ describe("LoginHome", () => {
         // 各項目に有効な値を入力
         await userEvent.type(el(formInfo[1].testId), formInfo[1].value);
         // ユーザが送信ボタンをクリック
-        await act(async () => await userEvent.click(el("formSubmit")));
+        await userEvent.click(el("formSubmit"));
 
         // 各項目に対応したApiからのエラーメッセージが表示
         await waitFor(() =>
@@ -308,7 +310,7 @@ describe("LoginHome", () => {
           expect(el("formSubmit")).not.toBeDisabled();
 
           // ユーザが送信ボタンをクリック
-          await act(async () => await userEvent.click(el("formSubmit")));
+          await userEvent.click(el("formSubmit"));
 
           // APIからエラーが返ってくると初期値に戻る
           await waitFor(() =>
@@ -322,7 +324,7 @@ describe("LoginHome", () => {
 
   describe("DiaryDialog", () => {
     beforeEach(async () => {
-      await act(async () => await userEvent.click(el("diary-0")));
+      await userEvent.click(el("diary-0"));
     });
 
     it("日記をクリックすると表示", () => {
@@ -429,7 +431,7 @@ describe("LoginHome", () => {
         // 無効な値を入力
         await userEvent.clear(el(formInfo[1].testId));
         // ユーザが送信ボタンをクリック
-        await act(async () => await userEvent.click(el("formSubmit")));
+        await userEvent.click(el("formSubmit"));
 
         // エラーメッセージが表示(contentにのみ表示
         await waitFor(() => {
@@ -448,7 +450,7 @@ describe("LoginHome", () => {
         // 値を入力
         await userEvent.type(el(formInfo[1].testId), formInfo[1].value);
         // ユーザが送信ボタンをクリック
-        await act(async () => await userEvent.click(el("formSubmit")));
+        await userEvent.click(el("formSubmit"));
         // 各項目に対応したApiからのエラーメッセージが表示
         await waitFor(() =>
           expect(el(`FormItem-${idNames[0]}`)).toContainElement(
@@ -514,7 +516,7 @@ describe("LoginHome", () => {
           expect(el("formSubmit")).not.toBeDisabled();
 
           // ユーザが送信ボタンをクリック
-          await act(async () => await userEvent.click(el("formSubmit")));
+          await userEvent.click(el("formSubmit"));
 
           // APIからエラーが返ってくると初期値に戻る
           await waitFor(() =>

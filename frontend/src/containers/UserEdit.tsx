@@ -74,7 +74,7 @@ export const UserEdit: FC = () => {
   const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined>(
     undefined
   );
-  const [state, dispatch] = useReducer(submitReducer, initialState);
+  const [submitState, dispatch] = useReducer(submitReducer, initialState);
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const { setMessage } = useContext(MessageContext);
   const {
@@ -149,8 +149,8 @@ export const UserEdit: FC = () => {
         <FormItem formInfo={formInfo.current_password} />
 
         <FormSubmit
-          isDisabled={isDisabled(state.postState)}
-          onSubmitText={onSubmitText(state.postState, "Profile Edit!")}
+          isDisabled={isDisabled(submitState.postState)}
+          onSubmitText={onSubmitText(submitState.postState, "Profile Edit!")}
         />
       </FormWrapper>
       <FormLinks linkInfo={UserEditLinkInfo} />

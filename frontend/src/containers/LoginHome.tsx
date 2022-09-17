@@ -244,7 +244,6 @@ export const LoginHome: FC = () => {
           navigate("/login");
         } else {
           console.error(e);
-          console.error(e);
           throw e;
         }
       });
@@ -260,15 +259,28 @@ export const LoginHome: FC = () => {
     });
   };
   // 日付を指定して検索する場合に使用
+  const convertDate = (selectedDate: Date) => {
+    if (selectedDate) {
+      const dateTime = new Date(new Date(selectedDate).toLocaleString("ja"));
+      const date = new Date(
+        dateTime.getFullYear(),
+        dateTime.getMonth(),
+        dateTime.getDate(),
+        9,
+        0,
+        0
+      );
+      return date;
+    }
+  };
+
   const onDateChange = (selectedDate: null | Date): void => {
+    if (selectedDate) {
+      console.log(convertDate(selectedDate));
+    }
     fetchHome(
       currentUser!.headers,
-      selectedDate
-        ? new Date(new Date(selectedDate))
-            .toISOString()
-            .replace(/\..*/, "-09:00")
-            .split("T")[0]
-        : undefined
+      selectedDate ? convertDate(selectedDate) : undefined
     )
       .then((data): void => {
         setState({

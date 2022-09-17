@@ -10,7 +10,7 @@ import { BaseButton } from "../components/shared_style";
 const AppFooter = styled.footer`
   height: 5.5vh;
   padding: 1.5vh 1vw 0 0;
-  background-color: #25cec0;
+  background-color: limegreen;
 `;
 
 const Link = styled.a`
@@ -32,7 +32,8 @@ const LinkItem = styled(Base)`
 `;
 
 const ContactButton = styled(Base)`
-  color: #25cec0;
+  margin-left: 0.7rem;
+  color: royalblue; ;
 `;
 
 export const Footer: FC = () => {
@@ -40,8 +41,11 @@ export const Footer: FC = () => {
   return (
     <AppFooter data-testid="footer">
       <ContactButton
-        onClick = {():void => setOpenContact(true)}
-      >Contact</ContactButton>
+        onClick={(): void => setOpenContact(true)}
+        data-testid="contactButton"
+      >
+        Contact
+      </ContactButton>
       <Link
         href="https://twitter.com/k_kyube"
         target="_blank"

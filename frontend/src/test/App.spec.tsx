@@ -1,5 +1,6 @@
 import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import userEvent from "@testing-library/user-event";
 import App from "../App";
 
 const el = screen.getByTestId;
@@ -15,5 +16,11 @@ describe("App", () => {
 
   it("footerコンポーネント", () => {
     expect(el("footer")).toBeTruthy();
+  });
+
+  // 以下クリックで開く系
+  it("Contactコンポーネント", async () => {
+    await userEvent.click(el("contactButton"));
+    expect(el("contact")).toBeTruthy();
   });
 });

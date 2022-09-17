@@ -3,7 +3,7 @@ import { createContext, useState, FC } from "react";
 // 型
 interface IContactContext {
   open: boolean;
-  setOpenContact: React.Dispatch<React.SetStateAction<any>>;
+  setOpenContact: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ContactContext = createContext({} as IContactContext);

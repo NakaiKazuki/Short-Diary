@@ -20,20 +20,22 @@ import { Contact } from "./containers/Contact";
 function App() {
   return (
     <Fragment>
-      <Router>
-        <AuthProvider>
-          <DrawerProvider>
-            <MessageProvider>
-              <Header />
-              <Message />
-              <Drawer />
-              <ContactProvider children={<Contact />} />
-              <InnnerComponent />
-            </MessageProvider>
-          </DrawerProvider>
-        </AuthProvider>
-      </Router>
-      <ContactProvider children={<Footer />} />
+      <ContactProvider>
+        <Router>
+          <AuthProvider>
+            <DrawerProvider>
+              <MessageProvider>
+                <Header />
+                <Message />
+                <Drawer />
+                <Contact />
+                <InnnerComponent />
+              </MessageProvider>
+            </DrawerProvider>
+          </AuthProvider>
+        </Router>
+        <Footer />
+      </ContactProvider>
     </Fragment>
   );
 }

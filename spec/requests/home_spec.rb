@@ -6,7 +6,7 @@ RSpec.describe 'Homes', type: :request do
   let(:user) { create(:user) }
   let(:auth_tokens) { sign_in(user) }
 
-  describe 'GET /home' do
+  describe 'GET api/v1/home' do
     context 'ログインしていない場合' do
       it 'Response 401' do
         get api_v1_root_path

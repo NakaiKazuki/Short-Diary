@@ -207,3 +207,5 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+  contact_mailer:
+    subject: 'Short Diary: お問い合わせメール [自動送信]'

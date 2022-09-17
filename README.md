@@ -150,15 +150,6 @@ yarn start
 
 <http://localhost:3000/>
 
-以下 Test etc...
-
-下記のコマンドでテスト+その他を実行できます。
-
-```zsh
-#!/bin/zsh
-docker-compose run api zsh check.sh && docker-compose run front yarn test
-```
-
 ## 制作者
 
 - 中井 一樹
