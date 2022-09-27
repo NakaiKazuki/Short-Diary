@@ -23,6 +23,7 @@ WORKDIR $APP_ROOT
 COPY Gemfile $APP_ROOT/Gemfile
 COPY Gemfile.lock $APP_ROOT/Gemfile.lock
 
+
 RUN gem install bundler -v 2.3.15 && \
     bundle install --verbose
 

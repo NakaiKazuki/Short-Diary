@@ -64,7 +64,7 @@ export const SignUp: FC = () => {
   const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined>(
     undefined
   );
-  const [state, dispatch] = useReducer(submitReducer, initialState);
+  const [submitState, dispatch] = useReducer(submitReducer, initialState);
   const { setMessage } = useContext(MessageContext);
   const {
     handleSubmit,
@@ -115,8 +115,8 @@ export const SignUp: FC = () => {
         <FormItem formInfo={formInfo.password_confirmation} />
 
         <FormSubmit
-          isDisabled={isDisabled(state.postState)}
-          onSubmitText={onSubmitText(state.postState, "SignUp!")}
+          isDisabled={isDisabled(submitState.postState)}
+          onSubmitText={onSubmitText(submitState.postState, "SignUp!")}
         />
       </FormWrapper>
       <FormLinks linkInfo={signUpLinkInfo} />

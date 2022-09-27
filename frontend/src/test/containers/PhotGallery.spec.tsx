@@ -92,9 +92,7 @@ describe("PhotoGalleryコンポーネント", () => {
   describe("Itemがある場合", () => {
     it("PhotoGalleryが表示", async () => {
       mockAxios.onGet(photoGallery).reply(200, returnData);
-      await act(async () => {
-        setup();
-      });
+      setup();
       await waitFor(() => {
         expect(el("photGallery")).toBeTruthy();
       });
@@ -104,9 +102,7 @@ describe("PhotoGalleryコンポーネント", () => {
   describe("Itemがない場合", () => {
     it("画像無しメッセージが表示", async () => {
       mockAxios.onGet(photoGallery).reply(200, returnEmptyData);
-      await act(async () => {
-        setup();
-      });
+      setup();
       await waitFor(() => {
         expect(el("emptyMessage")).toBeTruthy();
       });

@@ -17,6 +17,6 @@ test:
 production:
   <<: *default
   database: <%= Rails.application.credentials.dig(:production_db, :db_name) %>
-  username: <%= Rails.application.credentials.dig(:production_db, :user_name) %>
   password: <%= Rails.application.credentials.dig(:production_db, :password) %>
+  username: <%= Rails.application.credentials.dig(:production_db, :user_name) %>
   host: <%= Rails.application.credentials.dig(:production_db, :host) %>

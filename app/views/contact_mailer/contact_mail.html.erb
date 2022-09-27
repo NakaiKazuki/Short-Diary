@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Short Diary: 問い合わせメールのお知らせ</h1>
+    <ul>
+      <li>
+        <h5>ユーザ名</h5>
+        <p><%= params[:name] %>様</p>
+      </li>
+      <br>
+      <li>
+        <h5>連絡先</h5>
+        <p><%= params[:email] %></@>
+      </li>
+      <br>
+      <li>
+        <h5>問い合わせ概要</h5>
+        <p><%= params[:over_view] %></p>
+      </li>
+      <br>
+      <li>
+        <h5>問い合わせ内容</h5>
+        <div><%= params[:content] %></div>
+      </li>
+    </ul>
+  </body>
+</html>

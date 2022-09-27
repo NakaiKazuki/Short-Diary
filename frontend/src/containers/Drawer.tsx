@@ -53,6 +53,7 @@ export const Drawer: FC = () => {
         open={open}
         onClose={(): void => setOpenDrawer(false)}
         onOpen={(): void => setOpenDrawer(true)}
+        data-testid="drawer"
       >
         <Box role="presentation" data-testid="MenuDrawer">
           <List>

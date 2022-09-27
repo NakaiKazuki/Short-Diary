@@ -55,7 +55,7 @@ export const Login: FC = () => {
   const [apiErrors, setErrorMessage] = useState<Array<string> | undefined>(
     undefined
   );
-  const [state, dispatch] = useReducer(submitReducer, initialState);
+  const [submitState, dispatch] = useReducer(submitReducer, initialState);
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const {
     handleSubmit,
@@ -101,8 +101,8 @@ export const Login: FC = () => {
         <FormItem formInfo={formInfo.password} />
 
         <FormSubmit
-          isDisabled={isDisabled(state.postState)}
-          onSubmitText={onSubmitText(state.postState, "Login!")}
+          isDisabled={isDisabled(submitState.postState)}
+          onSubmitText={onSubmitText(submitState.postState, "Login!")}
         />
       </FormWrapper>
       <FormLinks linkInfo={loginLinkInfo} />

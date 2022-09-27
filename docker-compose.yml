@@ -21,6 +21,8 @@ services:
       - public-data:/Short-Diary/public
       - tmp-data:/Short-Diary/tmp
       - storage-data:/Short-Diary/storage
+    ports:
+      - 3001:3001
     tty: true
     command: zsh -c "bundle exec pumactl start"
     depends_on:

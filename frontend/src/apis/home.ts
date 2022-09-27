@@ -9,7 +9,7 @@ interface ICurrentUserHeaders {
 
 export const fetchHome = (
   currentUserHeaders: ICurrentUserHeaders,
-  searchWord: undefined | string = undefined
+  searchWord: undefined | string | Date = undefined
 ): Promise<any> => {
   return axios
     .get(home, {
@@ -22,7 +22,7 @@ export const fetchHome = (
 export const getDiaies = (
   currentUserHeaders: ICurrentUserHeaders,
   page: number,
-  searchWord: undefined | string
+  searchWord: undefined | string | Date
 ): Promise<any> => {
   return axios
     .get(home, {

@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       root 'home#home'
 
       resources :diaries, only: %i[create update destroy]
+
+      resources :contacts, only: %i[create]
+
       get 'photo_gallery', to: 'diaries#photo_gallery'
 
       devise_scope :user do
@@ -17,5 +20,5 @@ Rails.application.routes.draw do
     registrations: 'api/v1/auth/registrations'
   }
 
-  mount LetterOpenerWeb::Engine, at: 'api/v1/letter_opener' if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: 'letter_opener' if Rails.env.development?
 end

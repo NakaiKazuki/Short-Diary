@@ -6,7 +6,7 @@ RSpec.describe 'Diaries', type: :request do
   let(:user) { create(:user) }
   let(:auth_tokens) { sign_in(user) }
   let(:picture_data) {
-    binary_data = File.read(Rails.root.join('spec/fixtures/images/test.jpg'))
+    binary_data = Rails.root.join('spec/fixtures/images/test.jpg').read
     Base64.strict_encode64(binary_data)
   }
 

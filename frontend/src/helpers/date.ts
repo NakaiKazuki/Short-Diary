@@ -1,5 +1,8 @@
-export const dateToday = () =>
-  new Date(Date.now() + 9 * 3600000)
-    .toISOString()
-    .replace(/\..*/, "+09:00")
-    .split("T")[0];
+export const dateToday = () => {
+  const date = new Date(new Date().toLocaleString("ja"));
+
+  const y = date.getFullYear();
+  const m = ("00" + (date.getMonth() + 1)).slice(-2);
+  const d = ("00" + date.getDate()).slice(-2);
+  return y + "-" + m + "-" + d;
+};
