@@ -1,17 +1,18 @@
-import React from "react";
 import { render, screen, cleanup } from "@testing-library/react";
-import { Router } from "react-router-dom";
+import { RouterProvider,createMemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import { createMemoryHistory } from "history";
 import { FormLinks } from "../../../components/users";
 
-const renderWithRouter = (component: any) => {
-  const history = createMemoryHistory();
-  return render(
-    <Router location={history.location} navigator={history}>
-      {component}
-    </Router>
-  );
+const customRender = (ui: JSX.Element) => {
+  const routes = [
+    {
+      path: "/",
+      element: ui
+    },
+  ];
+  const router = createMemoryRouter(routes);
+  return render(<RouterProvider router={router} />);
 };
 
 const linkInfo = [
@@ -30,7 +31,7 @@ const el = screen.getByTestId;
 afterEach(cleanup);
 
 describe("FormLinks コンポーネント", () => {
-  const setup = () => renderWithRouter(<FormLinks linkInfo={linkInfo} />);
+  const setup = () => customRender(<FormLinks linkInfo={linkInfo} />);
   it("配列の要素の数、要素の内容次第で変化する", () => {
     setup();
     // linkInfo[0] によって表示される内容

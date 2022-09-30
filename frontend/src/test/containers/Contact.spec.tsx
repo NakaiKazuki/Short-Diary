@@ -3,6 +3,7 @@ import "@testing-library/jest-dom";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { ContactContext } from "../../contexts/Contact";
 import { MessageContext } from "../../contexts/Message";
 import { AuthContext } from "../../contexts/Auth";
@@ -102,15 +103,22 @@ const customRender = (
   messageProviderProps: IMessageProviderProps,
   authProviderProps: IAuthProviderProps
 ) => {
-  return render(
-    <ContactContext.Provider {...contactProviderProps}>
-      <AuthContext.Provider {...authProviderProps}>
-        <MessageContext.Provider {...messageProviderProps}>
-          {ui}
-        </MessageContext.Provider>
-      </AuthContext.Provider>
-    </ContactContext.Provider>
-  );
+  const routes = [
+    {
+      path: "/",
+      element: (
+        <ContactContext.Provider {...contactProviderProps}>
+          <AuthContext.Provider {...authProviderProps}>
+            <MessageContext.Provider {...messageProviderProps}>
+              {ui}
+            </MessageContext.Provider>
+          </AuthContext.Provider>
+        </ContactContext.Provider>
+      ),
+    },
+  ];
+  const router = createMemoryRouter(routes);
+  return render(<RouterProvider router={router} />);
 };
 
 const setup = (authProviderProps: IAuthProviderProps) =>

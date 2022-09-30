@@ -1,5 +1,6 @@
 import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { ContactContext } from "../../contexts/Contact";
 import { Footer } from "../../containers/Footer";
 
@@ -19,13 +20,20 @@ const providerProps = {
     setOpenContact: jest.fn(),
   },
 };
-
 const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
-  return render(
-    <ContactContext.Provider {...providerProps}>{ui}</ContactContext.Provider>
-  );
+  const routes = [
+    {
+      path: "/",
+      element: (
+        <ContactContext.Provider {...providerProps}>
+          {ui}
+        </ContactContext.Provider>
+      ),
+    },
+  ];
+  const router = createMemoryRouter(routes);
+  return render(<RouterProvider router={router} />);
 };
-
 describe("Footer", () => {
   const setup = () => customRender(<Footer />, providerProps);
 

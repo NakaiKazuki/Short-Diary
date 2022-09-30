@@ -1,5 +1,4 @@
-import { Fragment } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 // routes
 import { InnnerComponent } from "./routes/InnerComponent";
@@ -19,24 +18,22 @@ import { Contact } from "./containers/Contact";
 
 function App() {
   return (
-    <Fragment>
-      <ContactProvider>
-        <Router>
-          <AuthProvider>
-            <DrawerProvider>
-              <MessageProvider>
-                <Header />
-                <Message />
-                <Drawer />
-                <Contact />
-                <InnnerComponent />
-              </MessageProvider>
-            </DrawerProvider>
-          </AuthProvider>
-        </Router>
-        <Footer />
-      </ContactProvider>
-    </Fragment>
+    <ContactProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <DrawerProvider>
+            <MessageProvider>
+              <Header />
+              <Message />
+              <Drawer />
+              <Contact />
+              <InnnerComponent />
+            </MessageProvider>
+          </DrawerProvider>
+        </AuthProvider>
+      </BrowserRouter>
+      <Footer />
+    </ContactProvider>
   );
 }
 
