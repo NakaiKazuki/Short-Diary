@@ -30,7 +30,11 @@ const CircularProgressWrapper = styled.span`
 `;
 
 const CustomGallery = styled.div`
+  margin-top: 10vh;
   overflow: hidden;
+  @media screen and (max-width: 480px) {
+    margin-top: 0;
+  }
   .image-gallery {
     position: relative;
   }
@@ -73,8 +77,7 @@ const CustomGallery = styled.div`
     position: absolute;
     background-color: transparent;
     border: none;
-    padding: 4rem 0.8rem;
-    top: 35%;
+    top: 25%;
     border: none;
     width: 6%;
     height: 13.5%;
@@ -88,7 +91,7 @@ const CustomGallery = styled.div`
     @media screen and (max-width: 480px) {
       width: 20%;
       height: 13.5%;
-      top: 30%;
+      top: 37%;
     }
   }
   .image-gallery-right-nav {
@@ -108,12 +111,12 @@ const CustomGallery = styled.div`
     position: absolute;
     background-color: transparent;
     border: none;
-    top: 20%;
+    top: -27%;
     right: 0;
     bottom: 0;
     left: 0;
     margin: auto;
-    width: 6%;
+    width: 7%;
     height: 13.5%;
     opacity: 0;
     :hover {
@@ -122,19 +125,19 @@ const CustomGallery = styled.div`
     @media screen and (min-width: 768px) and (max-width: 979px) {
       width: 15%;
       height: 13.5%;
-      top: -15%;
+      top: -30%;
     }
     @media screen and (max-width: 480px) {
       width: 20%;
       height: 13.5%;
-      top: 5%;
+      top: 0;
     }
   }
 `;
 
 const EmptyMessageWrapper = styled.div`
   text-align: center;
-  margin: auto;
+  margin: 20vh auto auto auto;
   height: 17vh;
   width: 18%;
   border: 0.0125rem solid limegreen;
