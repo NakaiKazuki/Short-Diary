@@ -1,11 +1,10 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { render, screen, cleanup, waitFor } from "@testing-library/react";
-import { Router } from "react-router-dom";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
-import { createMemoryHistory } from "history";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { AuthContext } from "../../contexts/Auth";
 import { LogoutHome } from "../../containers/LogoutHome";
 import { guestSignIn } from "../../urls";
@@ -58,11 +57,15 @@ const providerProps = {
 };
 
 const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
-  const history = createMemoryHistory();
+  const routes = [
+    {
+      path: "/",
+      element: <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>,
+    },
+  ];
+  const router = createMemoryRouter(routes);
   return render(
-    <Router location={history.location} navigator={history}>
-      <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
-    </Router>
+    <RouterProvider router={router} />
   );
 };
 

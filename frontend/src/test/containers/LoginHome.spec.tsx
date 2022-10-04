@@ -4,11 +4,11 @@ import { screen, cleanup, waitFor, render, act } from "@testing-library/react";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { AuthContext } from "../../contexts/Auth";
 import { LoginHome } from "../../containers/LoginHome";
 import { home, diary } from "../../urls";
 import { dateToday } from "../../helpers";
-import { BrowserRouter as Router } from "react-router-dom";
 // 型
 interface IHeaders {
   "access-token": string;
@@ -109,12 +109,18 @@ const mockAxios = new MockAdapter(axios);
 mockAxios.onGet(home).reply(200, returnData);
 
 const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
+  const routes = [
+    {
+      path: "/",
+      element: <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>,
+    },
+  ];
+  const router = createMemoryRouter(routes);
   return render(
-    <Router>
-      <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
-    </Router>
+    <RouterProvider router={router} />
   );
 };
+
 
 const idNames = ["date", "tag_list", "content", "picture"];
 

@@ -1,8 +1,13 @@
-import { Fragment } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { FC } from "react";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
 
 // routes
-import { InnnerComponent } from "./routes/InnerComponent";
+import { Route } from "react-router-dom";
+import { RouteLayout } from "./routes/RouteLayout";
 
 // cotexts
 import { AuthProvider } from "./contexts/Auth";
@@ -10,34 +15,51 @@ import { MessageProvider } from "./contexts/Message";
 import { DrawerProvider } from "./contexts/Drawer";
 import { ContactProvider } from "./contexts/Contact";
 
-// components
-import { Header } from "./containers/Header";
-import { Message } from "./containers/Message";
-import { Footer } from "./containers/Footer";
-import { Drawer } from "./containers/Drawer";
-import { Contact } from "./containers/Contact";
+import { LogoutHome } from "./containers/LogoutHome";
+import { LoginHome } from "./containers/LoginHome";
+import { SignUp } from "./containers/SignUp";
+import { Login } from "./containers/Login";
+import { UserEdit } from "./containers/UserEdit";
+import { PhotoGallery } from "./containers/PhotoGallery";
+import { GuestRoute } from "./routes/GuestRoute";
+import { PrivateRoute } from "./routes/PrivateRoute";
+import { LoggedInRoute } from "./routes/LoggedInRoute";
 
-function App() {
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<RouteLayout />}>
+      <Route
+        index
+        element={
+          <LoggedInRoute login={<LoginHome />} logout={<LogoutHome />} />
+        }
+      />
+      <Route path="/signup" element={<GuestRoute children={<SignUp />} />} />
+      <Route path="/login" element={<GuestRoute children={<Login />} />} />
+      <Route
+        path="/userEdit"
+        element={<PrivateRoute children={<UserEdit />} />}
+      />
+      <Route
+        path="/photoGalley"
+        element={<PrivateRoute children={<PhotoGallery />} />}
+      />
+    </Route>
+  )
+);
+
+const App: FC = () => {
   return (
-    <Fragment>
-      <ContactProvider>
-        <Router>
-          <AuthProvider>
-            <DrawerProvider>
-              <MessageProvider>
-                <Header />
-                <Message />
-                <Drawer />
-                <Contact />
-                <InnnerComponent />
-              </MessageProvider>
-            </DrawerProvider>
-          </AuthProvider>
-        </Router>
-        <Footer />
-      </ContactProvider>
-    </Fragment>
+    <ContactProvider>
+      <AuthProvider>
+        <DrawerProvider>
+          <MessageProvider>
+            <RouterProvider router={router} />
+          </MessageProvider>
+        </DrawerProvider>
+      </AuthProvider>
+    </ContactProvider>
   );
-}
+};
 
 export default App;

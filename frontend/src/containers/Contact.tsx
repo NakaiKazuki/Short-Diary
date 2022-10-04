@@ -220,7 +220,7 @@ export const Contact: FC = () => {
                   fullWidth
                   inputProps={{
                     "data-testid": "emailArea",
-                    placeholder: "受信希望のアドレスを入力してください",
+                    placeholder: "連絡可能なメールアドレスを入力してください",
                   }}
                 />
               )}

@@ -1,11 +1,10 @@
 import React from "react";
 import { render, screen, cleanup, waitFor } from "@testing-library/react";
-import { Router } from "react-router-dom";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { createMemoryHistory } from "history";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { AuthContext } from "../../contexts/Auth";
 import { MessageContext } from "../../contexts/Message";
 import { UserEdit } from "../../containers/UserEdit";
@@ -124,16 +123,21 @@ const messageProps = {
 };
 
 const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
-  const history = createMemoryHistory();
+  const routes = [
+    {
+      path: "/",
+      element: (
+        <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
+      ),
+    },
+  ];
+  const router = createMemoryRouter(routes);
   return render(
     <MessageContext.Provider {...messageProps}>
-      <Router location={history.location} navigator={history}>
-        <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
-      </Router>
+      <RouterProvider router={router} />
     </MessageContext.Provider>
   );
 };
-
 const el = screen.getByTestId;
 
 afterEach(cleanup);
@@ -248,9 +252,9 @@ describe("UserEditコンポーネント", () => {
         );
       });
 
-      it("送信結果に応じてボタンの要素が変化 Status401", async () => {
+      it("送信結果に応じてボタンの要素が変化 Status422", async () => {
         // ApiResponse
-        mockAxios.onPut(registration).reply(401, returnErrorData);
+        mockAxios.onPut(registration).reply(422, returnErrorData);
 
         // 各項目に有効な値を入力
         await userEvent.type(el(formInfo[2].testId), formInfo[2].value);
