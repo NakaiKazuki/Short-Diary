@@ -4,12 +4,13 @@
 #
 # Table name: diaries
 #
-#  id         :bigint           not null, primary key
-#  content    :text(65535)      not null
-#  date       :date             not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  id           :bigint           not null, primary key
+#  content      :text(65535)      not null
+#  date         :date             not null
+#  movie_source :string(255)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  user_id      :bigint           not null
 #
 # Indexes
 #
@@ -31,6 +32,10 @@ FactoryBot.define do
       picture {
         Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/images/test.jpg'))
       }
+    end
+
+    trait :add_movie do
+      movie_source { 'example.com' }
     end
   end
 end

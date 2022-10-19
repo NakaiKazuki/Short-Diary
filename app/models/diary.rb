@@ -4,12 +4,13 @@
 #
 # Table name: diaries
 #
-#  id         :bigint           not null, primary key
-#  content    :text(65535)      not null
-#  date       :date             not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  id           :bigint           not null, primary key
+#  content      :text(65535)      not null
+#  date         :date             not null
+#  movie_source :string(255)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  user_id      :bigint           not null
 #
 # Indexes
 #
@@ -38,6 +39,9 @@ class Diary < ApplicationRecord
             presence: true,
             length: { maximum: 200 }
   validate :validate_picture
+
+  validates :movie_source,
+            length: { maximum: 255 }
 
   def picture_url
     # 紐づいている画像のURLを取得する

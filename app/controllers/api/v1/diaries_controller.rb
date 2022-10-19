@@ -63,7 +63,7 @@ class Api::V1::DiariesController < ApplicationController
   private
 
     def diary_params
-      params.require(:diary).permit(:date, :content, :tag_list, :picture)
+      params.require(:diary).permit(:date, :content, :tag_list, :picture, :movie_source)
     end
 
     def pagy_params

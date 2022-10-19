@@ -4,12 +4,13 @@
 #
 # Table name: diaries
 #
-#  id         :bigint           not null, primary key
-#  content    :text(65535)      not null
-#  date       :date             not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  id           :bigint           not null, primary key
+#  content      :text(65535)      not null
+#  date         :date             not null
+#  movie_source :string(255)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  user_id      :bigint           not null
 #
 # Indexes
 #
@@ -105,6 +106,23 @@ RSpec.describe Diary, type: :model do
     it '5mb以下の画像ファイルは有効' do
       diary.picture.attach(io: Rails.root.join('spec/fixtures/images/test.jpg').open,
                            filename: 'test.jpg', content_type: 'image/jpg')
+      expect(diary).to be_valid
+    end
+  end
+
+  describe 'movie_source' do
+    it '256文字以上は無効' do
+      diary.movie_source = 'a' * 256
+      expect(diary).to be_invalid
+    end
+
+    it '255文字以下は有効' do
+      diary.movie_source = 'a' * 255
+      expect(diary).to be_valid
+    end
+
+    it '空白でも無効' do
+      diary.movie_source = nil
       expect(diary).to be_valid
     end
   end
