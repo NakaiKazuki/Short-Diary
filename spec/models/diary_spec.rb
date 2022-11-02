@@ -23,7 +23,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe Diary, type: :model do
+RSpec.describe Diary do
   let(:user) { create(:user) }
   let(:diary) { create(:diary, user: user) }
 

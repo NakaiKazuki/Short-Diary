@@ -14,7 +14,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe Contact, type: :model do
+RSpec.describe Contact do
   let(:contact) { create(:contact) }
 
   describe 'Contact' do

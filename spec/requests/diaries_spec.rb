@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Diaries', type: :request do
+RSpec.describe 'Diaries' do
   let(:user) { create(:user) }
   let(:auth_tokens) { sign_in(user) }
   let(:picture_data) {

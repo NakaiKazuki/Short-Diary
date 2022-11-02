@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Contacts', type: :request do
+RSpec.describe 'Contacts' do
   before do
     ActionMailer::Base.deliveries.clear
   end

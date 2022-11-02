@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Registrations', type: :request do
+RSpec.describe 'Registrations' do
   let(:user) { create(:user) }
   let(:guest) { create(:guest) }
   let(:auth_tokens) { sign_in(user) }
