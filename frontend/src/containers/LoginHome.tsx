@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { YouTubeProps, YouTubeEvent } from "react-youtube";
 import styled from "styled-components";
 
 // contexts
@@ -143,6 +144,7 @@ interface IDiary {
   content: string;
   picture_url: string | null;
   tag_list: Array<string | null>;
+  movie_source: string;
   user_id: number;
 }
 
@@ -151,6 +153,7 @@ interface IApiErrors {
   tag_list?: Array<string>;
   content?: Array<string>;
   picture?: Array<string>;
+  movie_source?: Array<string>;
 }
 
 interface IPagy {
@@ -181,6 +184,7 @@ interface IFormValues {
   tag_list: string | undefined;
   content: string;
   picture: TPicture | undefined;
+  movie_source: string;
   searchWord: string | undefined;
 }
 
@@ -399,6 +403,9 @@ export const LoginHome: FC = () => {
       date: formValues.date,
       tag_list: formValues.tag_list ? formValues.tag_list.trim() : undefined,
       content: formValues.content,
+      movie_source: formValues.movie_source
+        ? formValues.movie_source
+        : undefined,
       picture: formValues.picture ? formValues.picture[0] : undefined,
     })
       .then((data): void => {
@@ -455,6 +462,9 @@ export const LoginHome: FC = () => {
         tag_list: formValues.tag_list ? formValues.tag_list.trim() : undefined,
         content: formValues.content,
         picture: formValues.picture ? formValues.picture[0] : undefined,
+        movie_source: formValues.movie_source
+          ? formValues.movie_source
+          : undefined,
       },
       state.pagy!.page,
       state.selectedDiary!.id
@@ -498,6 +508,12 @@ export const LoginHome: FC = () => {
       isOpenDiaryDialog: false,
       isOpenDiaryEdit: false,
     });
+  };
+
+  const onPlayerReady: YouTubeProps["onReady"] = (
+    e: YouTubeEvent<any>
+  ): void => {
+    e.target.pauseVideo();
   };
   // ここまでDiaryDialogで使う関数
 
@@ -595,6 +611,7 @@ export const LoginHome: FC = () => {
           pagy: data.pagy,
           fetchState: REQUEST_STATE.OK,
         });
+        // console.log(data.diaries);
       })
       .catch((e): void => {
         if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
@@ -703,6 +720,7 @@ export const LoginHome: FC = () => {
           onSubmitText={onSubmitText(reducerState.postState, "日記編集")}
           register={register}
           setFileName={setFileName()}
+          onPlayerReady={onPlayerReady}
         />
       )}
       {state.isOpenConfirmDialog && state.selectedDiary && (

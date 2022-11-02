@@ -70,8 +70,10 @@ interface IDiary {
   content: string;
   picture_url: string | null;
   tag_list: Array<string | null>;
+  movie_source: string | null;
   user_id: number;
 }
+
 interface DiariesProps {
   diaries: Array<IDiary>;
   onOpenDiaryDialog(diary: IDiary): void;

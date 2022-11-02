@@ -48,6 +48,9 @@ const currentUser = {
   },
 };
 
+const testString = (count: number): string => {
+  return "0123456789".repeat(count);
+};
 // Apiから返ってくるデータ
 const returnData = {
   diaries: [
@@ -56,14 +59,16 @@ const returnData = {
       date: dateToday(),
       content: "Test Content",
       tag_list: [],
+      movie_source: "",
       picture_url: null,
       user_id: 1,
     },
     {
       id: 2,
       date: dateToday(),
-      content: "A123456789B123456789C123456789D123456789E123456789F123456789",
+      content: testString(6),
       tag_list: ["testTag1", "testTag2"],
+      movie_source: "https://www.youtube.com/watch?v=vDA-9eicKSM",
       picture_url: "/testurl",
       user_id: 1,
     },
@@ -80,6 +85,7 @@ const returnErrorData = {
     date: ["date ApiError"],
     content: ["cotent ApiError"],
     picture: ["picture ApiError"],
+    movie_source: ["movie_source ApiError"],
     tag_list: ["tag_list ApiError"],
   },
 };
@@ -93,6 +99,10 @@ const formInfo = [
   {
     testId: "contentArea",
     value: "testContent",
+  },
+  {
+    testId: "movie_sourceArea",
+    value: "testmovie_source",
   },
 ];
 
@@ -112,17 +122,16 @@ const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   const routes = [
     {
       path: "/",
-      element: <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>,
+      element: (
+        <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
+      ),
     },
   ];
   const router = createMemoryRouter(routes);
-  return render(
-    <RouterProvider router={router} />
-  );
+  return render(<RouterProvider router={router} />);
 };
 
-
-const idNames = ["date", "tag_list", "content", "picture"];
+const idNames = ["date", "tag_list", "content", "movie_source", "picture"];
 
 const el = screen.getByTestId;
 
@@ -152,9 +161,8 @@ describe("LoginHome", () => {
   });
 
   it("日記検索欄が表示", async () => {
-    // デフォルトは非表示
-    const searchDrawer = screen.queryByTestId("searchDrawer");
-    expect(searchDrawer).toBeNull();
+    // // デフォルトは非表示
+    // const searchDrawer = screen.queryByTestId("searchDrawer");
 
     // ユーザがクリックすることで表示
     await userEvent.click(el("drawerOpenButton"));
@@ -225,6 +233,7 @@ describe("LoginHome", () => {
         expect(el("diaryForm")).toContainElement(el(`FormItem-${idNames[1]}`));
         expect(el("diaryForm")).toContainElement(el(`FormItem-${idNames[2]}`));
         expect(el("diaryForm")).toContainElement(el(`FormItem-${idNames[3]}`));
+        expect(el("diaryForm")).toContainElement(el(`FormItem-${idNames[4]}`));
       });
 
       it("ErrorMessage", async () => {
@@ -234,14 +243,21 @@ describe("LoginHome", () => {
         // 各項目に無効な値を入力
         await userEvent.clear(el(formInfo[0].testId));
         await userEvent.clear(el(formInfo[1].testId));
+        await userEvent.type(el(formInfo[2].testId), testString(26));
 
         // ユーザが送信ボタンをクリック
         await userEvent.click(el("formSubmit"));
 
-        // エラーメッセージが表示(contentにのみ表示)
+        // エラーメッセージが表示(content movie_source のみ表示)
         await waitFor(() => {
           expect(el("FormItem-content")).toContainElement(
             el("contentErrorMessage")
+          );
+        });
+
+        await waitFor(() => {
+          expect(el("FormItem-movie_source")).toContainElement(
+            el("movie_sourceErrorMessage")
           );
         });
       });
@@ -276,6 +292,12 @@ describe("LoginHome", () => {
             el(`${idNames[3]}ApiError`)
           )
         );
+
+        await waitFor(() =>
+          expect(el(`FormItem-${idNames[4]}`)).toContainElement(
+            el(`${idNames[4]}ApiError`)
+          )
+        );
       });
 
       describe("入力欄", () => {
@@ -288,6 +310,8 @@ describe("LoginHome", () => {
           expect(el("contentArea")).toHaveValue("");
           // picture
           expect(el("pictureArea")).toHaveValue("");
+          // movie_source
+          expect(el("movie_sourceArea")).toHaveValue("");
         });
 
         it("content欄は入力した文字数が表示", async () => {
@@ -426,6 +450,7 @@ describe("LoginHome", () => {
         expect(el("diaryForm")).toContainElement(el(`FormItem-${idNames[1]}`));
         expect(el("diaryForm")).toContainElement(el(`FormItem-${idNames[2]}`));
         expect(el("diaryForm")).toContainElement(el(`FormItem-${idNames[3]}`));
+        expect(el("diaryForm")).toContainElement(el(`FormItem-${idNames[4]}`));
       });
 
       it("エラーメッセージ", async () => {
@@ -436,13 +461,21 @@ describe("LoginHome", () => {
 
         // 無効な値を入力
         await userEvent.clear(el(formInfo[1].testId));
+        await userEvent.type(el(formInfo[2].testId), testString(26));
+
         // ユーザが送信ボタンをクリック
         await userEvent.click(el("formSubmit"));
 
-        // エラーメッセージが表示(contentにのみ表示
+        // エラーメッセージが表示(content movie_sourceにのみ表示
         await waitFor(() => {
           expect(el("FormItem-content")).toContainElement(
             el("contentErrorMessage")
+          );
+        });
+
+        await waitFor(() => {
+          expect(el("FormItem-movie_source")).toContainElement(
+            el("movie_sourceErrorMessage")
           );
         });
       });
@@ -478,6 +511,11 @@ describe("LoginHome", () => {
             el(`${idNames[3]}ApiError`)
           )
         );
+        await waitFor(() =>
+          expect(el(`FormItem-${idNames[4]}`)).toContainElement(
+            el(`${idNames[4]}ApiError`)
+          )
+        );
       });
 
       describe("入力欄", () => {
@@ -490,6 +528,10 @@ describe("LoginHome", () => {
           );
           // content
           expect(el("contentArea")).toHaveValue(returnData.diaries[0].content);
+          // movie_source
+          expect(el("movie_sourceArea")).toHaveValue(
+            returnData.diaries[0].movie_source
+          );
           // picture
           expect(el("pictureArea")).toHaveValue("");
         });
@@ -562,7 +604,7 @@ describe("LoginHome", () => {
       });
     });
 
-    it("DiaryDialog初期値(タグあり, 画像あり)", async () => {
+    it("DiaryDialog初期値(タグあり, 画像あり, 動画urlあり)", async () => {
       await userEvent.click(el("diary-1"));
       expect(el("menuOpenIcon")).toBeTruthy();
 

@@ -62,14 +62,14 @@ const InputPictureArea = styled.input`
 // 型
 
 // エラーメッセージ
-type TApiError = Array<string>;
-
 interface IApiErrors {
-  date?: TApiError;
-  tag_list?: TApiError;
-  content?: TApiError;
-  picture?: TApiError;
+  date?: Array<string>;
+  tag_list?: Array<string>;
+  content?: Array<string>;
+  picture?: Array<string>;
+  movie_source?: Array<string>;
 }
+
 interface IFormAreaProps {
   control: any;
   errors: any;
@@ -81,6 +81,7 @@ interface IFormAreaProps {
   defaultDate: string;
   defaultTag: string;
   defaultContent: string;
+  defaultmovie_source: string;
   setFileName: string | undefined;
   onSubmit(): void;
   onFileChange(e: any): void;
@@ -97,6 +98,7 @@ export const FormArea: FC<IFormAreaProps> = ({
   defaultDate,
   defaultTag,
   defaultContent,
+  defaultmovie_source,
   setFileName,
   onSubmit,
   onFileChange,
@@ -190,6 +192,39 @@ export const FormArea: FC<IFormAreaProps> = ({
               }
               inputProps={{
                 "data-testid": "contentArea",
+              }}
+              {...field}
+            />
+          )}
+        />
+      </FormItemWrapper>
+
+      <FormItemWrapper data-testid="FormItem-movie_source">
+        {errors?.movie_source && (
+          <ErrorMessage data-testid="movie_sourceErrorMessage">
+            255文字以内で入力してください
+          </ErrorMessage>
+        )}
+        {apiErrors?.movie_source?.map((message: string, index: number) => (
+          <ErrorMessage
+            key={`movie_source-${index}`}
+            data-testid="movie_sourceApiError"
+          >{`動画URL${message}`}</ErrorMessage>
+        ))}
+        <Controller
+          name="movie_source"
+          control={control}
+          rules={{ maxLength: 255 }}
+          defaultValue={defaultmovie_source}
+          shouldUnregister
+          render={({ field }) => (
+            <TextField
+              label="YouTube URL"
+              type="textarea"
+              placeholder="https://www.youtube.com/watch?v=example"
+              fullWidth
+              inputProps={{
+                "data-testid": "movie_sourceArea",
               }}
               {...field}
             />

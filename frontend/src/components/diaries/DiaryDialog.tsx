@@ -1,5 +1,6 @@
 import React, { FC, Fragment } from "react";
 import { Chip, Dialog } from "@material-ui/core";
+import YouTube, { YouTubeEvent } from "react-youtube";
 import styled from "styled-components";
 
 // components
@@ -32,7 +33,7 @@ const Tag = styled(Chip)`
   margin: 0.3rem;
 `;
 
-const PictureWrapper = styled.div`
+const ItemsWrapper = styled.div`
   min-height: 15rem;
   margin: 0.5rem auto 2.5rem auto;
   width: 80%;
@@ -53,7 +54,6 @@ const Picture = styled.img`
   max-width: 95%;
   object-fit: scale-down;
 `;
-
 // 型
 
 interface IDiary {
@@ -62,6 +62,7 @@ interface IDiary {
   content: string;
   picture_url: string | null;
   tag_list: Array<string | null>;
+  movie_source: string | null;
   user_id: number;
 }
 
@@ -70,6 +71,7 @@ interface IApiErrors {
   tag_list?: Array<string>;
   content?: Array<string>;
   picture?: Array<string>;
+  movie_source?: Array<string>;
 }
 
 interface IDiaryDialogProps {
@@ -93,7 +95,17 @@ interface IDiaryDialogProps {
   onClose(): void;
   onMenuOpen(e: React.MouseEvent<HTMLElement>): void;
   onMenuClose(): void;
+  onPlayerReady(e: YouTubeEvent<any>): void;
 }
+
+const opts = {
+  height: "390",
+  width: "600",
+  playerVars: {
+    // https://developers.google.com/youtube/player_parameters
+    autoplay: 1,
+  },
+};
 
 export const DiaryDialog: FC<IDiaryDialogProps> = ({
   isOpen,
@@ -116,6 +128,7 @@ export const DiaryDialog: FC<IDiaryDialogProps> = ({
   onClose,
   onMenuOpen,
   onMenuClose,
+  onPlayerReady,
 }) => {
   return (
     <Dialog
@@ -167,7 +180,7 @@ export const DiaryDialog: FC<IDiaryDialogProps> = ({
             )}
           </TagWrapper>
           <ContentHeading>Content</ContentHeading>
-          <PictureWrapper>
+          <ItemsWrapper>
             <Content data-testid="diaryContent">{diary.content}</Content>
             {diary.picture_url && (
               <Picture
@@ -176,7 +189,14 @@ export const DiaryDialog: FC<IDiaryDialogProps> = ({
                 data-testid="diaryPicture"
               />
             )}
-          </PictureWrapper>
+          </ItemsWrapper>
+          {diary.movie_source && (
+            <YouTube
+              videoId={diary.movie_source.split("v=")[1]}
+              opts={opts}
+              onReady={onPlayerReady}
+            />
+          )}
         </Fragment>
       )}
     </Dialog>

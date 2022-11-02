@@ -11,6 +11,7 @@ const diaries = [
     date: date,
     content: "Test Content",
     tag_list: [],
+    movie_source: null,
     picture_url: null,
     user_id: 1,
   },
@@ -18,8 +19,9 @@ const diaries = [
     id: 2,
     date: date,
     content: testTContent,
-    picture_url: "/testurl",
     tag_list: [],
+    movie_source: null,
+    picture_url: "/testurl",
     user_id: 1,
   },
 ];
@@ -32,7 +34,7 @@ describe("DiaryIndex コンポーネント", () => {
   const setup = () =>
     render(<DiaryIndex diaries={diaries} onOpenDiaryDialog={jest.fn()} />);
 
-  it("プロパティで受け取るデータを元に表示", () => {
+  it("受け取るデータを元に表示", () => {
     setup();
     diaries.forEach((obj, index) => {
       // 配列の要素数だけ表示

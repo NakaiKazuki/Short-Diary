@@ -44,6 +44,7 @@ interface IDiary {
   date: string;
   content: string;
   picture_url: string | null;
+  movie_source: string | null;
   user_id: number;
 }
 
