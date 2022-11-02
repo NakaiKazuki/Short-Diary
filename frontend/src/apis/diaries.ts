@@ -5,6 +5,7 @@ interface IParams {
   date: string;
   tag_list: string | undefined;
   content: string;
+  movie_source: string | undefined;
   picture: { data: string; name: string } | undefined;
 }
 
@@ -26,6 +27,7 @@ export const createDiary = (
       date: params.date,
       tag_list: params.tag_list ? params.tag_list : null,
       content: params.content,
+      movie_source: params.movie_source ? params.movie_source : null,
       picture: params.picture
         ? { data: params.picture!.data, name: params.picture!.name }
         : null,
@@ -45,6 +47,7 @@ export const updateDiary = (
       date: params.date,
       tag_list: params.tag_list ? params.tag_list : null,
       content: params.content,
+      movie_source: params.movie_source ? params.movie_source : null,
       picture: params.picture
         ? { data: params.picture!.data, name: params.picture!.name }
         : null,

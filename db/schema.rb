@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_10_134042) do
+ActiveRecord::Schema.define(version: 2022_10_19_004501) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2022_09_10_134042) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "movie_source"
     t.index ["date", "user_id", "created_at"], name: "index_diaries_on_date_and_user_id_and_created_at"
     t.index ["user_id"], name: "index_diaries_on_user_id"
   end

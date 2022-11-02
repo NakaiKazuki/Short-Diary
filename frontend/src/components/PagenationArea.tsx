@@ -32,12 +32,12 @@ export const PagenationArea: FC<IPaginationAreaProps> = ({
   return (
     <PaginationWrapper>
       <PaginationBar
-        count={pagy.pages} //総ページ数
-        color="primary" //ページネーションの色
-        page={pagy.page} //現在のページ番号
+        count={pagy.pages}
+        color="primary"
+        page={pagy.page}
         onChange={(_e: React.ChangeEvent<unknown>, page: number) =>
           onPageChange(page)
-        } //変更されたときに走る関数。第2引数にページ番号が入る
+        }
         data-testid={"pagenationBar"}
       />
     </PaginationWrapper>

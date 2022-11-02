@@ -36,7 +36,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe User do
   let(:user) { create(:user) }
 
   describe 'User' do

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Diaries', type: :request do
+RSpec.describe 'Diaries' do
   let(:user) { create(:user) }
   let(:auth_tokens) { sign_in(user) }
   let(:picture_data) {
@@ -17,7 +17,8 @@ RSpec.describe 'Diaries', type: :request do
         diary: {
           date: Time.zone.today.strftime('%Y-%m-%d'),
           content: content,
-          tag_list: 'testTag1, testTag2'
+          tag_list: 'testTag1, testTag2',
+          movie_source: 'example.com'
         }
       }, headers: tokens
     end
@@ -27,7 +28,9 @@ RSpec.describe 'Diaries', type: :request do
       post api_v1_diaries_path, params: {
         diary: {
           date: Time.zone.today.strftime('%Y-%m-%d'),
-          content: 'テストcontent'
+          content: 'テストcontent',
+          tag_list: 'testTag1, testTag2',
+          movie_source: 'example.com'
         },
         picture: {
           data: picture_data,
@@ -120,6 +123,10 @@ RSpec.describe 'Diaries', type: :request do
               expect(diary_json['tag_list']).to eq %w[testTag1 testTag2]
             end
 
+            it 'movie_source' do
+              expect(diary_json['movie_source']).to eq 'example.com'
+            end
+
             it 'picture_url(画像あり)' do
               post_information_add_picture(auth_tokens)
               add_pic_json = JSON.parse(response.body)
@@ -155,7 +162,8 @@ RSpec.describe 'Diaries', type: :request do
           id: diary.id,
           date: (Time.zone.today - 1).strftime('%Y-%m-%d'),
           content: content,
-          tag_list: 'Path Tag1, Path Tag2'
+          tag_list: 'Path Tag1, Path Tag2',
+          movie_source: 'example.com'
         }
       }, headers: tokens
     end
@@ -166,7 +174,9 @@ RSpec.describe 'Diaries', type: :request do
         diary: {
           id: diary.id,
           date: (Time.zone.today - 1).strftime('%Y-%m-%d'),
-          content: 'テスト編集済みContent'
+          content: 'テスト編集済みContent',
+          tag_list: 'Path Tag1, Path Tag2',
+          movie_source: 'example.com'
         },
         picture: {
           data: picture_data,
@@ -264,6 +274,10 @@ RSpec.describe 'Diaries', type: :request do
 
             it 'picture_url(画像無し)' do
               expect(diary_json['picture_url']).to be_nil
+            end
+
+            it 'movie_source' do
+              expect(diary_json['movie_source']).to eq 'example.com'
             end
 
             it 'picture_url(画像あり)' do

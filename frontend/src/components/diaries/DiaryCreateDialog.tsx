@@ -18,6 +18,7 @@ interface IApiErrors {
   tag_list?: Array<string>;
   content?: Array<string>;
   picture?: Array<string>;
+  movie_source?: Array<string>;
 }
 
 interface IDiaryCreateDialogProps {
@@ -71,6 +72,7 @@ export const DiaryCreateDialog: FC<IDiaryCreateDialogProps> = ({
         defaultDate={dateToday}
         defaultTag={""}
         defaultContent={""}
+        defaultmovie_source={""}
         setFileName={setFileName}
         onSubmit={onSubmit}
         onFileChange={onFileChange}

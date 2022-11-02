@@ -9,6 +9,7 @@ const diary = {
   content: "Test Text",
   tag_list: [],
   picture_url: null,
+  movie_source: null,
   user_id: 1,
 };
 

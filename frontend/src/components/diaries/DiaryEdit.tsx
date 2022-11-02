@@ -25,6 +25,7 @@ interface IDiary {
   tag_list: Array<string | null>;
   content: string;
   picture_url: string | null;
+  movie_source: string | null;
   user_id: number;
 }
 
@@ -69,6 +70,7 @@ export const DiaryEdit: FC<IDiaryEditProps> = ({
         defaultDate={diary.date}
         defaultTag={diary.tag_list.join(",")}
         defaultContent={diary.content}
+        defaultmovie_source={diary.movie_source ? diary.movie_source : ""}
         setFileName={setFileName}
         onSubmit={onEditSubmit}
         onFileChange={onFileChange}
