@@ -15,7 +15,7 @@
 
 ## URL
 
-<https://short-diary.net>
+<https://short-diary.com>
 
 「ゲストとしてログイン」のボタンから、メールアドレスとパスワードを入力せずにログインできます。
 
