@@ -11,7 +11,7 @@ services:
       - public-prod-data:/Short-Diary/public
       - tmp-prod-data:/Short-Diary/tmp
     tty: true
-    command: zsh -c "bundle exec rails db:migrate && bundle exec pumactl start"
+    command: zsh -c "bundle exec rails db:migrate && rails s"
 
   front:
     build:
