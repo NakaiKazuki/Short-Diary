@@ -2,7 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 
 // components
-import { PictureIcon } from "../icon";
+import { PictureIcon,MovieIcon } from "../icon";
 
 // css
 const DiariesWrapper = styled.ul`
@@ -57,6 +57,11 @@ const ImageIconArea = styled(PictureIcon)`
   color: royalblue;
 `;
 
+const MovieIconArea = styled(MovieIcon)`
+  float: right;
+  color: royalblue;
+`;
+
 const Content = styled.div`
   white-space: pre-line;
   overflow-wrap: break-word;
@@ -95,7 +100,10 @@ export const DiaryIndex: FC<DiariesProps> = ({
             <Paragraph>
               <Date data-testid={`diaryDate-${index}`}>{diary.date}</Date>
               {diary.picture_url && (
-                <ImageIconArea data-testid={`diaryimageIcon-${index}`} />
+                <ImageIconArea />
+              )}
+              {diary.movie_source&& (
+                <MovieIconArea />
               )}
             </Paragraph>
             <Content data-testid={`diaryContent-${index}`}>

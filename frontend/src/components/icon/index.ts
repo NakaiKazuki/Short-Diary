@@ -9,3 +9,4 @@ export { default as UserIcon } from "@material-ui/icons/AccountCircle";
 export { default as LogoutIcon } from "@material-ui/icons/ExitToApp";
 export { default as SearchIcon } from "@material-ui/icons/Search";
 export { default as MenuIcon } from "@material-ui/icons/Menu";
+export { default as MovieIcon } from "@mui/icons-material/Movie";
