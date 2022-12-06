@@ -108,7 +108,6 @@ jobs:
           name: Run Frontend Test
           command: yarn test
 
-
 workflows:
   version: 2
   confirmation:
@@ -129,4 +128,4 @@ workflows:
             - rspec
       - frontendTest:
           requires:
-            - frontendTest
+            - frontendLint
