@@ -8,8 +8,8 @@ const diary = {
   date: dateToday(),
   content: "Test Text",
   tag_list: [],
-  picture_url: null,
-  movie_source: null,
+  picture_url: undefined,
+  movie_source: undefined,
   user_id: 1,
 };
 

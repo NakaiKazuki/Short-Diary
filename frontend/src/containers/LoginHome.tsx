@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { YouTubeProps, YouTubeEvent } from "react-youtube";
+import { YouTubeProps, YouTubeEvent, YouTubePlayer } from "react-youtube";
 import styled from "styled-components";
 
 // contexts
@@ -142,9 +142,9 @@ interface IDiary {
   id: number;
   date: string;
   content: string;
-  picture_url: string | null;
-  tag_list: Array<string | null>;
-  movie_source: string;
+  picture_url: string | undefined;
+  tag_list: Array<string | undefined>;
+  movie_source: string | undefined;
   user_id: number;
 }
 
@@ -192,8 +192,12 @@ interface ISearchFormValue {
   searchWord: string | undefined;
 }
 
+interface IFile extends File {
+  data: string | ArrayBuffer | null;
+}
+
 export const LoginHome: FC = () => {
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { setCurrentUser, headers } = useContext(AuthContext);
   const navigate = useNavigate();
   const {
     handleSubmit,
@@ -229,28 +233,25 @@ export const LoginHome: FC = () => {
 
   const scrollIndexTopRef = useRef<HTMLDivElement>(null);
   const onPageChange = (page: number): void => {
-    getDiaies(
-      currentUser!.headers,
-      page,
-      state.selectedDate?.toISOString().split("T")[0]
-    )
-      .then((data) => {
-        setState({
-          ...state,
-          diaries: data.diaries,
-          pagy: data.pagy,
+    headers &&
+      getDiaies(headers, page, state.selectedDate?.toISOString().split("T")[0])
+        .then((data) => {
+          setState({
+            ...state,
+            diaries: data.diaries,
+            pagy: data.pagy,
+          });
+          scrollIndexTopRef?.current?.scrollIntoView();
+        })
+        .catch((e) => {
+          if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+            setCurrentUser(undefined);
+            navigate("/login");
+          } else {
+            console.error(e);
+            throw e;
+          }
         });
-        scrollIndexTopRef?.current?.scrollIntoView();
-      })
-      .catch((e) => {
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-          setCurrentUser(undefined);
-          navigate("/login");
-        } else {
-          console.error(e);
-          throw e;
-        }
-      });
   };
   // ここまでPagenationAreaで使う関数
 
@@ -279,86 +280,83 @@ export const LoginHome: FC = () => {
   };
 
   const onDateChange = (selectedDate: null | Date): void => {
-    if (selectedDate) {
-      console.log(convertDate(selectedDate));
-    }
-    fetchHome(
-      currentUser!.headers,
-      selectedDate ? convertDate(selectedDate) : undefined
-    )
-      .then((data): void => {
-        setState({
-          ...state,
-          selectedDate: selectedDate,
-          searchWord: "",
-          diaries: data.diaries,
-          pagy: data.pagy,
-          isOpenDrawer: false,
-          fetchState: REQUEST_STATE.OK,
+    headers &&
+      fetchHome(headers, selectedDate ? convertDate(selectedDate) : undefined)
+        .then((data): void => {
+          setState({
+            ...state,
+            selectedDate: selectedDate,
+            searchWord: "",
+            diaries: data.diaries,
+            pagy: data.pagy,
+            isOpenDrawer: false,
+            fetchState: REQUEST_STATE.OK,
+          });
+          reset({ searchWord: "" });
+        })
+        .catch((e): void => {
+          if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+            setCurrentUser(undefined);
+            navigate("/login", { replace: true });
+          } else {
+            console.error(e);
+            throw e;
+          }
         });
-        reset({ searchWord: "" });
-      })
-      .catch((e): void => {
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-          setCurrentUser(undefined);
-          navigate("/login", { replace: true });
-        } else {
-          console.error(e);
-          throw e;
-        }
-      });
   };
 
   // 単語を指定して検索する場合に使用
   const onWordSearchSubmit = (formValues: ISearchFormValue): void => {
-    fetchHome(currentUser!.headers, formValues.searchWord)
-      .then((data): void => {
-        setState({
-          ...state,
-          selectedDate: null,
-          searchWord: formValues.searchWord,
-          diaries: data.diaries,
-          pagy: data.pagy,
-          isOpenDrawer: false,
-          fetchState: REQUEST_STATE.OK,
+    headers &&
+      fetchHome(headers, formValues.searchWord)
+        .then((data): void => {
+          setState({
+            ...state,
+            selectedDate: null,
+            searchWord: formValues.searchWord,
+            diaries: data.diaries,
+            pagy: data.pagy,
+            isOpenDrawer: false,
+            fetchState: REQUEST_STATE.OK,
+          });
+          console.log(data);
+        })
+        .catch((e): void => {
+          if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+            setCurrentUser(undefined);
+            navigate("/login");
+          } else {
+            console.error(e);
+            throw e;
+          }
         });
-        console.log(data);
-      })
-      .catch((e): void => {
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-          setCurrentUser(undefined);
-          navigate("/login");
-        } else {
-          console.error(e);
-          throw e;
-        }
-      });
   };
 
   // 検索内容を消去するボタンに使用
   const onSearchClearButton = (): void => {
-    fetchHome(currentUser!.headers)
-      .then((data): void => {
-        setState({
-          ...state,
-          selectedDate: null,
-          searchWord: "",
-          diaries: data.diaries,
-          pagy: data.pagy,
-          isOpenDrawer: false,
-          fetchState: REQUEST_STATE.OK,
+    headers &&
+      fetchHome(headers)
+        .then((data): void => {
+          setState({
+            ...state,
+            selectedDate: null,
+            searchWord: "",
+            diaries: data.diaries,
+            pagy: data.pagy,
+            isOpenDrawer: false,
+            fetchState: REQUEST_STATE.OK,
+          });
+          reset({ searchWord: "" });
+        })
+        .catch((e): void => {
+          if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+            setCurrentUser(undefined);
+            navigate("/login");
+          } else {
+            console.error(e);
+            throw e;
+          }
         });
-        reset({ searchWord: "" });
-      })
-      .catch((e): void => {
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-          setCurrentUser(undefined);
-          navigate("/login");
-        } else {
-          console.error(e);
-          throw e;
-        }
-      });
   };
   // ここまでSearchFieldで使う関数
 
@@ -377,17 +375,18 @@ export const LoginHome: FC = () => {
   // DiaryCreateDialogで選択されたfile名を返す
   const setFileName = (): string => {
     const InputPicture: TPicture | undefined = watch("picture");
-    if (InputPicture && InputPicture![0] != null) {
-      return InputPicture![0].name.slice(0, 20);
+    if (InputPicture && InputPicture[0] != null) {
+      return InputPicture[0].name.slice(0, 20);
     } else {
       return "画像を選択する";
     }
   };
 
   // fileをbase64にエンコード
-  const onFileChange = (e: any): void => {
-    const file = e.target.files[0];
-    if (file) {
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const target = e.target as HTMLInputElement;
+    if (target.files?.[0]) {
+      const file = target.files[0] as IFile;
       const reader = new FileReader();
       reader.onload = () => (file.data = reader.result);
       reader.readAsDataURL(file);
@@ -399,39 +398,40 @@ export const LoginHome: FC = () => {
   // DiaryCreateDialogでFormのボタンが押されたらApiを叩く
   const onCreateSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING });
-    createDiary(currentUser!.headers, {
-      date: formValues.date,
-      tag_list: formValues.tag_list ? formValues.tag_list.trim() : undefined,
-      content: formValues.content,
-      movie_source: formValues.movie_source
-        ? formValues.movie_source
-        : undefined,
-      picture: formValues.picture ? formValues.picture[0] : undefined,
-    })
-      .then((data): void => {
-        dispatch({ type: submitActionTypes.POST_INITIAL });
-        setState({
-          ...state,
-          diaries: data.diaries,
-          isOpenDiaryCreateDialog: false,
-          pagy: data.pagy,
-        });
+    headers &&
+      createDiary(headers, {
+        date: formValues.date,
+        tag_list: formValues.tag_list ? formValues.tag_list.trim() : undefined,
+        content: formValues.content,
+        movie_source: formValues.movie_source
+          ? formValues.movie_source
+          : undefined,
+        picture: formValues.picture ? formValues.picture[0] : undefined,
       })
-      .catch((e): void => {
-        dispatch({ type: submitActionTypes.POST_INITIAL });
-        if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+        .then((data): void => {
+          dispatch({ type: submitActionTypes.POST_INITIAL });
           setState({
             ...state,
-            apiErrors: e.response.data.errors,
+            diaries: data.diaries,
+            isOpenDiaryCreateDialog: false,
+            pagy: data.pagy,
           });
-        } else if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-          setCurrentUser(undefined);
-          navigate("/login");
-        } else {
-          console.error(e);
-          throw e;
-        }
-      });
+        })
+        .catch((e): void => {
+          dispatch({ type: submitActionTypes.POST_INITIAL });
+          if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+            setState({
+              ...state,
+              apiErrors: e.response.data.errors,
+            });
+          } else if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+            setCurrentUser(undefined);
+            navigate("/login");
+          } else {
+            console.error(e);
+            throw e;
+          }
+        });
   };
 
   // CreateDialogを開く
@@ -455,48 +455,53 @@ export const LoginHome: FC = () => {
   // ここからDiaryEditで使う関数
   const onEditSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING });
-    updateDiary(
-      currentUser!.headers,
-      {
-        date: formValues.date,
-        tag_list: formValues.tag_list ? formValues.tag_list.trim() : undefined,
-        content: formValues.content,
-        picture: formValues.picture ? formValues.picture[0] : undefined,
-        movie_source: formValues.movie_source
-          ? formValues.movie_source
-          : undefined,
-      },
-      state.pagy!.page,
-      state.selectedDiary!.id
-    )
-      .then((data): void => {
-        dispatch({ type: submitActionTypes.POST_INITIAL });
-        setState({
-          ...state,
-          diaries: data.diaries,
-          pagy: data.pagy,
-          isOpenDiaryEdit: false,
-          isOpenDiaryDialog: false,
-          selectedDate: null,
-        });
-      })
-      .catch((e): void => {
-        dispatch({ type: submitActionTypes.POST_INITIAL });
-        if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+    headers &&
+      state.pagy &&
+      state.selectedDiary &&
+      updateDiary(
+        headers,
+        {
+          date: formValues.date,
+          tag_list: formValues.tag_list
+            ? formValues.tag_list.trim()
+            : undefined,
+          content: formValues.content,
+          picture: formValues.picture ? formValues.picture[0] : undefined,
+          movie_source: formValues.movie_source
+            ? formValues.movie_source
+            : undefined,
+        },
+        state.pagy.page,
+        state.selectedDiary.id
+      )
+        .then((data): void => {
+          dispatch({ type: submitActionTypes.POST_INITIAL });
           setState({
             ...state,
-            apiErrors: e.response.data.errors,
+            diaries: data.diaries,
+            pagy: data.pagy,
+            isOpenDiaryEdit: false,
+            isOpenDiaryDialog: false,
+            selectedDate: null,
           });
-        } else if (
-          e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
-          e.response.status === HTTP_STATUS_CODE.FORBIDDEN
-        ) {
-          setCurrentUser(undefined);
-          navigate("/login");
-        } else {
-          alert(e);
-        }
-      });
+        })
+        .catch((e): void => {
+          dispatch({ type: submitActionTypes.POST_INITIAL });
+          if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+            setState({
+              ...state,
+              apiErrors: e.response.data.errors,
+            });
+          } else if (
+            e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
+            e.response.status === HTTP_STATUS_CODE.FORBIDDEN
+          ) {
+            setCurrentUser(undefined);
+            navigate("/login");
+          } else {
+            alert(e);
+          }
+        });
   };
   // ここまでDiaryEditで使う関数
 
@@ -511,7 +516,7 @@ export const LoginHome: FC = () => {
   };
 
   const onPlayerReady: YouTubeProps["onReady"] = (
-    e: YouTubeEvent<any>
+    e: YouTubeEvent<{ target: YouTubePlayer }>
   ): void => {
     e.target.pauseVideo();
   };
@@ -535,30 +540,32 @@ export const LoginHome: FC = () => {
 
   // DiaryDialogで開かれている日記データを削除
   const onDiaryDelete = (diary: IDiary): void => {
-    deleteDiary(currentUser!.headers, state.pagy!.page, diary.id)
-      .then((data): void => {
-        setState({
-          ...state,
-          diaries: data.diaries,
-          pagy: data.pagy,
-          isOpenConfirmDialog: false,
-          isOpenDiaryEdit: false,
-          isOpenDiaryDialog: false,
-          selectedDate: null,
+    headers &&
+      state.pagy &&
+      deleteDiary(headers, state.pagy.page, diary.id)
+        .then((data): void => {
+          setState({
+            ...state,
+            diaries: data.diaries,
+            pagy: data.pagy,
+            isOpenConfirmDialog: false,
+            isOpenDiaryEdit: false,
+            isOpenDiaryDialog: false,
+            selectedDate: null,
+          });
+        })
+        .catch((e): void => {
+          if (
+            e.response.status === HTTP_STATUS_CODE.FORBIDDEN ||
+            e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED
+          ) {
+            setCurrentUser(undefined);
+            navigate("/login");
+          } else {
+            console.error(e);
+            throw e;
+          }
         });
-      })
-      .catch((e): void => {
-        if (
-          e.response.status === HTTP_STATUS_CODE.FORBIDDEN ||
-          e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED
-        ) {
-          setCurrentUser(undefined);
-          navigate("/login");
-        } else {
-          console.error(e);
-          throw e;
-        }
-      });
   };
 
   // Dialogの内容を閲覧用に変更する
@@ -598,32 +605,32 @@ export const LoginHome: FC = () => {
 
   // このコンポーネントが開かれた時にだけ実行される
   useEffect(() => {
-    let abortController = new AbortController();
+    const abortController = new AbortController();
     setState({
       ...state,
       fetchState: REQUEST_STATE.LOADING,
     });
-    fetchHome(currentUser!.headers)
-      .then((data): void => {
-        setState({
-          ...state,
-          diaries: data.diaries,
-          pagy: data.pagy,
-          fetchState: REQUEST_STATE.OK,
+    headers &&
+      fetchHome(headers)
+        .then((data): void => {
+          setState({
+            ...state,
+            diaries: data.diaries,
+            pagy: data.pagy,
+            fetchState: REQUEST_STATE.OK,
+          });
+          // console.log(data.diaries);
+        })
+        .catch((e): void => {
+          if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+            setCurrentUser(undefined);
+            navigate("/login");
+          } else {
+            console.error(e);
+          }
         });
-        // console.log(data.diaries);
-      })
-      .catch((e): void => {
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-          setCurrentUser(undefined);
-          navigate("/login");
-        } else {
-          console.error(e);
-        }
-      });
 
     return () => abortController.abort();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -633,18 +640,18 @@ export const LoginHome: FC = () => {
         onClick={onOpenDiaryCreateDialog}
         data-testid="diaryCreateOpenButton"
       >
-        <IconWrapper
-          children={<CreateIcon fontSize={"small"} data-testid="createIcon" />}
-        />
+        <IconWrapper>
+          <CreateIcon fontSize={"small"} data-testid="createIcon" />
+        </IconWrapper>
         日記作成
       </DiaryCreateOpenButton>
       <DrawerOpenButton
         onClick={onDrawerOpenButton(true)}
         data-testid="drawerOpenButton"
       >
-        <IconWrapper
-          children={<SearchIcon fontSize={"small"} data-testid="SearchIcon" />}
-        />
+        <IconWrapper>
+          <SearchIcon fontSize={"small"} data-testid="SearchIcon" />
+        </IconWrapper>
         Search
       </DrawerOpenButton>
       <DiarySearchDrawer

@@ -45,10 +45,12 @@ const LoginWrapper = styled.div`
 // 型
 // Formから送信される情報
 interface IFormValues {
+  name: string;
   email: string;
   password: string;
+  password_confirmation: string;
+  current_password: string;
 }
-
 // エラーメッセージ
 export const Login: FC = () => {
   const navigate = useNavigate();
@@ -56,13 +58,13 @@ export const Login: FC = () => {
     undefined
   );
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { setCurrentUser, setHeaders } = useContext(AuthContext);
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm<IFormValues>();
-  const formInfo = loginFormInfo(errors, control, apiErrors);
+  const formInfo = loginFormInfo(errors, apiErrors);
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING });
     createSession({
@@ -71,11 +73,8 @@ export const Login: FC = () => {
     })
       .then((res) => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
-        setCurrentUser({
-          ...currentUser,
-          ...res.data,
-          headers: res.headers,
-        });
+        setCurrentUser(res.data);
+        setHeaders(res.headers);
         navigate("/", { replace: true });
       })
       .catch((e) => {
@@ -96,9 +95,9 @@ export const Login: FC = () => {
     <LoginWrapper>
       <FormTitle>Login</FormTitle>
       <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="loginForm">
-        <FormItem formInfo={formInfo.email} />
+        <FormItem formInfo={formInfo.email} control={control} />
 
-        <FormItem formInfo={formInfo.password} />
+        <FormItem formInfo={formInfo.password} control={control} />
 
         <FormSubmit
           isDisabled={isDisabled(submitState.postState)}

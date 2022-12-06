@@ -78,6 +78,21 @@ jobs:
       - store_test_results:
           path: rspec_result
 
+  frontendLint:
+    docker:
+      - image: cimg/node:16.13.1
+    steps:
+      - checkout
+      - node/install-packages:
+          app-dir: "./frontend"
+          pkg-manager: yarn
+          cache-path: "./frontend/yarn.lock"
+          cache-version: "v0.3.6"
+      - run:
+          working_directory: "./frontend"
+          name: Run Frontend Lint
+          command: yarn lint
+
   frontendTest:
     docker:
       - image: cimg/node:16.13.1
@@ -87,11 +102,12 @@ jobs:
           app-dir: "./frontend"
           pkg-manager: yarn
           cache-path: "./frontend/yarn.lock"
-          cache-version: "v0.3.5"
+          cache-version: "v0.3.6"
       - run:
           working_directory: "./frontend"
-          name: Run FrontEnd Test
+          name: Run Frontend Test
           command: yarn test
+
 
 workflows:
   version: 2
@@ -108,6 +124,9 @@ workflows:
       - rspec:
           requires:
             - rubocop
-      - frontendTest:
+      - frontendLint:
           requires:
             - rspec
+      - frontendTest:
+          requires:
+            - frontendTest

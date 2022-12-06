@@ -2,7 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 
 // components
-import { PictureIcon,MovieIcon } from "../icon";
+import { PictureIcon, MovieIcon } from "../icon";
 
 // css
 const DiariesWrapper = styled.ul`
@@ -73,9 +73,9 @@ interface IDiary {
   id: number;
   date: string;
   content: string;
-  picture_url: string | null;
-  tag_list: Array<string | null>;
-  movie_source: string | null;
+  picture_url: string | undefined;
+  tag_list: Array<string | undefined>;
+  movie_source: string | undefined;
   user_id: number;
 }
 
@@ -89,6 +89,7 @@ export const DiaryIndex: FC<DiariesProps> = ({
   onOpenDiaryDialog,
 }) => {
   return (
+    // eslint-disable-next-line react/react-in-jsx-scope
     <DiariesWrapper data-testid="diaryIndex">
       {diaries.map((diary: IDiary, index: number): JSX.Element => {
         return (
@@ -99,12 +100,8 @@ export const DiaryIndex: FC<DiariesProps> = ({
           >
             <Paragraph>
               <Date data-testid={`diaryDate-${index}`}>{diary.date}</Date>
-              {diary.picture_url && (
-                <ImageIconArea />
-              )}
-              {diary.movie_source&& (
-                <MovieIconArea />
-              )}
+              {diary.picture_url && <ImageIconArea />}
+              {diary.movie_source && <MovieIconArea />}
             </Paragraph>
             <Content data-testid={`diaryContent-${index}`}>
               {diary.content.length <= 40

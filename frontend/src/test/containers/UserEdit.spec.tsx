@@ -17,36 +17,32 @@ interface IHeaders {
   uid: string;
 }
 
-interface IData {
+interface ICurrentUser {
   id: number;
   name: string;
   email: string;
 }
 
-interface ICurrentUser {
-  data: IData;
-  headers: IHeaders;
-}
-
 interface IProviderProps {
   value: {
     currentUser: ICurrentUser | undefined;
+    headers: IHeaders | undefined;
     setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
+    setHeaders: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
   };
 }
 
 // ユーザデータ
+const headers = {
+  "access-token": "testtoken",
+  client: "testclient",
+  uid: "test@example.com",
+};
+
 const currentUser = {
-  headers: {
-    "access-token": "testtoken",
-    client: "testclient",
-    uid: "test@example.com",
-  },
-  data: {
-    id: 1,
-    name: "test",
-    email: "test@example.com",
-  },
+  id: 1,
+  name: "test",
+  email: "test@example.com",
 };
 
 const mockAxios = new MockAdapter(axios);
@@ -110,8 +106,10 @@ const guestIdNames = ["guest"];
 
 const providerProps = {
   value: {
+    headers: headers,
     currentUser: currentUser,
     setCurrentUser: jest.fn(),
+    setHeaders: jest.fn(),
   },
 };
 
@@ -147,7 +145,6 @@ describe("UserEditコンポーネント", () => {
     mockAxios.resetHistory();
   });
   const setup = () => customRender(<UserEdit />, providerProps);
-  // eslint-disable-next-line testing-library/no-render-in-setup
   beforeEach(() => setup());
 
   describe("Form欄", () => {

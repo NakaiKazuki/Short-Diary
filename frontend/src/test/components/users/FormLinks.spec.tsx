@@ -1,14 +1,13 @@
 import { render, screen, cleanup } from "@testing-library/react";
-import { RouterProvider,createMemoryRouter } from "react-router-dom";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
-import { createMemoryHistory } from "history";
 import { FormLinks } from "../../../components/users";
 
 const customRender = (ui: JSX.Element) => {
   const routes = [
     {
       path: "/",
-      element: ui
+      element: ui,
     },
   ];
   const router = createMemoryRouter(routes);

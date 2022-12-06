@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Controller } from "react-hook-form";
 import { TextField, InputLabel } from "@material-ui/core";
 import styled from "styled-components";
-
+import { FieldError, Control } from "react-hook-form";
 // css
 const FormItemWrapper = styled.div`
   margin-top: 1rem;
@@ -27,24 +27,37 @@ interface IRurles {
 
 interface IFormInfoProps {
   formLabel: string;
-  errorsProperty: string;
+  errorsProperty: FieldError | undefined;
   errorMessage: string;
   apiErrorProperty: Array<string> | undefined;
   apiMessagePropertyName: string;
-  nameAttribute: string;
+  nameAttribute:
+    | "name"
+    | "email"
+    | "password"
+    | "password_confirmation"
+    | "current_password";
   typeAttribute: string;
-  control: any;
   defaultValue: string;
   autoComplete: string;
   autoFocus: boolean;
   rules: IRurles;
 }
 
-interface IFormItemProps {
-  formInfo: IFormInfoProps;
+interface IFormValues {
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+  current_password: string;
 }
 
-export const FormItem: FC<IFormItemProps> = ({ formInfo }) => {
+interface IFormItemProps {
+  formInfo: IFormInfoProps;
+  control: Control<IFormValues>;
+}
+
+export const FormItem: FC<IFormItemProps> = ({ formInfo, control }) => {
   return (
     <FormItemWrapper data-testid={`FormItem-${formInfo.nameAttribute}`}>
       <InputLabel>
@@ -65,7 +78,7 @@ export const FormItem: FC<IFormItemProps> = ({ formInfo }) => {
 
         <Controller
           name={formInfo.nameAttribute}
-          control={formInfo.control}
+          control={control}
           rules={formInfo.rules}
           defaultValue={formInfo.defaultValue}
           shouldUnregister

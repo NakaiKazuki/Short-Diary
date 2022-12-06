@@ -1,20 +1,19 @@
-const DEFAULT_API_LOCALHOST: string =
-  process.env.REACT_APP_DEFAULT_API_LOCALHOST!;
+const DEFAULT_API_LOCALHOST: string | undefined =
+  process.env.REACT_APP_DEFAULT_API_LOCALHOST;
 
-export const home: string = `${DEFAULT_API_LOCALHOST}`;
+export const home = `${DEFAULT_API_LOCALHOST}`;
 
 // User関連のurl
-const DEVISE_PATH: string = `${DEFAULT_API_LOCALHOST}/auth`;
+const DEVISE_PATH = `${DEFAULT_API_LOCALHOST}/auth`;
 
 export const registration: string = DEVISE_PATH;
-export const signIn: string = `${DEVISE_PATH}/sign_in`;
-export const signOut: string = `${DEVISE_PATH}/sign_out`;
-export const guestSignIn: string = `${DEVISE_PATH}/guest_sign_in`;
+export const signIn = `${DEVISE_PATH}/sign_in`;
+export const signOut = `${DEVISE_PATH}/sign_out`;
+export const guestSignIn = `${DEVISE_PATH}/guest_sign_in`;
 
 // Diary
-export const diary: string = `${DEFAULT_API_LOCALHOST}/diaries`;
-export const photoGallery: string = `${DEFAULT_API_LOCALHOST}/photo_gallery`;
+export const diary = `${DEFAULT_API_LOCALHOST}/diaries`;
+export const photoGallery = `${DEFAULT_API_LOCALHOST}/photo_gallery`;
 
-// Mail
-export const CONTACT_PATH: string = `${DEFAULT_API_LOCALHOST}/contacts`;
-export const contact: string = `${CONTACT_PATH}`;
+export const CONTACT_PATH = `${DEFAULT_API_LOCALHOST}/contacts`;
+export const contact = `${CONTACT_PATH}`;

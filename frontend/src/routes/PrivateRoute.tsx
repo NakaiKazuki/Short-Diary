@@ -8,11 +8,15 @@ import { AuthContext } from "../contexts/Auth";
 import { isLoggedIn } from "../helpers";
 
 interface IPrivateRouteProps {
-  children: JSX.Element;
+  jsxElement: JSX.Element;
 }
 
-export const PrivateRoute: FC<IPrivateRouteProps> = ({ children }) => {
-  const { currentUser } = useContext(AuthContext);
+export const PrivateRoute: FC<IPrivateRouteProps> = ({ jsxElement }) => {
+  const { currentUser, headers } = useContext(AuthContext);
 
-  return isLoggedIn(currentUser) ? children : <Navigate to="/login" />;
+  return isLoggedIn(currentUser, headers) ? (
+    jsxElement
+  ) : (
+    <Navigate to="/login" />
+  );
 };

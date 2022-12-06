@@ -1,5 +1,6 @@
-import React, { FC, Fragment } from "react";
+import { FC, Fragment } from "react";
 import { DialogTitle } from "@material-ui/core";
+import { FieldErrors, UseFormRegister, Control } from "react-hook-form";
 import styled from "styled-components";
 
 // components
@@ -12,6 +13,11 @@ const FromTitle = styled(DialogTitle)`
 `;
 
 // 型
+interface IErrors {
+  content: string;
+  movie_source: string;
+}
+
 interface IApiErrors {
   date?: Array<string>;
   tag_list?: Array<string>;
@@ -22,25 +28,35 @@ interface IApiErrors {
 interface IDiary {
   id: number;
   date: string;
-  tag_list: Array<string | null>;
+  tag_list: Array<string | undefined>;
   content: string;
-  picture_url: string | null;
-  movie_source: string | null;
+  picture_url: string | undefined;
+  movie_source: string | undefined;
   user_id: number;
+}
+
+type TPicture = Array<{ data: string; name: string }>;
+interface IFormValues {
+  date: string;
+  tag_list: string | undefined;
+  content: string;
+  picture: TPicture | undefined;
+  movie_source: string;
+  searchWord: string | undefined;
 }
 
 interface IDiaryEditProps {
   diary: IDiary;
-  control: any;
-  errors: any;
-  register: any;
+  control: Control<IFormValues>;
+  errors: FieldErrors<IErrors>;
   apiErrors: IApiErrors | undefined;
   onSubmitText: string;
   isDisabled: boolean;
   contentCount: number;
   setFileName: string | undefined;
+  register: UseFormRegister<IFormValues>;
   onEditSubmit(): void;
-  onFileChange(e: any): void;
+  onFileChange(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 export const DiaryEdit: FC<IDiaryEditProps> = ({

@@ -28,9 +28,7 @@ export const Message: FC = () => {
   const { message, setMessage } = useContext(MessageContext);
 
   useEffect((): void => {
-    if (message) {
-      setTimeout(() => setMessage(undefined), 10000);
-    }
+    message && setTimeout(() => setMessage(undefined), 10000);
   }, [message, setMessage]);
 
   return message ? (

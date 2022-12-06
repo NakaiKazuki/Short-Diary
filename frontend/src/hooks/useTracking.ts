@@ -1,9 +1,13 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 declare global {
   interface Window {
-    gtag?: (key: string, trackingId: string, config: { page_path: string }) => void;
+    gtag?: (
+      key: string,
+      trackingId: string,
+      config: { page_path: string }
+    ) => void;
   }
 }
 
@@ -11,16 +15,16 @@ export const useTracking = (trackingId: string | undefined) => {
   const location = useLocation();
 
   useEffect(() => {
-    const unlisten = (()=> {
+    const unlisten = () => {
       if (!window.gtag) return;
       if (!trackingId) {
         console.log(
-          'Tracking not enabled, as `trackingId` was not given and there is no `GA_MEASUREMENT_ID`.',
+          "Tracking not enabled, as `trackingId` was not given and there is no `GA_MEASUREMENT_ID`."
         );
         return;
       }
-      window.gtag('config', trackingId, { page_path: location.pathname });
-    });
+      window.gtag("config", trackingId, { page_path: location.pathname });
+    };
 
     return unlisten;
   }, [trackingId, location]);

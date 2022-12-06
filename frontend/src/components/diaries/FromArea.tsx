@@ -1,8 +1,12 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { TextField } from "@material-ui/core";
-import { Controller } from "react-hook-form";
+import {
+  Controller,
+  FieldErrors,
+  UseFormRegister,
+  Control,
+} from "react-hook-form";
 import styled from "styled-components";
-
 // components
 import { BaseButton } from "../shared_style";
 import { AddPictureIcon } from "../icon";
@@ -70,10 +74,24 @@ interface IApiErrors {
   movie_source?: Array<string>;
 }
 
+interface IErrors {
+  content: string;
+  movie_source: string;
+}
+
+type TPicture = Array<{ data: string; name: string }>;
+interface IFormValues {
+  date: string;
+  tag_list: string | undefined;
+  content: string;
+  picture: TPicture | undefined;
+  movie_source: string;
+  searchWord: string | undefined;
+}
+
 interface IFormAreaProps {
-  control: any;
-  errors: any;
-  register: any;
+  control: Control<IFormValues>;
+  errors: FieldErrors<IErrors>;
   apiErrors: IApiErrors | undefined;
   onSubmitText: string;
   isDisabled: boolean;
@@ -83,14 +101,14 @@ interface IFormAreaProps {
   defaultContent: string;
   defaultmovie_source: string;
   setFileName: string | undefined;
+  register: UseFormRegister<IFormValues>;
   onSubmit(): void;
-  onFileChange(e: any): void;
+  onFileChange(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 export const FormArea: FC<IFormAreaProps> = ({
   control,
   errors,
-  register,
   apiErrors,
   onSubmitText,
   isDisabled,
@@ -100,6 +118,7 @@ export const FormArea: FC<IFormAreaProps> = ({
   defaultContent,
   defaultmovie_source,
   setFileName,
+  register,
   onSubmit,
   onFileChange,
 }) => {

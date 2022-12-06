@@ -1,8 +1,8 @@
 import React, { FC, Fragment } from "react";
 import { Chip, Dialog } from "@material-ui/core";
 import YouTube, { YouTubeEvent } from "react-youtube";
+import { FieldErrors, UseFormRegister, Control } from "react-hook-form";
 import styled from "styled-components";
-
 // components
 import { DiaryMenu } from "./DiaryMenu";
 import { DiaryEdit } from "./DiaryEdit";
@@ -60,10 +60,25 @@ interface IDiary {
   id: number;
   date: string;
   content: string;
-  picture_url: string | null;
-  tag_list: Array<string | null>;
-  movie_source: string | null;
+  picture_url: string | undefined;
+  tag_list: Array<string | undefined>;
+  movie_source: string | undefined;
   user_id: number;
+}
+
+interface IErrors {
+  content: string;
+  movie_source: string;
+}
+
+type TPicture = Array<{ data: string; name: string }>;
+interface IFormValues {
+  date: string;
+  tag_list: string | undefined;
+  content: string;
+  picture: TPicture | undefined;
+  movie_source: string;
+  searchWord: string | undefined;
 }
 
 interface IApiErrors {
@@ -77,9 +92,8 @@ interface IApiErrors {
 interface IDiaryDialogProps {
   isOpen: boolean;
   isOpenDiaryEdit: boolean;
-  control: any;
-  errors: any;
-  register: any;
+  control: Control<IFormValues>;
+  errors: FieldErrors<IErrors>;
   apiErrors: IApiErrors | undefined;
   onSubmitText: string;
   isDisabled: boolean;
@@ -87,15 +101,16 @@ interface IDiaryDialogProps {
   setFileName: string | undefined;
   diary: IDiary;
   anchorEl: HTMLElement | null;
+  register: UseFormRegister<IFormValues>;
   onEditSubmit(): void;
   onOpenCofirmationDialog(): void;
   onDiaryEditMode(): void;
   onDiaryShowMode(): void;
-  onFileChange(e: any): void;
+  onFileChange(e: React.ChangeEvent<HTMLInputElement>): void;
   onClose(): void;
   onMenuOpen(e: React.MouseEvent<HTMLElement>): void;
   onMenuClose(): void;
-  onPlayerReady(e: YouTubeEvent<any>): void;
+  onPlayerReady(e: YouTubeEvent<HTMLElement>): void;
 }
 
 const opts = {
@@ -166,7 +181,7 @@ export const DiaryDialog: FC<IDiaryDialogProps> = ({
           <Date data-testid="diaryDate">{diary.date}</Date>
           <TagWrapper>
             {diary.tag_list.map(
-              (tag: string | null, index: number): JSX.Element => {
+              (tag: string | undefined, index: number): JSX.Element => {
                 return (
                   <Tag
                     label={tag}

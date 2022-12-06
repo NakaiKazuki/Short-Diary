@@ -5,17 +5,15 @@ interface IHeaders {
   uid: string;
 }
 
-interface IUserData {
+interface IUser {
   id: number;
   name: string;
   email: string;
-  // image: string | null;
-}
-
-interface IUser {
-  data: IUserData;
-  headers: IHeaders;
+  // image: string | undefined;
 }
 
 // ユーザがログインしていたらtrueを返す
-export const isLoggedIn = (user: IUser | undefined): boolean => user != null;
+export const isLoggedIn = (
+  user: IUser | undefined,
+  headers: IHeaders | undefined
+): boolean => user != null && headers != null;

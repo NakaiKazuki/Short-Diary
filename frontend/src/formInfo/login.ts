@@ -1,3 +1,4 @@
+import { FieldErrors, FieldError } from "react-hook-form";
 interface IRurles {
   required: boolean;
   minLength?: number;
@@ -6,13 +7,12 @@ interface IRurles {
 
 interface IObject {
   formLabel: string;
-  errorsProperty: string;
+  errorsProperty: FieldError | undefined;
   errorMessage: string;
   apiErrorProperty: Array<string> | undefined;
   apiMessagePropertyName: string;
-  nameAttribute: string;
+  nameAttribute: "email" | "password";
   typeAttribute: string;
-  control: any;
   defaultValue: string;
   autoComplete: string;
   autoFocus: boolean;
@@ -24,10 +24,14 @@ interface IFormInfo {
   password: IObject;
 }
 
+interface IErrors {
+  email: string;
+  password: string;
+}
+
 // Loginページのフォーム欄を表示するために必要な情報群
 export const loginFormInfo = (
-  errors: any,
-  control: object,
+  errors: FieldErrors<IErrors>,
   apiErrors: Array<string> | undefined
 ): IFormInfo => {
   return {
@@ -39,7 +43,6 @@ export const loginFormInfo = (
       apiMessagePropertyName: "",
       nameAttribute: "email",
       typeAttribute: "email",
-      control: control,
       defaultValue: "",
       autoComplete: "email",
       autoFocus: true,
@@ -53,7 +56,6 @@ export const loginFormInfo = (
       apiMessagePropertyName: "",
       nameAttribute: "password",
       typeAttribute: "password",
-      control: control,
       defaultValue: "",
       autoComplete: "current-password",
       autoFocus: false,

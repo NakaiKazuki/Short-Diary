@@ -17,21 +17,18 @@ interface IHeaders {
   uid: string;
 }
 
-interface IData {
+interface ICurrentUser {
   id: number;
   name: string;
   email: string;
 }
 
-interface ICurrentUser {
-  data: IData;
-  headers: IHeaders;
-}
-
 interface IProviderProps {
   value: {
     currentUser: ICurrentUser | undefined;
+    headers: IHeaders | undefined;
     setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
+    setHeaders: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
   };
 }
 
@@ -66,8 +63,10 @@ const returnErrorData = {
 
 const providerProps = {
   value: {
+    headers: undefined,
     currentUser: undefined,
     setCurrentUser: jest.fn(),
+    setHeaders: jest.fn(),
   },
 };
 const messageProps = {
@@ -105,7 +104,6 @@ describe("SignUpコンポーネント", () => {
     mockAxios.resetHistory();
   });
   const setup = () => customRender(<SignUp />, providerProps);
-  // eslint-disable-next-line testing-library/no-render-in-setup
   beforeEach(() => setup());
   describe("Form欄", () => {
     it("Formがある", () => {

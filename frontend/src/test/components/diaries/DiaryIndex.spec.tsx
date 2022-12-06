@@ -2,17 +2,20 @@ import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { DiaryIndex } from "../../../components/diaries";
 
+const testString = (count: number): string => {
+  return "0123456789".repeat(count);
+};
+
 const date = new Date().toISOString().split("T")[0];
-const testTContent: string =
-  "A123456789B123456789C123456789D123456789E123456789F123456789";
+const testTContent: string = testString(6);
 const diaries = [
   {
     id: 1,
     date: date,
     content: "Test Content",
     tag_list: [],
-    movie_source: null,
-    picture_url: null,
+    movie_source: undefined,
+    picture_url: undefined,
     user_id: 1,
   },
   {
@@ -20,7 +23,7 @@ const diaries = [
     date: date,
     content: testTContent,
     tag_list: [],
-    movie_source: null,
+    movie_source: undefined,
     picture_url: "/testurl",
     user_id: 1,
   },

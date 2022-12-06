@@ -176,7 +176,7 @@ interface IInitialState {
 
 // エラーメッセージ
 export const PhotoGallery: FC = () => {
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { setCurrentUser, headers } = useContext(AuthContext);
   const navigate = useNavigate();
   const initialState: IInitialState = {
     items: [],
@@ -189,23 +189,23 @@ export const PhotoGallery: FC = () => {
       ...state,
       fetchState: REQUEST_STATE.LOADING,
     });
-    fetchPhotoGallery(currentUser!.headers)
-      .then((data): void => {
-        setState({
-          ...state,
-          items: data.items,
-          fetchState: REQUEST_STATE.OK,
+    headers &&
+      fetchPhotoGallery(headers)
+        .then((data): void => {
+          setState({
+            ...state,
+            items: data.items,
+            fetchState: REQUEST_STATE.OK,
+          });
+        })
+        .catch((e): void => {
+          if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+            setCurrentUser(undefined);
+            navigate("../login", { replace: true });
+          } else {
+            console.error(e);
+          }
         });
-      })
-      .catch((e): void => {
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-          setCurrentUser(undefined);
-          navigate("../login", { replace: true });
-        } else {
-          console.error(e);
-        }
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return state.fetchState === REQUEST_STATE.LOADING ? (

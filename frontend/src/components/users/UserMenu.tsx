@@ -146,12 +146,16 @@ export const UserMenu: FC<IDiaryMenuProps> = ({
       >
         <StyledMenuItem data-testid="userEditLink">
           <MenuItemLink to="/userEdit">
-            <ListItemIcon children={<EditIcon />} />
+            <ListItemIcon>
+              <EditIcon />
+            </ListItemIcon>
             ProfileEdit
           </MenuItemLink>
         </StyledMenuItem>
         <StyledMenuItemLogout onClick={onSignOut} data-testid="logoutButton">
-          <ListItemIcon children={<LogoutIcon />} />
+          <ListItemIcon>
+            <LogoutIcon />
+          </ListItemIcon>
           Logout
         </StyledMenuItemLogout>
       </StyledMenu>

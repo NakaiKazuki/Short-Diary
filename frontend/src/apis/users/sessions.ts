@@ -6,27 +6,36 @@ interface IParams {
   password: string;
 }
 
-interface ICurrentUserHeaders {
+interface IHeaders {
   "access-token": string;
   client: string;
   uid: string;
 }
 
-export const createSession = (params: IParams): Promise<any> => {
+interface IData {
+  id: number;
+  name: string;
+  email: string;
+}
+
+interface returnData {
+  data: IData;
+  headers: IHeaders;
+}
+
+export const createSession = (params: IParams): Promise<returnData> => {
   return axios.post(signIn, {
     email: params.email,
     password: params.password,
   });
 };
 
-export const deleteSession = (
-  currentUserHeaders: ICurrentUserHeaders
-): Promise<any> => {
+export const deleteSession = (headers: IHeaders): Promise<void> => {
   return axios.delete(signOut, {
-    headers: {...currentUserHeaders},
+    headers: { ...headers },
   });
 };
 
-export const newGuestSession = (): Promise<any> => {
+export const newGuestSession = (): Promise<returnData> => {
   return axios.post(guestSignIn);
 };

@@ -75,56 +75,54 @@ export const UserEdit: FC = () => {
     undefined
   );
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { currentUser, setCurrentUser, headers, setHeaders } =
+    useContext(AuthContext);
   const { setMessage } = useContext(MessageContext);
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm<IFormValues>();
-  const formInfo = UserEditFormInfo(
-    errors,
-    control,
-    apiErrors,
-    currentUser!.data
-  );
+
+  const formInfo = currentUser
+    ? UserEditFormInfo(errors, apiErrors, currentUser)
+    : navigate("../login", { replace: true });
+
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING });
-    putRegistration(currentUser!.headers, {
-      name: formValues.name,
-      email: formValues.email,
-      password: formValues.password,
-      password_confirmation: formValues.password_confirmation,
-      current_password: formValues.current_password,
-    })
-      .then((res) => {
-        dispatch({ type: submitActionTypes.POST_SUCCESS });
-        setCurrentUser({
-          ...currentUser,
-          ...res.data,
-          headers: res.headers,
-        });
-        setMessage("登録情報の編集に成功しました。");
-        navigate("../", { replace: true });
+    headers &&
+      putRegistration(headers, {
+        name: formValues.name,
+        email: formValues.email,
+        password: formValues.password,
+        password_confirmation: formValues.password_confirmation,
+        current_password: formValues.current_password,
       })
-      .catch((e) => {
-        dispatch({ type: submitActionTypes.POST_INITIAL });
-        if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
-          setErrorMessage(e.response.data.errors);
-        } else if (
-          e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
-          e.response.status === HTTP_STATUS_CODE.FORBIDDEN
-        ) {
-          setCurrentUser(undefined);
-          navigate("../login", { replace: true });
-        } else {
-          console.error(e);
-          throw e;
-        }
-      });
+        .then((res) => {
+          dispatch({ type: submitActionTypes.POST_SUCCESS });
+          setCurrentUser(res.data);
+          setHeaders(res.headers);
+          setMessage("登録情報の編集に成功しました。");
+          navigate("../", { replace: true });
+        })
+        .catch((e) => {
+          dispatch({ type: submitActionTypes.POST_INITIAL });
+          if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+            setErrorMessage(e.response.data.errors);
+          } else if (
+            e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
+            e.response.status === HTTP_STATUS_CODE.FORBIDDEN
+          ) {
+            setCurrentUser(undefined);
+            navigate("../login", { replace: true });
+          } else {
+            console.error(e);
+            throw e;
+          }
+        });
   };
 
-  return (
+  return formInfo ? (
     <UserEditWrapper>
       <FormTitle>Profile Edit</FormTitle>
 
@@ -137,16 +135,15 @@ export const UserEdit: FC = () => {
             {message}
           </GuestErrorMessage>
         ))}
+        <FormItem formInfo={formInfo.name} control={control} />
 
-        <FormItem formInfo={formInfo.name} />
+        <FormItem formInfo={formInfo.email} control={control} />
 
-        <FormItem formInfo={formInfo.email} />
+        <FormItem formInfo={formInfo.password} control={control} />
 
-        <FormItem formInfo={formInfo.password} />
+        <FormItem formInfo={formInfo.password_confirmation} control={control} />
 
-        <FormItem formInfo={formInfo.password_confirmation} />
-
-        <FormItem formInfo={formInfo.current_password} />
+        <FormItem formInfo={formInfo.current_password} control={control} />
 
         <FormSubmit
           isDisabled={isDisabled(submitState.postState)}
@@ -155,5 +152,5 @@ export const UserEdit: FC = () => {
       </FormWrapper>
       <FormLinks linkInfo={UserEditLinkInfo} />
     </UserEditWrapper>
-  );
+  ) : null;
 };

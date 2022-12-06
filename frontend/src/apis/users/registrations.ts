@@ -1,10 +1,16 @@
 import axios from "axios";
 import { registration } from "../../urls";
 
-interface ICurrentUserHeaders {
+interface IHeaders {
   "access-token": string;
   client: string;
   uid: string;
+}
+
+interface IData {
+  id: number;
+  name: string;
+  email: string;
 }
 
 interface IPostParams {
@@ -22,9 +28,15 @@ interface IPutParams {
   current_password: string;
 }
 
-const CONFIRM_SUCCESS_URL: string = process.env.REACT_APP_CONFIRM_SUCCESS_URL!;
+interface returnData {
+  data: IData;
+  headers: IHeaders;
+}
 
-export const postRegistration = (params: IPostParams): Promise<any> => {
+const CONFIRM_SUCCESS_URL: string | undefined =
+  process.env.REACT_APP_CONFIRM_SUCCESS_URL;
+
+export const postRegistration = (params: IPostParams): Promise<void> => {
   return axios.post(registration, {
     name: params.name,
     email: params.email,
@@ -35,11 +47,11 @@ export const postRegistration = (params: IPostParams): Promise<any> => {
 };
 
 export const putRegistration = (
-  currentUserHeaders: ICurrentUserHeaders,
+  headers: IHeaders,
   params: IPutParams
-): Promise<any> => {
+): Promise<returnData> => {
   return axios.put(registration, {
-    ...currentUserHeaders,
+    ...headers,
     name: params.name,
     email: params.email,
     password: params.password,

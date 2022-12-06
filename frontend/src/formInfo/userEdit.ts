@@ -1,3 +1,4 @@
+import { FieldErrors, FieldError } from "react-hook-form";
 interface IRurles {
   required?: boolean;
   minLength?: number;
@@ -6,13 +7,17 @@ interface IRurles {
 
 interface IObject {
   formLabel: string;
-  errorsProperty: string;
+  errorsProperty: FieldError | undefined;
   errorMessage: string;
   apiErrorProperty: Array<string> | undefined;
   apiMessagePropertyName: string;
-  nameAttribute: string;
+  nameAttribute:
+    | "name"
+    | "email"
+    | "password"
+    | "password_confirmation"
+    | "current_password";
   typeAttribute: string;
-  control: any;
   defaultValue: string;
   autoComplete: string;
   autoFocus: boolean;
@@ -39,10 +44,16 @@ interface IFormInfo {
   current_password: IObject;
 }
 
+interface IErrors {
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+  current_password: string;
+}
 // UserEditページのフォーム欄を表示するために必要な情報群
 export const UserEditFormInfo = (
-  errors: any,
-  control: object,
+  errors: FieldErrors<IErrors>,
   apiErrors: IUserEditApiErrors | undefined,
   currentUser: ICurrentUser
 ): IFormInfo => {
@@ -55,7 +66,6 @@ export const UserEditFormInfo = (
       apiMessagePropertyName: "名前",
       nameAttribute: "name",
       typeAttribute: "text",
-      control: control,
       defaultValue: currentUser.name,
       autoComplete: "username",
       autoFocus: true,
@@ -69,7 +79,6 @@ export const UserEditFormInfo = (
       apiMessagePropertyName: "メールアドレス",
       nameAttribute: "email",
       typeAttribute: "email",
-      control: control,
       defaultValue: currentUser.email,
       autoComplete: "email",
       autoFocus: false,
@@ -83,7 +92,6 @@ export const UserEditFormInfo = (
       apiMessagePropertyName: "パスワード",
       nameAttribute: "password",
       typeAttribute: "password",
-      control: control,
       defaultValue: "",
       autoComplete: "new-password",
       autoFocus: false,
@@ -97,7 +105,6 @@ export const UserEditFormInfo = (
       apiMessagePropertyName: "確認用パスワード",
       nameAttribute: "password_confirmation",
       typeAttribute: "password",
-      control: control,
       defaultValue: "",
       autoComplete: "new-password",
       autoFocus: false,
@@ -111,7 +118,6 @@ export const UserEditFormInfo = (
       apiMessagePropertyName: "使用中のパスワード",
       nameAttribute: "current_password",
       typeAttribute: "password",
-      control: control,
       defaultValue: "",
       autoComplete: "current-password",
       autoFocus: false,

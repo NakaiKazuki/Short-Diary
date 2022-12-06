@@ -3,9 +3,6 @@ import styled from "styled-components";
 import { Box, SwipeableDrawer, List, Divider, ListItem } from "@mui/material";
 import { Link } from "react-router-dom";
 
-// helpers
-import { isLoggedIn } from "../helpers";
-
 //contexts
 import { DrawerContext } from "../contexts/Drawer";
 import { AuthContext } from "../contexts/Auth";
@@ -45,8 +42,8 @@ const CustomLink = styled(Link)`
 // 型
 export const Drawer: FC = () => {
   const { open, setOpenDrawer } = useContext(DrawerContext);
-  const { currentUser } = useContext(AuthContext);
-  return isLoggedIn(currentUser) ? (
+  const { currentUser, headers } = useContext(AuthContext);
+  return headers && currentUser ? (
     <Fragment key={"left"}>
       <SwipeableDrawer
         anchor={"left"}
@@ -70,7 +67,9 @@ export const Drawer: FC = () => {
               data-testid="photoGalleyLink"
               onClick={() => setOpenDrawer(false)}
             >
-              <ListItem children={<ItemWrapper>Photo Gallery</ItemWrapper>} />
+              <ListItem>
+                <ItemWrapper>Photo Gallery</ItemWrapper>
+              </ListItem>
             </CustomLink>
             <Divider />
           </List>

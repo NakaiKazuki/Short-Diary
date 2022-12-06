@@ -43,8 +43,8 @@ interface IDiary {
   id: number;
   date: string;
   content: string;
-  picture_url: string | null;
-  movie_source: string | null;
+  picture_url: string | undefined;
+  movie_source: string | undefined;
   user_id: number;
 }
 

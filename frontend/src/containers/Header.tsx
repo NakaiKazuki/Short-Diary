@@ -14,9 +14,6 @@ import { MenuIcon } from "../components/icon";
 import { BaseButton } from "../components/shared_style";
 import { UserMenu } from "../components/users/UserMenu";
 
-// helpers
-import { isLoggedIn } from "../helpers";
-
 // apis
 import { deleteSession } from "../apis/users/sessions";
 
@@ -59,28 +56,31 @@ const LinkItem = styled(BaseButton)`
 
 export const Header: FC = () => {
   const navigate = useNavigate();
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { currentUser, setCurrentUser, headers, setHeaders } =
+    useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const { setOpenDrawer } = useContext(DrawerContext);
 
   // ユーザのログアウト処理
   const onSignOut = (): void => {
-    deleteSession(currentUser!.headers)
-      .then(() => {
-        setCurrentUser(undefined);
-        setAnchorEl(null);
-        navigate("/");
-      })
-      .catch((e) => {
-        console.error(e);
-        throw e;
-      });
+    headers &&
+      deleteSession(headers)
+        .then(() => {
+          setCurrentUser(undefined);
+          setHeaders(undefined);
+          setAnchorEl(null);
+          navigate("/");
+        })
+        .catch((e) => {
+          console.error(e);
+          throw e;
+        });
   };
 
   return (
     <AppHeader position="fixed" color="inherit" data-testid="header">
       <Toolbar>
-        {isLoggedIn(currentUser) && (
+        {currentUser && (
           <MenuIconWrapper
             onClick={(): void => setOpenDrawer(true)}
             data-testid="menuIcon"
@@ -91,10 +91,10 @@ export const Header: FC = () => {
         <Link to="/" data-testid="homeLink">
           <MainLogo src={mainLogo} alt="main logo" />
         </Link>
-        {isLoggedIn(currentUser) ? (
+        {currentUser ? (
           <UserMenu
             anchorEl={anchorEl}
-            currentUserName={currentUser!.data.name}
+            currentUserName={currentUser.name}
             onMenuOpen={(e: React.MouseEvent<HTMLElement>): void =>
               setAnchorEl(e.currentTarget)
             }

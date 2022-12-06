@@ -34,15 +34,15 @@ const router = createBrowserRouter(
           <LoggedInRoute login={<LoginHome />} logout={<LogoutHome />} />
         }
       />
-      <Route path="/signup" element={<GuestRoute children={<SignUp />} />} />
-      <Route path="/login" element={<GuestRoute children={<Login />} />} />
+      <Route path="/signup" element={<GuestRoute jsxElement={<SignUp />} />} />
+      <Route path="/login" element={<GuestRoute jsxElement={<Login />} />} />
       <Route
         path="/userEdit"
-        element={<PrivateRoute children={<UserEdit />} />}
+        element={<PrivateRoute jsxElement={<UserEdit />} />}
       />
       <Route
         path="/photoGalley"
-        element={<PrivateRoute children={<PhotoGallery />} />}
+        element={<PrivateRoute jsxElement={<PhotoGallery />} />}
       />
     </Route>
   )

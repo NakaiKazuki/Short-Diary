@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Dialog, DialogTitle } from "@material-ui/core";
 import styled from "styled-components";
-
+import { FieldErrors, UseFormRegister, Control } from "react-hook-form";
 // components
 import { FormArea } from "./FromArea";
 
@@ -13,6 +13,11 @@ const FromTitle = styled(DialogTitle)`
 
 // 型
 // エラーメッセージ
+interface IErrors {
+  content: string;
+  movie_source: string;
+}
+
 interface IApiErrors {
   date?: Array<string>;
   tag_list?: Array<string>;
@@ -21,19 +26,29 @@ interface IApiErrors {
   movie_source?: Array<string>;
 }
 
+type TPicture = Array<{ data: string; name: string }>;
+interface IFormValues {
+  date: string;
+  tag_list: string | undefined;
+  content: string;
+  picture: TPicture | undefined;
+  movie_source: string;
+  searchWord: string | undefined;
+}
+
 interface IDiaryCreateDialogProps {
   isOpen: boolean;
-  control: any;
-  errors: any;
-  register: any;
+  control: Control<IFormValues>;
+  errors: FieldErrors<IErrors>;
   apiErrors: IApiErrors | undefined;
   onSubmitText: string;
   isDisabled: boolean;
   contentCount: number;
   dateToday: string;
   setFileName: string | undefined;
+  register: UseFormRegister<IFormValues>;
   onSubmit(): void;
-  onFileChange(e: any): void;
+  onFileChange(e: React.ChangeEvent<HTMLInputElement>): void;
   onClose(): void;
 }
 

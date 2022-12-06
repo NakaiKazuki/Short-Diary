@@ -1,3 +1,4 @@
+import { FieldErrors, FieldError } from "react-hook-form";
 interface IRurles {
   required: boolean;
   minLength?: number;
@@ -6,19 +7,17 @@ interface IRurles {
 
 interface IObject {
   formLabel: string;
-  errorsProperty: string;
+  errorsProperty: FieldError | undefined;
   errorMessage: string;
   apiErrorProperty: Array<string> | undefined;
   apiMessagePropertyName: string;
-  nameAttribute: string;
+  nameAttribute: "name" | "email" | "password" | "password_confirmation";
   typeAttribute: string;
-  control: any;
   defaultValue: string;
   autoComplete: string;
   autoFocus: boolean;
   rules: IRurles;
 }
-
 interface ISignUpApiErrors {
   name?: Array<string>;
   email?: Array<string>;
@@ -33,6 +32,13 @@ interface IFormInfo {
   password_confirmation: IObject;
 }
 
+interface IErrors {
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+}
+
 // 送信ボタン下にあるリンクの情報
 type TSignUpLinkInfo = [
   {
@@ -43,8 +49,7 @@ type TSignUpLinkInfo = [
 
 // SignUpページのフォーム欄を表示するために必要な情報群
 export const signUpFormInfo = (
-  errors: any,
-  control: object,
+  errors: FieldErrors<IErrors>,
   apiErrors: ISignUpApiErrors | undefined
 ): IFormInfo => {
   return {
@@ -56,7 +61,6 @@ export const signUpFormInfo = (
       apiMessagePropertyName: "名前",
       nameAttribute: "name",
       typeAttribute: "text",
-      control: control,
       defaultValue: "",
       autoComplete: "username",
       autoFocus: true,
@@ -70,7 +74,6 @@ export const signUpFormInfo = (
       apiMessagePropertyName: "メールアドレス",
       nameAttribute: "email",
       typeAttribute: "email",
-      control: control,
       defaultValue: "",
       autoComplete: "email",
       autoFocus: false,
@@ -84,7 +87,6 @@ export const signUpFormInfo = (
       apiMessagePropertyName: "パスワード",
       nameAttribute: "password",
       typeAttribute: "password",
-      control: control,
       defaultValue: "",
       autoComplete: "new-password",
       autoFocus: false,
@@ -98,7 +100,6 @@ export const signUpFormInfo = (
       apiMessagePropertyName: "確認用パスワード",
       nameAttribute: "password_confirmation",
       typeAttribute: "password",
-      control: control,
       defaultValue: "",
       autoComplete: "new-password",
       autoFocus: false,

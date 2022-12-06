@@ -95,7 +95,7 @@ const GuestLogin = styled(HomeButton)`
 `;
 
 export const LogoutHome: FC = () => {
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { setCurrentUser, setHeaders } = useContext(AuthContext);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
   const navigate = useNavigate();
 
@@ -104,11 +104,8 @@ export const LogoutHome: FC = () => {
     newGuestSession()
       .then((res) => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
-        setCurrentUser({
-          ...currentUser,
-          ...res.data,
-          headers: res.headers,
-        });
+        setCurrentUser(res.data);
+        setHeaders(res.headers);
         navigate("/");
       })
       .catch((e) => {

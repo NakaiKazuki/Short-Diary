@@ -10,15 +10,8 @@ interface ILoggedInRouteProps {
   logout: JSX.Element;
 }
 
-export const LoggedInRoute: FC<ILoggedInRouteProps> = ({
-  login,
-  logout,
-}) => {
-  const { currentUser } = useContext(AuthContext);
+export const LoggedInRoute: FC<ILoggedInRouteProps> = ({ login, logout }) => {
+  const { currentUser, headers } = useContext(AuthContext);
 
-  return isLoggedIn(currentUser) ? (
-    login
-  ) : (
-    logout
-  );
+  return isLoggedIn(currentUser, headers) ? login : logout;
 };

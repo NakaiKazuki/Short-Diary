@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, cleanup, waitFor } from "@testing-library/react";
-import { RouterProvider,createMemoryRouter } from "react-router-dom";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import MockAdapter from "axios-mock-adapter";
@@ -16,21 +16,18 @@ interface IHeaders {
   uid: string;
 }
 
-interface IData {
+interface ICurrentUser {
   id: number;
   name: string;
   email: string;
 }
 
-interface ICurrentUser {
-  data: IData;
-  headers: IHeaders;
-}
-
 interface IProviderProps {
   value: {
     currentUser: ICurrentUser | undefined;
+    headers: IHeaders | undefined;
     setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
+    setHeaders: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
   };
 }
 
@@ -66,8 +63,10 @@ const formInfo = [
 
 const providerProps = {
   value: {
+    headers: undefined,
     currentUser: undefined,
     setCurrentUser: jest.fn(),
+    setHeaders: jest.fn(),
   },
 };
 
@@ -75,13 +74,13 @@ const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   const routes = [
     {
       path: "/",
-      element: <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>,
+      element: (
+        <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
+      ),
     },
   ];
   const router = createMemoryRouter(routes);
-  return render(
-    <RouterProvider router={router} />
-  );
+  return render(<RouterProvider router={router} />);
 };
 
 const idNames = ["email", "password"];
@@ -95,7 +94,6 @@ describe("Loginコンポーネント", () => {
     mockAxios.resetHistory();
   });
   const setup = () => customRender(<Login />, providerProps);
-  // eslint-disable-next-line testing-library/no-render-in-setup
   beforeEach(() => setup());
   describe("Form欄", () => {
     it("Formがある", () => {

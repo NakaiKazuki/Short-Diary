@@ -49,6 +49,7 @@ interface IFormValues {
   email: string;
   password: string;
   password_confirmation: string;
+  current_password: string;
 }
 
 // エラーメッセージ
@@ -71,7 +72,7 @@ export const SignUp: FC = () => {
     control,
     formState: { errors },
   } = useForm<IFormValues>();
-  const formInfo = signUpFormInfo(errors, control, apiErrors);
+  const formInfo = signUpFormInfo(errors, apiErrors);
 
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING });
@@ -106,13 +107,13 @@ export const SignUp: FC = () => {
     <SignUpWrapper>
       <FormTitle>Sign Up</FormTitle>
       <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="signUpForm">
-        <FormItem formInfo={formInfo.name} />
+        <FormItem formInfo={formInfo.name} control={control} />
 
-        <FormItem formInfo={formInfo.email} />
+        <FormItem formInfo={formInfo.email} control={control} />
 
-        <FormItem formInfo={formInfo.password} />
+        <FormItem formInfo={formInfo.password} control={control} />
 
-        <FormItem formInfo={formInfo.password_confirmation} />
+        <FormItem formInfo={formInfo.password_confirmation} control={control} />
 
         <FormSubmit
           isDisabled={isDisabled(submitState.postState)}

@@ -8,7 +8,6 @@ const el = screen.getByTestId;
 afterEach(cleanup);
 describe("App", () => {
   const setup = () => render(<App />);
-  // eslint-disable-next-line testing-library/no-render-in-setup
   beforeEach(() => setup());
   it("Headerコンポーネント", () => {
     expect(el("header")).toBeTruthy();

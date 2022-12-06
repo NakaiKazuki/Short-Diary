@@ -19,21 +19,18 @@ interface IHeaders {
   uid: string;
 }
 
-interface IData {
+interface ICurrentUser {
   id: number;
   name: string;
   email: string;
 }
 
-interface ICurrentUser {
-  data: IData;
-  headers: IHeaders;
-}
-
 interface IAuthProviderProps {
   value: {
     currentUser: ICurrentUser | undefined;
+    headers: IHeaders | undefined;
     setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
+    setHeaders: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
   };
 }
 
@@ -70,17 +67,16 @@ const returnErrorData = {
 
 const errorOverView = "123456789012345678901234567890123456789012345678901";
 
+const headers = {
+  "access-token": "testtoken",
+  client: "testclient",
+  uid: "test@example.com",
+};
+
 const currentUser = {
-  headers: {
-    "access-token": "testtoken",
-    client: "testclient",
-    uid: "test@example.com",
-  },
-  data: {
-    id: 1,
-    name: "test",
-    email: "test@example.com",
-  },
+  id: 1,
+  name: "test",
+  email: "test@example.com",
 };
 
 const contactProviderProps = {
@@ -133,15 +129,17 @@ describe("Contact", () => {
   describe("ログインしている場合", () => {
     const authProviderProps = {
       value: {
+        headers: headers,
         currentUser: currentUser,
         setCurrentUser: jest.fn(),
+        setHeaders: jest.fn(),
       },
     };
     beforeEach(() => setup(authProviderProps));
 
     it("Form初期値", () => {
-      expect(el("nameArea")).toHaveValue(currentUser.data.name);
-      expect(el("emailArea")).toHaveValue(currentUser.data.email);
+      expect(el("nameArea")).toHaveValue(currentUser.name);
+      expect(el("emailArea")).toHaveValue(currentUser.email);
     });
   });
 
@@ -149,7 +147,9 @@ describe("Contact", () => {
     const authProviderProps = {
       value: {
         currentUser: undefined,
+        headers: undefined,
         setCurrentUser: jest.fn(),
+        setHeaders: jest.fn(),
       },
     };
     beforeEach(() => setup(authProviderProps));
@@ -162,8 +162,10 @@ describe("Contact", () => {
   describe("共通", () => {
     const authProviderProps = {
       value: {
+        headers: undefined,
         currentUser: undefined,
         setCurrentUser: jest.fn(),
+        setHeaders: jest.fn(),
       },
     };
     beforeEach(() => setup(authProviderProps));

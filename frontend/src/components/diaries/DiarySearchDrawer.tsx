@@ -5,7 +5,7 @@ import {
 } from "@material-ui/pickers";
 import { TextField } from "@material-ui/core";
 import { Box, SwipeableDrawer, List, Divider, ListItem } from "@mui/material";
-import { Controller } from "react-hook-form";
+import { Controller, Control } from "react-hook-form";
 import DateFnsUtils from "@date-io/date-fns";
 import styled from "styled-components";
 
@@ -37,11 +37,21 @@ const ClearButton = styled(BaseButton)`
   }
 `;
 // 型
+type TPicture = Array<{ data: string; name: string }>;
+interface IFormValues {
+  date: string;
+  tag_list: string | undefined;
+  content: string;
+  picture: TPicture | undefined;
+  movie_source: string;
+  searchWord: string | undefined;
+}
+
 interface IDiarySearchDrawerProps {
-  control: any;
+  control: Control<IFormValues>;
   selectedDate: null | Date;
   isOpenDrawer: boolean;
-  onOpenButton(open: boolean): any;
+  onOpenButton(open: boolean): React.ReactEventHandler;
   onClearButton(): void;
   onDateChange(date: Date | null): void;
   onSubmit(): void;

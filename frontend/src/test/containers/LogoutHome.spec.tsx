@@ -15,21 +15,18 @@ interface IHeaders {
   uid: string;
 }
 
-interface IData {
+interface ICurrentUser {
   id: number;
   name: string;
   email: string;
 }
 
-interface ICurrentUser {
-  data: IData;
-  headers: IHeaders;
-}
-
 interface IProviderProps {
   value: {
     currentUser: ICurrentUser | undefined;
+    headers: IHeaders | undefined;
     setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
+    setHeaders: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
   };
 }
 
@@ -51,8 +48,10 @@ mockAxios.onPost(guestSignIn).reply(200, {
 
 const providerProps = {
   value: {
+    headers: undefined,
     currentUser: undefined,
     setCurrentUser: jest.fn(),
+    setHeaders: jest.fn(),
   },
 };
 
@@ -60,13 +59,13 @@ const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   const routes = [
     {
       path: "/",
-      element: <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>,
+      element: (
+        <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
+      ),
     },
   ];
   const router = createMemoryRouter(routes);
-  return render(
-    <RouterProvider router={router} />
-  );
+  return render(<RouterProvider router={router} />);
 };
 
 afterEach(cleanup);
@@ -76,7 +75,6 @@ describe("LogoutHome", () => {
     mockAxios.resetHistory();
   });
   const setup = () => customRender(<LogoutHome />, providerProps);
-  // eslint-disable-next-line testing-library/no-render-in-setup
   beforeEach(() => setup());
 
   it("ユーザ登録画面へのリンクがある", () => {
