@@ -1,10 +1,10 @@
 # Short Diary
 
- 200文字以内の日記を作成するためのアプリケーションです。
+200 文字以内の日記を作成するためのアプリケーションです。
 
- 日記の内容を短くすることで継続しやすくしています。
+日記の内容を短くすることで継続しやすくしています。
 
- スマホからもご利用可能です。
+スマホからもご利用可能です。
 ![スクリーンショット (14)](https://user-images.githubusercontent.com/62586169/175801488-bfeabe49-ba55-4d74-a417-45c13b49e7e7.png)
 
 ![スクリーンショット (13)](https://user-images.githubusercontent.com/62586169/175801483-c92a036e-7f62-4ae4-948a-10d16c596156.png)
@@ -24,7 +24,7 @@
 - CircleCi
 - AWS
   - VPC
-  - EC2(インスタンス内でDocker-composeを実行([使用ファイル](https://github.com/NakaiKazuki/Short-Diary/blob/main/docker-compose-prod.yml))
+  - EC2(インスタンス内で Docker-compose を実行([使用ファイル](https://github.com/NakaiKazuki/Short-Diary/blob/main/docker-compose-prod.yml))
   - Route53
   - Certificate Manager
   - S3
@@ -36,26 +36,30 @@
   - Rails 6.1
   - Puma
   - RSpec
+  - Rubocop
 - React
   - Node 16.13
   - TypeScript 4.6
   - React 18.0
   - React Testing Library
+  - ESLint
+  - Prettier
 - Google Analytics
   - gtag.js
 - Nginx 1.20
 
 ## CircleCi
 
-- Githubへのpush時に、Rails Best Practices, Brakeman, Bundle Audit, Rubocop, RSpec, FrontendTest が実行。
+- Github への push 時に、Rails Best Practices, Brakeman, Bundle Audit, Rubocop, RSpec, FrontendTest が実行。
 
 ## 主な機能
 
 - Rails
+
   - ユーザー登録、ログイン機能(devise_token_auth)
   - 投稿機能
     - 画像投稿(ActiveStorage)
-      - 本番環境ではS3に保存
+      - 本番環境では S3 に保存
   - ページネーション機能(pagy)
   - タグ機能(acts-as-taggable-on)
   - 検索機能(ransack)
@@ -68,11 +72,13 @@
     - React Hook Form
   - PhotoGallery
     - React Image Gallery
-  - YouTube動画埋め込み
+  - YouTube 動画埋め込み
     - React Youtube
+
 ## テスト
 
 - Rails
+
   - RSpec
     - モデルテスト(models)
     - コントローラーテスト(requests)
@@ -80,9 +86,9 @@
 - React
   - React Testing Library
 
-## ローカルで使用する場合(Dockerを利用して構築。)
+## ローカルで使用する場合(Docker を利用して構築。)
 
-Windows / Mac 両Docker動作確認済み。
+Windows / Mac 両 Docker 動作確認済み。
 
 リポジトリを手元にクローンしてください。
 
@@ -98,21 +104,21 @@ git clone https://github.com/NakaiKazuki/Short-Diary.git
 cd Short-Diary
 ```
 
-その後下記のコマンドでdocker-imageを作成します。
+その後下記のコマンドで docker-image を作成します。
 
 ```zsh
 #!/bin/zsh
 docker-compose build
 ```
 
-dockerimage作成後コンテナを起動します。
+dockerimage 作成後コンテナを起動します。
 
 ```zsh
 #!/bin/zsh
 docker-compose up -d
 ```
 
-下記のコマンドでRailsのコンテナへ入ります。
+下記のコマンドで Rails のコンテナへ入ります。
 
 ```zsh
 #!/bin/zsh
@@ -133,14 +139,14 @@ rails db:create db:migrate db:seed && rails db:migrate RAILS_ENV=test
 exit
 ```
 
-node_modulesのインストール完了後、React側のコンテナへ入ります。
+node_modules のインストール完了後、React 側のコンテナへ入ります。
 
 ```zsh
 #!/bin/zsh
 docker-compose exec front zsh
 ```
 
-最後にコンテナ内にて、下記コマンドでReactを実行します。
+最後にコンテナ内にて、下記コマンドで React を実行します。
 
 ```zsh
 #!/bin/zsh
@@ -158,4 +164,4 @@ yarn start
 
 ## ライセンス
 
-Short Diaryは[MITライセンス](https://en.wikipedia.org/wiki/MIT_License)のもとで公開されています。詳細は [LICENSE.md](https://github.com/NakaiKazuki/Short-Diary/blob/master/LICENSE.md) をご覧ください。
+Short Diary は[MIT ライセンス](https://en.wikipedia.org/wiki/MIT_License)のもとで公開されています。詳細は [LICENSE.md](https://github.com/NakaiKazuki/Short-Diary/blob/master/LICENSE.md) をご覧ください。
