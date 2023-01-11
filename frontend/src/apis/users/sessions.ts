@@ -12,14 +12,14 @@ interface IHeaders {
   uid: string;
 }
 
-interface IData {
+interface ICurrentUser {
   id: number;
   name: string;
   email: string;
 }
 
 interface returnData {
-  data: IData;
+  data: { current_user: ICurrentUser };
   headers: IHeaders;
 }
 

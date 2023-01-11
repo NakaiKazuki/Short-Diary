@@ -52,7 +52,7 @@ const LoginHomeWrapper = styled.div`
   position: relative;
   width: 90vw;
   min-height: 83vh;
-  margin: 6.6vh auto 0 auto;
+  margin: 6.6vh auto 9vh auto;
   padding-top: 2rem;
 `;
 

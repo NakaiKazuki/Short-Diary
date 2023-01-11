@@ -73,7 +73,7 @@ export const Login: FC = () => {
     })
       .then((res) => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
-        setCurrentUser(res.data);
+        setCurrentUser(res.data.current_user);
         setHeaders(res.headers);
         navigate("/", { replace: true });
       })

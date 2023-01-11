@@ -77,6 +77,15 @@ describe("LogoutHome", () => {
   const setup = () => customRender(<LogoutHome />, providerProps);
   beforeEach(() => setup());
 
+  it("左右の要素確認", () => {
+    expect(el("leftHome")).toBeTruthy();
+    expect(el("rightHome")).toBeTruthy();
+  });
+
+  it("PhotGalleryがある", () => {
+    expect(el("imageGallery")).toBeTruthy();
+  });
+
   it("ユーザ登録画面へのリンクがある", () => {
     expect(el("signUpLink")).toHaveAttribute("href", "/signup");
   });

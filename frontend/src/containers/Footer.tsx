@@ -11,6 +11,9 @@ const AppFooter = styled.footer`
   height: 5.5vh;
   padding: 1.5vh 1vw 0 0;
   background-color: limegreen;
+  position: fixed;
+  bottom: 0;
+  width: 99vw;
 `;
 
 const Link = styled.a`
@@ -33,7 +36,7 @@ const LinkItem = styled(Base)`
 
 const ContactButton = styled(Base)`
   margin-left: 0.7rem;
-  color: royalblue; ;
+  color: royalblue;
 `;
 
 export const Footer: FC = () => {

@@ -1,5 +1,5 @@
 import React, { FC, useContext, useState, Fragment } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AppBar, Toolbar } from "@material-ui/core";
 import styled from "styled-components";
 
@@ -55,7 +55,6 @@ const LinkItem = styled(BaseButton)`
 `;
 
 export const Header: FC = () => {
-  const navigate = useNavigate();
   const { currentUser, setCurrentUser, headers, setHeaders } =
     useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -69,7 +68,6 @@ export const Header: FC = () => {
           setCurrentUser(undefined);
           setHeaders(undefined);
           setAnchorEl(null);
-          navigate("/");
         })
         .catch((e) => {
           console.error(e);
