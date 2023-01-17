@@ -154,7 +154,7 @@ export const DiaryMenu: FC<IDiaryMenuProps> = ({
           data-testid="MenuItemDiaryDelete"
         >
           <ListItemIcon>
-            children={<DeleteIcon data-testid="deleteIcon" />}
+            <DeleteIcon data-testid="deleteIcon" />
           </ListItemIcon>
           削除
         </StyledMenuItemDelete>

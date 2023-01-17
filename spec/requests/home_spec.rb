@@ -27,7 +27,7 @@ RSpec.describe 'Homes' do
         }
 
         it 'picture_url' do
-          create(:diary, :add_picture, user: user)
+          create(:diary, :add_picture, user:)
           expect(json_body['diaries'][0]['picture_url']).to be_truthy
         end
 
@@ -49,12 +49,12 @@ RSpec.describe 'Homes' do
             end
 
             it '検索対象のデータが見つかった場合' do
-              create(:diary, user: user)
+              create(:diary, user:)
               expect(search_json_body['diaries'][0]['date']).to eq Time.zone.today.strftime('%Y-%m-%d')
             end
 
             it '検索対象のデータが見つからなかった場合' do
-              create(:diary, user: user, date: Time.zone.today + 1)
+              create(:diary, user:, date: Time.zone.today + 1)
               expect(search_json_body['diaries']).to eq []
             end
           end

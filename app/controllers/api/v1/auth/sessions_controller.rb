@@ -33,7 +33,7 @@ class Api::V1::Auth::SessionsController < DeviseTokenAuth::SessionsController
 
     sign_in(:user, @resource, store: false, bypass: false)
     render json: {
-      data: resource_data(resource_json: @resource.token_validation_response)
+      current_user: resource_data(resource_json: @resource.token_validation_response)
     }, status: :ok
   end
 

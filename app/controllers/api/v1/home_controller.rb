@@ -7,7 +7,7 @@ class Api::V1::HomeController < ApplicationController
     search = current_user.diaries.ransack(search_params)
     @pagy, diaries = pagy(search.result(distinct: true))
     render json: {
-      diaries: diaries,
+      diaries:,
       pagy: pagy_metadata(@pagy)
     }, methods: [:picture_url], status: :ok
   end

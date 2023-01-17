@@ -13,7 +13,7 @@ class Api::V1::DiariesController < ApplicationController
     if @diary.save
       @pagy, diaries = pagy(current_user.diaries.all)
       render json: {
-        diaries: diaries,
+        diaries:,
         pagy: pagy_metadata(@pagy)
       }, methods: [:picture_url], status: :ok
     else
@@ -28,7 +28,7 @@ class Api::V1::DiariesController < ApplicationController
     if @diary.update(diary_params)
       @pagy, diaries = pagy(current_user.diaries.all, page: pagy_params[:page])
       render json: {
-        diaries: diaries,
+        diaries:,
         pagy: pagy_metadata(@pagy)
       }, methods: [:picture_url], status: :ok
     else
@@ -40,7 +40,7 @@ class Api::V1::DiariesController < ApplicationController
     @diary.destroy
     @pagy, diaries = pagy(current_user.diaries.all, page: pagy_params[:page])
     render json: {
-      diaries: diaries,
+      diaries:,
       pagy: pagy_metadata(@pagy)
     }, methods: [:picture_url], status: :ok
   end
@@ -49,14 +49,15 @@ class Api::V1::DiariesController < ApplicationController
     items = []
     diaries = current_user.diaries
     diaries.each do |diary|
-      next unless items.length < 14 && diary.picture.attached?
+      next unless diary.picture.attached?
 
       items.push(
-        { original: url_for(diary.picture), originalHeight: 512, originalWidth: 512 }
+        # { original: url_for(diary.picture)}
+        { original: url_for(diary.picture), originalHeight: 768, originalWidth: 768 }
       )
     end
     render json: {
-      items: items
+      items:
     }, status: :ok
   end
 

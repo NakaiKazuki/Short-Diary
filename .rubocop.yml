@@ -16,24 +16,24 @@ require:
 
 ## 全体に適応する項目を定義します。ここで Exclude に設定したファイルは、チェック対象外になります。
 AllCops:
-  TargetRubyVersion: 3.0
-  TargetRailsVersion: 6.1
+  TargetRubyVersion: 3.2
+  TargetRailsVersion: 7.0
   NewCops: enable
   Exclude:
-    - 'vendor/**/*'
-    - 'bin/**/*'
-    - 'db/**/*'
-    - 'tmp/**/*'
-    - 'lib/tasks/auto_annotate_models.rake'
-    - 'frontend/**/*'
+    - "vendor/**/*"
+    - "bin/**/*"
+    - "db/**/*"
+    - "tmp/**/*"
+    - "lib/tasks/auto_annotate_models.rake"
+    - "frontend/**/*"
 
 Rails:
   Enabled: true
 
 Rails/FilePath:
   Exclude:
-    - 'lib/tasks/dev.rake'
-    - 'spec/rails_helper.rb'
+    - "lib/tasks/dev.rake"
+    - "spec/rails_helper.rb"
 
 ## `and return` の形式を利用できるようにします。基本的には、&& と || を使います。
 Style/AndOr:
@@ -74,15 +74,15 @@ Layout/LineLength:
 
 Metrics/AbcSize:
   Exclude:
-    - 'lib/tasks/dev.rake'
+    - "lib/tasks/dev.rake"
 
 Metrics/BlockLength:
   CountComments: false
   Exclude:
-    - 'Guardfile'
-    - 'config/routes.rb'
-    - 'spec/**/*'
-    - 'config/environments/*'
+    - "Guardfile"
+    - "config/routes.rb"
+    - "spec/**/*"
+    - "config/environments/*"
 
 Metrics/ClassLength:
   CountComments: false
@@ -91,14 +91,14 @@ Metrics/MethodLength:
   CountComments: false
   Max: 15
   Exclude:
-    - 'lib/tasks/dev.rake'
+    - "lib/tasks/dev.rake"
 
 Metrics/ModuleLength:
   CountComments: false
 
 Naming/FileName:
   Exclude:
-    - 'Gemfile'
+    - "Gemfile"
 
 Naming/MethodParameterName:
   AllowedNames: [e]
@@ -130,13 +130,13 @@ RSpec/NestedGroups:
 
 Style/BlockComments:
   Exclude:
-    - 'spec/spec_helper.rb'
+    - "spec/spec_helper.rb"
 
 # https://rubocop.readthedocs.io/en/stable/cops_style/#styleblockdelimiters
 Style/BlockDelimiters:
   EnforcedStyle: braces_for_chaining
   Exclude:
-    - 'spec/**/*'
+    - "spec/**/*"
 
 Style/ClassAndModuleChildren:
   Enabled: false
@@ -176,9 +176,9 @@ Style/SlicingWithRange:
 # 追加
 Style/GlobalStdStream:
   Exclude:
-    - 'config/environments/production.rb'
+    - "config/environments/production.rb"
 
 Rails/LexicallyScopedActionFilter:
   Exclude:
-    - 'app/controllers/api/**/auth/*'
+    - "app/controllers/api/**/auth/*"
 # ここまで追加

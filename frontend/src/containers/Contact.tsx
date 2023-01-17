@@ -51,7 +51,7 @@ export const FormWrapper = styled.form`
   width: 80vw;
   @media screen and (min-width: 980px) {
     width: 30vw;
-  } ;
+  }
 `;
 
 const FormItemWrapper = styled.div`

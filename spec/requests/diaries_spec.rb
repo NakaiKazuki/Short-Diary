@@ -16,7 +16,7 @@ RSpec.describe 'Diaries' do
       post api_v1_diaries_path, params: {
         diary: {
           date: Time.zone.today.strftime('%Y-%m-%d'),
-          content: content,
+          content:,
           tag_list: 'testTag1, testTag2',
           movie_source: 'example.com'
         }
@@ -153,7 +153,7 @@ RSpec.describe 'Diaries' do
   end
 
   describe 'PATCH /api/v1/diaries/:id' do
-    let!(:diary) { create(:diary, user: user) }
+    let!(:diary) { create(:diary, user:) }
 
     # 有効な情報を保持している
     def patch_information(content, tokens)
@@ -161,7 +161,7 @@ RSpec.describe 'Diaries' do
         diary: {
           id: diary.id,
           date: (Time.zone.today - 1).strftime('%Y-%m-%d'),
-          content: content,
+          content:,
           tag_list: 'Path Tag1, Path Tag2',
           movie_source: 'example.com'
         }
@@ -306,7 +306,7 @@ RSpec.describe 'Diaries' do
   end
 
   describe 'DELETE /api/v1/diaries/:id' do
-    let!(:diary) { create(:diary, user: user) }
+    let!(:diary) { create(:diary, user:) }
 
     # 有効な情報を保持している
     def delete_information(tokens)
@@ -397,7 +397,7 @@ RSpec.describe 'Diaries' do
     }
 
     it '画像あり' do
-      create(:diary, :add_picture, user: user)
+      create(:diary, :add_picture, user:)
       expect(json_body['items'][0]).to be_truthy
     end
 

@@ -1,4 +1,4 @@
-FROM ruby:3.0.2-alpine3.13
+FROM ruby:3.2.0-alpine3.17
 
 RUN apk update && apk add --no-cache \
     libxml2-dev \
@@ -23,7 +23,7 @@ WORKDIR $APP_ROOT
 COPY Gemfile $APP_ROOT/Gemfile
 COPY Gemfile.lock $APP_ROOT/Gemfile.lock
 
-RUN gem install bundler && \
+RUN gem install bundler -v 2.4.4 && \
     bundle install
 
 COPY . $APP_ROOT
