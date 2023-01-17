@@ -24,7 +24,7 @@ COPY Gemfile $APP_ROOT/Gemfile
 COPY Gemfile.lock $APP_ROOT/Gemfile.lock
 
 
-RUN gem install bundler -v 2.4.1 && \
+RUN gem install bundler -v 2.4.4 && \
     bundle install --verbose
 
 COPY . $APP_ROOT

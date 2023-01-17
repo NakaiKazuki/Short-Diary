@@ -30,7 +30,7 @@ jobs:
 
       - name: Bundler and gem install
         run: |
-          gem install bundler -v 2.4.1
+          gem install bundler -v 2.4.4
           bundle install
 
       - name: Run Rails Best Practices

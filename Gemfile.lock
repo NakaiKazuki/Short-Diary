@@ -314,6 +314,7 @@ GEM
     zeitwerk (2.6.6)
 
 PLATFORMS
+  x86_64-linux
   x86_64-linux-musl
 
 DEPENDENCIES
@@ -357,4 +358,4 @@ RUBY VERSION
    ruby 3.2.0p0
 
 BUNDLED WITH
-   2.4.1
+   2.4.4
