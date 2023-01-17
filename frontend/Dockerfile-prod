@@ -1,4 +1,4 @@
-FROM node:16.13.1-alpine3.12
+FROM node:18.13-alpine3.16
 
 RUN apk update && apk add --no-cache \
     zsh \

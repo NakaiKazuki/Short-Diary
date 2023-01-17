@@ -1,4 +1,4 @@
-FROM ruby:3.0.2-alpine3.13
+FROM ruby:3.2.0-alpine3.17
 
 RUN apk update && apk add --no-cache \
     libxml2-dev \
