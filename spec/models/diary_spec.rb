@@ -25,7 +25,7 @@ require 'rails_helper'
 
 RSpec.describe Diary do
   let(:user) { create(:user) }
-  let(:diary) { create(:diary, user: user) }
+  let(:diary) { create(:diary, user:) }
 
   describe 'Diary' do
     it '有効' do
@@ -35,9 +35,9 @@ RSpec.describe Diary do
     it '日付が新しい投稿が最初に来る' do
       date = Time.zone.today
       3.times do |m|
-        create(:diary, user: user, date: date - m - 1)
+        create(:diary, user:, date: date - m - 1)
       end
-      diary4 = create(:diary, user: user, date: date)
+      diary4 = create(:diary, user:, date:)
       expect(Diary.first).to eq diary4
     end
   end

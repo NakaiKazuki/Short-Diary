@@ -13,7 +13,7 @@ RSpec.describe 'Contacts' do
         name: 'テストユーザ',
         email: 'test@example.com',
         over_view: '無題',
-        content: content
+        content:
       }
     end
 
