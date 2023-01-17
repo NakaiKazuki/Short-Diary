@@ -5,78 +5,79 @@ on:
   pull_request:
 
 jobs:
-  Check and Test:
-    Rails API:
-      runs-on: ubuntu-latest
-      timeout-minutes: 10
-      services:
-        mysql:
-          image: mysql:8.0.22
-          ports:
-            - 3306:3306
-          env:
-            MMYSQL_PASSWORD: password
-          options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+  Rails API:
+    name: Check And Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      mysql:
+        image: mysql:8.0.22
+        ports:
+          - 3306:3306
+        env:
+          MMYSQL_PASSWORD: password
+        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-        - name: Set up Ruby
-          uses: ruby/setup-ruby@v1
-          with:
-            bundler-cache: true
-            ruby-version: 3.0.2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          ruby-version: 3.0.2
 
-        - name: Bundler and gem install
-          run: |
-            gem install bundler -v 2.3.15
-            bundle install
+      - name: Bundler and gem install
+        run: |
+          gem install bundler -v 2.3.15
+          bundle install
 
-        - name: Run Rails Best Practices
-          run: bundle exec rails_best_practices .
+      - name: Run Rails Best Practices
+        run: bundle exec rails_best_practices .
 
-        - name: Run Brakeman
-          run: bundle exec brakeman -6 -A -w1 --no-pager
+      - name: Run Brakeman
+        run: bundle exec brakeman -6 -A -w1 --no-pager
 
-        - name: Run Bundle Audit Check
-          run: bundle exec bundle-audit check --update
+      - name: Run Bundle Audit Check
+        run: bundle exec bundle-audit check --update
 
-        - name: Run rubocop
-          run: bundle exec rubocop
+      - name: Run rubocop
+        run: bundle exec rubocop
 
-        - name: Run rspec
-          env:
-            RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          run: |
-            cp config/database.yml.ci config/database.yml
-            bundle exec rails db:create RAILS_ENV=test
-            bundle exec rails db:migrate RAILS_ENV=test
-            bundle exec rspec
+      - name: Run rspec
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+        run: |
+          cp config/database.yml.ci config/database.yml
+          bundle exec rails db:create RAILS_ENV=test
+          bundle exec rails db:migrate RAILS_ENV=test
+          bundle exec rspec
 
-    React:
-      runs-on: ubuntu-latest
-      timeout-minutes: 10
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v2
+  React:
+    name: Check And Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-        - name: Set up Node
-          uses: actions/setup-node@v1
-          with:
-            node-version: 16.13.1
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.13.1
 
-        - name: Install NodeModules
-          run: |
-            yarn install
-          workind-directory: ./frontend
+      - name: Install NodeModules
+        run: |
+          yarn install
+        workind-directory: ./frontend
 
-        - name: Linter
-          run: |
-            yarn lint
-          working-directory: ./frontend
+      - name: Linter
+        run: |
+          yarn lint
+        working-directory: ./frontend
 
-        - name: Test
-          run: |
-            yarn test
-          working-directory: ./frontend
+      - name: Test
+        run: |
+          yarn test
+        working-directory: ./frontend
