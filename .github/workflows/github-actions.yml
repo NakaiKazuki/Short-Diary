@@ -6,7 +6,6 @@ on:
 
 jobs:
   Rails API:
-    name: Check And Test
     runs-on: ubuntu-latest
     timeout-minutes: 10
     services:
@@ -55,7 +54,6 @@ jobs:
           bundle exec rspec
 
   React:
-    name: Check And Test
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -70,7 +68,7 @@ jobs:
       - name: Install NodeModules
         run: |
           yarn install
-        workind-directory: ./frontend
+        working-directory: ./frontend
 
       - name: Linter
         run: |
