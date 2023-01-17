@@ -15,7 +15,7 @@ jobs:
           ports:
             - 3306:3306
           env:
-            MYSQL_ALLOW_EMPTY_PASSWORD: yes
+            MMYSQL_PASSWORD: password
           options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
 
       steps:
@@ -57,25 +57,26 @@ jobs:
     React:
       runs-on: ubuntu-latest
       timeout-minutes: 10
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
 
-      - name: Checkout
-        uses: actions/checkout@v2
+        - name: Set up Node
+          uses: actions/setup-node@v1
+          with:
+            node-version: 16.13.1
 
-      - name: Set up Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16.13.1
-      - name: Install NodeModules
-        run: |
-          yarn install
-        workind-directory: ./frontend\
+        - name: Install NodeModules
+          run: |
+            yarn install
+          workind-directory: ./frontend
 
-      - name: Linter
-        run: |
-          yarn lint
-        working-directory: ./frontend
+        - name: Linter
+          run: |
+            yarn lint
+          working-directory: ./frontend
 
-      - name: Test
-        run: |
-          yarn test
-        working-directory: ./frontend
+        - name: Test
+          run: |
+            yarn test
+          working-directory: ./frontend
