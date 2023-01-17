@@ -9,7 +9,7 @@ jobs:
     docker:
       - image: cimg/ruby:3.2.0
         environment:
-          - BUNDLER_VERSION: 2.4.4
+          - BUNDLER_VERSION: 2.4.1
     steps:
       - checkout
       - ruby/install-deps
@@ -21,7 +21,7 @@ jobs:
     docker:
       - image: cimg/ruby:3.2.0
         environment:
-          - BUNDLER_VERSION: 2.4.4
+          - BUNDLER_VERSION: 2.4.1
     steps:
       - checkout
       - ruby/install-deps
@@ -33,7 +33,7 @@ jobs:
     docker:
       - image: cimg/ruby:3.2.0
         environment:
-          - BUNDLER_VERSION: 2.4.4
+          - BUNDLER_VERSION: 2.4.1
     steps:
       - checkout
       - ruby/install-deps
@@ -45,7 +45,7 @@ jobs:
     docker:
       - image: cimg/ruby:3.2.0
         environment:
-          - BUNDLER_VERSION: 2.4.4
+          - BUNDLER_VERSION: 2.4.1
     steps:
       - checkout
       - ruby/install-deps
@@ -57,7 +57,7 @@ jobs:
         environment:
           - DB_HOST: 127.0.0.1
           - RAILS_ENV: test
-          - BUNDLER_VERSION: 2.4.4
+          - BUNDLER_VERSION: 2.4.1
       - image: circleci/mysql:8.0.22
         command: |
           mysqld --default-authentication-plugin=mysql_native_password
