@@ -15,7 +15,7 @@ gem 'pagy', '~> 4' # ページネーション
 gem 'puma'
 gem 'rack-attack' # F5アタック対策
 gem 'rack-cors' # apiで使うのに必要なやつ
-gem 'rails', '~> 6.1.7'
+gem 'rails', '~> 7.0.4'
 gem 'rails-i18n' # 日本語化
 gem 'ransack' # 検索
 
