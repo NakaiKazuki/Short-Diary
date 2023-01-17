@@ -17,7 +17,7 @@ require:
 ## 全体に適応する項目を定義します。ここで Exclude に設定したファイルは、チェック対象外になります。
 AllCops:
   TargetRubyVersion: 3.2
-  TargetRailsVersion: 6.1
+  TargetRailsVersion: 7.0
   NewCops: enable
   Exclude:
     - "vendor/**/*"

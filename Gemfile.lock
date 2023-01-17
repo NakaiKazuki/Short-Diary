@@ -341,7 +341,7 @@ DEPENDENCIES
   puma
   rack-attack
   rack-cors
-  rails (~> 6.1.3)
+  rails
   rails-i18n
   rails_best_practices
   ransack

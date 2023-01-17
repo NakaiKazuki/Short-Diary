@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 workers Integer(ENV.fetch('WEB_CONCURRENCY', nil) || 2)
-threads_count = Integer(ENV.fetch('RAILS_MAX_THREADS', nil) || 5)
-threads threads_count, threads_count
-
+worker_timeout 3600 if ENV.fetch('RAILS_ENV', 'development') == 'development'
+max_threads_count = ENV.fetch('RAILS_MAX_THREADS', 5)
+min_threads_count = ENV.fetch('RAILS_MIN_THREADS') { max_threads_count }
+threads min_threads_count, max_threads_count
 preload_app!
 
 # rackup      DefaultRackup
-port        ENV.fetch('PORT', nil)     || 3001
-environment ENV.fetch('RACK_ENV', nil) || 'development'
+port ENV.fetch('PORT', 3001)
+environment ENV.fetch('RAILS_ENV', 'development')
 
 on_worker_boot do
   ActiveRecord::Base.establish_connection
@@ -18,6 +19,6 @@ plugin :tmp_restart
 
 app_dir = File.expand_path('../..', __dir__)
 bind "unix://#{app_dir}/tmp/sockets/puma.sock"
-pidfile "#{app_dir}/tmp/pids/puma.pid"
+pidfile ENV.fetch('PIDFILE', 'tmp/pids/server.pid')
 state_path "#{app_dir}/tmp/pids/puma.state"
 stdout_redirect "#{app_dir}/log/puma.stdout.log", "#{app_dir}/log/puma.stderr.log", true
