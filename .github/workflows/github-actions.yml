@@ -5,8 +5,8 @@ on:
   pull_request:
 
 jobs:
-  Rails API:
-    Check and Test:
+  Check and Test:
+    Rails API:
       runs-on: ubuntu-latest
       timeout-minutes: 10
       services:
@@ -54,28 +54,28 @@ jobs:
             bundle exec rails db:migrate RAILS_ENV=test
             bundle exec rspec
 
-  React:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+    React:
+      runs-on: ubuntu-latest
+      timeout-minutes: 10
 
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Set up Node
-      uses: actions/setup-node@v1
-      with:
-        node-version: 16.13.1
-    - name: Install NodeModules
-      run: |
-        yarn install
-      workind-directory: ./frontend\
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.13.1
+      - name: Install NodeModules
+        run: |
+          yarn install
+        workind-directory: ./frontend\
 
-    - name: Linter
-      run: |
-        yarn lint
-      working-directory: ./frontend
+      - name: Linter
+        run: |
+          yarn lint
+        working-directory: ./frontend
 
-    - name: Test
-      run: |
-        yarn test
-      working-directory: ./frontend
+      - name: Test
+        run: |
+          yarn test
+        working-directory: ./frontend
