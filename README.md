@@ -2,10 +2,12 @@
 
 200 文字以内の日記を作成するためのアプリケーションです。
 
-日記の内容を短くすることで継続しやすくしています。
+日記の内容を短くすることで気軽に作成できるようにしています。
 
 スマホからもご利用可能です。
-![スクリーンショット (14)](https://user-images.githubusercontent.com/62586169/175801488-bfeabe49-ba55-4d74-a417-45c13b49e7e7.png)
+![qrcode_short-diary com](https://user-images.githubusercontent.com/62586169/215309113-731c0847-e336-43fb-87ed-e8d10721691e.png)
+
+![スクリーンショット (37)](https://user-images.githubusercontent.com/62586169/215309122-bbc88df6-0d25-40cb-81ef-e791f0bdfc4b.png)
 
 ![スクリーンショット (13)](https://user-images.githubusercontent.com/62586169/175801483-c92a036e-7f62-4ae4-948a-10d16c596156.png)
 
@@ -21,7 +23,7 @@
 
 ## 使用技術
 
-- CircleCi
+- Github Actions
 - AWS
   - VPC
   - EC2(インスタンス内で Docker-compose を実行([使用ファイル](https://github.com/NakaiKazuki/Short-Diary/blob/main/docker-compose-prod.yml))
@@ -32,15 +34,15 @@
 - Docker/Docker-compose
 - MySQL 8.0
 - Rails
-  - Ruby 3.0
-  - Rails 6.1
+  - Ruby 3.2
+  - Rails 7.0
   - Puma
   - RSpec
   - Rubocop
 - React
-  - Node 16.13
-  - TypeScript 4.6
-  - React 18.0
+  - Node 18.13
+  - TypeScript 4.9
+  - React 18.1
   - React Testing Library
   - ESLint
   - Prettier
@@ -48,9 +50,19 @@
   - gtag.js
 - Nginx 1.20
 
-## CircleCi
+## Github Actions
 
-- Github への push 時に、Rails Best Practices, Brakeman, Bundle Audit, Rubocop, RSpec, FrontendTest が実行。
+下記が実行されます。
+
+- Rails:
+  - Rails Best Practices,
+  - Brakeman,
+  - Bundle Audit,
+  - Rubocop,
+  - RSpec
+- React:
+  - JSLint,
+  - Testing Library
 
 ## 主な機能
 
@@ -65,6 +77,7 @@
   - 検索機能(ransack)
 
 - React
+
   - デザイン
     - Material-UI
     - styled-components
