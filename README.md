@@ -5,7 +5,6 @@
 日記の内容を短くすることで気軽に作成できるようにしています。
 
 スマホからもご利用可能です。
-![qrcode_short-diary com](https://user-images.githubusercontent.com/62586169/215309113-731c0847-e336-43fb-87ed-e8d10721691e.png)
 
 ![スクリーンショット (37)](https://user-images.githubusercontent.com/62586169/215309122-bbc88df6-0d25-40cb-81ef-e791f0bdfc4b.png)
 
