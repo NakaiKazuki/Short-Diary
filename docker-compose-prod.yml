@@ -24,7 +24,8 @@ services:
     command: zsh -c "yarn install && yarn build && npx serve -s build -n"
     depends_on:
       - api
-
+    environment:
+      - NODE_OPTIONS=--max_old_space_size=1024
   nginx:
     build:
       context: ./nginx
