@@ -17,7 +17,7 @@ gem 'rack-attack' # F5アタック対策
 gem 'rack-cors' # apiで使うのに必要なやつ
 gem 'rails', '~> 7.0.4'
 gem 'rails-i18n' # 日本語化
-gem 'ransack', '~> 3'# 検索
+gem 'ransack', '~> 3' # 検索
 
 group :development, :test do
   gem 'factory_bot_rails' # テスト用
