@@ -51,7 +51,7 @@ RSpec.describe 'Sessions' do
       describe 'Response Body Properties' do
         subject(:json_body) {
           post api_v1_auth_guest_sign_in_path
-          JSON.parse(response.body)
+          response.parsed_body
         }
 
         it 'id' do

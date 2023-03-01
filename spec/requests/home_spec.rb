@@ -23,7 +23,7 @@ RSpec.describe 'Homes' do
       describe 'JSON' do
         let(:json_body) {
           get api_v1_root_path, headers: auth_tokens
-          JSON.parse(response.body)
+          response.parsed_body
         }
 
         it 'picture_url' do
@@ -41,7 +41,7 @@ RSpec.describe 'Homes' do
               get api_v1_root_path, params: {
                 content_or_date_cont: Time.zone.today.strftime('%Y-%m-%d')
               }, headers: auth_tokens
-              JSON.parse(response.body)
+              response.parsed_body
             }
 
             it '値がないと空の配列が返る' do

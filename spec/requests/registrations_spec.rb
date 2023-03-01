@@ -41,7 +41,7 @@ RSpec.describe 'Registrations' do
             email: other_user.email,
             current_password: user.password
           }, headers: auth_tokens
-          JSON.parse(response.body)
+          response.parsed_body
         }
 
         let(:put_guest) {
@@ -49,7 +49,7 @@ RSpec.describe 'Registrations' do
             email: 'editguest@example.com',
             current_password: guest.password
           }, headers: sign_in(guest)
-          JSON.parse(response.body)
+          response.parsed_body
         }
 
         def incorrect_password

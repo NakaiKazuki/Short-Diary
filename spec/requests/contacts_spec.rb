@@ -39,7 +39,7 @@ RSpec.describe 'Contacts' do
 
       it 'エラーメッセージを返す' do
         post_information(nil)
-        json_body = JSON.parse(response.body)
+        json_body = response.parsed_body
         expect(json_body['errors']).to be_truthy
       end
     end

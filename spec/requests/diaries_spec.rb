@@ -69,7 +69,7 @@ RSpec.describe 'Diaries' do
         describe 'JSON' do
           let(:json_body) {
             post_information(nil, auth_tokens)
-            JSON.parse(response.body)
+            response.parsed_body
           }
 
           it 'エラーメッセージが返される' do
@@ -103,7 +103,7 @@ RSpec.describe 'Diaries' do
 
           let(:json_body) {
             post_information('テストcontent', auth_tokens)
-            JSON.parse(response.body)
+            response.parsed_body
           }
 
           describe 'diaries' do
@@ -129,7 +129,7 @@ RSpec.describe 'Diaries' do
 
             it 'picture_url(画像あり)' do
               post_information_add_picture(auth_tokens)
-              add_pic_json = JSON.parse(response.body)
+              add_pic_json = response.parsed_body
               expect(add_pic_json['diaries'][0]['picture_url']).to be_truthy
             end
           end
@@ -224,7 +224,7 @@ RSpec.describe 'Diaries' do
         describe 'JSON' do
           let(:json_body) {
             patch_information(nil, auth_tokens)
-            JSON.parse(response.body)
+            response.parsed_body
           }
 
           it 'エラーメッセージが返される' do
@@ -256,7 +256,7 @@ RSpec.describe 'Diaries' do
 
           let(:json_body) {
             patch_information('テスト編集済みcontent', auth_tokens)
-            JSON.parse(response.body)
+            response.parsed_body
           }
 
           describe 'diaries' do
@@ -282,7 +282,7 @@ RSpec.describe 'Diaries' do
 
             it 'picture_url(画像あり)' do
               patch_information_add_picture(auth_tokens)
-              add_pic_json = JSON.parse(response.body)
+              add_pic_json = response.parsed_body
               expect(add_pic_json['diaries'][0]['picture_url']).to be_truthy
             end
           end
@@ -363,7 +363,7 @@ RSpec.describe 'Diaries' do
 
           let(:json_body) {
             delete_information(auth_tokens)
-            JSON.parse(response.body)
+            response.parsed_body
           }
 
           describe 'diaries' do
@@ -393,7 +393,7 @@ RSpec.describe 'Diaries' do
   describe 'GET /api/v1/diaries/photo_gallery' do
     subject(:json_body) {
       get api_v1_photo_gallery_path(auth_tokens)
-      JSON.parse(response.body)
+      response.parsed_body
     }
 
     it '画像あり' do
