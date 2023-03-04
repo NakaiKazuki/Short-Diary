@@ -2,7 +2,6 @@
 
 class Api::V1::Auth::SessionsController < DeviseTokenAuth::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
-
   # GET /resource/sign_in
   # def new
   #   super
@@ -24,6 +23,11 @@ class Api::V1::Auth::SessionsController < DeviseTokenAuth::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+  def auto_login
+    render json: {
+      current_user: current_user
+    }, status: :ok
+  end
 
   # ゲストユーザ作成とログイン DeviseTokenAuth からパクった
   def new_guest
