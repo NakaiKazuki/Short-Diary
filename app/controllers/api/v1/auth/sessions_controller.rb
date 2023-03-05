@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::Auth::SessionsController < DeviseTokenAuth::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
+  before_action :user_signed_in?, only: [:auto_login]
   # GET /resource/sign_in
   # def new
   #   super
@@ -23,9 +23,13 @@ class Api::V1::Auth::SessionsController < DeviseTokenAuth::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
-  def auto_login
+  def user_login
+    @resource = User.find_by(current_user)
+    @token = @resource.create_token
+    @resource.save
+    sign_in(:user, @current_user, store: false, bypass: false)
     render json: {
-      current_user: current_user
+      current_user: resource_data(resource_json: @resource.token_validation_response)
     }, status: :ok
   end
 

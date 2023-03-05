@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
       devise_scope :user do
         post 'auth/guest_sign_in', to: 'auth/sessions#new_guest'
-        post 'auth/auto_login', to: 'auth/sessions#auto_login'
+        post 'auth/user_login', to: 'auth/sessions#user_login'
       end
     end
   end
