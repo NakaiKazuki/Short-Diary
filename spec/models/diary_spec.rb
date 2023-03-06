@@ -92,8 +92,8 @@ RSpec.describe Diary do
 
   describe 'picture' do
     it '5mbより大きいファイルは無効' do
-      diary.picture.attach(io: Rails.root.join('spec/fixtures/images/test_6mb.jpg').open,
-                           filename: 'test_6mb.jpg', content_type: 'image/jpg')
+      diary.picture.attach(io: Rails.root.join('spec/fixtures/images/test_6mb.jpeg').open,
+                           filename: 'test_6mb.jpeg', content_type: 'image/jpeg')
       expect(diary).to be_invalid
     end
 
@@ -104,8 +104,8 @@ RSpec.describe Diary do
     end
 
     it '5mb以下の画像ファイルは有効' do
-      diary.picture.attach(io: Rails.root.join('spec/fixtures/images/test.jpg').open,
-                           filename: 'test.jpg', content_type: 'image/jpg')
+      diary.picture.attach(io: Rails.root.join('spec/fixtures/images/test.jpeg').open,
+                           filename: 'test.jpeg', content_type: 'image/jpeg')
       expect(diary).to be_valid
     end
   end
