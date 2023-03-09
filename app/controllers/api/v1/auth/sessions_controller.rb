@@ -25,7 +25,7 @@ class Api::V1::Auth::SessionsController < DeviseTokenAuth::SessionsController
   # end
   def user_login
     render json: {
-      current_user: curren_user
+      current_user: current_user
     }, status: :ok
   end
 
