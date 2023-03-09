@@ -12,11 +12,7 @@ interface IPrivateRouteProps {
 }
 
 export const PrivateRoute: FC<IPrivateRouteProps> = ({ jsxElement }) => {
-  const { currentUser, headers } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
-  return isLoggedIn(currentUser, headers) ? (
-    jsxElement
-  ) : (
-    <Navigate to="/login" />
-  );
+  return isLoggedIn(currentUser) ? jsxElement : <Navigate to="/login" />;
 };

@@ -1,9 +1,4 @@
 // 型
-interface IHeaders {
-  "access-token": string;
-  client: string;
-  uid: string;
-}
 
 interface IUser {
   id: number;
@@ -13,7 +8,4 @@ interface IUser {
 }
 
 // ユーザがログインしていたらtrueを返す
-export const isLoggedIn = (
-  user: IUser | undefined,
-  headers: IHeaders | undefined
-): boolean => user != null && headers != null;
+export const isLoggedIn = (user: IUser | undefined): boolean => user != null;

@@ -15,6 +15,7 @@ const MessageWrapper = styled.div`
   -moz-transition: all 0.3s;
   -ms-transition: all 0.3s;
   -o-transition: all 0.3s;
+  margin-top: 6.6vh;
 `;
 
 const TextWrapper = styled.p`

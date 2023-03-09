@@ -11,7 +11,7 @@ interface ILoggedInRouteProps {
 }
 
 export const LoggedInRoute: FC<ILoggedInRouteProps> = ({ login, logout }) => {
-  const { currentUser, headers } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
-  return isLoggedIn(currentUser, headers) ? login : logout;
+  return isLoggedIn(currentUser) ? login : logout;
 };

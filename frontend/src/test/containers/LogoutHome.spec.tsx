@@ -9,12 +9,6 @@ import { AuthContext } from "../../contexts/Auth";
 import { LogoutHome } from "../../containers/LogoutHome";
 import { guestSignIn } from "../../urls";
 
-interface IHeaders {
-  "access-token": string;
-  client: string;
-  uid: string;
-}
-
 interface ICurrentUser {
   id: number;
   name: string;
@@ -24,34 +18,32 @@ interface ICurrentUser {
 interface IProviderProps {
   value: {
     currentUser: ICurrentUser | undefined;
-    headers: IHeaders | undefined;
     setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
-    setHeaders: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
   };
 }
 
 const el = screen.getByTestId;
+
 const mockAxios = new MockAdapter(axios);
 
-mockAxios.onPost(guestSignIn).reply(200, {
-  headers: {
-    "access-token": "testtoken",
-    client: "testclient",
-    uid: "test@example.com",
-  },
-  data: {
+mockAxios.onPost(guestSignIn).reply(
+  200,
+  {
     id: 1,
     name: "test",
     email: "test@example.com",
   },
-});
+  {
+    "access-token": "testtoken",
+    client: "testclient",
+    uid: "test@example.com",
+  }
+);
 
 const providerProps = {
   value: {
-    headers: undefined,
     currentUser: undefined,
     setCurrentUser: jest.fn(),
-    setHeaders: jest.fn(),
   },
 };
 

@@ -8,12 +8,6 @@ import { AuthContext } from "../../contexts/Auth";
 import { PhotoGallery } from "../../containers/PhotoGallery";
 import { photoGallery } from "../../urls";
 
-interface IHeaders {
-  "access-token": string;
-  client: string;
-  uid: string;
-}
-
 interface ICurrentUser {
   id: number;
   name: string;
@@ -23,19 +17,11 @@ interface ICurrentUser {
 interface IProviderProps {
   value: {
     currentUser: ICurrentUser | undefined;
-    headers: IHeaders | undefined;
     setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
-    setHeaders: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
   };
 }
 
 // ユーザデータ
-const headers = {
-  "access-token": "testtoken",
-  client: "testclient",
-  uid: "test@example.com",
-};
-
 const currentUser = {
   id: 1,
   name: "test",
@@ -43,7 +29,7 @@ const currentUser = {
 };
 
 const mockAxios = new MockAdapter(axios);
-const returnData = {
+const result = {
   items: [
     {
       original: "/testurl",
@@ -53,16 +39,14 @@ const returnData = {
   ],
 };
 
-const returnEmptyData = {
+const emptyResult = {
   items: [],
 };
 
 const providerProps = {
   value: {
-    headers: headers,
     currentUser: currentUser,
     setCurrentUser: jest.fn(),
-    setHeaders: jest.fn(),
   },
 };
 
@@ -94,7 +78,7 @@ describe("PhotoGalleryコンポーネント", () => {
 
   describe("Itemがある場合", () => {
     it("PhotoGalleryが表示", async () => {
-      mockAxios.onGet(photoGallery).reply(200, returnData);
+      mockAxios.onGet(photoGallery).reply(200, result);
       setup();
       await waitFor(() => {
         expect(el("photGallery")).toBeTruthy();
@@ -104,7 +88,7 @@ describe("PhotoGalleryコンポーネント", () => {
 
   describe("Itemがない場合", () => {
     it("画像無しメッセージが表示", async () => {
-      mockAxios.onGet(photoGallery).reply(200, returnEmptyData);
+      mockAxios.onGet(photoGallery).reply(200, emptyResult);
       setup();
       await waitFor(() => {
         expect(el("emptyMessage")).toBeTruthy();

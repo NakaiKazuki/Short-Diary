@@ -1,6 +1,7 @@
 import { FC, useState, useReducer, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import styled from "styled-components";
 
 //contexts
@@ -75,8 +76,7 @@ export const UserEdit: FC = () => {
     undefined
   );
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
-  const { currentUser, setCurrentUser, headers, setHeaders } =
-    useContext(AuthContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const { setMessage } = useContext(MessageContext);
   const {
     handleSubmit,
@@ -90,36 +90,40 @@ export const UserEdit: FC = () => {
 
   const onSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING });
-    headers &&
-      putRegistration(headers, {
-        name: formValues.name,
-        email: formValues.email,
-        password: formValues.password,
-        password_confirmation: formValues.password_confirmation,
-        current_password: formValues.current_password,
+    putRegistration({
+      name: formValues.name,
+      email: formValues.email,
+      password: formValues.password,
+      password_confirmation: formValues.password_confirmation,
+      current_password: formValues.current_password,
+    })
+      .then((res) => {
+        dispatch({ type: submitActionTypes.POST_SUCCESS });
+        setCurrentUser(res.data);
+        Cookies.set("uid", res.headers["uid"]);
+        Cookies.set("client", res.headers["client"]);
+        Cookies.set("access-token", res.headers["access-token"]);
+        setMessage("登録情報の編集に成功しました。");
+        navigate("../", { replace: true });
       })
-        .then((res) => {
-          dispatch({ type: submitActionTypes.POST_SUCCESS });
-          setCurrentUser(res.data);
-          setHeaders(res.headers);
-          setMessage("登録情報の編集に成功しました。");
-          navigate("../", { replace: true });
-        })
-        .catch((e) => {
-          dispatch({ type: submitActionTypes.POST_INITIAL });
-          if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
-            setErrorMessage(e.response.data.errors);
-          } else if (
-            e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
-            e.response.status === HTTP_STATUS_CODE.FORBIDDEN
-          ) {
-            setCurrentUser(undefined);
-            navigate("../login", { replace: true });
-          } else {
-            console.error(e);
-            throw e;
-          }
-        });
+      .catch((e) => {
+        dispatch({ type: submitActionTypes.POST_INITIAL });
+        if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+          setErrorMessage(e.response.data.errors);
+        } else if (
+          e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
+          e.response.status === HTTP_STATUS_CODE.FORBIDDEN
+        ) {
+          setCurrentUser(undefined);
+          Cookies.remove("uid");
+          Cookies.remove("client");
+          Cookies.remove("access-token");
+          navigate("/login", { replace: true });
+        } else {
+          console.error(e);
+          throw e;
+        }
+      });
   };
 
   return formInfo ? (

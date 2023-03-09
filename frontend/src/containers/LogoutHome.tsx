@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Flip from "react-reveal/Flip";
 import Roll from "react-reveal/Roll";
 import ImageGallery from "react-image-gallery";
+import Cookies from "js-cookie";
 import styled from "styled-components";
 //contexts
 import { AuthContext } from "../contexts/Auth";
@@ -275,7 +276,7 @@ const CustomGallery = styled.div`
   }
 `;
 export const LogoutHome: FC = () => {
-  const { setCurrentUser, setHeaders } = useContext(AuthContext);
+  const { setCurrentUser } = useContext(AuthContext);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
   const navigate = useNavigate();
 
@@ -289,12 +290,17 @@ export const LogoutHome: FC = () => {
     newGuestSession()
       .then((res) => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
-        setCurrentUser(res.data.current_user);
-        setHeaders(res.headers);
+        Cookies.set("client", res.headers["client"]);
+        Cookies.set("uid", res.headers["uid"]);
+        Cookies.set("access-token", res.headers["access-token"]);
+        setCurrentUser(res.data);
         navigate("/");
       })
       .catch((e) => {
-        console.error(e);
+        Cookies.remove("uid");
+        Cookies.remove("client");
+        Cookies.remove("access-token");
+        setCurrentUser(undefined);
         throw e;
       });
   };

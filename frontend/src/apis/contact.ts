@@ -8,11 +8,11 @@ interface IParams {
   content: string;
 }
 
-interface IReturnData {
+interface IResult {
   message: string;
 }
 
-export const postContact = (params: IParams): Promise<IReturnData> => {
+export const postContact = (params: IParams): Promise<IResult> => {
   return axios
     .post(contact, {
       name: params.name,

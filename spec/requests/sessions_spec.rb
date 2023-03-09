@@ -55,20 +55,20 @@ RSpec.describe 'Sessions' do
         }
 
         it 'id' do
-          expect(json_body['current_user']['id']).to eq 1
+          expect(json_body['id']).to eq 1
         end
 
         it 'name' do
-          expect(json_body['current_user']['name']).to eq 'ゲストユーザ'
+          expect(json_body['name']).to eq 'ゲストユーザ'
         end
 
         it 'email' do
-          expect(json_body['current_user']['email']).to eq 'guest@example.com'
+          expect(json_body['email']).to eq 'guest@example.com'
         end
 
         # 画像は追加していないためnilを返す
         it 'image' do
-          expect(json_body['current_user']['image']).to be_nil
+          expect(json_body['image']).to be_nil
         end
       end
     end

@@ -11,12 +11,6 @@ import { UserEdit } from "../../containers/UserEdit";
 import { registration } from "../../urls";
 import { UserEditLinkInfo as linkInfo } from "../../formInfo";
 
-interface IHeaders {
-  "access-token": string;
-  client: string;
-  uid: string;
-}
-
 interface ICurrentUser {
   id: number;
   name: string;
@@ -26,18 +20,11 @@ interface ICurrentUser {
 interface IProviderProps {
   value: {
     currentUser: ICurrentUser | undefined;
-    headers: IHeaders | undefined;
     setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
-    setHeaders: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
   };
 }
 
 // ユーザデータ
-const headers = {
-  "access-token": "testtoken",
-  client: "testclient",
-  uid: "test@example.com",
-};
 
 const currentUser = {
   id: 1,
@@ -46,16 +33,16 @@ const currentUser = {
 };
 
 const mockAxios = new MockAdapter(axios);
-const returnData = {
-  headers: {
-    "access-token": "testtoken",
-    client: "testclient",
-    uid: "test@example.com",
-  },
+const result = {
   data: {
     id: 1,
     name: "testName",
     email: "test@example.com",
+  },
+  headers: {
+    "access-token": "testtoken",
+    client: "testclient",
+    uid: "test@example.com",
   },
 };
 
@@ -83,7 +70,7 @@ const formInfo = [
   },
 ];
 
-const returnErrorData = {
+const errorResult = {
   errors: {
     guest: ["guest ApiError"],
     name: ["name ApiError"],
@@ -106,10 +93,8 @@ const guestIdNames = ["guest"];
 
 const providerProps = {
   value: {
-    headers: headers,
     currentUser: currentUser,
     setCurrentUser: jest.fn(),
-    setHeaders: jest.fn(),
   },
 };
 
@@ -161,7 +146,7 @@ describe("UserEditコンポーネント", () => {
 
       it("エラーメッセージ", async () => {
         // ApiResponse
-        mockAxios.onPut(registration).reply(200, returnData);
+        mockAxios.onPut(registration).reply(200, result.data, result.headers);
 
         // 各項目に無効な値を入力
         formInfo.forEach((obj) => userEvent.clear(el(obj.testId)));
@@ -177,7 +162,7 @@ describe("UserEditコンポーネント", () => {
 
       it("Apiエラーメッセージ", async () => {
         // ApiResponse
-        mockAxios.onPut(registration).reply(422, returnErrorData);
+        mockAxios.onPut(registration).reply(422, errorResult);
 
         // 各項目に値を入力
         await userEvent.type(el(formInfo[2].testId), formInfo[2].value);
@@ -205,7 +190,7 @@ describe("UserEditコンポーネント", () => {
       });
 
       it("ゲストユーザ専用エラーメッセージ", async () => {
-        mockAxios.onPut(registration).reply(422, returnErrorData);
+        mockAxios.onPut(registration).reply(422, errorResult);
 
         // 各項目に値を入力
         await userEvent.type(el(formInfo[2].testId), formInfo[2].value);
@@ -229,7 +214,7 @@ describe("UserEditコンポーネント", () => {
 
       it("送信結果に応じてボタンの要素が変化 Status200", async () => {
         // ApiResponse
-        mockAxios.onPut(registration).reply(200, returnData);
+        mockAxios.onPut(registration).reply(200, result.data, result.headers);
 
         // 各項目に有効な値を入力
         await userEvent.type(el(formInfo[2].testId), formInfo[2].value);
@@ -251,7 +236,7 @@ describe("UserEditコンポーネント", () => {
 
       it("送信結果に応じてボタンの要素が変化 Status422", async () => {
         // ApiResponse
-        mockAxios.onPut(registration).reply(422, returnErrorData);
+        mockAxios.onPut(registration).reply(422, errorResult);
 
         // 各項目に有効な値を入力
         await userEvent.type(el(formInfo[2].testId), formInfo[2].value);

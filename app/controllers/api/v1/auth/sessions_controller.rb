@@ -25,7 +25,7 @@ class Api::V1::Auth::SessionsController < DeviseTokenAuth::SessionsController
   # end
   def user_login
     render json: {
-      current_user: current_user
+      current_user:
     }, status: :ok
   end
 
@@ -36,9 +36,8 @@ class Api::V1::Auth::SessionsController < DeviseTokenAuth::SessionsController
     @resource.save
 
     sign_in(:user, @resource, store: false, bypass: false)
-    render json: {
-      current_user: resource_data(resource_json: @resource.token_validation_response)
-    }, status: :ok
+    render json:
+      resource_data(resource_json: @resource.token_validation_response), status: :ok
   end
 
   private

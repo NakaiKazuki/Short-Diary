@@ -11,12 +11,6 @@ import { SignUp } from "../../containers/SignUp";
 import { registration } from "../../urls";
 import { signUpLinkInfo as linkInfo } from "../../formInfo";
 
-interface IHeaders {
-  "access-token": string;
-  client: string;
-  uid: string;
-}
-
 interface ICurrentUser {
   id: number;
   name: string;
@@ -26,9 +20,7 @@ interface ICurrentUser {
 interface IProviderProps {
   value: {
     currentUser: ICurrentUser | undefined;
-    headers: IHeaders | undefined;
     setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
-    setHeaders: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
   };
 }
 
@@ -52,7 +44,7 @@ const formInfo = [
   },
 ];
 
-const returnErrorData = {
+const errorResult = {
   errors: {
     name: ["name ApiError"],
     email: ["email ApiError"],
@@ -63,10 +55,8 @@ const returnErrorData = {
 
 const providerProps = {
   value: {
-    headers: undefined,
     currentUser: undefined,
     setCurrentUser: jest.fn(),
-    setHeaders: jest.fn(),
   },
 };
 const messageProps = {
@@ -75,6 +65,7 @@ const messageProps = {
     setMessage: jest.fn(),
   },
 };
+
 const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   const routes = [
     {
@@ -137,7 +128,7 @@ describe("SignUpコンポーネント", () => {
 
       it("Apiエラーメッセージ", async () => {
         // ApiResponse
-        mockAxios.onPost(registration).reply(401, returnErrorData);
+        mockAxios.onPost(registration).reply(401, errorResult);
 
         // 各項目に値を入力
         await userEvent.type(el(formInfo[0].testId), formInfo[0].value);
@@ -194,7 +185,7 @@ describe("SignUpコンポーネント", () => {
 
       it("送信結果に応じてボタンの要素が変化 Status422", async () => {
         // ApiResponse
-        mockAxios.onPost(registration).reply(422, returnErrorData);
+        mockAxios.onPost(registration).reply(422, errorResult);
 
         // 各項目に有効な値を入力
         await userEvent.type(el(formInfo[0].testId), formInfo[0].value);

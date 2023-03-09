@@ -1,13 +1,8 @@
 import axios from "axios";
 import { home } from "../urls";
+import Cookies from "js-cookie";
 
-interface IHeaders {
-  "access-token": string;
-  client: string;
-  uid: string;
-}
-
-interface IReturnData {
+interface IResult {
   diaries: [
     diary: {
       id: number;
@@ -26,25 +21,31 @@ interface IReturnData {
 }
 
 export const fetchHome = (
-  headers: IHeaders,
   searchWord: undefined | string | Date = undefined
-): Promise<IReturnData> => {
+): Promise<IResult> => {
   return axios
     .get(home, {
-      headers: { ...headers },
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        client: Cookies.get("client") || "",
+        uid: Cookies.get("uid") || "",
+      },
       params: { content_or_date_cont: searchWord },
     })
     .then((res) => res.data);
 };
 
 export const getDiaies = (
-  headers: IHeaders,
   page: number,
   searchWord: undefined | string | Date
-): Promise<IReturnData> => {
+): Promise<IResult> => {
   return axios
     .get(home, {
-      headers: { ...headers },
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        client: Cookies.get("client") || "",
+        uid: Cookies.get("uid") || "",
+      },
       params: { content_or_date_cont: searchWord, page: page },
     })
     .then((res) => res.data);

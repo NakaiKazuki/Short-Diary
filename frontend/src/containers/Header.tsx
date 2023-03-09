@@ -1,6 +1,7 @@
 import React, { FC, useContext, useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Toolbar } from "@material-ui/core";
+import Cookies from "js-cookie";
 import styled from "styled-components";
 
 //contexts
@@ -55,24 +56,24 @@ const LinkItem = styled(BaseButton)`
 `;
 
 export const Header: FC = () => {
-  const { currentUser, setCurrentUser, headers, setHeaders } =
-    useContext(AuthContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const { setOpenDrawer } = useContext(DrawerContext);
 
   // ユーザのログアウト処理
   const onSignOut = (): void => {
-    headers &&
-      deleteSession(headers)
-        .then(() => {
-          setCurrentUser(undefined);
-          setHeaders(undefined);
-          setAnchorEl(null);
-        })
-        .catch((e) => {
-          console.error(e);
-          throw e;
-        });
+    deleteSession()
+      .then(() => {
+        setAnchorEl(null);
+        setCurrentUser(undefined);
+        Cookies.remove("uid");
+        Cookies.remove("client");
+        Cookies.remove("access-token");
+      })
+      .catch((e) => {
+        console.error(e);
+        throw e;
+      });
   };
 
   return (

@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import { registration } from "../../urls";
 
 interface IHeaders {
@@ -28,7 +29,7 @@ interface IPutParams {
   current_password: string;
 }
 
-interface returnData {
+interface IResult {
   data: IData;
   headers: IHeaders;
 }
@@ -46,12 +47,11 @@ export const postRegistration = (params: IPostParams): Promise<void> => {
   });
 };
 
-export const putRegistration = (
-  headers: IHeaders,
-  params: IPutParams
-): Promise<returnData> => {
+export const putRegistration = (params: IPutParams): Promise<IResult> => {
   return axios.put(registration, {
-    ...headers,
+    "access-token": Cookies.get("access-token") || "",
+    client: Cookies.get("client") || "",
+    uid: Cookies.get("uid") || "",
     name: params.name,
     email: params.email,
     password: params.password,

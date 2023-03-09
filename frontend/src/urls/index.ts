@@ -10,6 +10,7 @@ export const registration: string = DEVISE_PATH;
 export const signIn = `${DEVISE_PATH}/sign_in`;
 export const signOut = `${DEVISE_PATH}/sign_out`;
 export const guestSignIn = `${DEVISE_PATH}/guest_sign_in`;
+export const userLogin = `${DEVISE_PATH}/user_login`;
 
 // Diary
 export const diary = `${DEFAULT_API_LOCALHOST}/diaries`;

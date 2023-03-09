@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import { diary, photoGallery } from "../urls";
 
 interface IParams {
@@ -9,13 +10,7 @@ interface IParams {
   picture: { data: string; name: string } | undefined;
 }
 
-interface IHeaders {
-  "access-token": string;
-  client: string;
-  uid: string;
-}
-
-interface IReturnData {
+interface IResult {
   diaries: [
     {
       id: number;
@@ -44,16 +39,15 @@ interface IReturnPhotoGallery {
   originalWidth: number;
 }
 
-export const createDiary = (
-  headers: IHeaders,
-  params: IParams
-): Promise<IReturnData> => {
+export const createDiary = (params: IParams): Promise<IResult> => {
   const picture = params.picture
     ? { data: params.picture.data, name: params.picture.name }
     : undefined;
   return axios
     .post(diary, {
-      ...headers,
+      "access-token": Cookies.get("access-token") || "",
+      client: Cookies.get("client") || "",
+      uid: Cookies.get("uid") || "",
       date: params.date,
       tag_list: params.tag_list ? params.tag_list : undefined,
       content: params.content,
@@ -64,17 +58,18 @@ export const createDiary = (
 };
 
 export const updateDiary = (
-  headers: IHeaders,
   params: IParams,
   page: number,
   diaryId: number | undefined
-): Promise<IReturnData> => {
+): Promise<IResult> => {
   const picture = params.picture
     ? { data: params.picture.data, name: params.picture.name }
     : undefined;
   return axios
     .patch(`${diary}/${diaryId}`, {
-      ...headers,
+      "access-token": Cookies.get("access-token") || "",
+      client: Cookies.get("client") || "",
+      uid: Cookies.get("uid") || "",
       date: params.date,
       tag_list: params.tag_list ? params.tag_list : undefined,
       content: params.content,
@@ -86,24 +81,29 @@ export const updateDiary = (
 };
 
 export const deleteDiary = (
-  headers: IHeaders,
   page: number,
   diaryId: number
-): Promise<IReturnData> => {
+): Promise<IResult> => {
   return axios
     .delete(`${diary}/${diaryId}`, {
-      headers: { ...headers },
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        client: Cookies.get("client") || "",
+        uid: Cookies.get("uid") || "",
+      },
       data: { page: page },
     })
     .then((res) => res.data);
 };
 
-export const fetchPhotoGallery = (
-  Headers: IHeaders
-): Promise<IReturnPhotoGallery> => {
+export const fetchPhotoGallery = (): Promise<IReturnPhotoGallery> => {
   return axios
     .get(photoGallery, {
-      headers: { ...Headers },
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        client: Cookies.get("client") || "",
+        uid: Cookies.get("uid") || "",
+      },
     })
     .then((res) => res.data);
 };
