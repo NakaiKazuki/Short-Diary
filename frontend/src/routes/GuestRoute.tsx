@@ -12,7 +12,7 @@ interface IGuestRouteProps {
 }
 
 export const GuestRoute: FC<IGuestRouteProps> = ({ jsxElement }) => {
-  const { currentUser, headers } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
-  return isLoggedIn(currentUser, headers) ? <Navigate to="/" /> : jsxElement;
+  return isLoggedIn(currentUser) ? <Navigate to="/" /> : jsxElement;
 };

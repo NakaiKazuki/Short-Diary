@@ -13,12 +13,12 @@ Rails.application.routes.draw do
 
       devise_scope :user do
         post 'auth/guest_sign_in', to: 'auth/sessions#new_guest'
+        post 'auth/user_login', to: 'auth/sessions#user_login'
       end
     end
   end
   mount_devise_token_auth_for 'User', at: 'api/v1/auth', controllers: {
     registrations: 'api/v1/auth/registrations'
   }
-
   mount LetterOpenerWeb::Engine, at: 'letter_opener' if Rails.env.development?
 end

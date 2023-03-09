@@ -2,7 +2,7 @@ import { FC, useState, useReducer, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
+import Cookies from "js-cookie";
 //contexts
 import { AuthContext } from "../contexts/Auth";
 
@@ -58,7 +58,7 @@ export const Login: FC = () => {
     undefined
   );
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
-  const { setCurrentUser, setHeaders } = useContext(AuthContext);
+  const { setCurrentUser } = useContext(AuthContext);
   const {
     handleSubmit,
     control,
@@ -73,8 +73,10 @@ export const Login: FC = () => {
     })
       .then((res) => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
-        setCurrentUser(res.data.current_user);
-        setHeaders(res.headers);
+        Cookies.set("uid", res.headers["uid"]);
+        Cookies.set("client", res.headers["client"]);
+        Cookies.set("access-token", res.headers["access-token"]);
+        setCurrentUser(res.data);
         navigate("/", { replace: true });
       })
       .catch((e) => {
@@ -83,6 +85,10 @@ export const Login: FC = () => {
           e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
           e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE
         ) {
+          Cookies.remove("uid");
+          Cookies.remove("client");
+          Cookies.remove("access-token");
+          setCurrentUser(undefined);
           setErrorMessage(e.response.data.errors);
         } else {
           console.error(e);

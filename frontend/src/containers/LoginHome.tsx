@@ -10,6 +10,7 @@ import React, {
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { YouTubeProps, YouTubeEvent, YouTubePlayer } from "react-youtube";
+import Cookies from "js-cookie";
 import styled from "styled-components";
 
 // contexts
@@ -197,7 +198,7 @@ interface IFile extends File {
 }
 
 export const LoginHome: FC = () => {
-  const { setCurrentUser, headers } = useContext(AuthContext);
+  const { setCurrentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const {
     handleSubmit,
@@ -233,25 +234,27 @@ export const LoginHome: FC = () => {
 
   const scrollIndexTopRef = useRef<HTMLDivElement>(null);
   const onPageChange = (page: number): void => {
-    headers &&
-      getDiaies(headers, page, state.selectedDate?.toISOString().split("T")[0])
-        .then((data) => {
-          setState({
-            ...state,
-            diaries: data.diaries,
-            pagy: data.pagy,
-          });
-          scrollIndexTopRef?.current?.scrollIntoView();
-        })
-        .catch((e) => {
-          if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-            setCurrentUser(undefined);
-            navigate("/login");
-          } else {
-            console.error(e);
-            throw e;
-          }
+    getDiaies(page, state.selectedDate?.toISOString().split("T")[0])
+      .then((data) => {
+        setState({
+          ...state,
+          diaries: data.diaries,
+          pagy: data.pagy,
         });
+        scrollIndexTopRef?.current?.scrollIntoView();
+      })
+      .catch((e) => {
+        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          setCurrentUser(undefined);
+          Cookies.remove("uid");
+          Cookies.remove("client");
+          Cookies.remove("access-token");
+          navigate("/login", { replace: true });
+        } else {
+          console.error(e);
+          throw e;
+        }
+      });
   };
   // ここまでPagenationAreaで使う関数
 
@@ -280,83 +283,89 @@ export const LoginHome: FC = () => {
   };
 
   const onDateChange = (selectedDate: null | Date): void => {
-    headers &&
-      fetchHome(headers, selectedDate ? convertDate(selectedDate) : undefined)
-        .then((data): void => {
-          setState({
-            ...state,
-            selectedDate: selectedDate,
-            searchWord: "",
-            diaries: data.diaries,
-            pagy: data.pagy,
-            isOpenDrawer: false,
-            fetchState: REQUEST_STATE.OK,
-          });
-          reset({ searchWord: "" });
-        })
-        .catch((e): void => {
-          if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-            setCurrentUser(undefined);
-            navigate("/login", { replace: true });
-          } else {
-            console.error(e);
-            throw e;
-          }
+    fetchHome(selectedDate ? convertDate(selectedDate) : undefined)
+      .then((data): void => {
+        setState({
+          ...state,
+          selectedDate: selectedDate,
+          searchWord: "",
+          diaries: data.diaries,
+          pagy: data.pagy,
+          isOpenDrawer: false,
+          fetchState: REQUEST_STATE.OK,
         });
+        reset({ searchWord: "" });
+      })
+      .catch((e): void => {
+        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          setCurrentUser(undefined);
+          Cookies.remove("uid");
+          Cookies.remove("client");
+          Cookies.remove("access-token");
+          navigate("/login", { replace: true });
+        } else {
+          console.error(e);
+          throw e;
+        }
+      });
   };
 
   // 単語を指定して検索する場合に使用
   const onWordSearchSubmit = (formValues: ISearchFormValue): void => {
-    headers &&
-      fetchHome(headers, formValues.searchWord)
-        .then((data): void => {
-          setState({
-            ...state,
-            selectedDate: null,
-            searchWord: formValues.searchWord,
-            diaries: data.diaries,
-            pagy: data.pagy,
-            isOpenDrawer: false,
-            fetchState: REQUEST_STATE.OK,
-          });
-          console.log(data);
-        })
-        .catch((e): void => {
-          if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-            setCurrentUser(undefined);
-            navigate("/login");
-          } else {
-            console.error(e);
-            throw e;
-          }
+    fetchHome(formValues.searchWord)
+      .then((data): void => {
+        setState({
+          ...state,
+          selectedDate: null,
+          searchWord: formValues.searchWord,
+          diaries: data.diaries,
+          pagy: data.pagy,
+          isOpenDrawer: false,
+          fetchState: REQUEST_STATE.OK,
         });
+        console.log(data);
+      })
+      .catch((e): void => {
+        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          setCurrentUser(undefined);
+          Cookies.remove("uid");
+          Cookies.remove("client");
+          Cookies.remove("access-token");
+          navigate("/login", { replace: true });
+        } else {
+          console.error(e);
+          throw e;
+        }
+      });
   };
 
   // 検索内容を消去するボタンに使用
   const onSearchClearButton = (): void => {
-    headers &&
-      fetchHome(headers)
-        .then((data): void => {
-          setState({
-            ...state,
-            selectedDate: null,
-            searchWord: "",
-            diaries: data.diaries,
-            pagy: data.pagy,
-            isOpenDrawer: false,
-            fetchState: REQUEST_STATE.OK,
-          });
-          reset({ searchWord: "" });
-        })
-        .catch((e): void => {
-          if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-            setCurrentUser(undefined);
-            navigate("/login");
-          } else {
-            console.error(e);
-            throw e;
-          }
+    fetchHome()
+      .then((data): void => {
+        setState({
+          ...state,
+          selectedDate: null,
+          searchWord: "",
+          diaries: data.diaries,
+          pagy: data.pagy,
+          isOpenDrawer: false,
+          fetchState: REQUEST_STATE.OK,
         });
+        reset({ searchWord: "" });
+      })
+      .catch((e): void => {
+        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          setCurrentUser(undefined);
+          Cookies.remove("uid");
+          Cookies.remove("client");
+          Cookies.remove("access-token");
+          navigate("/login", { replace: true });
+        } else {
+          console.error(e);
+          throw e;
+        }
+      });
   };
   // ここまでSearchFieldで使う関数
 
@@ -398,40 +407,42 @@ export const LoginHome: FC = () => {
   // DiaryCreateDialogでFormのボタンが押されたらApiを叩く
   const onCreateSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING });
-    headers &&
-      createDiary(headers, {
-        date: formValues.date,
-        tag_list: formValues.tag_list ? formValues.tag_list.trim() : undefined,
-        content: formValues.content,
-        movie_source: formValues.movie_source
-          ? formValues.movie_source
-          : undefined,
-        picture: formValues.picture ? formValues.picture[0] : undefined,
+    createDiary({
+      date: formValues.date,
+      tag_list: formValues.tag_list ? formValues.tag_list.trim() : undefined,
+      content: formValues.content,
+      movie_source: formValues.movie_source
+        ? formValues.movie_source
+        : undefined,
+      picture: formValues.picture ? formValues.picture[0] : undefined,
+    })
+      .then((data): void => {
+        dispatch({ type: submitActionTypes.POST_INITIAL });
+        setState({
+          ...state,
+          diaries: data.diaries,
+          isOpenDiaryCreateDialog: false,
+          pagy: data.pagy,
+        });
       })
-        .then((data): void => {
-          dispatch({ type: submitActionTypes.POST_INITIAL });
+      .catch((e): void => {
+        dispatch({ type: submitActionTypes.POST_INITIAL });
+        if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
           setState({
             ...state,
-            diaries: data.diaries,
-            isOpenDiaryCreateDialog: false,
-            pagy: data.pagy,
+            apiErrors: e.response.data.errors,
           });
-        })
-        .catch((e): void => {
-          dispatch({ type: submitActionTypes.POST_INITIAL });
-          if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
-            setState({
-              ...state,
-              apiErrors: e.response.data.errors,
-            });
-          } else if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-            setCurrentUser(undefined);
-            navigate("/login");
-          } else {
-            console.error(e);
-            throw e;
-          }
-        });
+        } else if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          setCurrentUser(undefined);
+          Cookies.remove("uid");
+          Cookies.remove("client");
+          Cookies.remove("access-token");
+          navigate("/login", { replace: true });
+        } else {
+          console.error(e);
+          throw e;
+        }
+      });
   };
 
   // CreateDialogを開く
@@ -455,11 +466,9 @@ export const LoginHome: FC = () => {
   // ここからDiaryEditで使う関数
   const onEditSubmit = (formValues: IFormValues): void => {
     dispatch({ type: submitActionTypes.POSTING });
-    headers &&
-      state.pagy &&
+    state.pagy &&
       state.selectedDiary &&
       updateDiary(
-        headers,
         {
           date: formValues.date,
           tag_list: formValues.tag_list
@@ -497,7 +506,10 @@ export const LoginHome: FC = () => {
             e.response.status === HTTP_STATUS_CODE.FORBIDDEN
           ) {
             setCurrentUser(undefined);
-            navigate("/login");
+            Cookies.remove("uid");
+            Cookies.remove("client");
+            Cookies.remove("access-token");
+            navigate("/login", { replace: true });
           } else {
             alert(e);
           }
@@ -540,9 +552,8 @@ export const LoginHome: FC = () => {
 
   // DiaryDialogで開かれている日記データを削除
   const onDiaryDelete = (diary: IDiary): void => {
-    headers &&
-      state.pagy &&
-      deleteDiary(headers, state.pagy.page, diary.id)
+    state.pagy &&
+      deleteDiary(state.pagy.page, diary.id)
         .then((data): void => {
           setState({
             ...state,
@@ -560,7 +571,10 @@ export const LoginHome: FC = () => {
             e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED
           ) {
             setCurrentUser(undefined);
-            navigate("/login");
+            Cookies.remove("uid");
+            Cookies.remove("client");
+            Cookies.remove("access-token");
+            navigate("/login", { replace: true });
           } else {
             console.error(e);
             throw e;
@@ -604,31 +618,33 @@ export const LoginHome: FC = () => {
   // ここまでDiaryMenuで使う関数
 
   // このコンポーネントが開かれた時にだけ実行される
+  // ログアウトの処理で一回走ってるからくそ
   useEffect(() => {
     const abortController = new AbortController();
     setState({
       ...state,
       fetchState: REQUEST_STATE.LOADING,
     });
-    headers &&
-      fetchHome(headers)
-        .then((data): void => {
-          setState({
-            ...state,
-            diaries: data.diaries,
-            pagy: data.pagy,
-            fetchState: REQUEST_STATE.OK,
-          });
-          // console.log(data.diaries);
-        })
-        .catch((e): void => {
-          if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-            setCurrentUser(undefined);
-            navigate("/login");
-          } else {
-            console.error(e);
-          }
+    fetchHome()
+      .then((data): void => {
+        setState({
+          ...state,
+          diaries: data.diaries,
+          pagy: data.pagy,
+          fetchState: REQUEST_STATE.OK,
         });
+      })
+      .catch((e): void => {
+        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          Cookies.remove("uid");
+          Cookies.remove("client");
+          Cookies.remove("access-token");
+          navigate("/login", { replace: true });
+          setCurrentUser(undefined);
+        } else {
+          console.error(e);
+        }
+      });
 
     return () => abortController.abort();
   }, []);

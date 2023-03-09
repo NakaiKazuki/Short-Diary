@@ -6,12 +6,6 @@ import "@testing-library/jest-dom";
 import { AuthContext } from "../../contexts/Auth";
 import { Header } from "../../containers/Header";
 
-interface IHeaders {
-  "access-token": string;
-  client: string;
-  uid: string;
-}
-
 interface ICurrentUser {
   id: number;
   name: string;
@@ -21,17 +15,9 @@ interface ICurrentUser {
 interface IProviderProps {
   value: {
     currentUser: ICurrentUser | undefined;
-    headers: IHeaders | undefined;
     setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
-    setHeaders: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
   };
 }
-
-const headers = {
-  "access-token": "testtoken",
-  client: "testclient",
-  uid: "test@example.com",
-};
 
 const currentUser = {
   id: 1,
@@ -41,10 +27,8 @@ const currentUser = {
 
 const providerProps = {
   value: {
-    headers: undefined,
     currentUser: undefined,
     setCurrentUser: jest.fn(),
-    setHeaders: jest.fn(),
   },
 };
 
@@ -63,12 +47,15 @@ const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
 
 const el = screen.getByTestId;
 
-afterEach(cleanup);
-
+afterEach(() => {
+  cleanup;
+});
 describe("Header コンポーネント", () => {
   describe("ログアウト時", () => {
     const setup = () => customRender(<Header />, providerProps);
-    beforeEach(() => setup());
+    beforeEach(() => {
+      setup();
+    });
     it("ホーム画面へのリンク", () => {
       expect(el("homeLink")).toBeTruthy();
     });
@@ -85,10 +72,8 @@ describe("Header コンポーネント", () => {
   describe("ログイン時", () => {
     const providerProps = {
       value: {
-        headers: headers,
         currentUser: currentUser,
         setCurrentUser: jest.fn(),
-        setHeaders: jest.fn(),
       },
     };
 

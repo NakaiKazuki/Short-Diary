@@ -42,8 +42,8 @@ const CustomLink = styled(Link)`
 // 型
 export const Drawer: FC = () => {
   const { open, setOpenDrawer } = useContext(DrawerContext);
-  const { currentUser, headers } = useContext(AuthContext);
-  return headers && currentUser ? (
+  const { currentUser } = useContext(AuthContext);
+  return currentUser ? (
     <Fragment key={"left"}>
       <SwipeableDrawer
         anchor={"left"}

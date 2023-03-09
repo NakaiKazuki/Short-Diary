@@ -10,11 +10,6 @@ import { LoginHome } from "../../containers/LoginHome";
 import { home, diary } from "../../urls";
 import { dateToday } from "../../helpers";
 // 型
-interface IHeaders {
-  "access-token": string;
-  client: string;
-  uid: string;
-}
 
 interface ICurrentUser {
   id: number;
@@ -25,19 +20,11 @@ interface ICurrentUser {
 interface IProviderProps {
   value: {
     currentUser: ICurrentUser | undefined;
-    headers: IHeaders | undefined;
     setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
-    setHeaders: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
   };
 }
 
 // ユーザデータ
-const headers = {
-  "access-token": "testtoken",
-  client: "testclient",
-  uid: "test@example.com",
-};
-
 const currentUser = {
   id: 1,
   name: "test",
@@ -48,7 +35,7 @@ const testString = (count: number): string => {
   return "0123456789".repeat(count);
 };
 // Apiから返ってくるデータ
-const returnData = {
+const result = {
   diaries: [
     {
       id: 1,
@@ -76,7 +63,7 @@ const returnData = {
 };
 
 // Apiから返ってくるエラーデータ
-const returnErrorData = {
+const resultError = {
   errors: {
     date: ["date ApiError"],
     content: ["cotent ApiError"],
@@ -104,17 +91,15 @@ const formInfo = [
 
 const providerProps = {
   value: {
-    headers: headers,
     currentUser: currentUser,
     setCurrentUser: jest.fn(),
-    setHeaders: jest.fn(),
   },
 };
 
 const mockAxios = new MockAdapter(axios);
 
 // ApiResponseを設定
-mockAxios.onGet(home).reply(200, returnData);
+mockAxios.onGet(home).reply(200, result);
 
 const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   const routes = [
@@ -133,8 +118,9 @@ const idNames = ["date", "tag_list", "content", "movie_source", "picture"];
 
 const el = screen.getByTestId;
 
-afterEach(cleanup);
-
+afterEach(() => {
+  cleanup;
+});
 describe("LoginHome", () => {
   afterEach(() => {
     mockAxios.resetHistory();
@@ -197,7 +183,7 @@ describe("LoginHome", () => {
 
     it("データの作成に成功した場合Dialogを閉じる", async () => {
       // ApiResponseを設定
-      mockAxios.onPost(diary).reply(200, returnData);
+      mockAxios.onPost(diary).reply(200, result);
       // Dialogを開く
       await userEvent.click(el("diaryCreateOpenButton"));
       // 各項目に有効な値を入力
@@ -211,7 +197,7 @@ describe("LoginHome", () => {
 
     it("データの作成に失敗した場合Dialogは閉じない", async () => {
       // ApiResponseを設定
-      mockAxios.onPost(diary).reply(422, returnErrorData);
+      mockAxios.onPost(diary).reply(422, resultError);
       // Dialogを開く
       await userEvent.click(el("diaryCreateOpenButton"));
       // 各項目に無効な値を入力
@@ -236,7 +222,7 @@ describe("LoginHome", () => {
 
       it("ErrorMessage", async () => {
         // ApiResponseを設定
-        mockAxios.onPost(diary).reply(200, returnData);
+        mockAxios.onPost(diary).reply(200, result);
 
         // 各項目に無効な値を入力
         await userEvent.clear(el(formInfo[0].testId));
@@ -262,7 +248,7 @@ describe("LoginHome", () => {
 
       it("APIErrorMessage", async () => {
         // ApiResponseを設定
-        mockAxios.onPost(diary).reply(422, returnErrorData);
+        mockAxios.onPost(diary).reply(422, resultError);
 
         // 各項目に有効な値を入力
         await userEvent.type(el(formInfo[1].testId), formInfo[1].value);
@@ -328,7 +314,7 @@ describe("LoginHome", () => {
 
         it("送信結果によってボタンが変化 Status422", async () => {
           // ApiResponse
-          mockAxios.onPost(diary).reply(422, returnErrorData);
+          mockAxios.onPost(diary).reply(422, resultError);
 
           // 各項目に有効な値を入力
           await userEvent.type(el(formInfo[1].testId), formInfo[1].value);
@@ -367,14 +353,12 @@ describe("LoginHome", () => {
       // menuOpenIconが表示
       expect(el("menuOpenIcon")).toBeTruthy();
       // 日付が表示
-      expect(el("diaryDate")).toHaveTextContent(returnData.diaries[0].date);
+      expect(el("diaryDate")).toHaveTextContent(result.diaries[0].date);
       // タグが空配列なら表示しない
       expect(screen.queryByTestId("diaryTag-0")).toBeNull();
       // 日記内容が表示
 
-      expect(el("diaryContent")).toHaveTextContent(
-        returnData.diaries[0].content
-      );
+      expect(el("diaryContent")).toHaveTextContent(result.diaries[0].content);
 
       // 画像がない場合は表示しない
       expect(screen.queryByTestId("diaryPicture")).toBeNull();
@@ -454,8 +438,8 @@ describe("LoginHome", () => {
       it("エラーメッセージ", async () => {
         // ApiResponseを設定
         mockAxios
-          .onPatch(`${diary}/${returnData.diaries[0].id}`)
-          .reply(200, returnData);
+          .onPatch(`${diary}/${result.diaries[0].id}`)
+          .reply(200, result);
 
         // 無効な値を入力
         await userEvent.clear(el(formInfo[1].testId));
@@ -481,8 +465,8 @@ describe("LoginHome", () => {
       it("APIエラーメッセージ", async () => {
         // ApiResponseを設定
         mockAxios
-          .onPatch(`${diary}/${returnData.diaries[0].id}`)
-          .reply(422, returnErrorData);
+          .onPatch(`${diary}/${result.diaries[0].id}`)
+          .reply(422, resultError);
 
         // 値を入力
         await userEvent.type(el(formInfo[1].testId), formInfo[1].value);
@@ -519,16 +503,16 @@ describe("LoginHome", () => {
       describe("入力欄", () => {
         it("入力欄初期値", () => {
           // date
-          expect(el("dateArea")).toHaveValue(returnData.diaries[0].date);
+          expect(el("dateArea")).toHaveValue(result.diaries[0].date);
           // tag_list
           expect(el("tag_listArea")).toHaveValue(
-            returnData.diaries[0].tag_list.join(",")
+            result.diaries[0].tag_list.join(",")
           );
           // content
-          expect(el("contentArea")).toHaveValue(returnData.diaries[0].content);
+          expect(el("contentArea")).toHaveValue(result.diaries[0].content);
           // movie_source
           expect(el("movie_sourceArea")).toHaveValue(
-            returnData.diaries[0].movie_source
+            result.diaries[0].movie_source
           );
           // picture
           expect(el("pictureArea")).toHaveValue("");
@@ -536,7 +520,7 @@ describe("LoginHome", () => {
 
         it("content欄は入力した文字数が表示", () => {
           expect(el("contentCount")).toHaveTextContent(
-            `${returnData.diaries[0].content.length}/200`
+            `${result.diaries[0].content.length}/200`
           );
         });
       });
@@ -551,8 +535,8 @@ describe("LoginHome", () => {
         it("送信結果によってボタンが変化 Status422", async () => {
           // ApiResponse
           mockAxios
-            .onPatch(`${diary}/${returnData.diaries[0].id}`)
-            .reply(422, returnErrorData);
+            .onPatch(`${diary}/${result.diaries[0].id}`)
+            .reply(422, resultError);
 
           // 有効な値を入力
           await userEvent.type(el(formInfo[1].testId), formInfo[1].value);
@@ -576,8 +560,8 @@ describe("LoginHome", () => {
     describe("ConfirmDilog", () => {
       beforeEach(async () => {
         mockAxios
-          .onDelete(`${diary}/${returnData.diaries[0].id}`)
-          .reply(200, returnData);
+          .onDelete(`${diary}/${result.diaries[0].id}`)
+          .reply(200, result);
         // メニューを開く
         await userEvent.click(el("menuOpenIcon"));
         // 削除をクリック
@@ -607,18 +591,12 @@ describe("LoginHome", () => {
       expect(el("menuOpenIcon")).toBeTruthy();
 
       // タグがあれば表示
-      expect(el("diaryTag-0")).toHaveTextContent(
-        returnData.diaries[1].tag_list[0]
-      );
-      expect(el("diaryTag-1")).toHaveTextContent(
-        returnData.diaries[1].tag_list[1]
-      );
+      expect(el("diaryTag-0")).toHaveTextContent(result.diaries[1].tag_list[0]);
+      expect(el("diaryTag-1")).toHaveTextContent(result.diaries[1].tag_list[1]);
       // 日付が表示
-      expect(el("diaryDate")).toHaveTextContent(returnData.diaries[1].date);
+      expect(el("diaryDate")).toHaveTextContent(result.diaries[1].date);
       // 日記内容が表示
-      expect(el("diaryContent")).toHaveTextContent(
-        returnData.diaries[1].content
-      );
+      expect(el("diaryContent")).toHaveTextContent(result.diaries[1].content);
       // 画像があれば表示
       expect(el("diaryPicture")).toBeTruthy();
     });

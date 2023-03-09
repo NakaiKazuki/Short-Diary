@@ -11,13 +11,9 @@ import { Contact } from "../../containers/Contact";
 import { contact } from "../../urls";
 
 const el = screen.getByTestId;
-afterEach(cleanup);
-
-interface IHeaders {
-  "access-token": string;
-  client: string;
-  uid: string;
-}
+afterEach(() => {
+  cleanup;
+});
 
 interface ICurrentUser {
   id: number;
@@ -28,9 +24,7 @@ interface ICurrentUser {
 interface IAuthProviderProps {
   value: {
     currentUser: ICurrentUser | undefined;
-    headers: IHeaders | undefined;
     setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
-    setHeaders: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
   };
 }
 
@@ -50,13 +44,11 @@ interface IMessageProviderProps {
   };
 }
 const mockAxios = new MockAdapter(axios);
-const returnData = {
-  data: {
-    message: ["testData"],
-  },
+const result = {
+  message: ["testData"],
 };
 
-const returnErrorData = {
+const errorResult = {
   errors: {
     name: ["name ApiError"],
     email: ["email ApiError"],
@@ -66,12 +58,6 @@ const returnErrorData = {
 };
 
 const errorOverView = "123456789012345678901234567890123456789012345678901";
-
-const headers = {
-  "access-token": "testtoken",
-  client: "testclient",
-  uid: "test@example.com",
-};
 
 const currentUser = {
   id: 1,
@@ -124,18 +110,17 @@ const setup = (authProviderProps: IAuthProviderProps) =>
     messageProviderProps,
     authProviderProps
   );
-
 describe("Contact", () => {
   describe("ログインしている場合", () => {
     const authProviderProps = {
       value: {
-        headers: headers,
         currentUser: currentUser,
         setCurrentUser: jest.fn(),
-        setHeaders: jest.fn(),
       },
     };
-    beforeEach(() => setup(authProviderProps));
+    beforeEach(() => {
+      setup(authProviderProps);
+    });
 
     it("Form初期値", () => {
       expect(el("nameArea")).toHaveValue(currentUser.name);
@@ -147,9 +132,7 @@ describe("Contact", () => {
     const authProviderProps = {
       value: {
         currentUser: undefined,
-        headers: undefined,
         setCurrentUser: jest.fn(),
-        setHeaders: jest.fn(),
       },
     };
     beforeEach(() => setup(authProviderProps));
@@ -162,10 +145,8 @@ describe("Contact", () => {
   describe("共通", () => {
     const authProviderProps = {
       value: {
-        headers: undefined,
         currentUser: undefined,
         setCurrentUser: jest.fn(),
-        setHeaders: jest.fn(),
       },
     };
     beforeEach(() => setup(authProviderProps));
@@ -183,7 +164,7 @@ describe("Contact", () => {
 
     it("エラーメッセージ", async () => {
       // ApiResponse
-      mockAxios.onPost(contact).reply(200, returnData);
+      mockAxios.onPost(contact).reply(200, result);
 
       // 各項目に無効な値を入力
       await userEvent.clear(el("nameArea"));
@@ -211,7 +192,7 @@ describe("Contact", () => {
 
     it("Apiエラーメッセージ", async () => {
       // ApiResponse
-      mockAxios.onPost(contact).reply(422, returnErrorData);
+      mockAxios.onPost(contact).reply(422, errorResult);
 
       // 各項目に値を入力
       await userEvent.type(el("nameArea"), "testName");
