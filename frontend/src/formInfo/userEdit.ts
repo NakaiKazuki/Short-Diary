@@ -1,62 +1,19 @@
-import { FieldErrors, FieldError } from "react-hook-form";
-interface IRurles {
-  required?: boolean;
-  minLength?: number;
-  maxLength: number;
-}
+import { FieldErrors } from "react-hook-form";
 
-interface IObject {
-  formLabel: string;
-  errorsProperty: FieldError | undefined;
-  errorMessage: string;
-  apiErrorProperty: Array<string> | undefined;
-  apiMessagePropertyName: string;
-  nameAttribute:
-    | "name"
-    | "email"
-    | "password"
-    | "password_confirmation"
-    | "current_password";
-  typeAttribute: string;
-  defaultValue: string;
-  autoComplete: string;
-  autoFocus: boolean;
-  rules: IRurles;
-}
+// types
+import {
+  TLinks,
+  IErrors,
+  IApiErrors,
+  IUserEditForm as IForm,
+} from "../types/formInfo";
 
-interface IUserEditApiErrors {
-  name?: Array<string>;
-  email?: Array<string>;
-  password?: Array<string>;
-  password_confirmation?: Array<string>;
-  current_password?: Array<string>;
-}
-interface ICurrentUser {
-  name: string;
-  email: string;
-}
-
-interface IFormInfo {
-  name: IObject;
-  email: IObject;
-  password: IObject;
-  password_confirmation: IObject;
-  current_password: IObject;
-}
-
-interface IErrors {
-  name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-  current_password: string;
-}
 // UserEditページのフォーム欄を表示するために必要な情報群
 export const UserEditFormInfo = (
   errors: FieldErrors<IErrors>,
-  apiErrors: IUserEditApiErrors | undefined,
+  apiErrors: IApiErrors | undefined,
   currentUser: ICurrentUser
-): IFormInfo => {
+): IForm => {
   return {
     name: {
       formLabel: "Name:",
@@ -127,14 +84,7 @@ export const UserEditFormInfo = (
 };
 
 // 送信ボタン下にあるリンクの情報
-type TUserEditInfo = [
-  {
-    url: string;
-    text: string;
-  }
-];
-
-export const UserEditLinkInfo: TUserEditInfo = [
+export const UserEditLinkInfo: TLinks = [
   {
     url: "/",
     text: "Home",

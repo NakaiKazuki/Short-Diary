@@ -3,17 +3,11 @@ import "@testing-library/jest-dom";
 import { Message } from "../../containers/Message";
 import { MessageContext } from "../../contexts/Message";
 
-// 型
-interface IProviderProps {
-  value: {
-    message: string | undefined;
-    setMessage: jest.Mock<
-      React.Dispatch<React.SetStateAction<string | undefined>>
-    >;
-  };
-}
+// types
+import { IMessageProviderProps as IProviderProps } from "../../types/test";
 
 const el = screen.getByTestId;
+afterEach(cleanup);
 
 const emptyMessage = {
   value: {
@@ -34,8 +28,6 @@ const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
     <MessageContext.Provider {...providerProps}>{ui}</MessageContext.Provider>
   );
 };
-
-afterEach(cleanup);
 
 describe("Message", () => {
   it("非表示", () => {

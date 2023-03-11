@@ -7,6 +7,9 @@ import styled from "styled-components";
 // icons
 import { LogoutIcon, UserIcon, EditIcon } from "../icon";
 
+// types
+import { IUserMenuProps as IProps } from "../../types/components/users";
+
 // css
 const UserWrapper = styled.span`
   padding: 0.3rem 0.7rem;
@@ -110,17 +113,9 @@ const StyledMenuItemLogout = withStyles(() => ({
   },
 }))(MenuItem);
 
-interface IDiaryMenuProps {
-  anchorEl: HTMLElement | null;
-  currentUserName: string;
-  onMenuOpen(e: React.MouseEvent<HTMLElement>): void;
-  onMenuClose(): void;
-  onSignOut(): void;
-}
-
-export const UserMenu: FC<IDiaryMenuProps> = ({
+export const UserMenu: FC<IProps> = ({
   anchorEl,
-  currentUserName,
+  userName,
   onMenuOpen,
   onMenuClose,
   onSignOut,
@@ -133,9 +128,7 @@ export const UserMenu: FC<IDiaryMenuProps> = ({
         data-testid="userWrapper"
       >
         <UserIcon viewBox="0 0 24 20" data-testid="userIcon" />
-        <UserNameWrapper data-testid="userName">
-          {currentUserName}
-        </UserNameWrapper>
+        <UserNameWrapper data-testid="userName">{userName}</UserNameWrapper>
       </UserWrapper>
 
       <StyledMenu

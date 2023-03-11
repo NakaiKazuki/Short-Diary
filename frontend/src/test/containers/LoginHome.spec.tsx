@@ -9,20 +9,12 @@ import { AuthContext } from "../../contexts/Auth";
 import { LoginHome } from "../../containers/LoginHome";
 import { home, diary } from "../../urls";
 import { dateToday } from "../../helpers";
-// 型
 
-interface ICurrentUser {
-  id: number;
-  name: string;
-  email: string;
-}
+// types
+import { IAuthProviderProps as IProviderProps } from "../../types/test";
 
-interface IProviderProps {
-  value: {
-    currentUser: ICurrentUser | undefined;
-    setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
-  };
-}
+const el = screen.getByTestId;
+afterEach(cleanup);
 
 // ユーザデータ
 const currentUser = {
@@ -34,6 +26,7 @@ const currentUser = {
 const testString = (count: number): string => {
   return "0123456789".repeat(count);
 };
+
 // Apiから返ってくるデータ
 const result = {
   diaries: [
@@ -116,11 +109,6 @@ const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
 
 const idNames = ["date", "tag_list", "content", "movie_source", "picture"];
 
-const el = screen.getByTestId;
-
-afterEach(() => {
-  cleanup;
-});
 describe("LoginHome", () => {
   afterEach(() => {
     mockAxios.resetHistory();

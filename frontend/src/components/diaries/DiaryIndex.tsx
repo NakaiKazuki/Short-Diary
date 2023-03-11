@@ -4,6 +4,12 @@ import styled from "styled-components";
 // components
 import { PictureIcon, MovieIcon } from "../icon";
 
+// types
+import {
+  IDiariesProps as IProps,
+  IDiary,
+} from "../../types/components/diaries";
+
 // css
 const DiariesWrapper = styled.ul`
   margin-top: 1.5rem;
@@ -68,26 +74,7 @@ const Content = styled.div`
   padding: 0 1rem;
 `;
 
-// 型
-interface IDiary {
-  id: number;
-  date: string;
-  content: string;
-  picture_url: string | undefined;
-  tag_list: Array<string | undefined>;
-  movie_source: string | undefined;
-  user_id: number;
-}
-
-interface DiariesProps {
-  diaries: Array<IDiary>;
-  onOpenDiaryDialog(diary: IDiary): void;
-}
-
-export const DiaryIndex: FC<DiariesProps> = ({
-  diaries,
-  onOpenDiaryDialog,
-}) => {
+export const DiaryIndex: FC<IProps> = ({ diaries, onOpenDiaryDialog }) => {
   return (
     // eslint-disable-next-line react/react-in-jsx-scope
     <DiariesWrapper data-testid="diaryIndex">

@@ -8,18 +8,12 @@ import { AuthContext } from "../../contexts/Auth";
 import { PhotoGallery } from "../../containers/PhotoGallery";
 import { photoGallery } from "../../urls";
 
-interface ICurrentUser {
-  id: number;
-  name: string;
-  email: string;
-}
+// types
+import { IAuthProviderProps as IProviderProps } from "../../types/test";
 
-interface IProviderProps {
-  value: {
-    currentUser: ICurrentUser | undefined;
-    setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
-  };
-}
+const el = screen.getByTestId;
+
+afterEach(cleanup);
 
 // ユーザデータ
 const currentUser = {
@@ -64,10 +58,6 @@ const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   });
   return render(<RouterProvider router={router} />);
 };
-
-const el = screen.getByTestId;
-
-afterEach(cleanup);
 
 describe("PhotoGalleryコンポーネント", () => {
   afterEach(() => {

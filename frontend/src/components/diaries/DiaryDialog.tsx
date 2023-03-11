@@ -1,14 +1,16 @@
-import React, { FC, Fragment } from "react";
+import { FC, Fragment } from "react";
 import { Chip, Dialog } from "@material-ui/core";
-import YouTube, { YouTubeEvent } from "react-youtube";
-import { FieldErrors, UseFormRegister, Control } from "react-hook-form";
+import YouTube from "react-youtube";
 import styled from "styled-components";
+
 // components
 import { DiaryMenu } from "./DiaryMenu";
 import { DiaryEdit } from "./DiaryEdit";
 
-// css
+// types
+import { IDiaryDialogProps as IProps } from "../../types/components/diaries";
 
+// css
 const Date = styled.h2`
   text-align: center;
   color: royalblue;
@@ -56,63 +58,6 @@ const Picture = styled.img`
 `;
 // 型
 
-interface IDiary {
-  id: number;
-  date: string;
-  content: string;
-  picture_url: string | undefined;
-  tag_list: Array<string | undefined>;
-  movie_source: string | undefined;
-  user_id: number;
-}
-
-interface IErrors {
-  content: string;
-  movie_source: string;
-}
-
-type TPicture = Array<{ data: string; name: string }>;
-interface IFormValues {
-  date: string;
-  tag_list: string | undefined;
-  content: string;
-  picture: TPicture | undefined;
-  movie_source: string;
-  searchWord: string | undefined;
-}
-
-interface IApiErrors {
-  date?: Array<string>;
-  tag_list?: Array<string>;
-  content?: Array<string>;
-  picture?: Array<string>;
-  movie_source?: Array<string>;
-}
-
-interface IDiaryDialogProps {
-  isOpen: boolean;
-  isOpenDiaryEdit: boolean;
-  control: Control<IFormValues>;
-  errors: FieldErrors<IErrors>;
-  apiErrors: IApiErrors | undefined;
-  onSubmitText: string;
-  isDisabled: boolean;
-  contentCount: number;
-  setFileName: string | undefined;
-  diary: IDiary;
-  anchorEl: HTMLElement | null;
-  register: UseFormRegister<IFormValues>;
-  onEditSubmit(): void;
-  onOpenCofirmationDialog(): void;
-  onDiaryEditMode(): void;
-  onDiaryShowMode(): void;
-  onFileChange(e: React.ChangeEvent<HTMLInputElement>): void;
-  onClose(): void;
-  onMenuOpen(e: React.MouseEvent<HTMLElement>): void;
-  onMenuClose(): void;
-  onPlayerReady(e: YouTubeEvent<HTMLElement>): void;
-}
-
 const opts = {
   height: "390",
   width: "600",
@@ -122,7 +67,7 @@ const opts = {
   },
 };
 
-export const DiaryDialog: FC<IDiaryDialogProps> = ({
+export const DiaryDialog: FC<IProps> = ({
   isOpen,
   isOpenDiaryEdit,
   diary,

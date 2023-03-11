@@ -1,57 +1,17 @@
-import { FieldErrors, FieldError } from "react-hook-form";
-interface IRurles {
-  required: boolean;
-  minLength?: number;
-  maxLength: number;
-}
+import { FieldErrors } from "react-hook-form";
 
-interface IObject {
-  formLabel: string;
-  errorsProperty: FieldError | undefined;
-  errorMessage: string;
-  apiErrorProperty: Array<string> | undefined;
-  apiMessagePropertyName: string;
-  nameAttribute: "name" | "email" | "password" | "password_confirmation";
-  typeAttribute: string;
-  defaultValue: string;
-  autoComplete: string;
-  autoFocus: boolean;
-  rules: IRurles;
-}
-interface ISignUpApiErrors {
-  name?: Array<string>;
-  email?: Array<string>;
-  password?: Array<string>;
-  password_confirmation?: Array<string>;
-}
-
-interface IFormInfo {
-  name: IObject;
-  email: IObject;
-  password: IObject;
-  password_confirmation: IObject;
-}
-
-interface IErrors {
-  name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-}
-
-// 送信ボタン下にあるリンクの情報
-type TSignUpLinkInfo = [
-  {
-    url: string;
-    text: string;
-  }
-];
+// types
+import { TLinks, IForm, IErrors, IApiErrors } from "../types/formInfo";
 
 // SignUpページのフォーム欄を表示するために必要な情報群
 export const signUpFormInfo = (
-  errors: FieldErrors<IErrors>,
-  apiErrors: ISignUpApiErrors | undefined
-): IFormInfo => {
+  errors: FieldErrors<
+    Pick<IErrors, "name" | "email" | "password" | "password_confirmation">
+  >,
+  apiErrors:
+    | Pick<IApiErrors, "name" | "email" | "password" | "password_confirmation">
+    | undefined
+): Pick<IForm, "name" | "email" | "password" | "password_confirmation"> => {
   return {
     name: {
       formLabel: "Name:",
@@ -108,7 +68,7 @@ export const signUpFormInfo = (
   };
 };
 
-export const signUpLinkInfo: TSignUpLinkInfo = [
+export const signUpLinkInfo: TLinks = [
   {
     url: "/login",
     text: "アカウントをお持ちの方はこちら",

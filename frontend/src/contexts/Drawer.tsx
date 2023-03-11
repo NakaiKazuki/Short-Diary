@@ -1,18 +1,13 @@
 import { createContext, useState, FC } from "react";
 
-// 型
-interface IDrawerProps {
+// types
+import { IDrawerContext as IContext } from "../types/contexts";
+
+export const DrawerContext = createContext({} as IContext);
+
+export const DrawerProvider: FC<{
   children: React.ReactNode;
-}
-
-interface IDrawerContext {
-  open: boolean;
-  setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export const DrawerContext = createContext({} as IDrawerContext);
-
-export const DrawerProvider: FC<IDrawerProps> = ({ children }): JSX.Element => {
+}> = ({ children }): JSX.Element => {
   const [open, setOpenDrawer] = useState(false);
 
   return (

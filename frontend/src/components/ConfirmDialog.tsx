@@ -10,6 +10,10 @@ import styled from "styled-components";
 
 // components
 import { BaseButton } from "./shared_style";
+
+// types
+import { IConfirmDialogProps as IProps } from "../types/components";
+
 // css
 const ConfirmationButton = styled(BaseButton)`
   height: 2.2rem;
@@ -38,26 +42,7 @@ const DeleteButton = styled(ConfirmationButton)`
   }
 `;
 
-// 型
-interface IDiary {
-  id: number;
-  date: string;
-  content: string;
-  picture_url: string | undefined;
-  movie_source: string | undefined;
-  user_id: number;
-}
-
-interface IConfirmDialogProps {
-  isOpen: boolean;
-  title: string;
-  contentText: string;
-  obj: IDiary;
-  onDelete(obj: IDiary): void;
-  onClose(): void;
-}
-
-export const ConfirmDialog: FC<IConfirmDialogProps> = ({
+export const ConfirmDialog: FC<IProps> = ({
   isOpen,
   title,
   contentText,

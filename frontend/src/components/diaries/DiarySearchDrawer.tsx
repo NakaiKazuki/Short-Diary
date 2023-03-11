@@ -5,13 +5,17 @@ import {
 } from "@material-ui/pickers";
 import { TextField } from "@material-ui/core";
 import { Box, SwipeableDrawer, List, Divider, ListItem } from "@mui/material";
-import { Controller, Control } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import DateFnsUtils from "@date-io/date-fns";
 import styled from "styled-components";
 
 // components
 import { BaseButton } from "../shared_style";
 
+// types
+import { IDiarySearchDrawerProps as IProps } from "../../types/components/diaries";
+
+// css
 const WordSearchForm = styled.form`
   width: 100%;
 `;
@@ -36,28 +40,8 @@ const ClearButton = styled(BaseButton)`
     color: white;
   }
 `;
-// 型
-type TPicture = Array<{ data: string; name: string }>;
-interface IFormValues {
-  date: string;
-  tag_list: string | undefined;
-  content: string;
-  picture: TPicture | undefined;
-  movie_source: string;
-  searchWord: string | undefined;
-}
 
-interface IDiarySearchDrawerProps {
-  control: Control<IFormValues>;
-  selectedDate: null | Date;
-  isOpenDrawer: boolean;
-  onOpenButton(open: boolean): React.ReactEventHandler;
-  onClearButton(): void;
-  onDateChange(date: Date | null): void;
-  onSubmit(): void;
-}
-
-export const DiarySearchDrawer: FC<IDiarySearchDrawerProps> = ({
+export const DiarySearchDrawer: FC<IProps> = ({
   control,
   selectedDate,
   isOpenDrawer,

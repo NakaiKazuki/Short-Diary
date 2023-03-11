@@ -10,39 +10,16 @@ import { AuthContext } from "../../contexts/Auth";
 import { Contact } from "../../containers/Contact";
 import { contact } from "../../urls";
 
+// types
+import {
+  IAuthProviderProps,
+  IContactProviderProps,
+  IMessageProviderProps,
+} from "../../types/test";
+
 const el = screen.getByTestId;
-afterEach(() => {
-  cleanup;
-});
+afterEach(cleanup);
 
-interface ICurrentUser {
-  id: number;
-  name: string;
-  email: string;
-}
-
-interface IAuthProviderProps {
-  value: {
-    currentUser: ICurrentUser | undefined;
-    setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
-  };
-}
-
-interface IContactProviderProps {
-  value: {
-    open: boolean;
-    setOpenContact: jest.Mock<React.Dispatch<React.SetStateAction<boolean>>>;
-  };
-}
-
-interface IMessageProviderProps {
-  value: {
-    message: string | undefined;
-    setMessage: jest.Mock<
-      React.Dispatch<React.SetStateAction<string | undefined>>
-    >;
-  };
-}
 const mockAxios = new MockAdapter(axios);
 const result = {
   message: ["testData"],
@@ -110,6 +87,7 @@ const setup = (authProviderProps: IAuthProviderProps) =>
     messageProviderProps,
     authProviderProps
   );
+
 describe("Contact", () => {
   describe("ログインしている場合", () => {
     const authProviderProps = {

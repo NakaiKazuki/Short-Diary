@@ -2,42 +2,12 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { diary, photoGallery } from "../urls";
 
-interface IParams {
-  date: string;
-  tag_list: string | undefined;
-  content: string;
-  movie_source: string | undefined;
-  picture: { data: string; name: string } | undefined;
-}
-
-interface IResult {
-  diaries: [
-    {
-      id: number;
-      date: string;
-      content: string;
-      picture_url: string | undefined;
-      tag_list: Array<string | undefined>;
-      movie_source: string;
-      user_id: number;
-    }
-  ];
-  pagy: {
-    page: number;
-    pages: number;
-  };
-}
-
-interface IItemsProps {
-  original: string;
-  originalHeight: number;
-  originalWidth: number;
-}
-
-interface IReturnPhotoGallery {
-  items: Array<IItemsProps> | [];
-  originalWidth: number;
-}
+// types
+import {
+  IDiaryParams as IParams,
+  IDiariesResult as IResult,
+  IPhotoGalleryResult,
+} from "../types/apis";
 
 export const createDiary = (params: IParams): Promise<IResult> => {
   const picture = params.picture
@@ -96,7 +66,7 @@ export const deleteDiary = (
     .then((res) => res.data);
 };
 
-export const fetchPhotoGallery = (): Promise<IReturnPhotoGallery> => {
+export const fetchPhotoGallery = (): Promise<IPhotoGalleryResult> => {
   return axios
     .get(photoGallery, {
       headers: {

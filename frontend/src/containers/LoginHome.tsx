@@ -48,6 +48,16 @@ import {
   submitReducer,
 } from "../reducers/submit";
 
+// types
+import {
+  ILoginHomeInitialState as IInitialState,
+  ILoginHomeFormValues as IFormValues,
+  IDiary,
+  ISearchFormValue,
+  IFile,
+  TPicture,
+} from "../types/containers";
+
 // css
 const LoginHomeWrapper = styled.div`
   position: relative;
@@ -137,65 +147,6 @@ const EmptyMessage = styled.span`
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 `;
-
-// 型
-interface IDiary {
-  id: number;
-  date: string;
-  content: string;
-  picture_url: string | undefined;
-  tag_list: Array<string | undefined>;
-  movie_source: string | undefined;
-  user_id: number;
-}
-
-interface IApiErrors {
-  date?: Array<string>;
-  tag_list?: Array<string>;
-  content?: Array<string>;
-  picture?: Array<string>;
-  movie_source?: Array<string>;
-}
-
-interface IPagy {
-  page: number;
-  pages: number;
-}
-
-interface IInitialState {
-  anchorEl: HTMLElement | null;
-  apiErrors: IApiErrors | undefined;
-  diaries: Array<IDiary> | undefined;
-  fetchState: "INITIAL" | "LOADING" | "OK";
-  pagy: IPagy | undefined;
-  selectedDate: null | Date;
-  selectedDiary: IDiary | null;
-  searchWord: string | undefined;
-  isOpenDiaryCreateDialog: boolean;
-  isOpenDiaryDialog: boolean;
-  isOpenDiaryEdit: boolean;
-  isOpenConfirmDialog: boolean;
-  isOpenDrawer: boolean;
-}
-
-// Formから送信される情報
-type TPicture = Array<{ data: string; name: string }>;
-interface IFormValues {
-  date: string;
-  tag_list: string | undefined;
-  content: string;
-  picture: TPicture | undefined;
-  movie_source: string;
-  searchWord: string | undefined;
-}
-
-interface ISearchFormValue {
-  searchWord: string | undefined;
-}
-
-interface IFile extends File {
-  data: string | ArrayBuffer | null;
-}
 
 export const LoginHome: FC = () => {
   const { setCurrentUser } = useContext(AuthContext);

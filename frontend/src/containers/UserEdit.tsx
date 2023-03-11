@@ -36,6 +36,12 @@ import {
 // helpers
 import { onSubmitText, isDisabled } from "../helpers";
 
+// types
+import {
+  IUsersFormValues as IFormValues,
+  IUsersApiErrors as IApiErrors,
+} from "../types/containers";
+
 // css
 const UserEditWrapper = styled.div`
   width: 100vw;
@@ -51,30 +57,19 @@ const GuestErrorMessage = styled.p`
   font-size: 0.9rem;
 `;
 
-// 型
-// Formから送信される情報
-interface IFormValues {
-  name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-  current_password: string;
-}
-
-// エラーメッセージ
-interface IApiErrors {
-  name?: Array<string>;
-  password?: Array<string>;
-  password_confirmation?: Array<string>;
-  current_password?: Array<string>;
-  guest?: Array<string>;
-}
-
 export const UserEdit: FC = () => {
   const navigate = useNavigate();
-  const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined>(
-    undefined
-  );
+  const [apiErrors, setErrorMessage] = useState<
+    | Pick<
+        IApiErrors,
+        | "name"
+        | "password"
+        | "password_confirmation"
+        | "current_password"
+        | "guest"
+      >
+    | undefined
+  >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const { setMessage } = useContext(MessageContext);

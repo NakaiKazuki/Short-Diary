@@ -1,20 +1,13 @@
 import { createContext, useState, FC } from "react";
 
-// 型
-interface IContactProps {
+// types
+import { IContactContext as IContext } from "../types/contexts";
+
+export const ContactContext = createContext({} as IContext);
+
+export const ContactProvider: FC<{
   children: React.ReactNode;
-}
-
-interface IContactContext {
-  open: boolean;
-  setOpenContact: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export const ContactContext = createContext({} as IContactContext);
-
-export const ContactProvider: FC<IContactProps> = ({
-  children,
-}): JSX.Element => {
+}> = ({ children }): JSX.Element => {
   const [open, setOpenContact] = useState(false);
 
   return (

@@ -10,18 +10,11 @@ import { Login } from "../../containers/Login";
 import { signIn } from "../../urls";
 import { loginLinkInfo as linkInfo } from "../../formInfo";
 
-interface ICurrentUser {
-  id: number;
-  name: string;
-  email: string;
-}
+// types
+import { IAuthProviderProps as IProviderProps } from "../../types/test";
 
-interface IProviderProps {
-  value: {
-    currentUser: ICurrentUser | undefined;
-    setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
-  };
-}
+const el = screen.getByTestId;
+afterEach(cleanup);
 
 const mockAxios = new MockAdapter(axios);
 const result = {
@@ -74,10 +67,6 @@ const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
 };
 
 const idNames = ["email", "password"];
-
-const el = screen.getByTestId;
-
-afterEach(cleanup);
 
 describe("Loginコンポーネント", () => {
   afterEach(() => {

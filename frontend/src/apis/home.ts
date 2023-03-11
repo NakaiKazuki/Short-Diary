@@ -2,23 +2,8 @@ import axios from "axios";
 import { home } from "../urls";
 import Cookies from "js-cookie";
 
-interface IResult {
-  diaries: [
-    diary: {
-      id: number;
-      date: string;
-      content: string;
-      picture_url: string | undefined;
-      tag_list: Array<string | undefined>;
-      movie_source: string;
-      user_id: number;
-    }
-  ];
-  pagy: {
-    page: number;
-    pages: number;
-  };
-}
+// types
+import { IDiariesResult as IResult } from "../types/apis";
 
 export const fetchHome = (
   searchWord: undefined | string | Date = undefined

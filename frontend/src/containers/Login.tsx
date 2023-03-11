@@ -34,6 +34,9 @@ import {
 // helpers
 import { onSubmitText, isDisabled } from "../helpers";
 
+// types
+import { IUsersFormValues as IFormValues } from "../types/containers";
+
 // css
 const LoginWrapper = styled.div`
   width: 100vw;
@@ -42,15 +45,6 @@ const LoginWrapper = styled.div`
   padding-top: 5.4vh;
 `;
 
-// 型
-// Formから送信される情報
-interface IFormValues {
-  name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-  current_password: string;
-}
 // エラーメッセージ
 export const Login: FC = () => {
   const navigate = useNavigate();

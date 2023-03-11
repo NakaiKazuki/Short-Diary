@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from "react";
+import { FC, Fragment } from "react";
 import { MenuItem, withStyles, Menu, ListItemIcon } from "@material-ui/core";
 import { MenuProps } from "@material-ui/core/Menu";
 import styled from "styled-components";
@@ -6,8 +6,10 @@ import styled from "styled-components";
 // icons
 import { MenuOpenIcon, DeleteIcon, EditIcon, VisibilityIcon } from "../icon";
 
-// css
+// types
+import { IDiaryMenuProps as IProps } from "../../types/components/diaries";
 
+// css
 const MenuOpenIconWrapper = styled.span`
   margin: 0 0 0 auto;
   padding: 0.6rem 0.6rem 0 0;
@@ -91,19 +93,7 @@ const StyledMenuItemDelete = withStyles(() => ({
   },
 }))(MenuItem);
 
-// 型
-
-interface IDiaryMenuProps {
-  anchorEl: HTMLElement | null;
-  isOpenDiaryEdit: boolean;
-  onMenuOpen(e: React.MouseEvent<HTMLElement>): void;
-  onMenuClose(): void;
-  onOpenCofirmationDialog(): void;
-  onDiaryEditMode(): void;
-  onDiaryShowMode(): void;
-}
-
-export const DiaryMenu: FC<IDiaryMenuProps> = ({
+export const DiaryMenu: FC<IProps> = ({
   anchorEl,
   isOpenDiaryEdit,
   onMenuOpen,

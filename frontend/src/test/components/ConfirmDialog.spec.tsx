@@ -3,6 +3,9 @@ import "@testing-library/jest-dom";
 import { ConfirmDialog } from "../../components/ConfirmDialog";
 import { dateToday } from "../../helpers";
 
+const el = screen.getByTestId;
+afterEach(cleanup);
+
 const diary = {
   id: 1,
   date: dateToday(),
@@ -12,10 +15,6 @@ const diary = {
   movie_source: undefined,
   user_id: 1,
 };
-
-const el = screen.getByTestId;
-
-afterEach(cleanup);
 
 describe("ConfirmDialog コンポーネント", () => {
   const setup = () =>

@@ -4,15 +4,11 @@ import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { ContactContext } from "../../contexts/Contact";
 import { Footer } from "../../containers/Footer";
 
+// types
+import { IContactProviderProps as IProviderProps } from "../../types/test";
+
 const el = screen.getByTestId;
 afterEach(cleanup);
-
-interface IProviderProps {
-  value: {
-    open: boolean;
-    setOpenContact: jest.Mock<React.Dispatch<React.SetStateAction<boolean>>>;
-  };
-}
 
 const providerProps = {
   value: {
@@ -20,6 +16,7 @@ const providerProps = {
     setOpenContact: jest.fn(),
   },
 };
+
 const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   const routes = [
     {

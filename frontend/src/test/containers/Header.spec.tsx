@@ -6,18 +6,11 @@ import "@testing-library/jest-dom";
 import { AuthContext } from "../../contexts/Auth";
 import { Header } from "../../containers/Header";
 
-interface ICurrentUser {
-  id: number;
-  name: string;
-  email: string;
-}
+// types
+import { IAuthProviderProps as IProviderProps } from "../../types/test";
 
-interface IProviderProps {
-  value: {
-    currentUser: ICurrentUser | undefined;
-    setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
-  };
-}
+const el = screen.getByTestId;
+afterEach(cleanup);
 
 const currentUser = {
   id: 1,
@@ -45,11 +38,6 @@ const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   return render(<RouterProvider router={router} />);
 };
 
-const el = screen.getByTestId;
-
-afterEach(() => {
-  cleanup;
-});
 describe("Header コンポーネント", () => {
   describe("ログアウト時", () => {
     const setup = () => customRender(<Header />, providerProps);
