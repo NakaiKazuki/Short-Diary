@@ -11,19 +11,11 @@ import { UserEdit } from "../../containers/UserEdit";
 import { registration } from "../../urls";
 import { UserEditLinkInfo as linkInfo } from "../../formInfo";
 
-interface ICurrentUser {
-  id: number;
-  name: string;
-  email: string;
-}
+// types
+import { IAuthProviderProps as IProviderProps } from "../../types/test";
 
-interface IProviderProps {
-  value: {
-    currentUser: ICurrentUser | undefined;
-    setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
-  };
-}
-
+const el = screen.getByTestId;
+afterEach(cleanup);
 // ユーザデータ
 
 const currentUser = {
@@ -121,9 +113,6 @@ const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
     </MessageContext.Provider>
   );
 };
-const el = screen.getByTestId;
-
-afterEach(cleanup);
 
 describe("UserEditコンポーネント", () => {
   afterEach(() => {

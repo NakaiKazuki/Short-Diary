@@ -1,21 +1,13 @@
 import { createContext, useState, FC } from "react";
 
-// 型
+// types
+import { IMessageContext as IContext } from "../types/contexts";
 
-interface IMessageProps {
+export const MessageContext = createContext({} as IContext);
+
+export const MessageProvider: FC<{
   children: React.ReactNode;
-}
-
-interface IMessageContext {
-  message: string | undefined;
-  setMessage: React.Dispatch<React.SetStateAction<string | undefined>>;
-}
-
-export const MessageContext = createContext({} as IMessageContext);
-
-export const MessageProvider: FC<IMessageProps> = ({
-  children,
-}): JSX.Element => {
+}> = ({ children }): JSX.Element => {
   const [message, setMessage] = useState<string | undefined>(undefined);
 
   return (

@@ -34,6 +34,12 @@ import {
 // helpers
 import { onSubmitText, isDisabled } from "../helpers";
 
+// types
+import {
+  IUsersFormValues as IFormValues,
+  IUsersApiErrors as IApiErrors,
+} from "../types/containers";
+
 // css
 const SignUpWrapper = styled.div`
   width: 100vw;
@@ -42,29 +48,12 @@ const SignUpWrapper = styled.div`
   padding-top: 5.4vh;
 `;
 
-// 型
-// Formから送信される情報
-interface IFormValues {
-  name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-  current_password: string;
-}
-
-// エラーメッセージ
-interface IApiErrors {
-  name?: Array<string>;
-  email?: Array<string>;
-  password?: Array<string>;
-  password_confirmation?: Array<string>;
-}
-
 export const SignUp: FC = () => {
   const navigate = useNavigate();
-  const [apiErrors, setErrorMessage] = useState<IApiErrors | undefined>(
-    undefined
-  );
+  const [apiErrors, setErrorMessage] = useState<
+    | Pick<IApiErrors, "name" | "email" | "password" | "password_confirmation">
+    | undefined
+  >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
   const { setMessage } = useContext(MessageContext);
   const {

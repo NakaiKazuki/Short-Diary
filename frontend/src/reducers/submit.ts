@@ -1,19 +1,7 @@
 import { REQUEST_STATE } from "../constants";
 
-// 型
-interface IInitialState {
-  postState: string;
-}
-
-interface ISubmitActionTypes {
-  POST_INITIAL: "INITIAL";
-  POSTING: "POSTING";
-  POST_SUCCESS: "POST_SUCCESS";
-}
-
-interface IAction {
-  type: "INITIAL" | "POSTING" | "POST_SUCCESS";
-}
+// types
+import { ISubmitActionTypes, IInitialState, IAction } from "../types/reducers";
 
 export const submitActionTypes: ISubmitActionTypes = {
   POST_INITIAL: "INITIAL",

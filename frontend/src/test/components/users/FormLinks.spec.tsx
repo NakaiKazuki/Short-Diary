@@ -3,6 +3,9 @@ import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import { FormLinks } from "../../../components/users";
 
+const el = screen.getByTestId;
+afterEach(cleanup);
+
 const customRender = (ui: JSX.Element) => {
   const routes = [
     {
@@ -24,10 +27,6 @@ const linkInfo = [
     text: "Test Text2",
   },
 ];
-
-const el = screen.getByTestId;
-
-afterEach(cleanup);
 
 describe("FormLinks コンポーネント", () => {
   const setup = () => customRender(<FormLinks linkInfo={linkInfo} />);

@@ -36,6 +36,12 @@ import { onSubmitText, isDisabled } from "../helpers";
 // constants
 import { HTTP_STATUS_CODE } from "../constants";
 
+// types
+import {
+  IContactApiErrors as IApiErrors,
+  IContactFormValues as IFormValues,
+} from "../types/containers";
+
 const Submit = styled(BaseButton)`
   margin-top: 2rem;
   background-color: royalblue;
@@ -72,21 +78,6 @@ const Transition = React.forwardRef(function Transition(
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-// 型
-interface IFormValues {
-  name: string;
-  email: string;
-  overView: string;
-  content: string;
-}
-
-interface IApiErrors {
-  name?: Array<string>;
-  email?: Array<string>;
-  over_view?: Array<string>;
-  content?: Array<string>;
-}
 
 export const Contact: FC = () => {
   const { open, setOpenContact } = useContext(ContactContext);

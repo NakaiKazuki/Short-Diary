@@ -2,29 +2,15 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { signIn, signOut, guestSignIn, userLogin } from "../../urls";
 
-interface IParams {
-  email: string;
-  password: string;
-}
+// types
+import {
+  IUserParams as IParams,
+  IUserResult as IResult,
+} from "../../types/apis";
 
-interface IHeaders {
-  "access-token": string;
-  client: string;
-  uid: string;
-}
-
-interface ICurrentUser {
-  id: number;
-  name: string;
-  email: string;
-}
-
-interface IResult {
-  data: ICurrentUser;
-  headers: IHeaders;
-}
-
-export const createSession = (params: IParams): Promise<IResult> => {
+export const createSession = (
+  params: Pick<IParams, "email" | "password">
+): Promise<IResult> => {
   return axios.post(signIn, {
     email: params.email,
     password: params.password,

@@ -9,20 +9,11 @@ import { AuthContext } from "../../contexts/Auth";
 import { LogoutHome } from "../../containers/LogoutHome";
 import { guestSignIn } from "../../urls";
 
-interface ICurrentUser {
-  id: number;
-  name: string;
-  email: string;
-}
-
-interface IProviderProps {
-  value: {
-    currentUser: ICurrentUser | undefined;
-    setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
-  };
-}
+// types
+import { IAuthProviderProps as IProviderProps } from "../../types/test";
 
 const el = screen.getByTestId;
+afterEach(cleanup);
 
 const mockAxios = new MockAdapter(axios);
 
@@ -59,8 +50,6 @@ const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
   const router = createMemoryRouter(routes);
   return render(<RouterProvider router={router} />);
 };
-
-afterEach(cleanup);
 
 describe("LogoutHome", () => {
   afterEach(() => {

@@ -93,7 +93,7 @@ export const Header: FC = () => {
         {currentUser ? (
           <UserMenu
             anchorEl={anchorEl}
-            currentUserName={currentUser.name}
+            userName={currentUser.name}
             onMenuOpen={(e: React.MouseEvent<HTMLElement>): void =>
               setAnchorEl(e.currentTarget)
             }

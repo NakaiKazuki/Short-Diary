@@ -2,6 +2,9 @@ import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { DiaryIndex } from "../../../components/diaries";
 
+const el = screen.getByTestId;
+afterEach(cleanup);
+
 const testString = (count: number): string => {
   return "0123456789".repeat(count);
 };
@@ -28,10 +31,6 @@ const diaries = [
     user_id: 1,
   },
 ];
-
-const el = screen.getByTestId;
-
-afterEach(cleanup);
 
 describe("DiaryIndex コンポーネント", () => {
   const setup = () =>

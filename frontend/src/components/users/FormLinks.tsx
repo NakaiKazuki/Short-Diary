@@ -2,6 +2,9 @@ import { FC, Fragment } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+// types
+import { ILink, ILinks } from "../../types/components/users";
+
 // css
 const LinkListWrapper = styled.div`
   text-align: center;
@@ -33,20 +36,10 @@ const FormLink = styled(Link)`
   }
 `;
 
-// 型
-interface IlinkInfo {
-  url: string;
-  text: string;
-}
-
-interface IFormLinks {
-  linkInfo: Array<IlinkInfo>;
-}
-
-export const FormLinks: FC<IFormLinks> = ({ linkInfo }) => {
+export const FormLinks: FC<ILinks> = ({ linkInfo }) => {
   return (
     <Fragment>
-      {linkInfo.map((obj: IlinkInfo, index: number) => {
+      {linkInfo.map((obj: ILink, index: number) => {
         return (
           <Fragment key={`formLinkArea-${index}`}>
             <LinkListWrapper>

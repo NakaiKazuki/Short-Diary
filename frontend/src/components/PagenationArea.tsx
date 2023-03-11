@@ -1,7 +1,9 @@
 import React, { FC } from "react";
 import { Pagination } from "@material-ui/lab";
 import styled from "styled-components";
-
+// types
+import { IPaginationAreaProps as IProps } from "../types/components";
+// css
 const PaginationWrapper = styled.div`
   display: flex;
   margin-bottom: 1.4rem;
@@ -14,21 +16,7 @@ const PaginationBar = styled(Pagination)`
   margin: 0 auto;
 `;
 
-// 型
-interface IPagy {
-  page: number;
-  pages: number;
-}
-
-interface IPaginationAreaProps {
-  pagy: IPagy;
-  onPageChange(page: number): void;
-}
-
-export const PagenationArea: FC<IPaginationAreaProps> = ({
-  pagy,
-  onPageChange,
-}) => {
+export const PagenationArea: FC<IProps> = ({ pagy, onPageChange }) => {
   return (
     <PaginationWrapper>
       <PaginationBar

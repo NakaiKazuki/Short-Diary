@@ -7,11 +7,9 @@ import { AuthContext } from "../contexts/Auth";
 // helpers
 import { isLoggedIn } from "../helpers";
 
-interface IGuestRouteProps {
+export const GuestRoute: FC<{
   jsxElement: JSX.Element;
-}
-
-export const GuestRoute: FC<IGuestRouteProps> = ({ jsxElement }) => {
+}> = ({ jsxElement }) => {
   const { currentUser } = useContext(AuthContext);
 
   return isLoggedIn(currentUser) ? <Navigate to="/" /> : jsxElement;

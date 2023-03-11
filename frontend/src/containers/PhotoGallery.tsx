@@ -13,6 +13,8 @@ import { HTTP_STATUS_CODE, REQUEST_STATE } from "../constants";
 // apis
 import { fetchPhotoGallery } from "../apis/diaries";
 
+// types
+import { IPhotoGalleryInitialState as IInitialState } from "../types/containers";
 // css
 const PhotoGalleryWrapper = styled.div`
   width: 100vw;
@@ -162,18 +164,6 @@ const EmptyMessage = styled.span`
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 `;
-// 型
-
-interface IItemsProps {
-  original: string;
-  originalHeight: number;
-  originalWidth: number;
-}
-
-interface IInitialState {
-  items: Array<IItemsProps> | [];
-  fetchState: "INITIAL" | "LOADING" | "OK";
-}
 
 // エラーメッセージ
 export const PhotoGallery: FC = () => {

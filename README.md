@@ -86,6 +86,8 @@
     - React Image Gallery
   - YouTube 動画埋め込み
     - React Youtube
+  - ログイン機能
+    - Cookie 保存
 
 ## テスト
 

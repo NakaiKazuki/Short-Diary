@@ -11,18 +11,11 @@ import { SignUp } from "../../containers/SignUp";
 import { registration } from "../../urls";
 import { signUpLinkInfo as linkInfo } from "../../formInfo";
 
-interface ICurrentUser {
-  id: number;
-  name: string;
-  email: string;
-}
+// types
+import { IAuthProviderProps as IProviderProps } from "../../types/test";
 
-interface IProviderProps {
-  value: {
-    currentUser: ICurrentUser | undefined;
-    setCurrentUser: jest.Mock<React.Dispatch<React.SetStateAction<undefined>>>;
-  };
-}
+const el = screen.getByTestId;
+afterEach(cleanup);
 
 // 正しいForm情報
 const formInfo = [
@@ -85,10 +78,7 @@ const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
 
 const idNames = ["name", "email", "password", "password_confirmation"];
 
-const el = screen.getByTestId;
 const mockAxios = new MockAdapter(axios);
-
-afterEach(cleanup);
 
 describe("SignUpコンポーネント", () => {
   afterEach(() => {

@@ -2,14 +2,13 @@ import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { PagenationArea } from "../../components/PagenationArea";
 
+const el = screen.getByTestId;
+afterEach(cleanup);
+
 const pagy = {
   page: 1,
   pages: 1,
 };
-
-const el = screen.getByTestId;
-
-afterEach(cleanup);
 
 describe("PagenationArea コンポーネント", () => {
   const setup = () =>

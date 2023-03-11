@@ -39,7 +39,7 @@ const CustomLink = styled(Link)`
     color: inherit;
   }
 `;
-// 型
+
 export const Drawer: FC = () => {
   const { open, setOpenDrawer } = useContext(DrawerContext);
   const { currentUser } = useContext(AuthContext);

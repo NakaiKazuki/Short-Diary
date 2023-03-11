@@ -5,12 +5,10 @@ import { AuthContext } from "../contexts/Auth";
 // helpers
 import { isLoggedIn } from "../helpers";
 
-interface ILoggedInRouteProps {
+export const LoggedInRoute: FC<{
   login: JSX.Element;
   logout: JSX.Element;
-}
-
-export const LoggedInRoute: FC<ILoggedInRouteProps> = ({ login, logout }) => {
+}> = ({ login, logout }) => {
   const { currentUser } = useContext(AuthContext);
 
   return isLoggedIn(currentUser) ? login : logout;

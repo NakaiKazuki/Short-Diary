@@ -1,15 +1,16 @@
 import { FC } from "react";
 import { TextField } from "@material-ui/core";
-import {
-  Controller,
-  FieldErrors,
-  UseFormRegister,
-  Control,
-} from "react-hook-form";
+import { Controller } from "react-hook-form";
 import styled from "styled-components";
+
 // components
 import { BaseButton } from "../shared_style";
+
+// icons
 import { AddPictureIcon } from "../icon";
+
+// types
+import { IFormAreaProps as IProps } from "../../types/components/diaries";
 
 const FormWrapper = styled.form`
   padding: 0 10% 5% 10%;
@@ -63,50 +64,7 @@ const InputPictureArea = styled.input`
   display: none;
 `;
 
-// 型
-
-// エラーメッセージ
-interface IApiErrors {
-  date?: Array<string>;
-  tag_list?: Array<string>;
-  content?: Array<string>;
-  picture?: Array<string>;
-  movie_source?: Array<string>;
-}
-
-interface IErrors {
-  content: string;
-  movie_source: string;
-}
-
-type TPicture = Array<{ data: string; name: string }>;
-interface IFormValues {
-  date: string;
-  tag_list: string | undefined;
-  content: string;
-  picture: TPicture | undefined;
-  movie_source: string;
-  searchWord: string | undefined;
-}
-
-interface IFormAreaProps {
-  control: Control<IFormValues>;
-  errors: FieldErrors<IErrors>;
-  apiErrors: IApiErrors | undefined;
-  onSubmitText: string;
-  isDisabled: boolean;
-  contentCount: number;
-  defaultDate: string;
-  defaultTag: string;
-  defaultContent: string;
-  defaultmovie_source: string;
-  setFileName: string | undefined;
-  register: UseFormRegister<IFormValues>;
-  onSubmit(): void;
-  onFileChange(e: React.ChangeEvent<HTMLInputElement>): void;
-}
-
-export const FormArea: FC<IFormAreaProps> = ({
+export const FormArea: FC<IProps> = ({
   control,
   errors,
   apiErrors,
