@@ -1,16 +1,11 @@
 import axios from "axios";
 import { contact } from "../urls";
 
-interface IParams {
-  name: string;
-  email: string;
-  overView: string | undefined;
-  content: string;
-}
-
-interface IResult {
-  message: string;
-}
+// types
+import {
+  IContactParams as IParams,
+  IContactResult as IResult,
+} from "../types/apis";
 
 export const postContact = (params: IParams): Promise<IResult> => {
   return axios
