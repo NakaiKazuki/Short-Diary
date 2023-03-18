@@ -24,6 +24,7 @@ services:
     ports:
       - 3001:3001
     tty: true
+    user: "1000:1000"
     command: zsh -c "bundle exec pumactl start"
     depends_on:
       - db
@@ -40,6 +41,7 @@ services:
     ports:
       - 3000:3000
     tty: true
+    user: "1000:1000"
     command: zsh -c 'yarn install --frozen-lockfile && /bin/zsh'
     depends_on:
       - api
@@ -52,6 +54,7 @@ services:
       - tmp-data:/Short-Diary/tmp
     ports:
       - 80:80
+    user: "1000:1000"
     depends_on:
       - api
       - front

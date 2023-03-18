@@ -6,7 +6,8 @@ RUN apk update && \
     apk add --no-cache \
     zsh \
     yarn && \
-    mkdir -p $APP_ROOT
+    mkdir -p $APP_ROOT && \
+    chown 1000:1000 $APP_ROOT
 
 WORKDIR $APP_ROOT
 
