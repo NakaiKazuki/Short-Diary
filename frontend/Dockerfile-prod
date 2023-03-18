@@ -6,9 +6,7 @@ RUN apk update && \
     apk add --no-cache \
     zsh \
     yarn && \
-    addgroup -S app && \
-    adduser -S -G app app && \
-    mkdir -p $APP_ROOT && chown -R app:app $APP_ROOT
+    mkdir -p $APP_ROOT
 
 RUN mkdir -p /frontend
 

@@ -1,5 +1,7 @@
 FROM ruby:3.2.0-alpine3.17
 
+ENV APP_ROOT /Short-Diary
+
 RUN apk update && apk add --no-cache \
     libxml2-dev \
     curl-dev \
@@ -14,7 +16,6 @@ RUN apk update && apk add --no-cache \
     zsh && \
     mkdir -p $APP_ROOT
 
-ENV APP_ROOT /Short-Diary
 ENV RAILS_ENV production
 
 WORKDIR $APP_ROOT

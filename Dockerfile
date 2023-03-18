@@ -1,6 +1,7 @@
 FROM ruby:3.2.0-alpine3.17
 
 ENV APP_ROOT /Short-Diary
+WORKDIR $APP_ROOT
 
 RUN apk update && apk add --no-cache \
     libxml2-dev \
@@ -16,8 +17,6 @@ RUN apk update && apk add --no-cache \
     zsh \
     vim  && \
     mkdir -p $APP_ROOT
-
-WORKDIR $APP_ROOT
 
 COPY Gemfile Gemfile.lock $APP_ROOT/
 
