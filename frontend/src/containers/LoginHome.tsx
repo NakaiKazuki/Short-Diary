@@ -17,7 +17,7 @@ import styled from "styled-components";
 import { AuthContext } from "../contexts/Auth";
 
 // apis
-import { fetchHome, getDiaies } from "../apis/home";
+import { fetchHome, getDiaries } from "../apis/home";
 import { createDiary, updateDiary, deleteDiary } from "../apis/diaries";
 
 // icons
@@ -182,10 +182,9 @@ export const LoginHome: FC = () => {
 
   // ここからPagenationAreaで使う関数
   // ページネションのページ番号が選択されたら、その番号に応じてデータを受け取る
-
   const scrollIndexTopRef = useRef<HTMLDivElement>(null);
   const onPageChange = (page: number): void => {
-    getDiaies(page, state.selectedDate?.toISOString().split("T")[0])
+    getDiaries(page, state.selectedDate?.toISOString().split("T")[0])
       .then((data) => {
         setState({
           ...state,

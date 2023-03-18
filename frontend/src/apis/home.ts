@@ -20,7 +20,7 @@ export const fetchHome = (
     .then((res) => res.data);
 };
 
-export const getDiaies = (
+export const getDiaries = (
   page: number,
   searchWord: undefined | string | Date
 ): Promise<IResult> => {

@@ -1,5 +1,7 @@
 FROM ruby:3.2.0-alpine3.17
 
+ENV APP_ROOT /Short-Diary
+
 RUN apk update && apk add --no-cache \
     libxml2-dev \
     curl-dev \
@@ -12,17 +14,12 @@ RUN apk update && apk add --no-cache \
     mysql-dev \
     tzdata \
     zsh \
-    vim
-
-RUN mkdir -p /Short-Diary
-
-ENV APP_ROOT /Short-Diary
+    vim  && \
+    mkdir -p $APP_ROOT
 
 WORKDIR $APP_ROOT
 
-COPY Gemfile $APP_ROOT/Gemfile
-COPY Gemfile.lock $APP_ROOT/Gemfile.lock
-
+COPY Gemfile Gemfile.lock $APP_ROOT/
 
 RUN gem install bundler -v 2.4.4 && \
     bundle install --verbose

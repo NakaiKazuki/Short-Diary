@@ -1,19 +1,17 @@
 FROM node:18.13-alpine3.16
 
-RUN apk update && apk add --no-cache \
-    zsh \
-    yarn
-
-RUN mkdir -p /frontend
-
 ENV APP_ROOT /frontend
+
+RUN apk update && \
+    apk add --no-cache \
+    zsh \
+    yarn && \
+    addgroup -S app && \
+    adduser -S -G app app && \
+    mkdir -p $APP_ROOT && chown -R app:app $APP_ROOT
 
 WORKDIR $APP_ROOT
 
-COPY package.json $APP_ROOT
-
-RUN yarn install --frozen-lockfile --non-interactive --production=false --ignore-scripts
-
-COPY . $APP_ROOT
+COPY . .
 
 EXPOSE 3000
