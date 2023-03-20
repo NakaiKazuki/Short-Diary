@@ -59,9 +59,9 @@ export const Login: FC = () => {
     formState: { errors },
   } = useForm<IFormValues>();
   const formInfo = loginFormInfo(errors, apiErrors);
-  const onSubmit = (formValues: IFormValues): void => {
+  const onSubmit = async (formValues: IFormValues): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
-    createSession({
+    await createSession({
       email: formValues.email,
       password: formValues.password,
     })

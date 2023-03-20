@@ -1,5 +1,4 @@
-import * as React from "react";
-import { FC, useContext, useReducer, useState } from "react";
+import { forwardRef, FC, useContext, useReducer, useState } from "react";
 import styled from "styled-components";
 import { BaseButton } from "../components/shared_style";
 import { TransitionProps } from "@mui/material/transitions";
@@ -70,7 +69,7 @@ const ErrorMessage = styled.p`
   font-size: 0.9rem;
 `;
 
-const Transition = React.forwardRef(function Transition(
+const Transition = forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement;
   },
@@ -94,13 +93,15 @@ export const Contact: FC = () => {
     formState: { errors },
   } = useForm<IFormValues>();
 
+  if (!open) return null;
+
   const handleClose = () => {
     setOpenContact(false);
   };
 
-  const onSubmit = (formValues: IFormValues): void => {
+  const onSubmit = async (formValues: IFormValues): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
-    postContact({
+    await postContact({
       name: formValues.name,
       email: formValues.email,
       overView: formValues.overView,
@@ -114,7 +115,7 @@ export const Contact: FC = () => {
       })
       .catch((e): void => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
-        if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+        if (e.response?.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
           setApiError(e.response.data.errors);
         } else {
           console.error(e);
@@ -123,7 +124,7 @@ export const Contact: FC = () => {
       });
   };
 
-  return open ? (
+  return (
     <Dialog
       fullScreen
       open={open}
@@ -245,6 +246,7 @@ export const Contact: FC = () => {
                   autoFocus={true}
                   autoComplete="text"
                   fullWidth
+                  multiline
                   inputProps={{
                     "data-testid": "overViewArea",
                     placeholder: "50文字まで入力可能です",
@@ -281,6 +283,7 @@ export const Contact: FC = () => {
                   autoFocus={true}
                   autoComplete="text"
                   fullWidth
+                  multiline
                   inputProps={{
                     "data-testid": "contentArea",
                     placeholder: "1000文字まで入力可能です",
@@ -299,5 +302,5 @@ export const Contact: FC = () => {
         </Submit>
       </FormWrapper>
     </Dialog>
-  ) : null;
+  );
 };

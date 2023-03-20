@@ -59,19 +59,19 @@ const GuestErrorMessage = styled.p`
 
 export const UserEdit: FC = () => {
   const navigate = useNavigate();
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [apiErrors, setErrorMessage] = useState<
     | Pick<
-        IApiErrors,
-        | "name"
-        | "password"
-        | "password_confirmation"
-        | "current_password"
-        | "guest"
-      >
+      IApiErrors,
+      | "name"
+      | "password"
+      | "password_confirmation"
+      | "current_password"
+      | "guest"
+    >
     | undefined
   >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const { setMessage } = useContext(MessageContext);
   const {
     handleSubmit,
@@ -79,13 +79,16 @@ export const UserEdit: FC = () => {
     formState: { errors },
   } = useForm<IFormValues>();
 
-  const formInfo = currentUser
-    ? UserEditFormInfo(errors, apiErrors, currentUser)
-    : navigate("../login", { replace: true });
+  if (!currentUser) {
+    navigate("../login", { replace: true });
+    return null;
+  }
 
-  const onSubmit = (formValues: IFormValues): void => {
+  const formInfo = UserEditFormInfo(errors, apiErrors, currentUser);
+
+  const onSubmit = async (formValues: IFormValues): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
-    putRegistration({
+    await putRegistration({
       name: formValues.name,
       email: formValues.email,
       password: formValues.password,
@@ -121,7 +124,7 @@ export const UserEdit: FC = () => {
       });
   };
 
-  return formInfo ? (
+  return (
     <UserEditWrapper>
       <FormTitle>Profile Edit</FormTitle>
 
@@ -151,5 +154,5 @@ export const UserEdit: FC = () => {
       </FormWrapper>
       <FormLinks linkInfo={UserEditLinkInfo} />
     </UserEditWrapper>
-  ) : null;
+  );
 };

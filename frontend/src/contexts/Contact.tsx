@@ -1,4 +1,4 @@
-import React, { JSX, createContext, useState, FC } from "react";
+import React, { createContext, useState, FC } from "react";
 
 // types
 import { IContactContext as IContext } from "../types/contexts";

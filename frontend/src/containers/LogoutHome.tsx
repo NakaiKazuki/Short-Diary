@@ -1,6 +1,3 @@
-/* eslint-disable react/prefer-stateless-function */
-/* eslint-disable max-classes-per-file */
-
 import { FC, useContext, useReducer } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -285,9 +282,10 @@ export const LogoutHome: FC = () => {
     { original: diaryCreatePicture, originalHeight: 768, originalWidth: 768 },
     { original: Gallery1Picture, originalHeight: 768, originalWidth: 768 },
   ];
-  const onGuestLoginButton = (): void => {
+
+  const onGuestLoginButton = async (): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
-    newGuestSession()
+    await newGuestSession()
       .then((res) => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
         Cookies.set("client", res.headers["client"]);

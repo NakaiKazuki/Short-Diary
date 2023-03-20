@@ -19,9 +19,9 @@ export const createDiary = (params: IParams): Promise<IResult> => {
       client: Cookies.get("client") || "",
       uid: Cookies.get("uid") || "",
       date: params.date,
-      tag_list: params.tag_list ? params.tag_list : undefined,
+      tag_list: params.tag_list || undefined,
       content: params.content,
-      movie_source: params.movie_source ? params.movie_source : undefined,
+      movie_source: params.movie_source || undefined,
       picture: picture,
     })
     .then((res) => res.data);
@@ -43,7 +43,7 @@ export const updateDiary = (
       date: params.date,
       tag_list: params.tag_list ? params.tag_list : undefined,
       content: params.content,
-      movie_source: params.movie_source ? params.movie_source : undefined,
+      movie_source: params.movie_source || undefined,
       picture: picture,
       page: page,
     })

@@ -63,9 +63,9 @@ export const SignUp: FC = () => {
   } = useForm<IFormValues>();
   const formInfo = signUpFormInfo(errors, apiErrors);
 
-  const onSubmit = (formValues: IFormValues): void => {
+  const onSubmit = async (formValues: IFormValues): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
-    postRegistration({
+    await postRegistration({
       name: formValues.name,
       email: formValues.email,
       password: formValues.password,

@@ -16,8 +16,7 @@ RUN apk update && apk add --no-cache \
     tzdata \
     zsh \
     vim  && \
-    mkdir -p $APP_ROOT && \
-    chown 1000:1000 $APP_ROOT
+    mkdir -p $APP_ROOT
 
 COPY Gemfile Gemfile.lock $APP_ROOT/
 
