@@ -74,7 +74,6 @@ export const DiaryDialog: FC<IProps> = ({
   anchorEl,
   control,
   errors,
-  register,
   apiErrors,
   isDisabled,
   onSubmitText,
@@ -89,6 +88,7 @@ export const DiaryDialog: FC<IProps> = ({
   onMenuOpen,
   onMenuClose,
   onPlayerReady,
+  register,
 }) => {
   return (
     <Dialog

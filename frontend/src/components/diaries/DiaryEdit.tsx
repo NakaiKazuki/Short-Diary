@@ -18,7 +18,6 @@ export const DiaryEdit: FC<IProps> = ({
   diary,
   control,
   errors,
-  register,
   apiErrors,
   onSubmitText,
   isDisabled,
@@ -26,6 +25,7 @@ export const DiaryEdit: FC<IProps> = ({
   setFileName,
   onEditSubmit,
   onFileChange,
+  register,
 }) => {
   return (
     <Fragment>
