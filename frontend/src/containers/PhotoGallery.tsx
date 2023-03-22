@@ -16,12 +16,13 @@ import { fetchPhotoGallery } from "../apis/diaries";
 // types
 import { IPhotoGalleryInitialState as IInitialState } from "../types/containers";
 // css
+
 const PhotoGalleryWrapper = styled.div`
   width: 100vw;
   min-height: 81vh;
   margin-top: 6.6vh;
   padding-top: 5.4vh;
-`;
+  `;
 
 const CircularProgressWrapper = styled.span`
   position: absolute;
