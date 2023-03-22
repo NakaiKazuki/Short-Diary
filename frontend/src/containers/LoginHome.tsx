@@ -17,7 +17,7 @@ import styled from "styled-components";
 import { AuthContext } from "../contexts/Auth";
 
 // apis
-import { fetchHome, getDiaies } from "../apis/home";
+import { fetchHome, getDiaries } from "../apis/home";
 import { createDiary, updateDiary, deleteDiary } from "../apis/diaries";
 
 // icons
@@ -180,12 +180,42 @@ export const LoginHome: FC = () => {
   };
   const [state, setState] = useState<IInitialState>(initialState);
 
+  // このコンポーネントが開かれた時にだけ実行される
+  useEffect(() => {
+    const abortController = new AbortController();
+    setState({
+      ...state,
+      fetchState: REQUEST_STATE.LOADING,
+    });
+    fetchHome()
+      .then((data): void => {
+        setState({
+          ...state,
+          diaries: data.diaries,
+          pagy: data.pagy,
+          fetchState: REQUEST_STATE.OK,
+        });
+      })
+      .catch((e): void => {
+        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          Cookies.remove("uid");
+          Cookies.remove("client");
+          Cookies.remove("access-token");
+          navigate("/login", { replace: true });
+          setCurrentUser(undefined);
+        } else {
+          console.error(e);
+        }
+      });
+
+    return () => abortController.abort();
+  }, []);
+
   // ここからPagenationAreaで使う関数
   // ページネションのページ番号が選択されたら、その番号に応じてデータを受け取る
-
   const scrollIndexTopRef = useRef<HTMLDivElement>(null);
-  const onPageChange = (page: number): void => {
-    getDiaies(page, state.selectedDate?.toISOString().split("T")[0])
+  const onPageChange = async (page: number): Promise<void> => {
+    await getDiaries(page, state.selectedDate?.toISOString().split("T")[0])
       .then((data) => {
         setState({
           ...state,
@@ -233,8 +263,8 @@ export const LoginHome: FC = () => {
     }
   };
 
-  const onDateChange = (selectedDate: null | Date): void => {
-    fetchHome(selectedDate ? convertDate(selectedDate) : undefined)
+  const onDateChange = async (selectedDate: null | Date): Promise<void> => {
+    await fetchHome(selectedDate ? convertDate(selectedDate) : undefined)
       .then((data): void => {
         setState({
           ...state,
@@ -262,8 +292,10 @@ export const LoginHome: FC = () => {
   };
 
   // 単語を指定して検索する場合に使用
-  const onWordSearchSubmit = (formValues: ISearchFormValue): void => {
-    fetchHome(formValues.searchWord)
+  const onWordSearchSubmit = async (
+    formValues: ISearchFormValue
+  ): Promise<void> => {
+    await fetchHome(formValues.searchWord)
       .then((data): void => {
         setState({
           ...state,
@@ -291,8 +323,8 @@ export const LoginHome: FC = () => {
   };
 
   // 検索内容を消去するボタンに使用
-  const onSearchClearButton = (): void => {
-    fetchHome()
+  const onSearchClearButton = async (): Promise<void> => {
+    await fetchHome()
       .then((data): void => {
         setState({
           ...state,
@@ -356,9 +388,9 @@ export const LoginHome: FC = () => {
 
   // ここから DiaryCreateDialogで使う関数
   // DiaryCreateDialogでFormのボタンが押されたらApiを叩く
-  const onCreateSubmit = (formValues: IFormValues): void => {
+  const onCreateSubmit = async (formValues: IFormValues): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
-    createDiary({
+    await createDiary({
       date: formValues.date,
       tag_list: formValues.tag_list ? formValues.tag_list.trim() : undefined,
       content: formValues.content,
@@ -415,11 +447,11 @@ export const LoginHome: FC = () => {
   // ここまでDiaryCreateDialogで使う関数
 
   // ここからDiaryEditで使う関数
-  const onEditSubmit = (formValues: IFormValues): void => {
+  const onEditSubmit = async (formValues: IFormValues): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
     state.pagy &&
       state.selectedDiary &&
-      updateDiary(
+      (await updateDiary(
         {
           date: formValues.date,
           tag_list: formValues.tag_list
@@ -464,7 +496,7 @@ export const LoginHome: FC = () => {
           } else {
             alert(e);
           }
-        });
+        }));
   };
   // ここまでDiaryEditで使う関数
 
@@ -502,9 +534,9 @@ export const LoginHome: FC = () => {
   };
 
   // DiaryDialogで開かれている日記データを削除
-  const onDiaryDelete = (diary: IDiary): void => {
+  const onDiaryDelete = async (diary: IDiary): Promise<void> => {
     state.pagy &&
-      deleteDiary(state.pagy.page, diary.id)
+      (await deleteDiary(state.pagy.page, diary.id)
         .then((data): void => {
           setState({
             ...state,
@@ -530,7 +562,7 @@ export const LoginHome: FC = () => {
             console.error(e);
             throw e;
           }
-        });
+        }));
   };
 
   // Dialogの内容を閲覧用に変更する
@@ -567,39 +599,6 @@ export const LoginHome: FC = () => {
     });
   };
   // ここまでDiaryMenuで使う関数
-
-  // このコンポーネントが開かれた時にだけ実行される
-  // ログアウトの処理で一回走ってるからくそ
-  useEffect(() => {
-    const abortController = new AbortController();
-    setState({
-      ...state,
-      fetchState: REQUEST_STATE.LOADING,
-    });
-    fetchHome()
-      .then((data): void => {
-        setState({
-          ...state,
-          diaries: data.diaries,
-          pagy: data.pagy,
-          fetchState: REQUEST_STATE.OK,
-        });
-      })
-      .catch((e): void => {
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-          Cookies.remove("uid");
-          Cookies.remove("client");
-          Cookies.remove("access-token");
-          navigate("/login", { replace: true });
-          setCurrentUser(undefined);
-        } else {
-          console.error(e);
-        }
-      });
-
-    return () => abortController.abort();
-  }, []);
-
   return (
     <LoginHomeWrapper ref={scrollIndexTopRef}>
       <Heading data-testid="pageTitle">Diaries</Heading>
@@ -628,7 +627,7 @@ export const LoginHome: FC = () => {
         onOpenButton={(open) => onDrawerOpenButton(open)}
         onClearButton={onSearchClearButton}
         onSubmit={handleSubmit(onWordSearchSubmit)}
-        onDateChange={(date: Date | null): void => onDateChange(date)}
+        onDateChange={(date: Date | null): Promise<void> => onDateChange(date)}
       />
       {state.fetchState === REQUEST_STATE.LOADING ? (
         <CircularProgressWrapper>

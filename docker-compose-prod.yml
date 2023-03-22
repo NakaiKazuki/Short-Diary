@@ -26,6 +26,7 @@ services:
       - api
     environment:
       - NODE_OPTIONS=--max_old_space_size=1024
+
   nginx:
     build:
       context: ./nginx

@@ -11,6 +11,11 @@ export interface IUserResult {
   data: ICurrentUser;
 }
 
+export interface IgetCurrentUserResult {
+  headers: IHeaders;
+  data: { current_user: ICurrentUser };
+}
+
 export interface IContactParams {
   name: string;
   email: string;

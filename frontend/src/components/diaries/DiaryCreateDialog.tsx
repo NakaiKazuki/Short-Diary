@@ -18,7 +18,6 @@ export const DiaryCreateDialog: FC<IProps> = ({
   isOpen,
   control,
   errors,
-  register,
   apiErrors,
   onSubmitText,
   isDisabled,
@@ -28,6 +27,7 @@ export const DiaryCreateDialog: FC<IProps> = ({
   onSubmit,
   onFileChange,
   onClose,
+  register,
 }) => {
   return (
     <Dialog

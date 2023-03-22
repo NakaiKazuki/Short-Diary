@@ -43,7 +43,12 @@ const CustomLink = styled(Link)`
 export const Drawer: FC = () => {
   const { open, setOpenDrawer } = useContext(DrawerContext);
   const { currentUser } = useContext(AuthContext);
-  return currentUser ? (
+
+  if (!currentUser) return null;
+
+  const closeDrawer = (): void => setOpenDrawer(false);
+
+  return (
     <Fragment key={"left"}>
       <SwipeableDrawer
         anchor={"left"}
@@ -54,18 +59,14 @@ export const Drawer: FC = () => {
       >
         <Box role="presentation" data-testid="MenuDrawer">
           <List>
-            <CustomLink
-              to="/"
-              data-testid="homeLink"
-              onClick={() => setOpenDrawer(false)}
-            >
+            <CustomLink to="/" data-testid="homeLink" onClick={closeDrawer}>
               <MainLogo src={mainLogo} alt="main logo" />
             </CustomLink>
             <Divider />
             <CustomLink
               to="/photoGalley"
               data-testid="photoGalleyLink"
-              onClick={() => setOpenDrawer(false)}
+              onClick={closeDrawer}
             >
               <ListItem>
                 <ItemWrapper>Photo Gallery</ItemWrapper>
@@ -76,5 +77,5 @@ export const Drawer: FC = () => {
         </Box>
       </SwipeableDrawer>
     </Fragment>
-  ) : null;
+  );
 };

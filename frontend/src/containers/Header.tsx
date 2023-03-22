@@ -61,8 +61,8 @@ export const Header: FC = () => {
   const { setOpenDrawer } = useContext(DrawerContext);
 
   // ユーザのログアウト処理
-  const onSignOut = (): void => {
-    deleteSession()
+  const onSignOut = async (): Promise<void> => {
+    await deleteSession()
       .then(() => {
         setAnchorEl(null);
         setCurrentUser(undefined);

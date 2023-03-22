@@ -6,6 +6,7 @@ import { signIn, signOut, guestSignIn, userLogin } from "../../urls";
 import {
   IUserParams as IParams,
   IUserResult as IResult,
+  IgetCurrentUserResult,
 } from "../../types/apis";
 
 export const createSession = (
@@ -17,7 +18,7 @@ export const createSession = (
   });
 };
 
-export const getCurrentUser = (): Promise<IResult> => {
+export const getCurrentUser = (): Promise<IgetCurrentUserResult> => {
   return axios.post(
     userLogin,
     {},

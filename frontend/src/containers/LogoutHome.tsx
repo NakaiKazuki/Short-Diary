@@ -1,9 +1,5 @@
-/* eslint-disable react/prefer-stateless-function */
-/* eslint-disable max-classes-per-file */
-
 import { FC, useContext, useReducer } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Flip from "react-reveal/Flip";
 import Roll from "react-reveal/Roll";
 import ImageGallery from "react-image-gallery";
@@ -105,7 +101,6 @@ const ButtonsWrapper = styled.span`
   justify-content: space-evenly;
 `;
 
-// 新規登録 ゲストボタン共通スタイル
 const HomeButton = styled(BaseButton)`
   height: 2.5rem;
   width: 10rem;
@@ -285,9 +280,10 @@ export const LogoutHome: FC = () => {
     { original: diaryCreatePicture, originalHeight: 768, originalWidth: 768 },
     { original: Gallery1Picture, originalHeight: 768, originalWidth: 768 },
   ];
-  const onGuestLoginButton = (): void => {
+
+  const onGuestLoginButton = async (): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
-    newGuestSession()
+    await newGuestSession()
       .then((res) => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
         Cookies.set("client", res.headers["client"]);

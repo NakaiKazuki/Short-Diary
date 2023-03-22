@@ -11,10 +11,6 @@ const MessageWrapper = styled.div`
   position: fixed;
   z-index: 1;
   transition: all 0.3s;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  -ms-transition: all 0.3s;
-  -o-transition: all 0.3s;
   margin-top: 6.6vh;
 `;
 
@@ -24,17 +20,25 @@ const TextWrapper = styled.p`
   color: white;
   font-size: 1rem;
 `;
-
+const MESSAGE_DISPLAY_TIME = 10000;
 export const Message: FC = () => {
   const { message, setMessage } = useContext(MessageContext);
 
-  useEffect((): void => {
-    message && setTimeout(() => setMessage(undefined), 10000);
+  useEffect((): (() => void) | undefined => {
+    if (message) {
+      const timeoutId = setTimeout(
+        () => setMessage(undefined),
+        MESSAGE_DISPLAY_TIME
+      );
+      return () => clearTimeout(timeoutId);
+    }
   }, [message, setMessage]);
 
-  return message ? (
+  if (!message) return null;
+
+  return (
     <MessageWrapper data-testid="message">
       <TextWrapper>{message}</TextWrapper>
     </MessageWrapper>
-  ) : null;
+  );
 };
