@@ -22,7 +22,7 @@ const PhotoGalleryWrapper = styled.div`
   min-height: 81vh;
   margin-top: 6.6vh;
   padding-top: 5.4vh;
-  `;
+`;
 
 const CircularProgressWrapper = styled.span`
   position: absolute;
