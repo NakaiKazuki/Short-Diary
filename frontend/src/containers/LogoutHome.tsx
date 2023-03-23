@@ -48,7 +48,6 @@ const LeftWrapper = styled.div`
   @media screen and (min-width: 980px) {
     position: sticky;
     position: -webkit-sticky; /*Safari用*/
-    position: sticky;
     flex: 0.45;
     max-height: 93vh;
     top: 0;
