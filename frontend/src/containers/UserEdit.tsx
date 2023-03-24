@@ -62,13 +62,13 @@ export const UserEdit: FC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [apiErrors, setErrorMessage] = useState<
     | Pick<
-      IApiErrors,
-      | "name"
-      | "password"
-      | "password_confirmation"
-      | "current_password"
-      | "guest"
-    >
+        IApiErrors,
+        | "name"
+        | "password"
+        | "password_confirmation"
+        | "current_password"
+        | "guest"
+      >
     | undefined
   >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);

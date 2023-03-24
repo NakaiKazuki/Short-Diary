@@ -5,6 +5,28 @@ import App from "../App";
 
 const el = screen.getByTestId;
 
+// IntersectionObserverのモックを作成
+class IntersectionObserver {
+  observe() {
+    return null;
+  }
+
+  unobserve() {
+    return null;
+  }
+
+  disconnect() {
+    return null;
+  }
+}
+
+// テスト実行前にwindowオブジェクトにIntersectionObserverを追加する
+Object.defineProperty(window, "IntersectionObserver", {
+  writable: true,
+  configurable: true,
+  value: IntersectionObserver,
+});
+
 afterEach(cleanup);
 describe("App", () => {
   const setup = () => render(<App />);
