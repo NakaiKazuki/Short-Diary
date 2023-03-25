@@ -1,15 +1,14 @@
-import React from "react";
 import { render, screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import { AuthContext } from "../../contexts/Auth";
 import { Header } from "../../containers/Header";
+import { el } from "../helpers";
 
 // types
 import { IAuthProviderProps as IProviderProps } from "../../types/test";
 
-const el = screen.getByTestId;
 afterEach(cleanup);
 
 const currentUser = {

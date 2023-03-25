@@ -1,33 +1,12 @@
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
+import { createObserver, el } from "./helpers";
 import App from "../App";
 
-const el = screen.getByTestId;
-
-// IntersectionObserverのモックを作成
-class IntersectionObserver {
-  observe() {
-    return null;
-  }
-
-  unobserve() {
-    return null;
-  }
-
-  disconnect() {
-    return null;
-  }
-}
-
-// テスト実行前にwindowオブジェクトにIntersectionObserverを追加する
-Object.defineProperty(window, "IntersectionObserver", {
-  writable: true,
-  configurable: true,
-  value: IntersectionObserver,
-});
-
+createObserver();
 afterEach(cleanup);
+
 describe("App", () => {
   const setup = () => render(<App />);
   beforeEach(() => setup());

@@ -1,4 +1,3 @@
-import React from "react";
 import "@testing-library/jest-dom";
 import { screen, cleanup, waitFor, render, act } from "@testing-library/react";
 import MockAdapter from "axios-mock-adapter";
@@ -9,11 +8,11 @@ import { AuthContext } from "../../contexts/Auth";
 import { LoginHome } from "../../containers/LoginHome";
 import { home, diary } from "../../urls";
 import { dateToday } from "../../helpers";
+import { el } from "../helpers";
 
 // types
 import { IAuthProviderProps as IProviderProps } from "../../types/test";
 
-const el = screen.getByTestId;
 afterEach(cleanup);
 
 // ユーザデータ

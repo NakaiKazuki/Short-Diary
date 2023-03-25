@@ -1,5 +1,4 @@
-import React from "react";
-import { render, screen, cleanup, waitFor } from "@testing-library/react";
+import { render, cleanup, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
@@ -7,11 +6,10 @@ import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { AuthContext } from "../../contexts/Auth";
 import { PhotoGallery } from "../../containers/PhotoGallery";
 import { photoGallery } from "../../urls";
+import { el } from "../helpers";
 
 // types
 import { IAuthProviderProps as IProviderProps } from "../../types/test";
-
-const el = screen.getByTestId;
 
 afterEach(cleanup);
 

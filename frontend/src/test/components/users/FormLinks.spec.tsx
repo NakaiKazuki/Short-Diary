@@ -1,9 +1,9 @@
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import { FormLinks } from "../../../components/users";
+import { el } from "../../helpers"
 
-const el = screen.getByTestId;
 afterEach(cleanup);
 
 const customRender = (ui: JSX.Element) => {

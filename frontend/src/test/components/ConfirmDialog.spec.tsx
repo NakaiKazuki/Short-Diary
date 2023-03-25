@@ -1,9 +1,9 @@
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ConfirmDialog } from "../../components/ConfirmDialog";
 import { dateToday } from "../../helpers";
+import { el } from "../helpers";
 
-const el = screen.getByTestId;
 afterEach(cleanup);
 
 const diary = {

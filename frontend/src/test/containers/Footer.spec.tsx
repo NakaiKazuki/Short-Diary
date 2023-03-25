@@ -1,13 +1,13 @@
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { ContactContext } from "../../contexts/Contact";
 import { Footer } from "../../containers/Footer";
+import { el } from "../helpers";
 
 // types
 import { IContactProviderProps as IProviderProps } from "../../types/test";
 
-const el = screen.getByTestId;
 afterEach(cleanup);
 
 const providerProps = {
