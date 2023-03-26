@@ -12,7 +12,6 @@ import { el } from "../helpers";
 // types
 import { IAuthProviderProps as IProviderProps } from "../../types/test";
 
-
 afterEach(cleanup);
 
 // IntersectionObserverのモックを作成

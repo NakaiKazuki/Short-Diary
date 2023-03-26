@@ -2,7 +2,7 @@ import React from "react";
 import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { FormSubmit } from "../../../components/users";
-import { el } from "../../helpers"
+import { el } from "../../helpers";
 
 afterEach(cleanup);
 

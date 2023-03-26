@@ -26,6 +26,6 @@ export interface IPaginationAreaProps {
   onPageChange(page: number): void;
 }
 
-export interface ISection {
+export interface IAnimatedSection {
   children: JSX.Element;
 }

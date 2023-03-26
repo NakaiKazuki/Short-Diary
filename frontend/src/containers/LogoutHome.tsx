@@ -21,7 +21,7 @@ import {
 
 // components
 import { BaseButton } from "../components/shared_style";
-import { Section } from "../components/Section";
+import { AnimatedSection } from "../components/AnimatedSection";
 
 // images
 import LeftHome from "../images/lefthome.jpg";
@@ -331,30 +331,30 @@ export const LogoutHome: FC = () => {
         <Title>Sample</Title>
         <Contents>
           <ContentTitle>Diary</ContentTitle>
-          <Section>
+          <AnimatedSection>
             <OverView>
               日記を作成する際、日付・内容以外にもタグの作成や画像の添付を行うことができます。
               <br />
               またYoutubeの動画リンクを記載することで日記の詳細画面で動画の再生が可能です。
             </OverView>
-          </Section>
+          </AnimatedSection>
           <ImgWrapper>
-            <Section>
+            <AnimatedSection>
               <Img src={diaryCreatePicture} />
-            </Section>
-            <Section>
+            </AnimatedSection>
+            <AnimatedSection>
               <Img src={diaryPicture} />
-            </Section>
+            </AnimatedSection>
           </ImgWrapper>
-          <Section>
+          <AnimatedSection>
             <ContentTitle>PhotGallery</ContentTitle>
-          </Section>
-          <Section>
+          </AnimatedSection>
+          <AnimatedSection>
             <OverView>
               日記に添付された画像をスライドショーとして閲覧することができます。
             </OverView>
-          </Section>
-          <Section>
+          </AnimatedSection>
+          <AnimatedSection>
             <CustomGallery data-testid="imageGallery">
               <ImageGallery
                 items={items}
@@ -363,7 +363,7 @@ export const LogoutHome: FC = () => {
                 showFullscreenButton={false}
               />
             </CustomGallery>
-          </Section>
+          </AnimatedSection>
         </Contents>
       </RightWrapper>
     </LogoutHomeWrapper>

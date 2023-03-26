@@ -1,7 +1,30 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 // ボタンの元となるコンポーネント
-export const BaseButton = styled.button`
+const buttonVariants = {
+  rest: {
+    scale: 1,
+  },
+  hover: {
+    scale: 1.2,
+  },
+  tap: {
+    scale: 0.8,
+    transition: {
+      duration: 0.2,
+      ease: "easeOut",
+    },
+  },
+};
+
+export const BaseButton = styled(motion.button).attrs(() => ({
+  variants: buttonVariants,
+  whileHover: "hover",
+  whileTap: "tap",
+  initial: "rest",
+  animate: "rest",
+}))`
   cursor: pointer;
   border-radius: 0.25rem;
   :hover {
@@ -14,13 +37,20 @@ export const BaseButton = styled.button`
     background-color: gray;
     color: white;
   }
-`;
+  position: relative;
+  overflow: hidden;
 
-// // 角丸なボタン
-// export const RoundButton = styled(BaseButton)`
-//   width: 2.7rem;
-//   height: 2.7rem;
-//   border-radius: 50%;
-//   border: none;
-//   background-color: royalblue;
-// `;
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: #fff;
+    opacity: 0.3;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+  }
+`;
