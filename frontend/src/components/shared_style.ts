@@ -7,7 +7,7 @@ const buttonVariants = {
     scale: 1,
   },
   hover: {
-    scale: 1.2,
+    scale: 1.1,
   },
   tap: {
     scale: 0.8,
