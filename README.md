@@ -118,25 +118,25 @@ git clone https://github.com/NakaiKazuki/Short-Diary.git
 cd Short-Diary
 ```
 
-その後下記のコマンドで docker-image を作成します。
+その後下記のコマンドでイメージを作成します。
 
 ```zsh
 #!/bin/zsh
-docker-compose build
+docker compose build
 ```
 
 dockerimage 作成後コンテナを起動します。
 
 ```zsh
 #!/bin/zsh
-docker-compose up -d
+docker compose up -d
 ```
 
 下記のコマンドで Rails のコンテナへ入ります。
 
 ```zsh
 #!/bin/zsh
-docker-compose exec api zsh
+docker compose exec api zsh
 ```
 
 コンテナ内で下記のコマンドを実行しデータベースを作成します。
@@ -157,7 +157,7 @@ node_modules のインストール完了後、React 側のコンテナへ入り�
 
 ```zsh
 #!/bin/zsh
-docker-compose exec front zsh
+docker compose exec front zsh
 ```
 
 最後にコンテナ内にて、下記コマンドで React を実行します。
