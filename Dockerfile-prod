@@ -2,9 +2,6 @@ FROM ruby:3.2.0-alpine3.17
 
 ENV APP_ROOT /Short-Diary
 
-ARG UID=1000
-ARG GID=1000
-
 RUN apk update && apk add --no-cache \
     libxml2-dev \
     curl-dev \
@@ -17,8 +14,6 @@ RUN apk update && apk add --no-cache \
     mysql-dev \
     tzdata \
     zsh && \
-    addgroup -g $GID app && \
-    adduser -u $UID -G app -D app && \
     mkdir -p $APP_ROOT
 
 ENV RAILS_ENV production
