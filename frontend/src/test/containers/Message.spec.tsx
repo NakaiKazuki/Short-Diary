@@ -2,11 +2,11 @@ import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { Message } from "../../containers/Message";
 import { MessageContext } from "../../contexts/Message";
+import { el } from "../helpers";
 
 // types
 import { IMessageProviderProps as IProviderProps } from "../../types/test";
 
-const el = screen.getByTestId;
 afterEach(cleanup);
 
 const emptyMessage = {

@@ -1,8 +1,8 @@
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { DiaryIndex } from "../../../components/diaries";
+import { el } from "../../helpers";
 
-const el = screen.getByTestId;
 afterEach(cleanup);
 
 const testString = (count: number): string => {

@@ -1,9 +1,8 @@
 import React from "react";
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { FormSubmit } from "../../../components/users";
-
-const el = screen.getByTestId;
+import { el } from "../../helpers";
 
 afterEach(cleanup);
 

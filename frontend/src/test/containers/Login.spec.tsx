@@ -1,5 +1,4 @@
-import React from "react";
-import { render, screen, cleanup, waitFor } from "@testing-library/react";
+import { render, cleanup, waitFor } from "@testing-library/react";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
@@ -9,11 +8,11 @@ import { AuthContext } from "../../contexts/Auth";
 import { Login } from "../../containers/Login";
 import { signIn } from "../../urls";
 import { loginLinkInfo as linkInfo } from "../../formInfo";
+import { el } from "../helpers";
 
 // types
 import { IAuthProviderProps as IProviderProps } from "../../types/test";
 
-const el = screen.getByTestId;
 afterEach(cleanup);
 
 const mockAxios = new MockAdapter(axios);

@@ -1,11 +1,12 @@
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
+import { createObserver, el } from "./helpers";
 import App from "../App";
 
-const el = screen.getByTestId;
-
+createObserver();
 afterEach(cleanup);
+
 describe("App", () => {
   const setup = () => render(<App />);
   beforeEach(() => setup());

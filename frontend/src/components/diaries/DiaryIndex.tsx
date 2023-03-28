@@ -1,5 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 // components
 import { PictureIcon, MovieIcon } from "../icon";
@@ -23,7 +24,22 @@ const DiariesWrapper = styled.ul`
   }
 `;
 
-const DiaryWrapper = styled.li`
+const buttonVariants = {
+  hover: {
+    scale: 1.2,
+  },
+  tap: {
+    scale: 0.8,
+  },
+} as const;
+
+const DiaryWrapper = styled(motion.li).attrs<typeof buttonVariants>(() => ({
+  variants: buttonVariants,
+  whileHover: "hover",
+  whileTap: "tap",
+  initial: "rest",
+  animate: "rest",
+}))`
   margin-top: 0.5rem;
   list-style: none;
   height: 22vh;
@@ -31,6 +47,9 @@ const DiaryWrapper = styled.li`
   border: 0.0125rem solid limegreen;
   border-radius: 0.5rem;
   position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   @media screen and (min-width: 481px) {
     margin-left: 1rem;
   }
@@ -42,8 +61,10 @@ const DiaryWrapper = styled.li`
     width: 100%;
   }
   :hover {
-    background-color: #eeeeee;
     cursor: pointer;
+    z-index: 1;
+    background-color: white;
+    border: 0.12rem solid limegreen;
   }
 `;
 
@@ -76,7 +97,6 @@ const Content = styled.div`
 
 export const DiaryIndex: FC<IProps> = ({ diaries, onOpenDiaryDialog }) => {
   return (
-    // eslint-disable-next-line react/react-in-jsx-scope
     <DiariesWrapper data-testid="diaryIndex">
       {diaries.map((diary: IDiary, index: number): JSX.Element => {
         return (

@@ -1,7 +1,5 @@
 import { FC, useContext, useReducer } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Flip from "react-reveal/Flip";
-import Roll from "react-reveal/Roll";
 import ImageGallery from "react-image-gallery";
 import Cookies from "js-cookie";
 import styled from "styled-components";
@@ -23,6 +21,7 @@ import {
 
 // components
 import { BaseButton } from "../components/shared_style";
+import { AnimatedSection } from "../components/AnimatedSection";
 
 // images
 import LeftHome from "../images/lefthome.jpg";
@@ -273,7 +272,6 @@ export const LogoutHome: FC = () => {
   const { setCurrentUser } = useContext(AuthContext);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
   const navigate = useNavigate();
-
   const items = [
     { original: diaryPicture, originalHeight: 768, originalWidth: 768 },
     { original: diaryCreatePicture, originalHeight: 768, originalWidth: 768 },
@@ -330,29 +328,33 @@ export const LogoutHome: FC = () => {
         </Content>
       </LeftWrapper>
       <RightWrapper data-testid="rightHome">
-        <Flip right cascade>
-          <Title>Sample</Title>
-        </Flip>
+        <Title>Sample</Title>
         <Contents>
           <ContentTitle>Diary</ContentTitle>
-          <OverView>
-            日記を作成する際、日付・内容以外にもタグの作成や画像の添付を行うことができます。
-            <br />
-            またYoutubeの動画リンクを記載することで日記の詳細画面で動画の再生が可能です。
-          </OverView>
+          <AnimatedSection>
+            <OverView>
+              日記を作成する際、日付・内容以外にもタグの作成や画像の添付を行うことができます。
+              <br />
+              またYoutubeの動画リンクを記載することで日記の詳細画面で動画の再生が可能です。
+            </OverView>
+          </AnimatedSection>
           <ImgWrapper>
-            <Roll right>
+            <AnimatedSection>
               <Img src={diaryCreatePicture} />
-            </Roll>
-            <Roll right>
+            </AnimatedSection>
+            <AnimatedSection>
               <Img src={diaryPicture} />
-            </Roll>
+            </AnimatedSection>
           </ImgWrapper>
-          <ContentTitle>PhotGallery</ContentTitle>
-          <OverView>
-            日記に添付された画像をスライドショーとして閲覧することができます。
-          </OverView>
-          <Roll right>
+          <AnimatedSection>
+            <ContentTitle>PhotGallery</ContentTitle>
+          </AnimatedSection>
+          <AnimatedSection>
+            <OverView>
+              日記に添付された画像をスライドショーとして閲覧することができます。
+            </OverView>
+          </AnimatedSection>
+          <AnimatedSection>
             <CustomGallery data-testid="imageGallery">
               <ImageGallery
                 items={items}
@@ -361,7 +363,7 @@ export const LogoutHome: FC = () => {
                 showFullscreenButton={false}
               />
             </CustomGallery>
-          </Roll>
+          </AnimatedSection>
         </Contents>
       </RightWrapper>
     </LogoutHomeWrapper>

@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-prod
+      args:
+        UID: 1000
+        GID: 1000
     env_file:
       - ./environments/ruby.env
     volumes:
@@ -42,7 +45,19 @@ services:
       - front
 
 volumes:
-  public-prod-data:
-  tmp-prod-data:
-  build-prod-data:
   node_modules-prod-data:
+  build-prod-data:
+  public-prod-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./public
+    name: public-data
+  tmp-prod-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./tmp
+    name: tmp-data

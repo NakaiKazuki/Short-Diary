@@ -1,4 +1,4 @@
-import { render, screen, cleanup, waitFor } from "@testing-library/react";
+import { render, cleanup, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
@@ -9,6 +9,7 @@ import { MessageContext } from "../../contexts/Message";
 import { AuthContext } from "../../contexts/Auth";
 import { Contact } from "../../containers/Contact";
 import { contact } from "../../urls";
+import { el } from "../helpers";
 
 // types
 import {
@@ -17,7 +18,6 @@ import {
   IMessageProviderProps,
 } from "../../types/test";
 
-const el = screen.getByTestId;
 afterEach(cleanup);
 
 const mockAxios = new MockAdapter(axios);

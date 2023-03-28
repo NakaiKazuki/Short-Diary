@@ -1,5 +1,4 @@
-import React from "react";
-import { render, screen, cleanup, waitFor } from "@testing-library/react";
+import { render, cleanup, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import MockAdapter from "axios-mock-adapter";
@@ -10,14 +9,14 @@ import { MessageContext } from "../../contexts/Message";
 import { UserEdit } from "../../containers/UserEdit";
 import { registration } from "../../urls";
 import { UserEditLinkInfo as linkInfo } from "../../formInfo";
+import { el } from "../helpers";
 
 // types
 import { IAuthProviderProps as IProviderProps } from "../../types/test";
 
-const el = screen.getByTestId;
 afterEach(cleanup);
-// ユーザデータ
 
+// ユーザデータ
 const currentUser = {
   id: 1,
   name: "test",
