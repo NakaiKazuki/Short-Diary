@@ -53,11 +53,11 @@ volumes:
       type: none
       o: bind
       device: ./public
-    name: public-data
+    name: public-prod-data
   tmp-prod-data:
     driver: local
     driver_opts:
       type: none
       o: bind
       device: ./tmp
-    name: tmp-data
+    name: tmp-prod-data
