@@ -102,8 +102,6 @@
 
 ## ローカルで使用する場合(Docker を利用して構築。)
 
-Windows / Mac 両 Docker 動作確認済み。
-
 リポジトリを手元にクローンしてください。
 
 ```zsh
@@ -118,7 +116,16 @@ git clone https://github.com/NakaiKazuki/Short-Diary.git
 cd Short-Diary
 ```
 
-その後下記のコマンドでイメージを作成します。
+その後下記のコマンドでイメージを作成します。（docker-compose のバージョンに応じて適切なコマンドを使用してください。）
+
+dokcer-compose v1
+
+```zsh
+#!/bin/zsh
+docker-compose build
+```
+
+dokcer-compose v2
 
 ```zsh
 #!/bin/zsh
@@ -127,12 +134,30 @@ docker compose build
 
 dockerimage 作成後コンテナを起動します。
 
+dokcer-compose v1
+
+```zsh
+#!/bin/zsh
+docker-compose up -d
+```
+
+dokcer-compose v2
+
 ```zsh
 #!/bin/zsh
 docker compose up -d
 ```
 
 下記のコマンドで Rails のコンテナへ入ります。
+
+dokcer-compose v1
+
+```zsh
+#!/bin/zsh
+docker-compose exec api zsh
+```
+
+dokcer-compose v2
 
 ```zsh
 #!/bin/zsh
@@ -154,6 +179,15 @@ exit
 ```
 
 node_modules のインストール完了後、React 側のコンテナへ入ります。
+
+dokcer-compose v1
+
+```zsh
+#!/bin/zsh
+docker-compose exec front zsh
+```
+
+dokcer-compose v2
 
 ```zsh
 #!/bin/zsh
