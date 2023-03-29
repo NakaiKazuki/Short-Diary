@@ -138,7 +138,7 @@ export const UserMenu: FC<IProps> = ({
         data-testid="menuBar"
       >
         <StyledMenuItem data-testid="userEditLink">
-          <MenuItemLink to="/userEdit">
+          <MenuItemLink to="/userEdit" onClick={onMenuClose}>
             <ListItemIcon>
               <EditIcon />
             </ListItemIcon>
