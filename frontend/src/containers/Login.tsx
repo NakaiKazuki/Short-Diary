@@ -1,10 +1,14 @@
 import { FC, useState, useReducer, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import Cookies from "js-cookie";
+import styled from "styled-components";
+
 //contexts
 import { AuthContext } from "../contexts/Auth";
+
+// types
+import { TLinks, IForm } from "../types/containers";
 
 // components
 import {
@@ -20,9 +24,6 @@ import { createSession } from "../apis/users/sessions";
 
 // constants
 import { HTTP_STATUS_CODE } from "../constants";
-
-// forminfo
-import { loginFormInfo, loginLinkInfo } from "../formInfo";
 
 // reducers
 import {
@@ -48,7 +49,7 @@ const LoginWrapper = styled.div`
 // エラーメッセージ
 export const Login: FC = () => {
   const navigate = useNavigate();
-  const [apiErrors, setErrorMessage] = useState<Array<string> | undefined>(
+  const [resultErrors, setErrorMessage] = useState<Array<string> | undefined>(
     undefined
   );
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
@@ -58,7 +59,45 @@ export const Login: FC = () => {
     control,
     formState: { errors },
   } = useForm<IFormValues>();
-  const formInfo = loginFormInfo(errors, apiErrors);
+
+  const formInfo: Pick<IForm, "email" | "password"> = {
+    email: {
+      formLabel: "Email:",
+      errorsProperty: errors.email,
+      errorMessage: "登録したメールアドレスを入力してください",
+      resultErrorProperty: resultErrors,
+      apiMessagePropertyName: "",
+      nameAttribute: "email",
+      typeAttribute: "email",
+      defaultValue: "",
+      autoComplete: "email",
+      autoFocus: true,
+      rules: { required: true, maxLength: 255 },
+    },
+    password: {
+      formLabel: "パスワード: ",
+      errorsProperty: errors.password,
+      errorMessage: "正しいパスワードを入力してください",
+      resultErrorProperty: resultErrors,
+      apiMessagePropertyName: "",
+      nameAttribute: "password",
+      typeAttribute: "password",
+      defaultValue: "",
+      autoComplete: "current-password",
+      autoFocus: false,
+      rules: { required: true, minLength: 6, maxLength: 128 },
+    },
+  };
+
+  // 送信ボタン下にあるリンクの情報
+
+  const linkInfo: TLinks = [
+    {
+      url: "/signup",
+      text: "アカウントが無い方はこちら",
+    },
+  ];
+
   const onSubmit = async (formValues: IFormValues): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
     await createSession({
@@ -104,7 +143,7 @@ export const Login: FC = () => {
           onSubmitText={onSubmitText(submitState.postState, "Login!")}
         />
       </FormWrapper>
-      <FormLinks linkInfo={loginLinkInfo} />
+      <FormLinks linkInfo={linkInfo} />
     </LoginWrapper>
   );
 };

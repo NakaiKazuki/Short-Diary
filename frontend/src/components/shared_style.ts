@@ -16,15 +16,17 @@ const buttonVariants = {
       ease: "easeOut",
     },
   },
-};
+} as const;
 
-export const BaseButton = styled(motion.button).attrs(() => ({
-  variants: buttonVariants,
-  whileHover: "hover",
-  whileTap: "tap",
-  initial: "rest",
-  animate: "rest",
-}))`
+export const BaseButton = styled(motion.button).attrs<typeof buttonVariants>(
+  () => ({
+    variants: buttonVariants,
+    whileHover: "hover",
+    whileTap: "tap",
+    initial: "rest",
+    animate: "rest",
+  })
+)`
   cursor: pointer;
   border-radius: 0.25rem;
   :hover {

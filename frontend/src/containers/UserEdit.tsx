@@ -23,9 +23,6 @@ import { putRegistration } from "../apis/users/registrations";
 // constants
 import { HTTP_STATUS_CODE } from "../constants";
 
-// forminfo
-import { UserEditFormInfo, UserEditLinkInfo } from "../formInfo";
-
 // reducers
 import {
   initialState,
@@ -39,9 +36,10 @@ import { onSubmitText, isDisabled } from "../helpers";
 // types
 import {
   IUsersFormValues as IFormValues,
-  IUsersApiErrors as IApiErrors,
+  IUsersResultErrors as IResultErrors,
+  IUserEditForm as IForm,
+  TLinks,
 } from "../types/containers";
-
 // css
 const UserEditWrapper = styled.div`
   width: 100vw;
@@ -60,17 +58,10 @@ const GuestErrorMessage = styled.p`
 export const UserEdit: FC = () => {
   const navigate = useNavigate();
   const { currentUser, setCurrentUser } = useContext(AuthContext);
-  const [apiErrors, setErrorMessage] = useState<
-    | Pick<
-        IApiErrors,
-        | "name"
-        | "password"
-        | "password_confirmation"
-        | "current_password"
-        | "guest"
-      >
-    | undefined
-  >(undefined);
+
+  const [resultErrors, setErrorMessage] = useState<IResultErrors | undefined>(
+    undefined
+  );
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
   const { setMessage } = useContext(MessageContext);
   const {
@@ -83,8 +74,82 @@ export const UserEdit: FC = () => {
     navigate("../login", { replace: true });
     return null;
   }
+  // UserEditページのフォーム欄を表示するために必要な情報群
+  const formInfo: IForm = {
+    name: {
+      formLabel: "Name:",
+      errorsProperty: errors.name,
+      errorMessage: "1文字以上、50文字以内で入力してください",
+      resultErrorProperty: resultErrors?.name,
+      apiMessagePropertyName: "名前",
+      nameAttribute: "name",
+      typeAttribute: "text",
+      defaultValue: currentUser.name,
+      autoComplete: "username",
+      autoFocus: true,
+      rules: { maxLength: 50 },
+    },
+    email: {
+      formLabel: "Email:",
+      errorsProperty: errors.email,
+      errorMessage: "1文字以上、255文字以内で入力してください",
+      resultErrorProperty: resultErrors?.email,
+      apiMessagePropertyName: "メールアドレス",
+      nameAttribute: "email",
+      typeAttribute: "email",
+      defaultValue: currentUser.email,
+      autoComplete: "email",
+      autoFocus: false,
+      rules: { maxLength: 255 },
+    },
+    password: {
+      formLabel: "新規パスワード: ",
+      errorsProperty: errors.password,
+      errorMessage: "新しいパスワードを入力してください",
+      resultErrorProperty: resultErrors?.password,
+      apiMessagePropertyName: "パスワード",
+      nameAttribute: "password",
+      typeAttribute: "password",
+      defaultValue: "",
+      autoComplete: "new-password",
+      autoFocus: false,
+      rules: { minLength: 6, maxLength: 128 },
+    },
+    password_confirmation: {
+      formLabel: "確認用パスワード:",
+      errorsProperty: errors.password_confirmation,
+      errorMessage: "パスワードと同じ内容を入力してください",
+      resultErrorProperty: resultErrors?.password_confirmation,
+      apiMessagePropertyName: "確認用パスワード",
+      nameAttribute: "password_confirmation",
+      typeAttribute: "password",
+      defaultValue: "",
+      autoComplete: "new-password",
+      autoFocus: false,
+      rules: { minLength: 6, maxLength: 128 },
+    },
+    current_password: {
+      formLabel: "現在使用中のパスワード:",
+      errorsProperty: errors.current_password,
+      errorMessage: "現在使用中のパスワードを入力してください",
+      resultErrorProperty: resultErrors?.current_password,
+      apiMessagePropertyName: "使用中のパスワード",
+      nameAttribute: "current_password",
+      typeAttribute: "password",
+      defaultValue: "",
+      autoComplete: "current-password",
+      autoFocus: false,
+      rules: { required: true, minLength: 6, maxLength: 128 },
+    },
+  };
 
-  const formInfo = UserEditFormInfo(errors, apiErrors, currentUser);
+  // 送信ボタン下にあるリンクの情報
+  const linkInfo: TLinks = [
+    {
+      url: "/",
+      text: "Home",
+    },
+  ];
 
   const onSubmit = async (formValues: IFormValues): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
@@ -129,10 +194,10 @@ export const UserEdit: FC = () => {
       <FormTitle>Profile Edit</FormTitle>
 
       <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="userEditForm">
-        {apiErrors?.guest?.map((message: string, index: number) => (
+        {resultErrors?.guest?.map((message: string, index: number) => (
           <GuestErrorMessage
             key={`guestError-${index}`}
-            data-testid="guestApiError"
+            data-testid="guestResultError"
           >
             {message}
           </GuestErrorMessage>
@@ -152,7 +217,7 @@ export const UserEdit: FC = () => {
           onSubmitText={onSubmitText(submitState.postState, "Profile Edit!")}
         />
       </FormWrapper>
-      <FormLinks linkInfo={UserEditLinkInfo} />
+      <FormLinks linkInfo={linkInfo} />
     </UserEditWrapper>
   );
 };

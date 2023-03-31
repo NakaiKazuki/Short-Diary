@@ -27,10 +27,10 @@ const result = {
 
 const errorResult = {
   errors: {
-    name: ["name ApiError"],
-    email: ["email ApiError"],
-    over_view: ["over_view ApiError"],
-    content: ["cotent ApiError"],
+    name: ["name ResultError"],
+    email: ["email ResultError"],
+    over_view: ["over_view ResultError"],
+    content: ["cotent ResultError"],
   },
 };
 
@@ -183,16 +183,16 @@ describe("Contact", () => {
 
       // 各項目に対応したApiエラーメッセージが表示
       await waitFor(() => {
-        expect(el("nameApiError")).toBeTruthy();
+        expect(el("nameResultError")).toBeTruthy();
       });
       await waitFor(() => {
-        expect(el("emailApiError")).toBeTruthy();
+        expect(el("emailResultError")).toBeTruthy();
       });
       await waitFor(() => {
-        expect(el("overViewApiError")).toBeTruthy();
+        expect(el("overViewResultError")).toBeTruthy();
       });
       await waitFor(() => {
-        expect(el("contentApiError")).toBeTruthy();
+        expect(el("contentResultError")).toBeTruthy();
       });
     });
   });

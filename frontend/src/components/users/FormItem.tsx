@@ -27,10 +27,10 @@ export const FormItem: FC<IProps> = ({ formInfo, control }) => {
             {formInfo.errorMessage}
           </ErrorMessage>
         )}
-        {formInfo.apiErrorProperty?.map((message: string, index: number) => (
+        {formInfo.resultErrorProperty?.map((message: string, index: number) => (
           <ErrorMessage
             key={`${formInfo.nameAttribute}-${index}`}
-            data-testid={`${formInfo.nameAttribute}ApiError`}
+            data-testid={`${formInfo.nameAttribute}ResultError`}
           >
             {`${formInfo.apiMessagePropertyName}${message}`}
           </ErrorMessage>

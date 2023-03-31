@@ -165,7 +165,7 @@ export const LoginHome: FC = () => {
   );
   const initialState: IInitialState = {
     anchorEl: null,
-    apiErrors: undefined,
+    resultErrors: undefined,
     diaries: undefined,
     fetchState: REQUEST_STATE.INITIAL,
     pagy: undefined,
@@ -413,7 +413,7 @@ export const LoginHome: FC = () => {
         if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
           setState({
             ...state,
-            apiErrors: e.response.data.errors,
+            resultErrors: e.response.data.errors,
           });
         } else if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
@@ -441,7 +441,7 @@ export const LoginHome: FC = () => {
     setState({
       ...state,
       isOpenDiaryCreateDialog: false,
-      apiErrors: undefined,
+      resultErrors: undefined,
     });
   };
   // ここまでDiaryCreateDialogで使う関数
@@ -482,7 +482,7 @@ export const LoginHome: FC = () => {
           if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
             setState({
               ...state,
-              apiErrors: e.response.data.errors,
+              resultErrors: e.response.data.errors,
             });
           } else if (
             e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
@@ -652,7 +652,7 @@ export const LoginHome: FC = () => {
       )}
       {state.isOpenDiaryCreateDialog && (
         <DiaryCreateDialog
-          apiErrors={state.apiErrors}
+          resultErrors={state.resultErrors}
           contentCount={watch("content") ? watch("content", "").length : 0}
           control={control}
           dateToday={dateToday()}
@@ -670,7 +670,7 @@ export const LoginHome: FC = () => {
       {state.isOpenDiaryDialog && state.selectedDiary && (
         <DiaryDialog
           anchorEl={state.anchorEl}
-          apiErrors={state.apiErrors}
+          resultErrors={state.resultErrors}
           contentCount={
             watch("content")
               ? watch("content", "").length

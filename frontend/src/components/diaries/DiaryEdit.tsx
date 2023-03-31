@@ -18,7 +18,7 @@ export const DiaryEdit: FC<IProps> = ({
   diary,
   control,
   errors,
-  apiErrors,
+  resultErrors,
   onSubmitText,
   isDisabled,
   contentCount,
@@ -34,7 +34,7 @@ export const DiaryEdit: FC<IProps> = ({
         control={control}
         errors={errors}
         register={register}
-        apiErrors={apiErrors}
+        resultErrors={resultErrors}
         onSubmitText={onSubmitText}
         isDisabled={isDisabled}
         contentCount={contentCount}

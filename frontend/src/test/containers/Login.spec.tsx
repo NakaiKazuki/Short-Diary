@@ -7,11 +7,10 @@ import axios from "axios";
 import { AuthContext } from "../../contexts/Auth";
 import { Login } from "../../containers/Login";
 import { signIn } from "../../urls";
-import { loginLinkInfo as linkInfo } from "../../formInfo";
 import { el } from "../helpers";
 
 // types
-import { IAuthProviderProps as IProviderProps } from "../../types/test";
+import { IAuthProviderProps as IProviderProps, TLinks } from "../../types/test";
 
 afterEach(cleanup);
 
@@ -30,7 +29,7 @@ const result = {
 };
 
 const errorResult = {
-  errors: ["ApiError"],
+  errors: ["ResultError"],
 };
 
 // 正しいForm情報
@@ -42,6 +41,13 @@ const formInfo = [
   {
     testId: "passwordArea",
     value: "testPassword",
+  },
+];
+
+const linkInfo: TLinks = [
+  {
+    url: "/signup",
+    text: "アカウントが無い方はこちら",
   },
 ];
 
@@ -116,10 +122,10 @@ describe("Loginコンポーネント", () => {
 
         // 各項目に対応したApiエラーメッセージが表示
         await waitFor(() => {
-          expect(el(`${idNames[0]}ApiError`)).toBeTruthy();
+          expect(el(`${idNames[0]}ResultError`)).toBeTruthy();
         });
         await waitFor(() => {
-          expect(el(`${idNames[1]}ApiError`)).toBeTruthy();
+          expect(el(`${idNames[1]}ResultError`)).toBeTruthy();
         });
       });
     });

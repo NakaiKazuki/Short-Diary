@@ -8,7 +8,7 @@ interface IErrors {
   movie_source: string;
 }
 
-interface IApiErrors {
+interface IResultErrors {
   date?: Array<string>;
   tag_list?: Array<string>;
   content?: Array<string>;
@@ -30,7 +30,7 @@ export interface IDiaryCreateDialogProps {
   isOpen: boolean;
   control: Control<IFormValues>;
   errors: FieldErrors<IErrors>;
-  apiErrors: IApiErrors | undefined;
+  resultErrors: IResultErrors | undefined;
   onSubmitText: string;
   isDisabled: boolean;
   contentCount: number;
@@ -62,7 +62,7 @@ export interface IDiaryDialogProps {
   isOpenDiaryEdit: boolean;
   control: Control<IFormValues>;
   errors: FieldErrors<IErrors>;
-  apiErrors: IApiErrors | undefined;
+  resultErrors: IResultErrors | undefined;
   onSubmitText: string;
   isDisabled: boolean;
   contentCount: number;
@@ -85,7 +85,7 @@ export interface IDiaryEditProps {
   diary: IDiary;
   control: Control<IFormValues>;
   errors: FieldErrors<IErrors>;
-  apiErrors: IApiErrors | undefined;
+  resultErrors: IResultErrors | undefined;
   onSubmitText: string;
   isDisabled: boolean;
   contentCount: number;
@@ -123,7 +123,7 @@ export interface IDiarySearchDrawerProps {
 export interface IFormAreaProps {
   control: Control<IFormValues>;
   errors: FieldErrors<IErrors>;
-  apiErrors: IApiErrors | undefined;
+  resultErrors: IResultErrors | undefined;
   onSubmitText: string;
   isDisabled: boolean;
   contentCount: number;

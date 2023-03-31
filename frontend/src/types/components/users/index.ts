@@ -10,7 +10,7 @@ interface IFormInfo {
   formLabel: string;
   errorsProperty: FieldError | undefined;
   errorMessage: string;
-  apiErrorProperty: Array<string> | undefined;
+  resultErrorProperty: Array<string> | undefined;
   apiMessagePropertyName: string;
   nameAttribute:
     | "name"
