@@ -25,9 +25,9 @@ export const postRegistration = (
 
 export const putRegistration = (params: IParams): Promise<IResult> => {
   return axios.put(registration, {
-    "access-token": Cookies.get("access-token") || "",
-    client: Cookies.get("client") || "",
-    uid: Cookies.get("uid") || "",
+    "access-token": Cookies.get("access-token") ?? "",
+    client: Cookies.get("client") ?? "",
+    uid: Cookies.get("uid") ?? "",
     name: params.name,
     email: params.email,
     password: params.password,

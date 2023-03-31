@@ -168,6 +168,7 @@ export const FormArea: FC<IProps> = ({
                 </ContentCount>
               }
               inputProps={{
+                "ref": { register },
                 "data-testid": "contentArea",
               }}
               {...field}

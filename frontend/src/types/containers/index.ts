@@ -72,6 +72,7 @@ interface IUserEditObject {
   rules: IUserEditRurles;
 }
 
+type TPicture = Array<{ data: string; name: string }>;
 export interface IContactFormValues {
   name: string;
   email: string;
@@ -120,7 +121,6 @@ export interface IDiary {
   user_id: number;
 }
 
-export type TPicture = Array<{ data: string; name: string }>;
 export interface ILoginHomeFormValues {
   date: string;
   tag_list: string | undefined;

@@ -171,11 +171,11 @@ export const UserEdit: FC = () => {
       })
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
-        if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+        if (e.response?.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
           setErrorMessage(e.response.data.errors);
         } else if (
-          e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
-          e.response.status === HTTP_STATUS_CODE.FORBIDDEN
+          e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
+          e.response?.status === HTTP_STATUS_CODE.FORBIDDEN
         ) {
           setCurrentUser(undefined);
           Cookies.remove("uid");

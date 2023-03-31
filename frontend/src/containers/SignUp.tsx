@@ -148,8 +148,8 @@ export const SignUp: FC = () => {
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
         if (
-          e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
-          e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE
+          e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
+          e.response?.status === HTTP_STATUS_CODE.UNPROCESSABLE
         ) {
           setErrorMessage(e.response.data.errors);
         } else {

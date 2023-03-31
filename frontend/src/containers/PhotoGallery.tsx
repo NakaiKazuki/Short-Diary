@@ -190,7 +190,7 @@ export const PhotoGallery: FC = () => {
         });
       })
       .catch((e): void => {
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+        if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
           Cookies.remove("uid");
           Cookies.remove("client");

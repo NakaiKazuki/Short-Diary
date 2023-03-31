@@ -1,4 +1,4 @@
-import React, { createContext, useState, FC } from "react";
+import { createContext, useState, FC, ReactNode } from "react";
 
 // types
 import { IContactContext as IContext } from "../types/contexts";
@@ -6,7 +6,7 @@ import { IContactContext as IContext } from "../types/contexts";
 export const ContactContext = createContext({} as IContext);
 
 export const ContactProvider: FC<{
-  children: React.ReactNode;
+  children: ReactNode;
 }> = ({ children }): JSX.Element => {
   const [open, setOpenContact] = useState(false);
 

@@ -75,13 +75,14 @@ export const InnerRoute: FC = () => {
           setCurrentUser(res.data.current_user);
         })
         .catch((e): void => {
-          if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
             Cookies.remove("uid");
             Cookies.remove("client");
             Cookies.remove("access-token");
             setCurrentUser(undefined);
           } else {
             console.log(e);
+            throw e;
           }
         });
     }

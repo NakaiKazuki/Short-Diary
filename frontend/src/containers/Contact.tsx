@@ -166,7 +166,7 @@ export const Contact: FC = () => {
               name="name"
               control={control}
               rules={{ required: true, maxLength: 50 }}
-              defaultValue={currentUser ? currentUser.name : "未登録"}
+              defaultValue={currentUser?.name ?? "未登録"}
               shouldUnregister
               render={({ field }) => (
                 <TextField
@@ -201,7 +201,7 @@ export const Contact: FC = () => {
               name="email"
               control={control}
               rules={{ required: true, maxLength: 255 }}
-              defaultValue={currentUser ? currentUser.email : ""}
+              defaultValue={currentUser?.email ?? ""}
               shouldUnregister
               render={({ field }) => (
                 <TextField

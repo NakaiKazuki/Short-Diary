@@ -10,7 +10,7 @@ const Span = styled.span<{ isInView: boolean }>`
 `;
 
 export const AnimatedSection: FC<IProps> = ({ children }) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
   return (
     <Span ref={ref} isInView={isInView} data-testid="animatedSection">
