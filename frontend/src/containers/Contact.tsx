@@ -1,4 +1,4 @@
-import { forwardRef, FC, useContext, useReducer, useState } from "react";
+import { forwardRef, FC, useContext, useReducer, useState, ReactElement, Ref } from "react";
 import styled from "styled-components";
 import { BaseButton } from "../components/shared_style";
 import { TransitionProps } from "@mui/material/transitions";
@@ -71,9 +71,9 @@ const ErrorMessage = styled.p`
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
-    children: React.ReactElement;
+    children: ReactElement;
   },
-  ref: React.Ref<unknown>
+  ref: Ref<unknown>
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });

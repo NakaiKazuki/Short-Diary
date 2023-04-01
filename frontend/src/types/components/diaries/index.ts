@@ -1,4 +1,4 @@
-import React from "react";
+import { ChangeEvent, MouseEvent, ReactEventHandler } from "react";
 import { FieldErrors, UseFormRegister, Control } from "react-hook-form";
 import { YouTubeEvent } from "react-youtube";
 
@@ -38,7 +38,7 @@ export interface IDiaryCreateDialogProps {
   setFileName: string | undefined;
   register: UseFormRegister<IFormValues>;
   onSubmit(): void;
-  onFileChange(e: React.ChangeEvent<HTMLInputElement>): void;
+  onFileChange(e: ChangeEvent<HTMLInputElement>): void;
   onClose(): void;
 }
 
@@ -74,9 +74,9 @@ export interface IDiaryDialogProps {
   onOpenCofirmationDialog(): void;
   onDiaryEditMode(): void;
   onDiaryShowMode(): void;
-  onFileChange(e: React.ChangeEvent<HTMLInputElement>): void;
+  onFileChange(e: ChangeEvent<HTMLInputElement>): void;
   onClose(): void;
-  onMenuOpen(e: React.MouseEvent<HTMLElement>): void;
+  onMenuOpen(e: MouseEvent<HTMLElement>): void;
   onMenuClose(): void;
   onPlayerReady(e: YouTubeEvent<HTMLElement>): void;
 }
@@ -92,7 +92,7 @@ export interface IDiaryEditProps {
   setFileName: string | undefined;
   register: UseFormRegister<IFormValues>;
   onEditSubmit(): void;
-  onFileChange(e: React.ChangeEvent<HTMLInputElement>): void;
+  onFileChange(e: ChangeEvent<HTMLInputElement>): void;
 }
 
 export interface IDiariesProps {
@@ -103,7 +103,7 @@ export interface IDiariesProps {
 export interface IDiaryMenuProps {
   anchorEl: HTMLElement | null;
   isOpenDiaryEdit: boolean;
-  onMenuOpen(e: React.MouseEvent<HTMLElement>): void;
+  onMenuOpen(e: MouseEvent<HTMLElement>): void;
   onMenuClose(): void;
   onOpenCofirmationDialog(): void;
   onDiaryEditMode(): void;
@@ -114,7 +114,7 @@ export interface IDiarySearchDrawerProps {
   control: Control<IFormValues>;
   selectedDate: null | Date;
   isOpenDrawer: boolean;
-  onOpenButton(open: boolean): React.ReactEventHandler;
+  onOpenButton(open: boolean): ReactEventHandler;
   onClearButton(): void;
   onDateChange(date: Date | null): void;
   onSubmit(): void;
@@ -134,5 +134,5 @@ export interface IFormAreaProps {
   setFileName: string | undefined;
   register: UseFormRegister<IFormValues>;
   onSubmit(): void;
-  onFileChange(e: React.ChangeEvent<HTMLInputElement>): void;
+  onFileChange(e: ChangeEvent<HTMLInputElement>): void;
 }

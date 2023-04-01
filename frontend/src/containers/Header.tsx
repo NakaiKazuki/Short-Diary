@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState, Fragment } from "react";
+import { FC, useContext, useState, Fragment, MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Toolbar } from "@material-ui/core";
 import Cookies from "js-cookie";
@@ -94,7 +94,7 @@ export const Header: FC = () => {
           <UserMenu
             anchorEl={anchorEl}
             userName={currentUser.name}
-            onMenuOpen={(e: React.MouseEvent<HTMLElement>): void =>
+            onMenuOpen={(e: MouseEvent<HTMLElement>): void =>
               setAnchorEl(e.currentTarget)
             }
             onMenuClose={(): void => setAnchorEl(null)}

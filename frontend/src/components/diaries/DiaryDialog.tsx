@@ -112,12 +112,12 @@ export const DiaryDialog: FC<IProps> = ({
           diary={diary}
           control={control}
           errors={errors}
-          register={register}
           resultErrors={resultErrors}
           onSubmitText={onSubmitText}
           isDisabled={isDisabled}
           contentCount={contentCount}
           setFileName={setFileName}
+          register={register}
           onEditSubmit={onEditSubmit}
           onFileChange={onFileChange}
         />

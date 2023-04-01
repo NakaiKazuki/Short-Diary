@@ -6,6 +6,7 @@ import React, {
   useContext,
   useReducer,
   useRef,
+  ChangeEvent
 } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -365,7 +366,7 @@ export const LoginHome: FC = () => {
   const setFileName = (): string => watch("picture")?.[0]?.name.slice(0, 20) ?? "画像を選択する";
 
   // fileをbase64にエンコード
-  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const onFileChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const file = e.target?.files?.[0] as IFile;
     if (!file) return;
     const reader = new FileReader();
@@ -566,7 +567,7 @@ export const LoginHome: FC = () => {
   };
 
   // メニューバーを開く
-  const onMenuOpen = (e: React.MouseEvent<HTMLElement>): void => {
+  const onMenuOpen = (e: MouseEvent<HTMLElement>): void => {
     setState({
       ...state,
       anchorEl: e.currentTarget,

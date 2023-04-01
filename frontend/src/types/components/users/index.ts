@@ -1,3 +1,4 @@
+import { MouseEvent } from "react";
 import { FieldError, Control } from "react-hook-form";
 
 interface IRurles {
@@ -55,7 +56,7 @@ export interface IFormSubmit {
 export interface IUserMenuProps {
   anchorEl: HTMLElement | null;
   userName: string;
-  onMenuOpen(e: React.MouseEvent<HTMLElement>): void;
+  onMenuOpen(e: MouseEvent<HTMLElement>): void;
   onMenuClose(): void;
   onSignOut(): void;
 }
