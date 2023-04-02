@@ -2,7 +2,9 @@ import { FC, useContext, useReducer } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import ImageGallery from "react-image-gallery";
 import Cookies from "js-cookie";
+import { motion } from "framer-motion";
 import styled from "styled-components";
+
 //contexts
 import { AuthContext } from "../contexts/Auth";
 
@@ -59,9 +61,10 @@ const LeftWrapper = styled.div`
   }
 `;
 
-const Content = styled.div`
+const Content = styled(motion.div)`
   margin-top: 21vh;
   display: inline-block;
+  clip-path: circle(0% at 0 0);
   @media screen and (min-width: 481px) {
     margin-left: 10vw;
   }
@@ -268,15 +271,28 @@ const CustomGallery = styled.div`
     }
   }
 `;
+
+const variants = {
+  open: {
+    clipPath: "circle(150% at 0 0)",
+    transition: {
+      type: "spring",
+      stiffness: 13,
+      restDelta: 4,
+    },
+  },
+};
+
+const items = [
+  { original: diaryPicture, originalHeight: 768, originalWidth: 768 },
+  { original: diaryCreatePicture, originalHeight: 768, originalWidth: 768 },
+  { original: Gallery1Picture, originalHeight: 768, originalWidth: 768 },
+];
+
 export const LogoutHome: FC = () => {
   const { setCurrentUser } = useContext(AuthContext);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
   const navigate = useNavigate();
-  const items = [
-    { original: diaryPicture, originalHeight: 768, originalWidth: 768 },
-    { original: diaryCreatePicture, originalHeight: 768, originalWidth: 768 },
-    { original: Gallery1Picture, originalHeight: 768, originalWidth: 768 },
-  ];
 
   const onGuestLoginButton = async (): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
@@ -301,7 +317,7 @@ export const LogoutHome: FC = () => {
   return (
     <LogoutHomeWrapper>
       <LeftWrapper data-testid="leftHome">
-        <Content>
+        <Content variants={variants} animate="open">
           <Heading>毎日の出来事を記録しよう</Heading>
           <Paragraph>
             日記を付けたいけど、文章を書くのは面倒だと思ったことはありませんか？

@@ -58,7 +58,7 @@ const LinkItem = styled(BaseButton)`
 export const Header: FC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const { setOpenDrawer } = useContext(DrawerContext);
+  const { open, setOpenDrawer } = useContext(DrawerContext);
 
   // ユーザのログアウト処理
   const onSignOut = async (): Promise<void> => {
@@ -81,7 +81,7 @@ export const Header: FC = () => {
       <Toolbar>
         {currentUser && (
           <MenuIconWrapper
-            onClick={(): void => setOpenDrawer(true)}
+            onClick={(): void => setOpenDrawer(!open)}
             data-testid="menuIcon"
           >
             <MenuIcon />

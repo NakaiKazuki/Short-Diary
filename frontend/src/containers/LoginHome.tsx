@@ -6,7 +6,8 @@ import React, {
   useContext,
   useReducer,
   useRef,
-  ChangeEvent
+  ChangeEvent,
+  MouseEvent,
 } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -363,7 +364,8 @@ export const LoginHome: FC = () => {
 
   // ここからDiaryCreateDialogとDiaryEditで共通して使う関数
   // DiaryCreateDialogで選択されたfile名を返す
-  const setFileName = (): string => watch("picture")?.[0]?.name.slice(0, 20) ?? "画像を選択する";
+  const setFileName = (): string =>
+    watch("picture")?.[0]?.name.slice(0, 20) ?? "画像を選択する";
 
   // fileをbase64にエンコード
   const onFileChange = (e: ChangeEvent<HTMLInputElement>): void => {
