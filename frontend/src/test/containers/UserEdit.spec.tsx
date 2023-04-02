@@ -8,11 +8,10 @@ import { AuthContext } from "../../contexts/Auth";
 import { MessageContext } from "../../contexts/Message";
 import { UserEdit } from "../../containers/UserEdit";
 import { registration } from "../../urls";
-import { UserEditLinkInfo as linkInfo } from "../../formInfo";
 import { el } from "../helpers";
 
 // types
-import { IAuthProviderProps as IProviderProps } from "../../types/test";
+import { IAuthProviderProps as IProviderProps, TLinks } from "../../types/test";
 
 afterEach(cleanup);
 
@@ -61,14 +60,22 @@ const formInfo = [
   },
 ];
 
+// 送信ボタン下にあるリンクの情報
+const linkInfo: TLinks = [
+  {
+    url: "/",
+    text: "Home",
+  },
+];
+
 const errorResult = {
   errors: {
-    guest: ["guest ApiError"],
-    name: ["name ApiError"],
-    email: ["email ApiError"],
-    password: ["password ApiError"],
-    password_confirmation: ["password_confirmation ApiError"],
-    current_password: ["current_password ApiError"],
+    guest: ["guest ResultError"],
+    name: ["name ResultError"],
+    email: ["email ResultError"],
+    password: ["password ResultError"],
+    password_confirmation: ["password_confirmation ResultError"],
+    current_password: ["current_password ResultError"],
   },
 };
 
@@ -161,19 +168,19 @@ describe("UserEditコンポーネント", () => {
         await userEvent.click(el("formSubmit"));
         // 各項目に対応したApiからのエラーメッセージが表示
         await waitFor(() => {
-          expect(el(`${idNames[0]}ApiError`)).toBeTruthy();
+          expect(el(`${idNames[0]}ResultError`)).toBeTruthy();
         });
         await waitFor(() => {
-          expect(el(`${idNames[1]}ApiError`)).toBeTruthy();
+          expect(el(`${idNames[1]}ResultError`)).toBeTruthy();
         });
         await waitFor(() => {
-          expect(el(`${idNames[2]}ApiError`)).toBeTruthy();
+          expect(el(`${idNames[2]}ResultError`)).toBeTruthy();
         });
         await waitFor(() => {
-          expect(el(`${idNames[3]}ApiError`)).toBeTruthy();
+          expect(el(`${idNames[3]}ResultError`)).toBeTruthy();
         });
         await waitFor(() => {
-          expect(el(`${idNames[4]}ApiError`)).toBeTruthy();
+          expect(el(`${idNames[4]}ResultError`)).toBeTruthy();
         });
       });
 
@@ -190,7 +197,7 @@ describe("UserEditコンポーネント", () => {
 
         // ゲストエラーの項目にメッセージが表示
         await waitFor(() => {
-          expect(el(`${guestIdNames[0]}ApiError`)).toBeTruthy();
+          expect(el(`${guestIdNames[0]}ResultError`)).toBeTruthy();
         });
       });
     });

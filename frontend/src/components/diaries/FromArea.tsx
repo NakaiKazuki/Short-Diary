@@ -67,7 +67,7 @@ const InputPictureArea = styled.input`
 export const FormArea: FC<IProps> = ({
   control,
   errors,
-  apiErrors,
+  resultErrors,
   onSubmitText,
   isDisabled,
   contentCount,
@@ -83,10 +83,10 @@ export const FormArea: FC<IProps> = ({
   return (
     <FormWrapper onSubmit={onSubmit} data-testid="diaryForm">
       <FormItemWrapper data-testid="FormItem-date">
-        {apiErrors?.date?.map((message: string, index: number) => (
+        {resultErrors?.date?.map((message: string, index: number) => (
           <ErrorMessage
             key={`date-${index}`}
-            data-testid="dateApiError"
+            data-testid="dateResultError"
           >{`日付${message}`}</ErrorMessage>
         ))}
         <Controller
@@ -109,10 +109,10 @@ export const FormArea: FC<IProps> = ({
       </FormItemWrapper>
 
       <FormItemWrapper data-testid="FormItem-tag_list">
-        {apiErrors?.tag_list?.map((message: string, index: number) => (
+        {resultErrors?.tag_list?.map((message: string, index: number) => (
           <ErrorMessage
             key={`tag_list-${index}`}
-            data-testid="tag_listApiError"
+            data-testid="tag_listResultError"
           >{`タグ${message}`}</ErrorMessage>
         ))}
         <Controller
@@ -141,10 +141,10 @@ export const FormArea: FC<IProps> = ({
             1文字以上、200文字以内で入力してください
           </ErrorMessage>
         )}
-        {apiErrors?.content?.map((message: string, index: number) => (
+        {resultErrors?.content?.map((message: string, index: number) => (
           <ErrorMessage
             key={`content-${index}`}
-            data-testid="contentApiError"
+            data-testid="contentResultError"
           >{`日記内容${message}`}</ErrorMessage>
         ))}
         <Controller
@@ -168,6 +168,7 @@ export const FormArea: FC<IProps> = ({
                 </ContentCount>
               }
               inputProps={{
+                ref: { register },
                 "data-testid": "contentArea",
               }}
               {...field}
@@ -182,10 +183,10 @@ export const FormArea: FC<IProps> = ({
             255文字以内で入力してください
           </ErrorMessage>
         )}
-        {apiErrors?.movie_source?.map((message: string, index: number) => (
+        {resultErrors?.movie_source?.map((message: string, index: number) => (
           <ErrorMessage
             key={`movie_source-${index}`}
-            data-testid="movie_sourceApiError"
+            data-testid="movie_sourceResultError"
           >{`動画URL${message}`}</ErrorMessage>
         ))}
         <Controller
@@ -210,10 +211,10 @@ export const FormArea: FC<IProps> = ({
       </FormItemWrapper>
 
       <FormItemWrapper data-testid="FormItem-picture">
-        {apiErrors?.picture?.map((message: string, index: number) => (
+        {resultErrors?.picture?.map((message: string, index: number) => (
           <ErrorMessage
             key={`picture-${index}`}
-            data-testid="pictureApiError"
+            data-testid="pictureResultError"
           >{`画像${message}`}</ErrorMessage>
         ))}
         <Picture>

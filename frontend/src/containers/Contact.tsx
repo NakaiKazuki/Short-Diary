@@ -1,4 +1,12 @@
-import { forwardRef, FC, useContext, useReducer, useState } from "react";
+import {
+  forwardRef,
+  FC,
+  useContext,
+  useReducer,
+  useState,
+  ReactElement,
+  Ref,
+} from "react";
 import styled from "styled-components";
 import { BaseButton } from "../components/shared_style";
 import { TransitionProps } from "@mui/material/transitions";
@@ -37,7 +45,7 @@ import { HTTP_STATUS_CODE } from "../constants";
 
 // types
 import {
-  IContactApiErrors as IApiErrors,
+  IContactResultErrors as IResultErrors,
   IContactFormValues as IFormValues,
 } from "../types/containers";
 
@@ -71,9 +79,9 @@ const ErrorMessage = styled.p`
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
-    children: React.ReactElement;
+    children: ReactElement;
   },
-  ref: React.Ref<unknown>
+  ref: Ref<unknown>
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -82,7 +90,7 @@ export const Contact: FC = () => {
   const { open, setOpenContact } = useContext(ContactContext);
   const { currentUser } = useContext(AuthContext);
   const { setMessage } = useContext(MessageContext);
-  const [apiErrors, setApiError] = useState<null | IApiErrors>(null);
+  const [resultErrors, setResultError] = useState<null | IResultErrors>(null);
   const [submitState, dispatch] = useReducer(
     submitReducer,
     reducerInitialState
@@ -111,12 +119,12 @@ export const Contact: FC = () => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
         setOpenContact(false);
         setMessage(data.message);
-        setApiError(null);
+        setResultError(null);
       })
       .catch((e): void => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
         if (e.response?.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
-          setApiError(e.response.data.errors);
+          setResultError(e.response.data.errors);
         } else {
           console.error(e);
           throw e;
@@ -151,10 +159,10 @@ export const Contact: FC = () => {
         <FormItemWrapper>
           <InputLabel>
             Name
-            {apiErrors?.name?.map((message: string, index: number) => (
+            {resultErrors?.name?.map((message: string, index: number) => (
               <ErrorMessage
                 key={`name-${index}`}
-                data-testid="nameApiError"
+                data-testid="nameResultError"
               >{`名前${message}`}</ErrorMessage>
             ))}
             {errors.name && (
@@ -166,7 +174,7 @@ export const Contact: FC = () => {
               name="name"
               control={control}
               rules={{ required: true, maxLength: 50 }}
-              defaultValue={currentUser ? currentUser.name : "未登録"}
+              defaultValue={currentUser?.name ?? "未登録"}
               shouldUnregister
               render={({ field }) => (
                 <TextField
@@ -186,10 +194,10 @@ export const Contact: FC = () => {
         <FormItemWrapper>
           <InputLabel>
             Email
-            {apiErrors?.email?.map((message: string, index: number) => (
+            {resultErrors?.email?.map((message: string, index: number) => (
               <ErrorMessage
                 key={`email-${index}`}
-                data-testid="emailApiError"
+                data-testid="emailResultError"
               >{`メールアドレス${message}`}</ErrorMessage>
             ))}
             {errors.email && (
@@ -201,7 +209,7 @@ export const Contact: FC = () => {
               name="email"
               control={control}
               rules={{ required: true, maxLength: 255 }}
-              defaultValue={currentUser ? currentUser.email : ""}
+              defaultValue={currentUser?.email ?? ""}
               shouldUnregister
               render={({ field }) => (
                 <TextField
@@ -222,10 +230,10 @@ export const Contact: FC = () => {
         <FormItemWrapper>
           <InputLabel>
             概要
-            {apiErrors?.over_view?.map((message: string, index: number) => (
+            {resultErrors?.over_view?.map((message: string, index: number) => (
               <ErrorMessage
                 key={`over_view-${index}`}
-                data-testid="overViewApiError"
+                data-testid="overViewResultError"
               >{`概要${message}`}</ErrorMessage>
             ))}
             {errors.overView && (
@@ -259,10 +267,10 @@ export const Contact: FC = () => {
         <FormItemWrapper>
           <InputLabel>
             お問い合わせ内容
-            {apiErrors?.content?.map((message: string, index: number) => (
+            {resultErrors?.content?.map((message: string, index: number) => (
               <ErrorMessage
                 key={`content-${index}`}
-                data-testid="contentApiError"
+                data-testid="contentResultError"
               >{`問い合わせ内容${message}`}</ErrorMessage>
             ))}
             {errors.content && (

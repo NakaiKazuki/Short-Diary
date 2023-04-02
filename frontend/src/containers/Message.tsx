@@ -23,18 +23,15 @@ const TextWrapper = styled.p`
 const MESSAGE_DISPLAY_TIME = 10000;
 export const Message: FC = () => {
   const { message, setMessage } = useContext(MessageContext);
-
-  useEffect((): (() => void) | undefined => {
-    if (message) {
-      const timeoutId = setTimeout(
-        () => setMessage(undefined),
-        MESSAGE_DISPLAY_TIME
-      );
-      return () => clearTimeout(timeoutId);
-    }
-  }, [message, setMessage]);
-
   if (!message) return null;
+
+  useEffect(() => {
+    const timeoutId = setTimeout(
+      () => setMessage(undefined),
+      MESSAGE_DISPLAY_TIME
+    );
+    return () => clearTimeout(timeoutId);
+  }, [message, setMessage]);
 
   return (
     <MessageWrapper data-testid="message">

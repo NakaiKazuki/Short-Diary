@@ -57,11 +57,11 @@ const result = {
 // Apiから返ってくるエラーデータ
 const resultError = {
   errors: {
-    date: ["date ApiError"],
-    content: ["cotent ApiError"],
-    picture: ["picture ApiError"],
-    movie_source: ["movie_source ApiError"],
-    tag_list: ["tag_list ApiError"],
+    date: ["date ResultError"],
+    content: ["cotent ResultError"],
+    picture: ["picture ResultError"],
+    movie_source: ["movie_source ResultError"],
+    tag_list: ["tag_list ResultError"],
   },
 };
 
@@ -245,28 +245,28 @@ describe("LoginHome", () => {
         // 各項目に対応したApiからのエラーメッセージが表示
         await waitFor(() =>
           expect(el(`FormItem-${idNames[0]}`)).toContainElement(
-            el(`${idNames[0]}ApiError`)
+            el(`${idNames[0]}ResultError`)
           )
         );
         await waitFor(() =>
           expect(el(`FormItem-${idNames[1]}`)).toContainElement(
-            el(`${idNames[1]}ApiError`)
+            el(`${idNames[1]}ResultError`)
           )
         );
         await waitFor(() =>
           expect(el(`FormItem-${idNames[2]}`)).toContainElement(
-            el(`${idNames[2]}ApiError`)
+            el(`${idNames[2]}ResultError`)
           )
         );
         await waitFor(() =>
           expect(el(`FormItem-${idNames[3]}`)).toContainElement(
-            el(`${idNames[3]}ApiError`)
+            el(`${idNames[3]}ResultError`)
           )
         );
 
         await waitFor(() =>
           expect(el(`FormItem-${idNames[4]}`)).toContainElement(
-            el(`${idNames[4]}ApiError`)
+            el(`${idNames[4]}ResultError`)
           )
         );
       });
@@ -462,27 +462,27 @@ describe("LoginHome", () => {
         // 各項目に対応したApiからのエラーメッセージが表示
         await waitFor(() =>
           expect(el(`FormItem-${idNames[0]}`)).toContainElement(
-            el(`${idNames[0]}ApiError`)
+            el(`${idNames[0]}ResultError`)
           )
         );
         await waitFor(() =>
           expect(el(`FormItem-${idNames[1]}`)).toContainElement(
-            el(`${idNames[1]}ApiError`)
+            el(`${idNames[1]}ResultError`)
           )
         );
         await waitFor(() =>
           expect(el(`FormItem-${idNames[2]}`)).toContainElement(
-            el(`${idNames[2]}ApiError`)
+            el(`${idNames[2]}ResultError`)
           )
         );
         await waitFor(() =>
           expect(el(`FormItem-${idNames[3]}`)).toContainElement(
-            el(`${idNames[3]}ApiError`)
+            el(`${idNames[3]}ResultError`)
           )
         );
         await waitFor(() =>
           expect(el(`FormItem-${idNames[4]}`)).toContainElement(
-            el(`${idNames[4]}ApiError`)
+            el(`${idNames[4]}ResultError`)
           )
         );
       });

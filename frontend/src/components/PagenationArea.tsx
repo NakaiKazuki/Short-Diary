@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC, ChangeEvent } from "react";
 import { Pagination } from "@material-ui/lab";
 import styled from "styled-components";
 // types
@@ -23,7 +23,7 @@ export const PagenationArea: FC<IProps> = ({ pagy, onPageChange }) => {
         count={pagy.pages}
         color="primary"
         page={pagy.page}
-        onChange={(_e: React.ChangeEvent<unknown>, page: number) =>
+        onChange={(_e: ChangeEvent<unknown>, page: number) =>
           onPageChange(page)
         }
         data-testid={"pagenationBar"}

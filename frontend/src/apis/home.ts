@@ -11,9 +11,9 @@ export const fetchHome = (
   return axios
     .get(home, {
       headers: {
-        "access-token": Cookies.get("access-token") || "",
-        client: Cookies.get("client") || "",
-        uid: Cookies.get("uid") || "",
+        "access-token": Cookies.get("access-token") ?? "",
+        client: Cookies.get("client") ?? "",
+        uid: Cookies.get("uid") ?? "",
       },
       params: { content_or_date_cont: searchWord },
     })
@@ -27,9 +27,9 @@ export const getDiaries = (
   return axios
     .get(home, {
       headers: {
-        "access-token": Cookies.get("access-token") || "",
-        client: Cookies.get("client") || "",
-        uid: Cookies.get("uid") || "",
+        "access-token": Cookies.get("access-token") ?? "",
+        client: Cookies.get("client") ?? "",
+        uid: Cookies.get("uid") ?? "",
       },
       params: { content_or_date_cont: searchWord, page: page },
     })

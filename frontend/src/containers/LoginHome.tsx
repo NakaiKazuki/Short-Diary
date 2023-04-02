@@ -6,6 +6,8 @@ import React, {
   useContext,
   useReducer,
   useRef,
+  ChangeEvent,
+  MouseEvent,
 } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -55,7 +57,6 @@ import {
   IDiary,
   ISearchFormValue,
   IFile,
-  TPicture,
 } from "../types/containers";
 
 // css
@@ -165,7 +166,7 @@ export const LoginHome: FC = () => {
   );
   const initialState: IInitialState = {
     anchorEl: null,
-    apiErrors: undefined,
+    resultErrors: undefined,
     diaries: undefined,
     fetchState: REQUEST_STATE.INITIAL,
     pagy: undefined,
@@ -197,7 +198,7 @@ export const LoginHome: FC = () => {
         });
       })
       .catch((e): void => {
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+        if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           Cookies.remove("uid");
           Cookies.remove("client");
           Cookies.remove("access-token");
@@ -225,7 +226,7 @@ export const LoginHome: FC = () => {
         scrollIndexTopRef?.current?.scrollIntoView();
       })
       .catch((e) => {
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+        if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
           Cookies.remove("uid");
           Cookies.remove("client");
@@ -248,19 +249,17 @@ export const LoginHome: FC = () => {
     });
   };
   // 日付を指定して検索する場合に使用
-  const convertDate = (selectedDate: Date) => {
-    if (selectedDate) {
-      const dateTime = new Date(new Date(selectedDate).toLocaleString("ja"));
-      const date = new Date(
-        dateTime.getFullYear(),
-        dateTime.getMonth(),
-        dateTime.getDate(),
-        9,
-        0,
-        0
-      );
-      return date;
-    }
+  const convertDate = (selectedDate: Date): Date | undefined => {
+    if (!selectedDate) return undefined;
+    const dateTime = new Date(new Date(selectedDate).toLocaleString("ja"));
+    return new Date(
+      dateTime.getFullYear(),
+      dateTime.getMonth(),
+      dateTime.getDate(),
+      9,
+      0,
+      0
+    );
   };
 
   const onDateChange = async (selectedDate: null | Date): Promise<void> => {
@@ -278,7 +277,7 @@ export const LoginHome: FC = () => {
         reset({ searchWord: "" });
       })
       .catch((e): void => {
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+        if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
           Cookies.remove("uid");
           Cookies.remove("client");
@@ -309,7 +308,7 @@ export const LoginHome: FC = () => {
         console.log(data);
       })
       .catch((e): void => {
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+        if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
           Cookies.remove("uid");
           Cookies.remove("client");
@@ -338,7 +337,7 @@ export const LoginHome: FC = () => {
         reset({ searchWord: "" });
       })
       .catch((e): void => {
-        if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+        if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
           Cookies.remove("uid");
           Cookies.remove("client");
@@ -365,24 +364,16 @@ export const LoginHome: FC = () => {
 
   // ここからDiaryCreateDialogとDiaryEditで共通して使う関数
   // DiaryCreateDialogで選択されたfile名を返す
-  const setFileName = (): string => {
-    const InputPicture: TPicture | undefined = watch("picture");
-    if (InputPicture && InputPicture[0] != null) {
-      return InputPicture[0].name.slice(0, 20);
-    } else {
-      return "画像を選択する";
-    }
-  };
+  const setFileName = (): string =>
+    watch("picture")?.[0]?.name.slice(0, 20) ?? "画像を選択する";
 
   // fileをbase64にエンコード
-  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const target = e.target as HTMLInputElement;
-    if (target.files?.[0]) {
-      const file = target.files[0] as IFile;
-      const reader = new FileReader();
-      reader.onload = () => (file.data = reader.result);
-      reader.readAsDataURL(file);
-    }
+  const onFileChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const file = e.target?.files?.[0] as IFile;
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => (file.data = reader.result);
+    reader.readAsDataURL(file);
   };
   // ここまでDiaryCreateDialogとDiaryEditで共通して使うやつ
 
@@ -392,12 +383,10 @@ export const LoginHome: FC = () => {
     dispatch({ type: submitActionTypes.POSTING });
     await createDiary({
       date: formValues.date,
-      tag_list: formValues.tag_list ? formValues.tag_list.trim() : undefined,
+      tag_list: formValues.tag_list?.trim() || undefined,
       content: formValues.content,
-      movie_source: formValues.movie_source
-        ? formValues.movie_source
-        : undefined,
-      picture: formValues.picture ? formValues.picture[0] : undefined,
+      picture: formValues.picture?.[0],
+      movie_source: formValues.movie_source || undefined,
     })
       .then((data): void => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
@@ -410,12 +399,12 @@ export const LoginHome: FC = () => {
       })
       .catch((e): void => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
-        if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+        if (e.response?.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
           setState({
             ...state,
-            apiErrors: e.response.data.errors,
+            resultErrors: e.response?.data.errors,
           });
-        } else if (e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+        } else if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
           Cookies.remove("uid");
           Cookies.remove("client");
@@ -441,7 +430,7 @@ export const LoginHome: FC = () => {
     setState({
       ...state,
       isOpenDiaryCreateDialog: false,
-      apiErrors: undefined,
+      resultErrors: undefined,
     });
   };
   // ここまでDiaryCreateDialogで使う関数
@@ -454,14 +443,10 @@ export const LoginHome: FC = () => {
       (await updateDiary(
         {
           date: formValues.date,
-          tag_list: formValues.tag_list
-            ? formValues.tag_list.trim()
-            : undefined,
+          tag_list: formValues.tag_list?.trim() || undefined,
           content: formValues.content,
-          picture: formValues.picture ? formValues.picture[0] : undefined,
-          movie_source: formValues.movie_source
-            ? formValues.movie_source
-            : undefined,
+          picture: formValues.picture?.[0],
+          movie_source: formValues.movie_source || undefined,
         },
         state.pagy.page,
         state.selectedDiary.id
@@ -479,14 +464,14 @@ export const LoginHome: FC = () => {
         })
         .catch((e): void => {
           dispatch({ type: submitActionTypes.POST_INITIAL });
-          if (e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
+          if (e.response?.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
             setState({
               ...state,
-              apiErrors: e.response.data.errors,
+              resultErrors: e.response?.data.errors,
             });
           } else if (
-            e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
-            e.response.status === HTTP_STATUS_CODE.FORBIDDEN
+            e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
+            e.response?.status === HTTP_STATUS_CODE.FORBIDDEN
           ) {
             setCurrentUser(undefined);
             Cookies.remove("uid");
@@ -535,34 +520,34 @@ export const LoginHome: FC = () => {
 
   // DiaryDialogで開かれている日記データを削除
   const onDiaryDelete = async (diary: IDiary): Promise<void> => {
-    state.pagy &&
-      (await deleteDiary(state.pagy.page, diary.id)
-        .then((data): void => {
-          setState({
-            ...state,
-            diaries: data.diaries,
-            pagy: data.pagy,
-            isOpenConfirmDialog: false,
-            isOpenDiaryEdit: false,
-            isOpenDiaryDialog: false,
-            selectedDate: null,
-          });
-        })
-        .catch((e): void => {
-          if (
-            e.response.status === HTTP_STATUS_CODE.FORBIDDEN ||
-            e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED
-          ) {
-            setCurrentUser(undefined);
-            Cookies.remove("uid");
-            Cookies.remove("client");
-            Cookies.remove("access-token");
-            navigate("/login", { replace: true });
-          } else {
-            console.error(e);
-            throw e;
-          }
-        }));
+    if (!state.pagy) return;
+    await deleteDiary(state.pagy.page, diary.id)
+      .then((data): void => {
+        setState({
+          ...state,
+          diaries: data.diaries,
+          pagy: data.pagy,
+          isOpenConfirmDialog: false,
+          isOpenDiaryEdit: false,
+          isOpenDiaryDialog: false,
+          selectedDate: null,
+        });
+      })
+      .catch((e): void => {
+        if (
+          e.response?.status === HTTP_STATUS_CODE.FORBIDDEN ||
+          e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED
+        ) {
+          setCurrentUser(undefined);
+          Cookies.remove("uid");
+          Cookies.remove("client");
+          Cookies.remove("access-token");
+          navigate("/login", { replace: true });
+        } else {
+          console.error(e);
+          throw e;
+        }
+      });
   };
 
   // Dialogの内容を閲覧用に変更する
@@ -584,7 +569,7 @@ export const LoginHome: FC = () => {
   };
 
   // メニューバーを開く
-  const onMenuOpen = (e: React.MouseEvent<HTMLElement>): void => {
+  const onMenuOpen = (e: MouseEvent<HTMLElement>): void => {
     setState({
       ...state,
       anchorEl: e.currentTarget,
@@ -652,8 +637,8 @@ export const LoginHome: FC = () => {
       )}
       {state.isOpenDiaryCreateDialog && (
         <DiaryCreateDialog
-          apiErrors={state.apiErrors}
-          contentCount={watch("content") ? watch("content", "").length : 0}
+          resultErrors={state.resultErrors}
+          contentCount={watch("content", "").length || 0}
           control={control}
           dateToday={dateToday()}
           errors={errors}
@@ -670,7 +655,7 @@ export const LoginHome: FC = () => {
       {state.isOpenDiaryDialog && state.selectedDiary && (
         <DiaryDialog
           anchorEl={state.anchorEl}
-          apiErrors={state.apiErrors}
+          resultErrors={state.resultErrors}
           contentCount={
             watch("content")
               ? watch("content", "").length

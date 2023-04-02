@@ -18,7 +18,7 @@ export const DiaryCreateDialog: FC<IProps> = ({
   isOpen,
   control,
   errors,
-  apiErrors,
+  resultErrors,
   onSubmitText,
   isDisabled,
   contentCount,
@@ -42,7 +42,7 @@ export const DiaryCreateDialog: FC<IProps> = ({
         control={control}
         errors={errors}
         register={register}
-        apiErrors={apiErrors}
+        resultErrors={resultErrors}
         onSubmitText={onSubmitText}
         isDisabled={isDisabled}
         contentCount={contentCount}

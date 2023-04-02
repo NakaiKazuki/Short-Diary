@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState, Fragment } from "react";
+import { FC, useContext, useState, Fragment, MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Toolbar } from "@material-ui/core";
 import Cookies from "js-cookie";
@@ -58,7 +58,7 @@ const LinkItem = styled(BaseButton)`
 export const Header: FC = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const { setOpenDrawer } = useContext(DrawerContext);
+  const { open, setOpenDrawer } = useContext(DrawerContext);
 
   // ユーザのログアウト処理
   const onSignOut = async (): Promise<void> => {
@@ -81,7 +81,7 @@ export const Header: FC = () => {
       <Toolbar>
         {currentUser && (
           <MenuIconWrapper
-            onClick={(): void => setOpenDrawer(true)}
+            onClick={(): void => setOpenDrawer(!open)}
             data-testid="menuIcon"
           >
             <MenuIcon />
@@ -94,7 +94,7 @@ export const Header: FC = () => {
           <UserMenu
             anchorEl={anchorEl}
             userName={currentUser.name}
-            onMenuOpen={(e: React.MouseEvent<HTMLElement>): void =>
+            onMenuOpen={(e: MouseEvent<HTMLElement>): void =>
               setAnchorEl(e.currentTarget)
             }
             onMenuClose={(): void => setAnchorEl(null)}

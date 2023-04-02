@@ -21,9 +21,6 @@ import { postRegistration } from "../apis/users/registrations";
 // constants
 import { HTTP_STATUS_CODE } from "../constants";
 
-// formitemsinfo
-import { signUpFormInfo, signUpLinkInfo } from "../formInfo";
-
 // reducers
 import {
   initialState,
@@ -37,8 +34,10 @@ import { onSubmitText, isDisabled } from "../helpers";
 // types
 import {
   IUsersFormValues as IFormValues,
-  IUsersApiErrors as IApiErrors,
+  IUsersResultErrors as IResultErrors,
 } from "../types/containers";
+
+import { TLinks, IForm } from "../types/containers";
 
 // css
 const SignUpWrapper = styled.div`
@@ -50,8 +49,11 @@ const SignUpWrapper = styled.div`
 
 export const SignUp: FC = () => {
   const navigate = useNavigate();
-  const [apiErrors, setErrorMessage] = useState<
-    | Pick<IApiErrors, "name" | "email" | "password" | "password_confirmation">
+  const [resultErrors, setErrorMessage] = useState<
+    | Pick<
+        IResultErrors,
+        "name" | "email" | "password" | "password_confirmation"
+      >
     | undefined
   >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
@@ -61,7 +63,72 @@ export const SignUp: FC = () => {
     control,
     formState: { errors },
   } = useForm<IFormValues>();
-  const formInfo = signUpFormInfo(errors, apiErrors);
+
+  // SignUpページのフォーム欄を表示するために必要な情報群
+  const formInfo: Pick<
+    IForm,
+    "name" | "email" | "password" | "password_confirmation"
+  > = {
+    name: {
+      formLabel: "Name:",
+      errorsProperty: errors.name,
+      errorMessage: "1文字以上、50文字以内で入力してください",
+      resultErrorProperty: resultErrors?.name,
+      apiMessagePropertyName: "名前",
+      nameAttribute: "name",
+      typeAttribute: "text",
+      defaultValue: "",
+      autoComplete: "username",
+      autoFocus: true,
+      rules: { required: true, maxLength: 50 },
+    },
+    email: {
+      formLabel: "Email:",
+      errorsProperty: errors.email,
+      errorMessage: "1文字以上、255文字以内で入力してください",
+      resultErrorProperty: resultErrors?.email,
+      apiMessagePropertyName: "メールアドレス",
+      nameAttribute: "email",
+      typeAttribute: "email",
+      defaultValue: "",
+      autoComplete: "email",
+      autoFocus: false,
+      rules: { required: true, maxLength: 255 },
+    },
+    password: {
+      formLabel: "パスワード: ",
+      errorsProperty: errors.password,
+      errorMessage: "正しいパスワードを入力してください",
+      resultErrorProperty: resultErrors?.password,
+      apiMessagePropertyName: "パスワード",
+      nameAttribute: "password",
+      typeAttribute: "password",
+      defaultValue: "",
+      autoComplete: "new-password",
+      autoFocus: false,
+      rules: { required: true, minLength: 6, maxLength: 128 },
+    },
+    password_confirmation: {
+      formLabel: "確認用パスワード:",
+      errorsProperty: errors.password_confirmation,
+      errorMessage: "パスワードと同じ内容を入力してください",
+      resultErrorProperty: resultErrors?.password_confirmation,
+      apiMessagePropertyName: "確認用パスワード",
+      nameAttribute: "password_confirmation",
+      typeAttribute: "password",
+      defaultValue: "",
+      autoComplete: "new-password",
+      autoFocus: false,
+      rules: { required: true, minLength: 6, maxLength: 128 },
+    },
+  };
+
+  const linkInfo: TLinks = [
+    {
+      url: "/login",
+      text: "アカウントをお持ちの方はこちら",
+    },
+  ];
 
   const onSubmit = async (formValues: IFormValues): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
@@ -81,8 +148,8 @@ export const SignUp: FC = () => {
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
         if (
-          e.response.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
-          e.response.status === HTTP_STATUS_CODE.UNPROCESSABLE
+          e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
+          e.response?.status === HTTP_STATUS_CODE.UNPROCESSABLE
         ) {
           setErrorMessage(e.response.data.errors);
         } else {
@@ -109,7 +176,7 @@ export const SignUp: FC = () => {
           onSubmitText={onSubmitText(submitState.postState, "SignUp!")}
         />
       </FormWrapper>
-      <FormLinks linkInfo={signUpLinkInfo} />
+      <FormLinks linkInfo={linkInfo} />
     </SignUpWrapper>
   );
 };

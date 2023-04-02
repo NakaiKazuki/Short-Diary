@@ -24,9 +24,9 @@ export const getCurrentUser = (): Promise<IgetCurrentUserResult> => {
     {},
     {
       headers: {
-        "access-token": Cookies.get("access-token") || "",
-        client: Cookies.get("client") || "",
-        uid: Cookies.get("uid") || "",
+        "access-token": Cookies.get("access-token") ?? "",
+        client: Cookies.get("client") ?? "",
+        uid: Cookies.get("uid") ?? "",
       },
     }
   );
@@ -35,9 +35,9 @@ export const getCurrentUser = (): Promise<IgetCurrentUserResult> => {
 export const deleteSession = (): Promise<void> => {
   return axios.delete(signOut, {
     headers: {
-      "access-token": Cookies.get("access-token") || "",
-      client: Cookies.get("client") || "",
-      uid: Cookies.get("uid") || "",
+      "access-token": Cookies.get("access-token") ?? "",
+      client: Cookies.get("client") ?? "",
+      uid: Cookies.get("uid") ?? "",
     },
   });
 };

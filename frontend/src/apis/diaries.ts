@@ -10,16 +10,17 @@ import {
 } from "../types/apis";
 
 export const createDiary = (params: IParams): Promise<IResult> => {
-  const picture = params.picture
-    ? { data: params.picture.data, name: params.picture.name }
-    : undefined;
+  const picture = params.picture && {
+    data: params.picture.data,
+    name: params.picture.name,
+  };
   return axios
     .post(diary, {
       "access-token": Cookies.get("access-token") || "",
       client: Cookies.get("client") || "",
       uid: Cookies.get("uid") || "",
       date: params.date,
-      tag_list: params.tag_list || undefined,
+      tag_list: params.tag_list ?? undefined,
       content: params.content,
       movie_source: params.movie_source || undefined,
       picture: picture,
@@ -32,18 +33,19 @@ export const updateDiary = (
   page: number,
   diaryId: number | undefined
 ): Promise<IResult> => {
-  const picture = params.picture
-    ? { data: params.picture.data, name: params.picture.name }
-    : undefined;
+  const picture = params.picture && {
+    data: params.picture.data,
+    name: params.picture.name,
+  };
   return axios
     .patch(`${diary}/${diaryId}`, {
-      "access-token": Cookies.get("access-token") || "",
-      client: Cookies.get("client") || "",
-      uid: Cookies.get("uid") || "",
+      "access-token": Cookies.get("access-token") ?? "",
+      client: Cookies.get("client") ?? "",
+      uid: Cookies.get("uid") ?? "",
       date: params.date,
-      tag_list: params.tag_list ? params.tag_list : undefined,
+      tag_list: params.tag_list ?? undefined,
       content: params.content,
-      movie_source: params.movie_source || undefined,
+      movie_source: params.movie_source ?? undefined,
       picture: picture,
       page: page,
     })
@@ -57,9 +59,9 @@ export const deleteDiary = (
   return axios
     .delete(`${diary}/${diaryId}`, {
       headers: {
-        "access-token": Cookies.get("access-token") || "",
-        client: Cookies.get("client") || "",
-        uid: Cookies.get("uid") || "",
+        "access-token": Cookies.get("access-token") ?? "",
+        client: Cookies.get("client") ?? "",
+        uid: Cookies.get("uid") ?? "",
       },
       data: { page: page },
     })
@@ -70,9 +72,9 @@ export const fetchPhotoGallery = (): Promise<IPhotoGalleryResult> => {
   return axios
     .get(photoGallery, {
       headers: {
-        "access-token": Cookies.get("access-token") || "",
-        client: Cookies.get("client") || "",
-        uid: Cookies.get("uid") || "",
+        "access-token": Cookies.get("access-token") ?? "",
+        client: Cookies.get("client") ?? "",
+        uid: Cookies.get("uid") ?? "",
       },
     })
     .then((res) => res.data);

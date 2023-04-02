@@ -8,11 +8,10 @@ import { AuthContext } from "../../contexts/Auth";
 import { MessageContext } from "../../contexts/Message";
 import { SignUp } from "../../containers/SignUp";
 import { registration } from "../../urls";
-import { signUpLinkInfo as linkInfo } from "../../formInfo";
 import { el } from "../helpers";
 
 // types
-import { IAuthProviderProps as IProviderProps } from "../../types/test";
+import { IAuthProviderProps as IProviderProps, TLinks } from "../../types/test";
 
 afterEach(cleanup);
 
@@ -36,12 +35,19 @@ const formInfo = [
   },
 ];
 
+const linkInfo: TLinks = [
+  {
+    url: "/login",
+    text: "アカウントをお持ちの方はこちら",
+  },
+];
+
 const errorResult = {
   errors: {
-    name: ["name ApiError"],
-    email: ["email ApiError"],
-    password: ["password ApiError"],
-    password_confirmation: ["password_confirmation ApiError"],
+    name: ["name ResultError"],
+    email: ["email ResultError"],
+    password: ["password ResultError"],
+    password_confirmation: ["password_confirmation ResultError"],
   },
 };
 
@@ -51,6 +57,7 @@ const providerProps = {
     setCurrentUser: jest.fn(),
   },
 };
+
 const messageProps = {
   value: {
     message: undefined,
@@ -129,16 +136,16 @@ describe("SignUpコンポーネント", () => {
         await userEvent.click(el("formSubmit"));
         // 各項目に対応したApiからのエラーメッセージが表示
         await waitFor(() => {
-          expect(el(`${idNames[0]}ApiError`)).toBeTruthy();
+          expect(el(`${idNames[0]}ResultError`)).toBeTruthy();
         });
         await waitFor(() => {
-          expect(el(`${idNames[1]}ApiError`)).toBeTruthy();
+          expect(el(`${idNames[1]}ResultError`)).toBeTruthy();
         });
         await waitFor(() => {
-          expect(el(`${idNames[2]}ApiError`)).toBeTruthy();
+          expect(el(`${idNames[2]}ResultError`)).toBeTruthy();
         });
         await waitFor(() => {
-          expect(el(`${idNames[3]}ApiError`)).toBeTruthy();
+          expect(el(`${idNames[3]}ResultError`)).toBeTruthy();
         });
       });
     });

@@ -1,4 +1,5 @@
-interface IApiErrors {
+import { FieldError } from "react-hook-form";
+interface IResultErrors {
   date?: Array<string>;
   tag_list?: Array<string>;
   content?: Array<string>;
@@ -17,6 +18,61 @@ interface IItemsProps {
   originalWidth: number;
 }
 
+// エラーメッセージ
+interface IResultErrors {
+  name?: Array<string>;
+  password?: Array<string>;
+  password_confirmation?: Array<string>;
+  current_password?: Array<string>;
+  guest?: Array<string>;
+}
+
+interface IRurles {
+  required: boolean;
+  minLength?: number;
+  maxLength: number;
+}
+
+interface IObject {
+  formLabel: string;
+  errorsProperty: FieldError | undefined;
+  errorMessage: string;
+  resultErrorProperty: Array<string> | undefined;
+  apiMessagePropertyName: string;
+  nameAttribute: "name" | "email" | "password" | "password_confirmation";
+  typeAttribute: string;
+  defaultValue: string;
+  autoComplete: string;
+  autoFocus: boolean;
+  rules: IRurles;
+}
+
+interface IUserEditRurles {
+  required?: boolean;
+  minLength?: number;
+  maxLength: number;
+}
+
+interface IUserEditObject {
+  formLabel: string;
+  errorsProperty: FieldError | undefined;
+  errorMessage: string;
+  resultErrorProperty: Array<string> | undefined;
+  apiMessagePropertyName: string;
+  nameAttribute:
+    | "name"
+    | "email"
+    | "password"
+    | "password_confirmation"
+    | "current_password";
+  typeAttribute: string;
+  defaultValue: string;
+  autoComplete: string;
+  autoFocus: boolean;
+  rules: IUserEditRurles;
+}
+
+type TPicture = Array<{ data: string; name: string }>;
 export interface IContactFormValues {
   name: string;
   email: string;
@@ -24,7 +80,7 @@ export interface IContactFormValues {
   content: string;
 }
 
-export interface IContactApiErrors {
+export interface IContactResultErrors {
   name?: Array<string>;
   email?: Array<string>;
   over_view?: Array<string>;
@@ -41,7 +97,7 @@ export interface IUsersFormValues {
 
 export interface ILoginHomeInitialState {
   anchorEl: HTMLElement | null;
-  apiErrors: IApiErrors | undefined;
+  resultErrors: IResultErrors | undefined;
   diaries: Array<IDiary> | undefined;
   fetchState: "INITIAL" | "LOADING" | "OK";
   pagy: IPagy | undefined;
@@ -54,8 +110,6 @@ export interface ILoginHomeInitialState {
   isOpenConfirmDialog: boolean;
   isOpenDrawer: boolean;
 }
-
-export type TPicture = Array<{ data: string; name: string }>;
 
 export interface IDiary {
   id: number;
@@ -89,7 +143,7 @@ export interface IPhotoGalleryInitialState {
   fetchState: "INITIAL" | "LOADING" | "OK";
 }
 
-export interface IUsersApiErrors {
+export interface IUsersResultErrors {
   name?: Array<string>;
   email?: Array<string>;
   password?: Array<string>;
@@ -99,11 +153,31 @@ export interface IUsersApiErrors {
   guest?: Array<string>;
 }
 
-// エラーメッセージ
-interface IApiErrors {
-  name?: Array<string>;
-  password?: Array<string>;
-  password_confirmation?: Array<string>;
-  current_password?: Array<string>;
-  guest?: Array<string>;
+export interface IErrors {
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+  current_password: string;
+}
+export interface IForm {
+  name: IObject;
+  email: IObject;
+  password: IObject;
+  password_confirmation: IObject;
+  current_password: IObject;
+}
+
+export type TLinks = [
+  {
+    url: string;
+    text: string;
+  }
+];
+export interface IUserEditForm {
+  name: IUserEditObject;
+  email: IUserEditObject;
+  password: IUserEditObject;
+  password_confirmation: IUserEditObject;
+  current_password: IUserEditObject;
 }

@@ -12,7 +12,7 @@ export const postContact = (params: IParams): Promise<IResult> => {
     .post(contact, {
       name: params.name,
       email: params.email,
-      over_view: params.overView || "無題",
+      over_view: params.overView ?? "無題",
       content: params.content,
     })
     .then((res) => res.data);

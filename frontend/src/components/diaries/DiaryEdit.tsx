@@ -18,7 +18,7 @@ export const DiaryEdit: FC<IProps> = ({
   diary,
   control,
   errors,
-  apiErrors,
+  resultErrors,
   onSubmitText,
   isDisabled,
   contentCount,
@@ -34,14 +34,14 @@ export const DiaryEdit: FC<IProps> = ({
         control={control}
         errors={errors}
         register={register}
-        apiErrors={apiErrors}
+        resultErrors={resultErrors}
         onSubmitText={onSubmitText}
         isDisabled={isDisabled}
         contentCount={contentCount}
         defaultDate={diary.date}
         defaultTag={diary.tag_list.join(",")}
         defaultContent={diary.content}
-        defaultmovie_source={diary.movie_source ? diary.movie_source : ""}
+        defaultmovie_source={diary.movie_source || ""}
         setFileName={setFileName}
         onSubmit={onEditSubmit}
         onFileChange={onFileChange}
