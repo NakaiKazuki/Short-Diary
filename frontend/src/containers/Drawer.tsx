@@ -107,7 +107,6 @@ export const Drawer: FC = () => {
           <DrawerContainer
             variants={variants}
             animate={open ? "open" : "closed"}
-            transition={{ duration: 0.3 }}
           >
             <List>
               <CustomLink to="/" data-testid="homeLink" onClick={closeDrawer}>
