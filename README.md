@@ -102,6 +102,15 @@
 
 ## ローカルで使用する場合(Docker を利用して構築。)
 
+※ 以下の例のように「docker-compose」が v1 の場合はコマンドの「docker compose」を「docker-compose」に変更してください。
+
+```zsh
+#!/bin/zsh
+v2: docker compose build
+            ↓
+v1: docker-compose build
+```
+
 リポジトリを手元にクローンしてください。
 
 ```zsh
@@ -116,16 +125,9 @@ git clone https://github.com/NakaiKazuki/Short-Diary.git
 cd Short-Diary
 ```
 
-その後下記のコマンドでイメージを作成します。（docker-compose のバージョンに応じて適切なコマンドを使用してください。）
+docker-compose が v1 の場合はコマンドの docker compose を docker-compose に変更してください。
 
-dokcer-compose v1
-
-```zsh
-#!/bin/zsh
-docker-compose build
-```
-
-dokcer-compose v2
+その後下記のコマンドでイメージを作成します。
 
 ```zsh
 #!/bin/zsh
@@ -134,30 +136,12 @@ docker compose build
 
 dockerimage 作成後コンテナを起動します。
 
-dokcer-compose v1
-
-```zsh
-#!/bin/zsh
-docker-compose up -d
-```
-
-dokcer-compose v2
-
 ```zsh
 #!/bin/zsh
 docker compose up -d
 ```
 
 下記のコマンドで Rails のコンテナへ入ります。
-
-dokcer-compose v1
-
-```zsh
-#!/bin/zsh
-docker-compose exec api zsh
-```
-
-dokcer-compose v2
 
 ```zsh
 #!/bin/zsh
@@ -179,15 +163,6 @@ exit
 ```
 
 node_modules のインストール完了後、React 側のコンテナへ入ります。
-
-dokcer-compose v1
-
-```zsh
-#!/bin/zsh
-docker-compose exec front zsh
-```
-
-dokcer-compose v2
 
 ```zsh
 #!/bin/zsh
