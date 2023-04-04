@@ -15,7 +15,7 @@ export const fetchHome = (
         client: Cookies.get("client") ?? "",
         uid: Cookies.get("uid") ?? "",
       },
-      params: { content_or_date_cont: searchWord },
+      params: { q: { content_or_date_cont: searchWord } },
     })
     .then((res) => res.data);
 };
@@ -31,7 +31,8 @@ export const getDiaries = (
         client: Cookies.get("client") ?? "",
         uid: Cookies.get("uid") ?? "",
       },
-      params: { content_or_date_cont: searchWord, page: page },
+
+      params: { q: { content_or_date_cont: searchWord, page: page } },
     })
     .then((res) => res.data);
 };

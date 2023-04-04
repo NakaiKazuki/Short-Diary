@@ -79,6 +79,7 @@ export const DiaryDialog: FC<IProps> = ({
   onSubmitText,
   contentCount,
   setFileName,
+  formattedDate,
   onEditSubmit,
   onFileChange,
   onOpenCofirmationDialog,
@@ -123,7 +124,7 @@ export const DiaryDialog: FC<IProps> = ({
         />
       ) : (
         <Fragment>
-          <Date data-testid="diaryDate">{diary.date}</Date>
+          <Date data-testid="diaryDate">{formattedDate(diary.date)}</Date>
           <TagWrapper>
             {diary.tag_list.map(
               (tag: string | undefined, index: number): JSX.Element => {

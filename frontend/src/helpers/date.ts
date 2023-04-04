@@ -6,3 +6,10 @@ export const dateToday = () => {
   const d = ("00" + date.getDate()).slice(-2);
   return `${y}-${m}-${d}`;
 };
+
+// YYYY-MM-DD をYYYY/MM/DD に変換
+export const formattedDate = (date: string): string => {
+  const parts = date.split("-");
+  const newDateString = `${parts[0]}/${parts[1]}/${parts[2]}`;
+  return newDateString;
+};

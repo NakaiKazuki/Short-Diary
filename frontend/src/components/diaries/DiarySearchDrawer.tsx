@@ -66,7 +66,7 @@ export const DiarySearchDrawer: FC<IProps> = ({
                   fullWidth
                   margin="normal"
                   label="Search by Date"
-                  format="yyyy年MM月dd日"
+                  format="yyyy/MM/dd"
                   value={selectedDate}
                   onChange={onDateChange}
                   clearable

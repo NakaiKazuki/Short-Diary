@@ -1,6 +1,7 @@
 import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { DiaryIndex } from "../../../components/diaries";
+import { formattedDate } from "../../../helpers";
 import { el } from "../../helpers";
 
 afterEach(cleanup);
@@ -34,7 +35,13 @@ const diaries = [
 
 describe("DiaryIndex コンポーネント", () => {
   const setup = () =>
-    render(<DiaryIndex diaries={diaries} onOpenDiaryDialog={jest.fn()} />);
+    render(
+      <DiaryIndex
+        diaries={diaries}
+        formattedDate={formattedDate}
+        onOpenDiaryDialog={jest.fn()}
+      />
+    );
 
   it("受け取るデータを元に表示", () => {
     setup();
@@ -43,7 +50,7 @@ describe("DiaryIndex コンポーネント", () => {
       expect(el(`diary-${index}`)).toBeTruthy();
 
       // 配列要素のdateプロパティを表示
-      expect(el(`diaryDate-${index}`)).toHaveTextContent(obj.date);
+      expect(el(`diaryDate-${index}`)).toHaveTextContent(formattedDate(obj.date));
 
       // 配列要素のcontentプロパティを表示 40文字を超える場合は超えた文字を省略
       expect(el(`diaryContent-${index}`)).toHaveTextContent(
