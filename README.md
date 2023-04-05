@@ -100,7 +100,7 @@
 - React
   - React Testing Library
 
-## ローカルで使用する場合(Docker を利用して構築。wsl を使用した Ubuntu 環境では動作確認済み)
+## ローカルで使用する場合(Docker を利用して構築。wsl2 を使用した Ubuntu 環境では動作確認済み)
 
 ※ 以下の例のように「docker-compose」が v1 の場合はコマンドの「docker compose」を「docker-compose」に変更してください。
 
