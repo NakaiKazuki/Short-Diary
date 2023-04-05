@@ -13,9 +13,6 @@ services:
   api:
     build:
       context: .
-      args:
-        UID: 1000
-        GID: 1000
     env_file:
       - ./environments/db.env
       - ./environments/ruby.env
@@ -63,23 +60,5 @@ services:
 volumes:
   db-data:
   public-data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./public
-    name: public-data
   tmp-data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./tmp
-    name: tmp-data
   storage-data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./storage
-    name: storage-data
