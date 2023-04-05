@@ -95,7 +95,11 @@ const Content = styled.div`
   padding: 0 1rem;
 `;
 
-export const DiaryIndex: FC<IProps> = ({ diaries, onOpenDiaryDialog }) => {
+export const DiaryIndex: FC<IProps> = ({
+  diaries,
+  formattedDate,
+  onOpenDiaryDialog,
+}) => {
   return (
     <DiariesWrapper data-testid="diaryIndex">
       {diaries.map((diary: IDiary, index: number): JSX.Element => {
@@ -106,7 +110,9 @@ export const DiaryIndex: FC<IProps> = ({ diaries, onOpenDiaryDialog }) => {
             data-testid={`diary-${index}`}
           >
             <Paragraph>
-              <Date data-testid={`diaryDate-${index}`}>{diary.date}</Date>
+              <Date data-testid={`diaryDate-${index}`}>
+                {formattedDate(diary.date)}
+              </Date>
               {diary.picture_url && <ImageIconArea />}
               {diary.movie_source && <MovieIconArea />}
             </Paragraph>

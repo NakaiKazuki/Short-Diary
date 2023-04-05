@@ -69,6 +69,7 @@ export interface IDiaryDialogProps {
   setFileName: string | undefined;
   diary: IDiary;
   anchorEl: HTMLElement | null;
+  formattedDate(diaryDate: string): string;
   register: UseFormRegister<IFormValues>;
   onEditSubmit(): void;
   onOpenCofirmationDialog(): void;
@@ -97,6 +98,7 @@ export interface IDiaryEditProps {
 
 export interface IDiariesProps {
   diaries: Array<IDiary>;
+  formattedDate(diaryDate: string): string;
   onOpenDiaryDialog(diary: IDiary): void;
 }
 

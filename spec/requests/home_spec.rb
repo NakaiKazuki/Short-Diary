@@ -16,13 +16,17 @@ RSpec.describe 'Homes' do
 
     context 'ログインしている場合' do
       it 'Response 200' do
-        get api_v1_root_path, headers: auth_tokens
+        get api_v1_root_path, params: {
+          q: { content_or_date_cont: nil }
+        }, headers: auth_tokens
         expect(response).to have_http_status(:ok)
       end
 
       describe 'JSON' do
         let(:json_body) {
-          get api_v1_root_path, headers: auth_tokens
+          get api_v1_root_path, params: {
+            q: { content_or_date_cont: nil }
+          }, headers: auth_tokens
           response.parsed_body
         }
 
@@ -39,7 +43,7 @@ RSpec.describe 'Homes' do
           describe '検索機能' do
             let(:search_json_body) {
               get api_v1_root_path, params: {
-                content_or_date_cont: Time.zone.today.strftime('%Y-%m-%d')
+                q: { content_or_date_cont: Time.zone.today.strftime('%Y-%m-%d') }
               }, headers: auth_tokens
               response.parsed_body
             }

@@ -41,7 +41,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { HTTP_STATUS_CODE, REQUEST_STATE } from "../constants";
 
 // helpers
-import { onSubmitText, isDisabled, dateToday } from "../helpers";
+import { onSubmitText, isDisabled, dateToday, formattedDate } from "../helpers";
 
 // reducers
 import {
@@ -361,7 +361,6 @@ export const LoginHome: FC = () => {
     });
   };
   // ここまで DiaryIndexで使う関数
-
   // ここからDiaryCreateDialogとDiaryEditで共通して使う関数
   // DiaryCreateDialogで選択されたfile名を返す
   const setFileName = (): string =>
@@ -624,6 +623,7 @@ export const LoginHome: FC = () => {
             <Fragment>
               <DiaryIndex
                 diaries={state.diaries}
+                formattedDate={formattedDate}
                 onOpenDiaryDialog={onOpenDiaryDialog}
               />
               <PagenationArea onPageChange={onPageChange} pagy={state.pagy} />
@@ -667,6 +667,7 @@ export const LoginHome: FC = () => {
           isDisabled={isDisabled(reducerState.postState)}
           isOpen={state.isOpenDiaryDialog}
           isOpenDiaryEdit={state.isOpenDiaryEdit}
+          formattedDate={formattedDate}
           onClose={onCloseDiaryDialog}
           onOpenCofirmationDialog={onOpenCofirmationDialog}
           onDiaryShowMode={onDiaryShowMode}
@@ -676,9 +677,9 @@ export const LoginHome: FC = () => {
           onMenuOpen={onMenuOpen}
           onEditSubmit={handleSubmit(onEditSubmit)}
           onSubmitText={onSubmitText(reducerState.postState, "日記編集")}
-          register={register}
           setFileName={setFileName()}
           onPlayerReady={onPlayerReady}
+          register={register}
         />
       )}
       {state.isOpenConfirmDialog && state.selectedDiary && (

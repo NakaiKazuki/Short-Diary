@@ -7,7 +7,7 @@ import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { AuthContext } from "../../contexts/Auth";
 import { LoginHome } from "../../containers/LoginHome";
 import { home, diary } from "../../urls";
-import { dateToday } from "../../helpers";
+import { dateToday, formattedDate } from "../../helpers";
 import { el } from "../helpers";
 
 // types
@@ -340,7 +340,7 @@ describe("LoginHome", () => {
       // menuOpenIconが表示
       expect(el("menuOpenIcon")).toBeTruthy();
       // 日付が表示
-      expect(el("diaryDate")).toHaveTextContent(result.diaries[0].date);
+      expect(el("diaryDate")).toHaveTextContent(formattedDate(result.diaries[0].date));
       // タグが空配列なら表示しない
       expect(screen.queryByTestId("diaryTag-0")).toBeNull();
       // 日記内容が表示
@@ -581,7 +581,7 @@ describe("LoginHome", () => {
       expect(el("diaryTag-0")).toHaveTextContent(result.diaries[1].tag_list[0]);
       expect(el("diaryTag-1")).toHaveTextContent(result.diaries[1].tag_list[1]);
       // 日付が表示
-      expect(el("diaryDate")).toHaveTextContent(result.diaries[1].date);
+      expect(el("diaryDate")).toHaveTextContent(formattedDate(result.diaries[1].date));
       // 日記内容が表示
       expect(el("diaryContent")).toHaveTextContent(result.diaries[1].content);
       // 画像があれば表示
