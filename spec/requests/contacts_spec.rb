@@ -28,17 +28,17 @@ RSpec.describe 'Contacts' do
     describe '無効な情報' do
       it 'メールが送信されない' do
         expect {
-          post_information(nil)
+          post_information('')
         }.not_to(change { ActionMailer::Base.deliveries.size })
       end
 
       it 'status422を返す' do
-        post_information(nil)
+        post_information('')
         expect(response).to have_http_status(:unprocessable_entity)
       end
 
       it 'エラーメッセージを返す' do
-        post_information(nil)
+        post_information('')
         json_body = response.parsed_body
         expect(json_body['errors']).to be_truthy
       end
