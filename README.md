@@ -2,7 +2,8 @@
 
 200 文字以内の日記を作成するためのアプリケーションです。
 
-日記の内容を短くすることで気軽に作成できるようにしています。
+自分が日記を書くなら毎日の出来事を一言二言でかつ空き時間にどこでもかけるのが手軽で続きそうだなと考え作成しました。
+作成後は画像の投稿や見た動画の記録などの～だったらいいなという機能を付け足していきました。
 
 スマホからもご利用可能です。
 
@@ -46,7 +47,6 @@
   - ESLint
   - Prettier
 - Google Analytics
-  - gtag.js
 - Nginx 1.20
 
 ## Github Actions
@@ -67,8 +67,8 @@
 
 - Rails
 
-  - ユーザー登録、ログイン機能(devise_token_auth)
-  - 投稿機能
+  - ユーザー登録(メール認証)、ログイン機能(devise_token_auth)
+  - 日記投稿機能
     - 画像投稿(ActiveStorage)
       - 本番環境では S3 に保存
   - ページネーション機能(pagy)
@@ -80,14 +80,19 @@
   - デザイン
     - Material-UI
     - styled-components
+  - アニメーション
+    - framer-motion
   - Form
-    - React Hook Form
-  - PhotoGallery
-    - React Image Gallery
-  - YouTube 動画埋め込み
-    - React Youtube
+    - react-hook-form
+    - 画像投稿機能
+  - PhotoGallery(日記に付随した画像一覧の表示)
+    - react-image-gallery
+  - YouTube の動画埋め込み
+    - react-youtube
   - ログイン機能
     - Cookie 保存
+  - ルーティング機能
+    - react-router-dom
 
 ## テスト
 
