@@ -54,8 +54,9 @@ class Api::V1::DiariesController < ApplicationController
         originalWidth: 768
       }
     end
-    render json: { items: items }, status: :ok
+    render json: { items: }, status: :ok
   end
+
   private
 
     def diary_params
