@@ -1,4 +1,4 @@
-import { FC, useContext, useReducer } from "react";
+import { FC, Fragment, useContext, useReducer } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import ImageGallery from "react-image-gallery";
 import Cookies from "js-cookie";
@@ -327,6 +327,8 @@ export const LogoutHome: FC = () => {
             メモ感覚で日記をつけることができます。
             <br />
             Short Diaryを使って日記を付けよう!
+            <br />
+            下記のゲストログインボタンから登録後とほぼ同様の内容で使用できます！
           </Paragraph>
           <ButtonsWrapper>
             <Link to="/signup" data-testid="signUpLink">
@@ -348,20 +350,18 @@ export const LogoutHome: FC = () => {
         <Contents>
           <ContentTitle>Diary</ContentTitle>
           <AnimatedSection>
-            <OverView>
-              日記を作成する際、日付・内容以外にもタグの作成や画像の添付を行うことができます。
-              <br />
-              またYoutubeの動画リンクを記載することで日記の詳細画面で動画の再生が可能です。
-            </OverView>
+            <Fragment>
+              <OverView>
+                日記を作成する際、日付・内容以外にもタグの作成や画像の添付を行うことができます。
+                <br />
+                またYoutubeの動画リンクを記載することで日記の詳細画面で動画の再生が可能です。
+              </OverView>
+              <ImgWrapper>
+                <Img src={diaryCreatePicture} />
+                <Img src={diaryPicture} />
+              </ImgWrapper>
+            </Fragment>
           </AnimatedSection>
-          <ImgWrapper>
-            <AnimatedSection>
-              <Img src={diaryCreatePicture} />
-            </AnimatedSection>
-            <AnimatedSection>
-              <Img src={diaryPicture} />
-            </AnimatedSection>
-          </ImgWrapper>
           <AnimatedSection>
             <ContentTitle>PhotGallery</ContentTitle>
           </AnimatedSection>
