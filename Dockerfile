@@ -1,5 +1,6 @@
 FROM ruby:3.2.0-alpine3.17
 ENV APP_ROOT /Short-Diary
+
 WORKDIR $APP_ROOT
 
 RUN apk update && apk add --no-cache \

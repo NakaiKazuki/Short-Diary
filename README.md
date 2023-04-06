@@ -2,7 +2,8 @@
 
 200 文字以内の日記を作成するためのアプリケーションです。
 
-日記の内容を短くすることで気軽に作成できるようにしています。
+自分が日記を書くなら毎日の出来事を一言二言でかつ空き時間にどこでもかけるのが手軽で続きそうだなと考え作成しました。
+作成後は画像の投稿や見た動画の記録などの～だったらいいなという機能を付け足していきました。
 
 スマホからもご利用可能です。
 
@@ -25,7 +26,7 @@
 - Github Actions
 - AWS
   - VPC
-  - EC2(インスタンス内で Docker-compose を実行([使用ファイル](https://github.com/NakaiKazuki/Short-Diary/blob/main/docker-compose-prod.yml))
+  - EC2(インスタンス内で docker compose を実行([使用ファイル](https://github.com/NakaiKazuki/Short-Diary/blob/main/docker-compose-prod.yml))
   - Route53
   - Certificate Manager
   - S3
@@ -46,7 +47,6 @@
   - ESLint
   - Prettier
 - Google Analytics
-  - gtag.js
 - Nginx 1.20
 
 ## Github Actions
@@ -67,8 +67,8 @@
 
 - Rails
 
-  - ユーザー登録、ログイン機能(devise_token_auth)
-  - 投稿機能
+  - ユーザー登録(メール認証)、ログイン機能(devise_token_auth)
+  - 日記投稿機能
     - 画像投稿(ActiveStorage)
       - 本番環境では S3 に保存
   - ページネーション機能(pagy)
@@ -80,14 +80,19 @@
   - デザイン
     - Material-UI
     - styled-components
+  - アニメーション
+    - framer-motion
   - Form
-    - React Hook Form
-  - PhotoGallery
-    - React Image Gallery
-  - YouTube 動画埋め込み
-    - React Youtube
+    - react-hook-form
+    - 画像投稿機能
+  - PhotoGallery(日記に付随した画像一覧の表示)
+    - react-image-gallery
+  - YouTube の動画埋め込み
+    - react-youtube
   - ログイン機能
     - Cookie 保存
+  - ルーティング機能
+    - react-router-dom
 
 ## テスト
 
@@ -100,12 +105,11 @@
 - React
   - React Testing Library
 
-## ローカルで使用する場合(Docker を利用して構築。)
+## ローカルで使用する場合(Docker を利用して構築。wsl2 を使用した Ubuntu 環境では動作確認済み)
 
 ※ 以下の例のように「docker-compose」が v1 の場合はコマンドの「docker compose」を「docker-compose」に変更してください。
 
 ```zsh
-#!/bin/zsh
 v2: docker compose build
             ↓
 v1: docker-compose build
@@ -114,14 +118,12 @@ v1: docker-compose build
 リポジトリを手元にクローンしてください。
 
 ```zsh
-#!/bin/zsh
 git clone https://github.com/NakaiKazuki/Short-Diary.git
 ```
 
 次にクローンしたリポジトリのディレクトリへ移動します。
 
 ```zsh
-#!/bin/zsh
 cd Short-Diary
 ```
 
@@ -130,49 +132,42 @@ docker-compose が v1 の場合はコマンドの docker compose を docker-comp
 その後下記のコマンドでイメージを作成します。
 
 ```zsh
-#!/bin/zsh
 docker compose build
 ```
 
 dockerimage 作成後コンテナを起動します。
 
 ```zsh
-#!/bin/zsh
 docker compose up -d
 ```
 
 下記のコマンドで Rails のコンテナへ入ります。
 
 ```zsh
-#!/bin/zsh
 docker compose exec api zsh
 ```
 
 コンテナ内で下記のコマンドを実行しデータベースを作成します。
 
 ```zsh
-#!/bin/zsh
 rails db:create db:migrate db:seed && rails db:migrate RAILS_ENV=test
 ```
 
 データベースの作成が完了したら下記コマンドでコンテナ内から出ます。
 
 ```zsh
-#!/bin/zsh
 exit
 ```
 
 node_modules のインストール完了後、React 側のコンテナへ入ります。
 
 ```zsh
-#!/bin/zsh
 docker compose exec front zsh
 ```
 
 最後にコンテナ内にて、下記コマンドで React を実行します。
 
 ```zsh
-#!/bin/zsh
 yarn start
 ```
 

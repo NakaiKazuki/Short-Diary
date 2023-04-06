@@ -46,19 +46,15 @@ class Api::V1::DiariesController < ApplicationController
   end
 
   def photo_gallery
-    items = []
-    diaries = current_user.diaries
-    diaries.each do |diary|
-      next unless diary.picture.attached?
-
-      items.push(
-        # { original: url_for(diary.picture)}
-        { original: url_for(diary.picture), originalHeight: 768, originalWidth: 768 }
-      )
+    diaries = current_user.diaries.with_attached_picture
+    items = diaries.map do |diary|
+      {
+        original: url_for(diary.picture),
+        originalHeight: 768,
+        originalWidth: 768
+      }
     end
-    render json: {
-      items:
-    }, status: :ok
+    render json: { items: }, status: :ok
   end
 
   private
