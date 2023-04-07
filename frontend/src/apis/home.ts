@@ -32,7 +32,7 @@ export const getDiaries = (
         uid: Cookies.get("uid") ?? "",
       },
 
-      params: { q: { content_or_date_cont: searchWord, page: page } },
+      params: { q: { content_or_date_cont: searchWord }, page: page },
     })
     .then((res) => res.data);
 };
