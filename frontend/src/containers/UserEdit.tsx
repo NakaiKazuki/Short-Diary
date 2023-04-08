@@ -42,10 +42,9 @@ import {
 } from "../types/containers";
 // css
 const UserEditWrapper = styled.div`
-  width: 100vw;
-  min-height: 81vh;
-  margin-top: 6.6vh;
-  padding-top: 5.4vh;
+  width: 100%;
+  min-height: 50vh;
+  margin-top: 21vh;
 `;
 
 const GuestErrorMessage = styled.p`
@@ -214,7 +213,7 @@ export const UserEdit: FC = () => {
 
         <FormSubmit
           isDisabled={isDisabled(submitState.postState)}
-          onSubmitText={onSubmitText(submitState.postState, "Profile Edit!")}
+          onSubmitText={onSubmitText(submitState.postState, "編集する")}
         />
       </FormWrapper>
       <FormLinks linkInfo={linkInfo} />

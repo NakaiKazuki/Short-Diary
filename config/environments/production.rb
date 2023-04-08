@@ -99,4 +99,8 @@ Rails.application.configure do
 
   host = 'short-diary.com'
   Rails.application.routes.default_url_options[:host] = host
+
+  # Google Analyticsのトラッキングを有効にする
+  config.google_analytics.tracking_id = Rails.application.credentials.dig(:google, :analytics_g)
+  config.google_analytics.enabled = true
 end

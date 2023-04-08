@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { render, cleanup, waitFor } from "@testing-library/react";
+import { render, cleanup, waitFor, screen } from "@testing-library/react";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
@@ -78,9 +78,24 @@ describe("LogoutHome", () => {
   const setup = () => customRender(<LogoutHome />, providerProps);
   beforeEach(() => setup());
 
-  it("左右の要素確認", () => {
-    expect(el("leftHome")).toBeTruthy();
-    expect(el("rightHome")).toBeTruthy();
+  it("要素の確認(スマートフォン以外の場合)", () => {
+    Object.defineProperty(window, "innerWidth", {
+      writable: true,
+      value: 1024,
+    });
+    expect(el("leftWrapper")).toBeTruthy();
+    expect(el("about")).toBeTruthy();
+    expect(el("signUpForm")).toBeTruthy();
+  });
+
+  it("要素の確認(スマートフォンの場合)", () => {
+    Object.defineProperty(window, "innerWidth", {
+      writable: true,
+      value: 320,
+    });
+    expect(el("leftWrapper")).toBeTruthy();
+    expect(el("about")).toBeTruthy();
+    expect(screen.queryByTestId("menuBar")).toBeFalsy();
   });
 
   it("PhotGalleryがある", () => {

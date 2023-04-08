@@ -3,7 +3,7 @@
 class Api::V1::DiariesController < ApplicationController
   before_action :authenticate_user!
   before_action :correct_user, only: %i[update destroy]
-  include Rails.application.routes.url_helpers
+  # include Rails.application.routes.url_helpers
   def create
     @diary = current_user.diaries.build(diary_params)
 
@@ -46,13 +46,8 @@ class Api::V1::DiariesController < ApplicationController
   end
 
   def photo_gallery
-    diaries = current_user.diaries.with_attached_picture
-    items = diaries.map do |diary|
-      {
-        original: url_for(diary.picture),
-        originalHeight: 768,
-        originalWidth: 768
-      }
+    items = current_user.diaries.with_attached_picture.filter_map do |diary|
+      { original: url_for(diary.picture), originalHeight: 768, originalWidth: 768 } if diary.picture.attached?
     end
     render json: { items: }, status: :ok
   end

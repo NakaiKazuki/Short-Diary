@@ -38,7 +38,7 @@ const formInfo = [
 const linkInfo: TLinks = [
   {
     url: "/login",
-    text: "アカウントをお持ちの方はこちら",
+    text: "登録済みの方はこちら",
   },
 ];
 
@@ -167,7 +167,7 @@ describe("SignUpコンポーネント", () => {
         await userEvent.type(el(formInfo[3].testId), formInfo[3].value);
 
         // 初期値
-        expect(el("formSubmit")).toHaveTextContent("SignUp!");
+        expect(el("formSubmit")).toHaveTextContent("送信");
         expect(el("formSubmit")).not.toBeDisabled();
 
         // ユーザが送信ボタンをクリック
@@ -190,7 +190,7 @@ describe("SignUpコンポーネント", () => {
         await userEvent.type(el(formInfo[3].testId), formInfo[3].value);
 
         // 初期値
-        expect(el("formSubmit")).toHaveTextContent("SignUp!");
+        expect(el("formSubmit")).toHaveTextContent("送信");
         expect(el("formSubmit")).not.toBeDisabled();
 
         // ユーザが送信ボタンをクリック
@@ -198,7 +198,7 @@ describe("SignUpコンポーネント", () => {
 
         // APIからエラーが返ってくると初期値に戻る
         await waitFor(() => {
-          expect(el("formSubmit")).toHaveTextContent("SignUp!");
+          expect(el("formSubmit")).toHaveTextContent("送信");
         });
       });
     });
