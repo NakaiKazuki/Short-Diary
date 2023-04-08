@@ -55,7 +55,7 @@ class Api::V1::DiariesController < ApplicationController
         { original: url_for(diary.picture), originalHeight: 768, originalWidth: 768 }
       )
     end
-    render json: { items: items }, status: :ok
+    render json: { items: }, status: :ok
   end
 
   private
