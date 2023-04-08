@@ -144,6 +144,7 @@ GEM
     ffi (1.15.5)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    google-analytics-rails (1.1.1)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     jmespath (1.6.2)
@@ -331,6 +332,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   fast_blank
+  google-analytics-rails
   letter_opener
   letter_opener_web
   listen

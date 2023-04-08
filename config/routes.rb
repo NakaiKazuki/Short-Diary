@@ -21,4 +21,5 @@ Rails.application.routes.draw do
     registrations: 'api/v1/auth/registrations'
   }
   mount LetterOpenerWeb::Engine, at: 'letter_opener' if Rails.env.development?
+  get '*path', to: 'application#track' if Rails.env.production?
 end
