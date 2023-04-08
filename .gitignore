@@ -27,3 +27,4 @@
 /config/master.key
 
 /environments/db_prod.env
+/memo.md

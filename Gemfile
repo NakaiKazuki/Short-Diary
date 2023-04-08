@@ -13,7 +13,7 @@ gem 'fast_blank' # 取り敢えず入れとく
 gem 'mysql2'
 gem 'pagy', '~> 4' # ページネーション
 gem 'puma'
-gem 'rack-attack' # F5アタック対策
+gem 'rack-attack' # DOS攻撃対策
 gem 'rack-cors' # apiで使うのに必要なやつ
 gem 'rails', '~> 7.0.4'
 gem 'rails-i18n' # 日本語化
@@ -45,7 +45,6 @@ end
 
 group :test do
   gem 'database_cleaner' # DockerではDBのお掃除が必要
-  gem 'rspec_junit_formatter' # CircleCiで必要
 end
 
 group :production do
