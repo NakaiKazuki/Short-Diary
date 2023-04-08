@@ -1,6 +1,5 @@
-import { FC, Fragment, useContext, useReducer } from "react";
+import { FC, useContext, useReducer, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import ImageGallery from "react-image-gallery";
 import Cookies from "js-cookie";
 import { motion } from "framer-motion";
 import styled from "styled-components";
@@ -23,14 +22,11 @@ import {
 
 // components
 import { BaseButton } from "../components/shared_style";
-import { AnimatedSection } from "../components/AnimatedSection";
+import { About } from "../components/About";
+import { SignUp } from "./SignUp";
 
 // images
 import LeftHome from "../images/lefthome.jpg";
-import RightHome from "../images/righthome.jpg";
-import diaryPicture from "../images/sample/diary.png";
-import diaryCreatePicture from "../images/sample/diarycreate.png";
-import Gallery1Picture from "../images/sample/gallery1.png";
 
 // css
 const LogoutHomeWrapper = styled.div`
@@ -38,17 +34,12 @@ const LogoutHomeWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex: 1;
+  min-height: 100vh;
+  overflow: auto;
 `;
 
 const LeftWrapper = styled.div`
-  min-height: 93vh;
-  background-image: url(${LeftHome});
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-size: cover;
   @media screen and (min-width: 980px) {
-    position: sticky;
-    position: -webkit-sticky; /*Safari用*/
     flex: 0.45;
     max-height: 93vh;
     top: 0;
@@ -57,20 +48,31 @@ const LeftWrapper = styled.div`
     width: 100vw;
   }
   @media screen and (max-width: 480px) {
-    height: 84vh;
+    min-height: 70vh;
   }
 `;
 
-const Content = styled(motion.div)`
-  margin-top: 21vh;
+const ContentWrapper = styled.div`
+  background-image: url(${LeftHome});
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+  min-height: 94vh;
+`;
+
+const Content = styled.div`
+  margin-top: 16vh;
   display: inline-block;
-  clip-path: circle(0% at 0 0);
   @media screen and (min-width: 481px) {
     margin-left: 10vw;
   }
   @media screen and (max-width: 480px) {
     margin-top: 15vh;
   }
+`;
+
+const MotionWrapper = styled(motion.div)`
+  clip-path: circle(0% at 0 0);
 `;
 
 const Heading = styled.h1`
@@ -121,154 +123,15 @@ const GuestLogin = styled(HomeButton)`
 
 const RightWrapper = styled.div`
   margin-bottom: 7vh;
-  overflow: hidden;
-  background-image: url(${RightHome});
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-size: cover;
   @media screen and (min-width: 980px) {
-    flex: 0.55;
+    position: sticky;
+    position: -webkit-sticky; /*Safari用*/
+    flex: 0.45;
+    top: 0;
+    margin: 0 auto 7vh auto;
   }
   @media screen and (max-width: 979px) {
     width: 100vw;
-  }
-`;
-
-const Title = styled.h1`
-  margin-top: 21vh;
-  text-align: center;
-  @media screen and (max-width: 480px) {
-    margin-top: 15vh;
-  }
-`;
-
-const Contents = styled.span`
-  width: 55vw;
-  float: right;
-  @media screen and (max-width: 979px) {
-    width: 100vw;
-  }
-`;
-
-const ContentTitle = styled.h2`
-  margin-left: 7.5vw;
-`;
-const OverView = styled.p`
-  margin-left: 10vw;
-`;
-const ImgWrapper = styled.div`
-  margin-top: 0.2vh 0 0 10vw;
-`;
-
-const Img = styled.img`
-  margin: 2vh 0 0 10vw;
-  width: 70%;
-  height: auto;
-`;
-
-const CustomGallery = styled.div`
-  margin-top: 3vh;
-  overflow: hidden;
-  @media screen and (max-width: 480px) {
-    margin-top: 0;
-  }
-  .image-gallery {
-    position: relative;
-  }
-  .image-gallery-slides {
-    height: 60vh;
-    white-space: nowrap;
-  }
-  .image-gallery-slide,
-  .image-gallery-image {
-    width: 100%;
-    object-fit: contain;
-    align-items: center;
-    @media screen and (max-width: 480px) {
-      height: 50vh;
-    }
-  }
-  .image-gallery-slide {
-    position: absolute;
-    text-align: center;
-    .right {
-      visibility: hidden;
-    }
-  }
-  .image-gallery-slide-wrapper:hover .image-gallery-right-nav {
-    opacity: 1;
-  }
-  .image-gallery-slide-wrapper:hover .image-gallery-left-nav {
-    opacity: 1;
-  }
-  .image-gallery-slide-wrapper:hover .image-gallery-play-button {
-    opacity: 1;
-  }
-  .image-gallery-left-nav,
-  .image-gallery-right-nav,
-  .image-gallery-play-button {
-    cursor: pointer;
-  }
-  .image-gallery-left-nav,
-  .image-gallery-right-nav {
-    position: absolute;
-    background-color: transparent;
-    border: none;
-    top: 42%;
-    border: none;
-    width: 6%;
-    height: 13.5%;
-    opacity: 0;
-    z-index: 1;
-    @media screen and (min-width: 768px) and (max-width: 979px) {
-      width: 15%;
-      height: 13.5%;
-      top: 37%;
-    }
-    @media screen and (max-width: 480px) {
-      width: 20%;
-      height: 13.5%;
-      top: 19%;
-    }
-  }
-  .image-gallery-right-nav {
-    right: 10%;
-    @media screen and (max-width: 979px) {
-      right: 0;
-    }
-  }
-  .image-gallery-left-nav {
-    left: 10%;
-    @media screen and (max-width: 979px) {
-      left: 0;
-    }
-  }
-  .image-gallery-play-button {
-    z-index: 1;
-    position: absolute;
-    background-color: transparent;
-    border: none;
-    top: -2%;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: auto;
-    width: 7%;
-    height: 13.5%;
-    opacity: 0;
-    :hover {
-      opacity: 1;
-    }
-    @media screen and (min-width: 768px) and (max-width: 979px) {
-      width: 15%;
-      height: 13.5%;
-      top: 0;
-    }
-    @media screen and (max-width: 480px) {
-      width: 20%;
-      height: 13.5%;
-      top: -37%;
-    }
   }
 `;
 
@@ -277,22 +140,25 @@ const variants = {
     clipPath: "circle(150% at 0 0)",
     transition: {
       type: "spring",
-      stiffness: 13,
-      restDelta: 4,
+      stiffness: 20,
+      restDelta: 2,
     },
   },
 };
-
-const items = [
-  { original: diaryPicture, originalHeight: 768, originalWidth: 768 },
-  { original: diaryCreatePicture, originalHeight: 768, originalWidth: 768 },
-  { original: Gallery1Picture, originalHeight: 768, originalWidth: 768 },
-];
 
 export const LogoutHome: FC = () => {
   const { setCurrentUser } = useContext(AuthContext);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
   const navigate = useNavigate();
+
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 979);
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const onGuestLoginButton = async (): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
@@ -313,75 +179,47 @@ export const LogoutHome: FC = () => {
         throw e;
       });
   };
-
   return (
     <LogoutHomeWrapper>
-      <LeftWrapper data-testid="leftHome">
-        <Content variants={variants} animate="open">
-          <Heading>毎日の出来事を記録しよう</Heading>
-          <Paragraph>
-            日記を付けたいけど、文章を書くのは面倒だと思ったことはありませんか？
-            <br />
-            Short Diaryでは日々の日記を一言二言の内容で書くことで、
-            <br />
-            メモ感覚で日記をつけることができます。
-            <br />
-            Short Diaryを使って日記を付けよう!
-            <br />
-            下記のゲストログインボタンから登録後とほぼ同様の内容で使用できます！
-          </Paragraph>
-          <ButtonsWrapper>
-            <Link to="/signup" data-testid="signUpLink">
-              <SignUpButton type="button">ユーザー登録</SignUpButton>
-            </Link>
-            <GuestLogin
-              type="button"
-              onClick={onGuestLoginButton}
-              disabled={isDisabled(submitState.postState)}
-              data-testid="guestLoginButton"
-            >
-              {onSubmitText(submitState.postState, "ゲストログイン")}
-            </GuestLogin>
-          </ButtonsWrapper>
-        </Content>
-      </LeftWrapper>
-      <RightWrapper data-testid="rightHome">
-        <Title>Sample</Title>
-        <Contents>
-          <ContentTitle>Diary</ContentTitle>
-          <AnimatedSection>
-            <Fragment>
-              <OverView>
-                日記を作成する際、日付・内容以外にもタグの作成や画像の添付を行うことができます。
+      <LeftWrapper data-testid="leftWrapper">
+        <ContentWrapper>
+          <Content>
+            <MotionWrapper variants={variants} animate="open">
+              <Heading>毎日の出来事を記録しよう</Heading>
+              <Paragraph>
+                日記を付けたいけど、文章を書くのは面倒だと思ったことはありませんか？
                 <br />
-                またYoutubeの動画リンクを記載することで日記の詳細画面で動画の再生が可能です。
-              </OverView>
-              <ImgWrapper>
-                <Img src={diaryCreatePicture} />
-                <Img src={diaryPicture} />
-              </ImgWrapper>
-            </Fragment>
-          </AnimatedSection>
-          <AnimatedSection>
-            <ContentTitle>PhotGallery</ContentTitle>
-          </AnimatedSection>
-          <AnimatedSection>
-            <OverView>
-              日記に添付された画像をスライドショーとして閲覧することができます。
-            </OverView>
-          </AnimatedSection>
-          <AnimatedSection>
-            <CustomGallery data-testid="imageGallery">
-              <ImageGallery
-                items={items}
-                showNav={true}
-                disableKeyDown={false}
-                showFullscreenButton={false}
-              />
-            </CustomGallery>
-          </AnimatedSection>
-        </Contents>
-      </RightWrapper>
+                Short Diaryでは日々の日記を一言二言の内容で書くことで、
+                <br />
+                メモ感覚で日記をつけることができます。
+                <br />
+                さっそく登録して日記を付けよう!
+                <br />
+                下記のゲストログインボタンから登録後と同じ内容で使用できます！
+              </Paragraph>
+            </MotionWrapper>
+            <ButtonsWrapper>
+              <Link to="/signup" data-testid="signUpLink">
+                <SignUpButton type="button">ユーザー登録</SignUpButton>
+              </Link>
+              <GuestLogin
+                type="button"
+                onClick={onGuestLoginButton}
+                disabled={isDisabled(submitState.postState)}
+                data-testid="guestLoginButton"
+              >
+                {onSubmitText(submitState.postState, "ゲストログイン")}
+              </GuestLogin>
+            </ButtonsWrapper>
+          </Content>
+        </ContentWrapper>
+        <About />
+      </LeftWrapper>
+      {isDesktop && (
+        <RightWrapper>
+          <SignUp />
+        </RightWrapper>
+      )}
     </LogoutHomeWrapper>
   );
 };

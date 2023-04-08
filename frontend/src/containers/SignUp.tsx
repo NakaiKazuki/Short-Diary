@@ -39,12 +39,10 @@ import {
 
 import { TLinks, IForm } from "../types/containers";
 
-// css
 const SignUpWrapper = styled.div`
-  width: 100vw;
-  min-height: 81vh;
-  margin-top: 6.6vh;
-  padding-top: 5.4vh;
+  width: 100%;
+  min-height: 50vh;
+  margin-top: 17vh;
 `;
 
 export const SignUp: FC = () => {
@@ -126,7 +124,7 @@ export const SignUp: FC = () => {
   const linkInfo: TLinks = [
     {
       url: "/login",
-      text: "アカウントをお持ちの方はこちら",
+      text: "登録済みの方はこちら",
     },
   ];
 
@@ -173,7 +171,7 @@ export const SignUp: FC = () => {
 
         <FormSubmit
           isDisabled={isDisabled(submitState.postState)}
-          onSubmitText={onSubmitText(submitState.postState, "SignUp!")}
+          onSubmitText={onSubmitText(submitState.postState, "登録する")}
         />
       </FormWrapper>
       <FormLinks linkInfo={linkInfo} />

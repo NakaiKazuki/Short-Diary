@@ -217,7 +217,7 @@ describe("UserEditコンポーネント", () => {
         await userEvent.type(el(formInfo[4].testId), formInfo[4].value);
 
         // 初期値
-        expect(el("formSubmit")).toHaveTextContent("Profile Edit!");
+        expect(el("formSubmit")).toHaveTextContent("編集する");
         expect(el("formSubmit")).not.toBeDisabled();
 
         // ユーザが送信ボタンをクリック
@@ -239,7 +239,7 @@ describe("UserEditコンポーネント", () => {
         await userEvent.type(el(formInfo[4].testId), formInfo[4].value);
 
         // 初期値
-        expect(el("formSubmit")).toHaveTextContent("Profile Edit!");
+        expect(el("formSubmit")).toHaveTextContent("編集する");
         expect(el("formSubmit")).not.toBeDisabled();
 
         // ユーザが送信ボタンをクリック
@@ -247,7 +247,7 @@ describe("UserEditコンポーネント", () => {
 
         // APIからエラーが返ってくると初期値に戻る
         await waitFor(() =>
-          expect(el("formSubmit")).toHaveTextContent("Profile Edit!")
+          expect(el("formSubmit")).toHaveTextContent("編集する")
         );
       });
     });

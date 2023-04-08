@@ -32,6 +32,7 @@ import { HTTP_STATUS_CODE } from "../constants";
 
 // apis
 import { getCurrentUser } from "../apis/users/sessions";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RouteLayout />}>
