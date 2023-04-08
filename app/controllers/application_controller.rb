@@ -5,14 +5,22 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   protect_from_forgery with: :null_session
   # before_action :fake_load
-  before_action :track if Rails.env.production?
+  before_action :send_google_analytics_event if Rails.env.production?
 
-  def track
-    # Google Analyticsのトラッキングコードを呼び出す
-    tracker = Staccato.tracker(Rails.application.credentials.dig(:google, :analytics_g))
-    tracker.pageview(request.original_url)
-  end
+  private
 
+    def send_google_analytics_event
+      ActiveSupport::Notifications.instrument('process_action.action_controller', payload)
+    end
+
+    def payload
+      {
+        controller: self.class.name,
+        action: action_name,
+        format: request.format.symbol.to_s,
+        start: Time.zone.now
+      }
+    end
   # def fake_load
   #   sleep(3)
   # end
