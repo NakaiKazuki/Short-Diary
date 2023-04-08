@@ -52,7 +52,6 @@ class Api::V1::DiariesController < ApplicationController
       next unless diary.picture.attached?
 
       items.push(
-        # { original: url_for(diary.picture)}
         { original: url_for(diary.picture), originalHeight: 768, originalWidth: 768 }
       )
     end
