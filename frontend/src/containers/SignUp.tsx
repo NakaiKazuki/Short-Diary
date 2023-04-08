@@ -49,9 +49,9 @@ export const SignUp: FC = () => {
   const navigate = useNavigate();
   const [resultErrors, setErrorMessage] = useState<
     | Pick<
-        IResultErrors,
-        "name" | "email" | "password" | "password_confirmation"
-      >
+      IResultErrors,
+      "name" | "email" | "password" | "password_confirmation"
+    >
     | undefined
   >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
@@ -171,7 +171,7 @@ export const SignUp: FC = () => {
 
         <FormSubmit
           isDisabled={isDisabled(submitState.postState)}
-          onSubmitText={onSubmitText(submitState.postState, "登録する")}
+          onSubmitText={onSubmitText(submitState.postState, "送信")}
         />
       </FormWrapper>
       <FormLinks linkInfo={linkInfo} />
