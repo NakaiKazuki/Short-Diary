@@ -18,7 +18,6 @@ RUN apk update && apk add --no-cache \
     vim  && \
     mkdir -p $APP_ROOT
 
-ENV RAILS_ENV production
 COPY Gemfile Gemfile.lock $APP_ROOT/
 
 RUN gem install bundler -v 2.4.4 && \
