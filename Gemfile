@@ -50,6 +50,7 @@ end
 group :production do
   gem 'aws-sdk-s3', require: false # awsのs3使用
   gem 'google-analytics-rails' # 何人アクセスしたかとか分析してくれるやつ
+  gem 'staccato'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
