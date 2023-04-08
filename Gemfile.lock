@@ -298,6 +298,7 @@ GEM
     ruby-progressbar (1.13.0)
     sexp_processor (4.16.1)
     spring (4.1.1)
+    staccato (0.5.3)
     thor (1.2.1)
     timeout (0.3.2)
     tzinfo (2.0.6)
@@ -349,6 +350,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   spring
+  staccato
   tzinfo-data
 
 RUBY VERSION
