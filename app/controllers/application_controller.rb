@@ -9,18 +9,18 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def send_google_analytics_event
-    ActiveSupport::Notifications.instrument('process_action.action_controller', payload)
-  end
+    def send_google_analytics_event
+      ActiveSupport::Notifications.instrument('process_action.action_controller', payload)
+    end
 
-  def payload
-    {
-      controller: self.class.name,
-      action: action_name,
-      format: request.format.symbol.to_s,
-      start: Time.now
-    }
-  end
+    def payload
+      {
+        controller: self.class.name,
+        action: action_name,
+        format: request.format.symbol.to_s,
+        start: Time.zone.now
+      }
+    end
   # def fake_load
   #   sleep(3)
   # end
