@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   def track
     # Google Analyticsのトラッキングコードを呼び出す
-    tracker = Staccato.tracker(Rails.application.config.google_analytics.tracking_id)
+    tracker = Staccato.tracker(Rails.application.credentials.dig(:google, :analytics_g))
     tracker.pageview(request.original_url)
   end
 
