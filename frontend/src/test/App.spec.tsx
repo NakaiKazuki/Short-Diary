@@ -2,13 +2,18 @@ import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { createObserver, el } from "./helpers";
+import { HelmetProvider } from "react-helmet-async";
 import App from "../App";
 
 createObserver();
 afterEach(cleanup);
 
+const customRender = (ui: JSX.Element) => {
+  render(<HelmetProvider>{ui}</HelmetProvider>);
+};
+
 describe("App", () => {
-  const setup = () => render(<App />);
+  const setup = () => customRender(<App />);
   beforeEach(() => setup());
   it("Headerコンポーネント", () => {
     expect(el("header")).toBeTruthy();

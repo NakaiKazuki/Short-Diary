@@ -21,7 +21,7 @@ const result = {
       id: 1,
       name: "testName",
       email: "test@example.com",
-    }
+    },
   },
   headers: {
     "access-token": "testtoken",

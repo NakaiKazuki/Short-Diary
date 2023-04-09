@@ -18,3 +18,7 @@ export interface IMessageContext {
   message: string | undefined;
   setMessage: Dispatch<SetStateAction<string | undefined>>;
 }
+
+export interface IHeadContext {
+  title?: string;
+}

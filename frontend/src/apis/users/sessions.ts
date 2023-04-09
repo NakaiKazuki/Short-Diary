@@ -6,6 +6,7 @@ import { signIn, signOut, guestSignIn, userLogin } from "../../urls";
 import {
   IUserParams as IParams,
   IUserResult as IResult,
+  IGestResult,
 } from "../../types/apis";
 
 export const createSession = (
@@ -41,6 +42,6 @@ export const deleteSession = (): Promise<void> => {
   });
 };
 
-export const newGuestSession = (): Promise<IResult> => {
+export const newGuestSession = (): Promise<IGestResult> => {
   return axios.post(guestSignIn);
 };

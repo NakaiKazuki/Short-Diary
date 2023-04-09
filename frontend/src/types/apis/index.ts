@@ -10,6 +10,10 @@ export interface IUserResult {
   headers: IHeaders;
   data: { data: ICurrentUser };
 }
+export interface IGestResult {
+  headers: IHeaders;
+  data: ICurrentUser;
+}
 
 export interface IContactParams {
   name: string;

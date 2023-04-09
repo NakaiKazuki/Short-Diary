@@ -1,4 +1,4 @@
-import React, {
+import {
   FC,
   Fragment,
   useState,
@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 import { YouTubeProps, YouTubeEvent, YouTubePlayer } from "react-youtube";
 import Cookies from "js-cookie";
 import styled from "styled-components";
-
 // contexts
 import { AuthContext } from "../contexts/Auth";
 

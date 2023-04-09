@@ -2,7 +2,6 @@ import { FC, useState, useReducer, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
 //contexts
 import { MessageContext } from "../contexts/Message";
 
@@ -49,9 +48,9 @@ export const SignUp: FC = () => {
   const navigate = useNavigate();
   const [resultErrors, setErrorMessage] = useState<
     | Pick<
-      IResultErrors,
-      "name" | "email" | "password" | "password_confirmation"
-    >
+        IResultErrors,
+        "name" | "email" | "password" | "password_confirmation"
+      >
     | undefined
   >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);

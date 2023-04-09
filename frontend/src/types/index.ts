@@ -1,6 +1,4 @@
 // 型
-export {};
-
 declare global {
   interface Window {
     gtag?: (
@@ -21,4 +19,8 @@ declare global {
     client: string;
     uid: string;
   }
+}
+
+export interface IHeadContext {
+  title?: string;
 }

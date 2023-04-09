@@ -2,7 +2,7 @@ const DEFAULT_API_LOCALHOST: string | undefined =
   process.env.REACT_APP_DEFAULT_API_LOCALHOST;
 
 export const home = `${DEFAULT_API_LOCALHOST}`;
-
+export const base = process.env.REACT_APP_BASE_URL;
 // User関連のurl
 const DEVISE_PATH = `${DEFAULT_API_LOCALHOST}/auth`;
 

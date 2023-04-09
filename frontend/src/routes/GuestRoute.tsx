@@ -1,6 +1,6 @@
-import { FC, useContext } from "react";
+import { FC, useContext, Fragment } from "react";
 import { Navigate } from "react-router-dom";
-
+import { Head } from "../Head";
 // contexts
 import { AuthContext } from "../contexts/Auth";
 
@@ -9,8 +9,16 @@ import { isLoggedIn } from "../helpers";
 
 export const GuestRoute: FC<{
   jsxElement: JSX.Element;
-}> = ({ jsxElement }) => {
+  title: string;
+}> = ({ jsxElement, title }) => {
   const { currentUser } = useContext(AuthContext);
 
-  return isLoggedIn(currentUser) ? <Navigate to="/" /> : jsxElement;
+  return isLoggedIn(currentUser) ? (
+    <Navigate to="/" />
+  ) : (
+    <Fragment>
+      <Head title={title} />
+      {jsxElement}
+    </Fragment>
+  );
 };
