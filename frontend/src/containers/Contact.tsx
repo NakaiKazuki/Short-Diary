@@ -6,6 +6,7 @@ import {
   useState,
   ReactElement,
   Ref,
+  Fragment,
 } from "react";
 import styled from "styled-components";
 import { BaseButton } from "../components/shared_style";
@@ -29,6 +30,7 @@ import { postContact } from "../apis/contact";
 import { ContactContext } from "../contexts/Contact";
 import { AuthContext } from "../contexts/Auth";
 import { MessageContext } from "../contexts/Message";
+import { Head } from "../Head";
 
 // reducers
 import {
@@ -133,182 +135,190 @@ export const Contact: FC = () => {
   };
 
   return (
-    <Dialog
-      fullScreen
-      open={open}
-      onClose={handleClose}
-      TransitionComponent={Transition}
-      data-testid="contact"
-    >
-      <AppBar sx={{ position: "relative" }}>
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={handleClose}
-            aria-label="close"
-          >
-            <CloseIcon />
-          </IconButton>
-          <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-            Contact
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="contactForm">
-        <FormItemWrapper>
-          <InputLabel>
-            Name
-            {resultErrors?.name?.map((message: string, index: number) => (
-              <ErrorMessage
-                key={`name-${index}`}
-                data-testid="nameResultError"
-              >{`名前${message}`}</ErrorMessage>
-            ))}
-            {errors.name && (
-              <ErrorMessage data-testid="nameError">
-                1文字以上、50文字以内で入力してください
-              </ErrorMessage>
-            )}
-            <Controller
-              name="name"
-              control={control}
-              rules={{ required: true, maxLength: 50 }}
-              defaultValue={currentUser?.name ?? "未登録"}
-              shouldUnregister
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  type="text"
-                  autoFocus={true}
-                  autoComplete="username"
-                  fullWidth
-                  inputProps={{
-                    "data-testid": "nameArea",
-                  }}
-                />
-              )}
-            />
-          </InputLabel>
-        </FormItemWrapper>
-        <FormItemWrapper>
-          <InputLabel>
-            Email
-            {resultErrors?.email?.map((message: string, index: number) => (
-              <ErrorMessage
-                key={`email-${index}`}
-                data-testid="emailResultError"
-              >{`メールアドレス${message}`}</ErrorMessage>
-            ))}
-            {errors.email && (
-              <ErrorMessage data-testid="emailError">
-                1文字以上、255文字以内で入力してください
-              </ErrorMessage>
-            )}
-            <Controller
-              name="email"
-              control={control}
-              rules={{ required: true, maxLength: 255 }}
-              defaultValue={currentUser?.email ?? ""}
-              shouldUnregister
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  type="email"
-                  autoFocus={false}
-                  autoComplete="email"
-                  fullWidth
-                  inputProps={{
-                    "data-testid": "emailArea",
-                    placeholder: "連絡可能なメールアドレスを入力してください",
-                  }}
-                />
-              )}
-            />
-          </InputLabel>
-        </FormItemWrapper>
-        <FormItemWrapper>
-          <InputLabel>
-            概要
-            {resultErrors?.over_view?.map((message: string, index: number) => (
-              <ErrorMessage
-                key={`over_view-${index}`}
-                data-testid="overViewResultError"
-              >{`概要${message}`}</ErrorMessage>
-            ))}
-            {errors.overView && (
-              <ErrorMessage data-testid="overViewError">
-                50文字まで入力できます
-              </ErrorMessage>
-            )}
-            <Controller
-              name="overView"
-              control={control}
-              rules={{ maxLength: 50 }}
-              defaultValue={""}
-              shouldUnregister
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  type="text"
-                  autoFocus={true}
-                  autoComplete="text"
-                  fullWidth
-                  multiline
-                  inputProps={{
-                    "data-testid": "overViewArea",
-                    placeholder: "50文字まで入力可能です",
-                  }}
-                />
-              )}
-            />
-          </InputLabel>
-        </FormItemWrapper>
-        <FormItemWrapper>
-          <InputLabel>
-            お問い合わせ内容
-            {resultErrors?.content?.map((message: string, index: number) => (
-              <ErrorMessage
-                key={`content-${index}`}
-                data-testid="contentResultError"
-              >{`問い合わせ内容${message}`}</ErrorMessage>
-            ))}
-            {errors.content && (
-              <ErrorMessage data-testid="contentError">
-                1文字以上、1000文字以内で入力してください
-              </ErrorMessage>
-            )}
-            <Controller
-              name="content"
-              control={control}
-              rules={{ required: true, maxLength: 1000 }}
-              defaultValue={""}
-              shouldUnregister
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  type="text"
-                  autoFocus={true}
-                  autoComplete="text"
-                  fullWidth
-                  multiline
-                  inputProps={{
-                    "data-testid": "contentArea",
-                    placeholder: "1000文字まで入力可能です",
-                  }}
-                />
-              )}
-            />
-          </InputLabel>
-        </FormItemWrapper>
-        <Submit
-          type="submit"
-          disabled={isDisabled(submitState.postState)}
-          data-testid="formSubmit"
+    <Fragment>
+      <Head title={" Contact"} />
+      <Dialog
+        fullScreen
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+        data-testid="contact"
+      >
+        <AppBar sx={{ position: "relative" }}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+              Contact
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <FormWrapper
+          onSubmit={handleSubmit(onSubmit)}
+          data-testid="contactForm"
         >
-          {onSubmitText(submitState.postState, "送信する")}
-        </Submit>
-      </FormWrapper>
-    </Dialog>
+          <FormItemWrapper>
+            <InputLabel>
+              Name
+              {resultErrors?.name?.map((message: string, index: number) => (
+                <ErrorMessage
+                  key={`name-${index}`}
+                  data-testid="nameResultError"
+                >{`名前${message}`}</ErrorMessage>
+              ))}
+              {errors.name && (
+                <ErrorMessage data-testid="nameError">
+                  1文字以上、50文字以内で入力してください
+                </ErrorMessage>
+              )}
+              <Controller
+                name="name"
+                control={control}
+                rules={{ required: true, maxLength: 50 }}
+                defaultValue={currentUser?.name ?? "未登録"}
+                shouldUnregister
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    type="text"
+                    autoFocus={true}
+                    autoComplete="username"
+                    fullWidth
+                    inputProps={{
+                      "data-testid": "nameArea",
+                    }}
+                  />
+                )}
+              />
+            </InputLabel>
+          </FormItemWrapper>
+          <FormItemWrapper>
+            <InputLabel>
+              Email
+              {resultErrors?.email?.map((message: string, index: number) => (
+                <ErrorMessage
+                  key={`email-${index}`}
+                  data-testid="emailResultError"
+                >{`メールアドレス${message}`}</ErrorMessage>
+              ))}
+              {errors.email && (
+                <ErrorMessage data-testid="emailError">
+                  1文字以上、255文字以内で入力してください
+                </ErrorMessage>
+              )}
+              <Controller
+                name="email"
+                control={control}
+                rules={{ required: true, maxLength: 255 }}
+                defaultValue={currentUser?.email ?? ""}
+                shouldUnregister
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    type="email"
+                    autoFocus={false}
+                    autoComplete="email"
+                    fullWidth
+                    inputProps={{
+                      "data-testid": "emailArea",
+                      placeholder: "連絡可能なメールアドレスを入力してください",
+                    }}
+                  />
+                )}
+              />
+            </InputLabel>
+          </FormItemWrapper>
+          <FormItemWrapper>
+            <InputLabel>
+              概要
+              {resultErrors?.over_view?.map(
+                (message: string, index: number) => (
+                  <ErrorMessage
+                    key={`over_view-${index}`}
+                    data-testid="overViewResultError"
+                  >{`概要${message}`}</ErrorMessage>
+                )
+              )}
+              {errors.overView && (
+                <ErrorMessage data-testid="overViewError">
+                  50文字まで入力できます
+                </ErrorMessage>
+              )}
+              <Controller
+                name="overView"
+                control={control}
+                rules={{ maxLength: 50 }}
+                defaultValue={""}
+                shouldUnregister
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    type="text"
+                    autoFocus={true}
+                    autoComplete="text"
+                    fullWidth
+                    multiline
+                    inputProps={{
+                      "data-testid": "overViewArea",
+                      placeholder: "50文字まで入力可能です",
+                    }}
+                  />
+                )}
+              />
+            </InputLabel>
+          </FormItemWrapper>
+          <FormItemWrapper>
+            <InputLabel>
+              お問い合わせ内容
+              {resultErrors?.content?.map((message: string, index: number) => (
+                <ErrorMessage
+                  key={`content-${index}`}
+                  data-testid="contentResultError"
+                >{`問い合わせ内容${message}`}</ErrorMessage>
+              ))}
+              {errors.content && (
+                <ErrorMessage data-testid="contentError">
+                  1文字以上、1000文字以内で入力してください
+                </ErrorMessage>
+              )}
+              <Controller
+                name="content"
+                control={control}
+                rules={{ required: true, maxLength: 1000 }}
+                defaultValue={""}
+                shouldUnregister
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    type="text"
+                    autoFocus={true}
+                    autoComplete="text"
+                    fullWidth
+                    multiline
+                    inputProps={{
+                      "data-testid": "contentArea",
+                      placeholder: "1000文字まで入力可能です",
+                    }}
+                  />
+                )}
+              />
+            </InputLabel>
+          </FormItemWrapper>
+          <Submit
+            type="submit"
+            disabled={isDisabled(submitState.postState)}
+            data-testid="formSubmit"
+          >
+            {onSubmitText(submitState.postState, "送信する")}
+          </Submit>
+        </FormWrapper>
+      </Dialog>
+    </Fragment>
   );
 };

@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import styled from "styled-components";
-
 //contexts
 import { AuthContext } from "../contexts/Auth";
 
@@ -108,6 +107,7 @@ export const Login: FC = () => {
         Cookies.set("client", res.headers["client"]);
         Cookies.set("uid", res.headers["uid"]);
         Cookies.set("access-token", res.headers["access-token"]);
+
         setCurrentUser(res.data.data);
         navigate("/", { replace: true });
       })

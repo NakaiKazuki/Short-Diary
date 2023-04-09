@@ -103,6 +103,7 @@ describe("Contact", () => {
     it("Form初期値", () => {
       expect(el("nameArea")).toHaveValue(currentUser.name);
       expect(el("emailArea")).toHaveValue(currentUser.email);
+      expect("a");
     });
   });
 

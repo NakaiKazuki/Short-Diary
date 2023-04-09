@@ -1,4 +1,5 @@
-import { FC, useContext } from "react";
+import { FC, useContext, Fragment } from "react";
+import { Head } from "../Head";
 //contexts
 import { AuthContext } from "../contexts/Auth";
 
@@ -6,10 +7,15 @@ import { AuthContext } from "../contexts/Auth";
 import { isLoggedIn } from "../helpers";
 
 export const LoggedInRoute: FC<{
-  login: JSX.Element;
-  logout: JSX.Element;
+  login: { jsxElement: JSX.Element; title: string };
+  logout: { jsxElement: JSX.Element; title: string };
 }> = ({ login, logout }) => {
   const { currentUser } = useContext(AuthContext);
 
-  return isLoggedIn(currentUser) ? login : logout;
+  return (
+    <Fragment>
+      <Head title={isLoggedIn(currentUser) ? login.title : logout.title} />
+      {isLoggedIn(currentUser) ? login.jsxElement : logout.jsxElement};
+    </Fragment>
+  );
 };
