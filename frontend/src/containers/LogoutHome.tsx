@@ -168,7 +168,6 @@ export const LogoutHome: FC = () => {
         Cookies.set("client", res.headers["client"]);
         Cookies.set("uid", res.headers["uid"]);
         Cookies.set("access-token", res.headers["access-token"]);
-        console.log(res.data);
         setCurrentUser(res.data);
         navigate("/");
       })

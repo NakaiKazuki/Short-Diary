@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { HelmetProvider } from "react-helmet-async";
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
 ReactDOM.render(
   <React.StrictMode>
     <HelmetProvider>

@@ -3,6 +3,7 @@ import "@testing-library/jest-dom";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
+import { HelmetProvider } from "react-helmet-async";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { ContactContext } from "../../contexts/Contact";
 import { MessageContext } from "../../contexts/Message";
@@ -66,13 +67,15 @@ const customRender = (
     {
       path: "/",
       element: (
-        <ContactContext.Provider {...contactProviderProps}>
-          <AuthContext.Provider {...authProviderProps}>
-            <MessageContext.Provider {...messageProviderProps}>
-              {ui}
-            </MessageContext.Provider>
-          </AuthContext.Provider>
-        </ContactContext.Provider>
+        <HelmetProvider>
+          <ContactContext.Provider {...contactProviderProps}>
+            <AuthContext.Provider {...authProviderProps}>
+              <MessageContext.Provider {...messageProviderProps}>
+                {ui}
+              </MessageContext.Provider>
+            </AuthContext.Provider>
+          </ContactContext.Provider>
+        </HelmetProvider>
       ),
     },
   ];
