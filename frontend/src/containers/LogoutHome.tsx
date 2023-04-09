@@ -168,7 +168,7 @@ export const LogoutHome: FC = () => {
         Cookies.set("client", res.headers["client"]);
         Cookies.set("uid", res.headers["uid"]);
         Cookies.set("access-token", res.headers["access-token"]);
-        setCurrentUser(res.data);
+        setCurrentUser(res.data.data);
         navigate("/");
       })
       .catch((e) => {

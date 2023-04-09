@@ -25,9 +25,11 @@ const currentUser = {
 const mockAxios = new MockAdapter(axios);
 const result = {
   data: {
-    id: 1,
-    name: "testName",
-    email: "test@example.com",
+    data: {
+      id: 1,
+      name: "testName",
+      email: "test@example.com",
+    }
   },
   headers: {
     "access-token": "testtoken",

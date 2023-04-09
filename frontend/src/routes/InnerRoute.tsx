@@ -73,7 +73,7 @@ export const InnerRoute: FC = () => {
           Cookies.set("client", res.headers["client"]);
           Cookies.set("access-token", res.headers["access-token"]);
           console.log(res);
-          setCurrentUser(res.data.current_user);
+          setCurrentUser(res.data.data);
         })
         .catch((e): void => {
           if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {

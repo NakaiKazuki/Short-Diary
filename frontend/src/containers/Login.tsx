@@ -105,10 +105,10 @@ export const Login: FC = () => {
     })
       .then((res) => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
-        Cookies.set("uid", res.headers["uid"]);
         Cookies.set("client", res.headers["client"]);
+        Cookies.set("uid", res.headers["uid"]);
         Cookies.set("access-token", res.headers["access-token"]);
-        setCurrentUser(res.data);
+        setCurrentUser(res.data.data);
         navigate("/", { replace: true });
       })
       .catch((e) => {
