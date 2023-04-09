@@ -96,6 +96,8 @@
     - Cookie 保存
   - ルーティング機能
     - react-router-dom
+  - head のタイトル変更
+    - react-helmet-async
 
 ## テスト
 
