@@ -8,12 +8,7 @@ export interface IUserParams {
 
 export interface IUserResult {
   headers: IHeaders;
-  data: ICurrentUser;
-}
-
-export interface IgetCurrentUserResult {
-  headers: IHeaders;
-  data: { current_user: ICurrentUser };
+  data: { data: ICurrentUser };
 }
 
 export interface IContactParams {

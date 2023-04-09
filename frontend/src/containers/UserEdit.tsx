@@ -128,7 +128,7 @@ export const UserEdit: FC = () => {
       rules: { minLength: 6, maxLength: 128 },
     },
     current_password: {
-      formLabel: "現在使用中のパスワード:",
+      formLabel: "現在使用中のパスワード(必須):",
       errorsProperty: errors.current_password,
       errorMessage: "現在使用中のパスワードを入力してください",
       resultErrorProperty: resultErrors?.current_password,
@@ -161,10 +161,10 @@ export const UserEdit: FC = () => {
     })
       .then((res) => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
-        setCurrentUser(res.data);
         Cookies.set("uid", res.headers["uid"]);
         Cookies.set("client", res.headers["client"]);
         Cookies.set("access-token", res.headers["access-token"]);
+        setCurrentUser(res.data.data);
         setMessage("登録情報の編集に成功しました。");
         navigate("../", { replace: true });
       })
