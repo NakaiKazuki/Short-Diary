@@ -29,11 +29,11 @@ export const Head: FC<IContext> = (props, screenName?) => {
 
     if ((!screenName)) return;
 
-    window.gtag("event", "page_view", {
-      page_path: location.pathname,
-      page_title: screenName,
-      send_to: process.env.REACT_APP_GA_G,
-    });
+    // window.gtag("event", "page_view", {
+    //   page_title: screenName,
+    //   page_location: location.pathname,
+    //   send_to: process.env.REACT_APP_GA_G,
+    // });
   }, [title, location]);
 
   return (

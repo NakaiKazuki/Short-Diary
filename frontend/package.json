@@ -45,7 +45,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --cache --fix src/ && prettier --write src/"
+    "lint": "eslint --cache --fix src/ && prettier --write src/",
+    "prod": "npx serve -s build -n -p 3000"
   },
   "eslintConfig": {
     "extends": [
