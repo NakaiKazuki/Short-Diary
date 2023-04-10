@@ -29,9 +29,9 @@ export const Head: FC<IContext> = (props, screenName?) => {
 
     if ((!screenName)) return;
 
-    window.gtagEvent("event", "page_view", {
+    window.gtag("event", "page_view", {
       page_path: location.pathname,
-      page_title: `screenName`
+      page_title: screenName
     });
   }, [title, location]);
 
