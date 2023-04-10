@@ -6,11 +6,6 @@ declare global {
       trackingId: string,
       config: { page_path: string; page_title: string }
     ) => void;
-    gtagEvent: (
-      key: "event",
-      action: string,
-      event: { page_path: string; page_title: string }
-    ) => void;
   }
 
   interface ICurrentUser {
