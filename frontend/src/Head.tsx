@@ -17,7 +17,7 @@ export const Head: FC<IContext> = (props) => {
       return;
     }
     window.gtag("config", process.env.REACT_APP_GA_G, {
-      page_path: `${location.pathname} T=${title}`,
+      page_path: `${location.pathname}/T+${title}`,
       page_title: `Short Diary ${title}`
     });
 
