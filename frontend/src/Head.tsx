@@ -16,17 +16,17 @@ export const Head: FC<IContext> = (props) => {
       );
       return;
     }
-    window.gtag("config", process.env.REACT_APP_GA_G, {
-      page_path: `${location.pathname}/T+${title}`,
-      page_title: `Short Diary ${title}`
-    });
-
     window.gtag("config", process.env.REACT_APP_GA_UA, {
-      page_path: `${location.pathname} T=${title}`,
+      page_path: `${location.pathname}/${title}`,
       page_title: `Short Diary ${title}`
     });
 
-  }, [title]);
+    window.gtag("config", process.env.REACT_APP_GA_G, {
+      page_path: `${location.pathname}/${title}`,
+      page_title: `Short Diary ${title}`
+    });
+
+  }, [title, location]);
 
   return (
     <Helmet>
@@ -43,7 +43,7 @@ export const Head: FC<IContext> = (props) => {
         <Fragment>
           <script
             async
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.REACT_APP_GA_UA}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.REACT_APP_GA_G}`}
           ></script>
           <script>
             {`
