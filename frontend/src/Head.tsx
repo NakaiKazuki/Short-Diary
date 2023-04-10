@@ -16,17 +16,17 @@ export const Head: FC<IContext> = (props) => {
       );
       return;
     }
+    window.gtag("config", process.env.REACT_APP_GA_G, {
+      page_path: `${location.pathname} T=${title}`,
+      page_title: `Short Diary ${title}`
+    });
 
     window.gtag("config", process.env.REACT_APP_GA_UA, {
-      page_path: location.pathname,
+      page_path: `${location.pathname} T=${title}`,
       page_title: `Short Diary ${title}`
     });
 
-    window.gtag("config", process.env.REACT_APP_GA_G, {
-      page_path: location.pathname,
-      page_title: `Short Diary ${title}`
-    });
-  }, [title, location]);
+  }, [title]);
 
   return (
     <Helmet>
