@@ -44,14 +44,8 @@ export const Head: FC<IContext> = (props) => {
               window.dataLayer.push(arguments);
             }
             gtag("js", new Date());
-            gtag("config", "${process.env.REACT_APP_GA_UA}","${JSON.stringify({
-              page_path: window.location.pathname,
-              page_title: `Short Diary ${title}`
-            })}");
-              gtag("config", "${process.env.REACT_APP_GA_G}","${JSON.stringify({
-              page_path: window.location.pathname,
-              page_title: `Short Diary ${title}`
-            })}");
+            gtag("config", "${process.env.REACT_APP_GA_UA}");
+            gtag("config", "${process.env.REACT_APP_GA_G}");
           `}
           </script>
         </Fragment>
