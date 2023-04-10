@@ -5,7 +5,6 @@ import {
   useReducer,
   useState,
   ReactElement,
-  Ref,
   Fragment,
 } from "react";
 import styled from "styled-components";
@@ -79,14 +78,11 @@ const ErrorMessage = styled.p`
   font-size: 0.9rem;
 `;
 
-const Transition = forwardRef(function Transition(
-  props: TransitionProps & {
-    children: ReactElement;
-  },
-  ref: Ref<unknown>
-) {
+const transition = forwardRef<unknown, TransitionProps & { children: ReactElement }>(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
+transition.displayName = 'Transition';
 
 export const Contact: FC = () => {
   const { open, setOpenContact } = useContext(ContactContext);
@@ -136,12 +132,12 @@ export const Contact: FC = () => {
 
   return (
     <Fragment>
-      <Head title={" Contact"} />
+      <Head title={"Contact"} />
       <Dialog
         fullScreen
         open={open}
         onClose={handleClose}
-        TransitionComponent={Transition}
+        TransitionComponent={transition}
         data-testid="contact"
       >
         <AppBar sx={{ position: "relative" }}>

@@ -41,10 +41,11 @@ const ContactButton = styled(Base)`
 
 export const Footer: FC = () => {
   const { setOpenContact } = useContext(ContactContext);
+  const onContactButton = (): void => setOpenContact(true)
   return (
     <AppFooter data-testid="footer">
       <ContactButton
-        onClick={(): void => setOpenContact(true)}
+        onClick={onContactButton}
         data-testid="contactButton"
       >
         Contact
