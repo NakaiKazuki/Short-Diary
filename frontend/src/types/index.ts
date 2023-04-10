@@ -1,10 +1,15 @@
 // 型
 declare global {
   interface Window {
-    gtag?: (
+    gtag: (
       key: string,
       trackingId: string,
       config: { page_path: string; page_title: string }
+    ) => void;
+    gtagEvent: (
+      key: "event",
+      action: string,
+      event: { page_path: string; page_title: string }
     ) => void;
   }
 
@@ -23,4 +28,5 @@ declare global {
 
 export interface IHeadContext {
   title: string;
+  screenName?: string;
 }
