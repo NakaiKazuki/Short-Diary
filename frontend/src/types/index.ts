@@ -4,7 +4,11 @@ declare global {
     gtag: (
       key: string,
       trackingId: string,
-      config: { page_path: string; page_title: string }
+      config: {
+        page_path: string;
+        page_title: string;
+        send_to?: string;
+      }
     ) => void;
   }
 
