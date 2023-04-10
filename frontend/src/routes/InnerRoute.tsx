@@ -41,7 +41,7 @@ const router = createBrowserRouter(
         element={
           <LoggedInRoute
             login={{ jsxElement: <LoginHome />, title: "User Home" }}
-            logout={{ jsxElement: <LogoutHome />, title: "" }}
+            logout={{ jsxElement: <LogoutHome />, title: "Home" }}
           />
         }
       />
