@@ -29,7 +29,7 @@
 - Github Actions
 - AWS
   - VPC
-  - EC2(インスタンス内で docker compose を実行([使用ファイル](https://github.com/NakaiKazuki/Short-Diary/blob/main/docker-compose-prod.yml))
+  - EC2(インスタンス内で docker compose を実行([使用ファイル](https://github.com/NakaiKazuki/Short-Diary/blob/main/docker-compose-prod.yml)))
   - Route53
   - Certificate Manager
   - S3
