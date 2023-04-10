@@ -3,11 +3,11 @@ import { Helmet } from "react-helmet-async";
 import { IHeadContext as IContext } from "./types";
 import { useLocation } from 'react-router-dom';
 
-export const Head: FC<IContext> = (props) => {
+export const Head: FC<IContext> = (props, screenName?) => {
   const { title } = props;
   const location = useLocation();
   useEffect(() => {
-    if (!(process.env.NODE_ENV === 'production') || !window.gtag) return;
+    if (!(process.env.NODE_ENV === 'production')) return;
 
 
     if (!(process.env.REACT_APP_GA_UA && process.env.REACT_APP_GA_G)) {
@@ -25,6 +25,13 @@ export const Head: FC<IContext> = (props) => {
     window.gtag("config", process.env.REACT_APP_GA_G, {
       page_path: location.pathname,
       page_title: `Short Diary ${title}`
+    });
+
+    if ((!screenName)) return;
+
+    window.gtagEvent("event", "page_view", {
+      page_path: location.pathname,
+      page_title: `screenName`
     });
   }, [title, location]);
 

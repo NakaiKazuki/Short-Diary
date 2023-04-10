@@ -132,7 +132,7 @@ export const Contact: FC = () => {
 
   return (
     <Fragment>
-      <Head title={"Contact"} />
+      <Head title="Contact" screenName="ContactDialog" />
       <Dialog
         fullScreen
         open={open}
