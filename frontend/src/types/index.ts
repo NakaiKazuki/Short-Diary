@@ -4,7 +4,7 @@ declare global {
     gtag?: (
       key: string,
       trackingId: string,
-      config: { page_path: string }
+      config: { page_path: string; page_title: string }
     ) => void;
   }
 
@@ -22,5 +22,5 @@ declare global {
 }
 
 export interface IHeadContext {
-  title?: string;
+  title: string;
 }

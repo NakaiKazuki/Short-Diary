@@ -88,7 +88,7 @@ export const UserEdit: FC = () => {
       rules: { maxLength: 50 },
     },
     email: {
-      formLabel: "Email:",
+      formLabel: "Email(必須):",
       errorsProperty: errors.email,
       errorMessage: "1文字以上、255文字以内で入力してください",
       resultErrorProperty: resultErrors?.email,
