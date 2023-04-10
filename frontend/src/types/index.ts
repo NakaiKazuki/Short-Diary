@@ -6,9 +6,9 @@ declare global {
       trackingId: string,
       config: {
         page_title: string;
-        page_path?: string;
-        send_to?: string;
-        page_location?: string;
+        page_path: string;
+        // send_to: string;
+        // page_location: string;
       }
     ) => void;
   }
