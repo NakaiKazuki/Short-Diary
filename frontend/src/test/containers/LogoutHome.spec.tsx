@@ -4,6 +4,7 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { AuthContext } from "../../contexts/Auth";
 import { LogoutHome } from "../../containers/LogoutHome";
 import { guestSignIn } from "../../urls";
@@ -63,7 +64,9 @@ const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
     {
       path: "/",
       element: (
-        <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
+        <HelmetProvider>
+          <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
+        </HelmetProvider>
       ),
     },
   ];
@@ -84,7 +87,7 @@ describe("LogoutHome", () => {
       value: 1024,
     });
     expect(el("leftWrapper")).toBeTruthy();
-    expect(el("about")).toBeTruthy();
+    expect(el("sample")).toBeTruthy();
     expect(el("signUpForm")).toBeTruthy();
   });
 
@@ -94,7 +97,7 @@ describe("LogoutHome", () => {
       value: 320,
     });
     expect(el("leftWrapper")).toBeTruthy();
-    expect(el("about")).toBeTruthy();
+    expect(el("sample")).toBeTruthy();
     expect(screen.queryByTestId("menuBar")).toBeFalsy();
   });
 
@@ -104,6 +107,10 @@ describe("LogoutHome", () => {
 
   it("ユーザ登録画面へのリンクがある", () => {
     expect(el("signUpLink")).toHaveAttribute("href", "/signup");
+  });
+
+  it("技術・プロフィール表示用ボタンがある", () => {
+    expect(el("aboutButton")).toBeTruthy();
   });
 
   describe("ゲストログインボタン", () => {
@@ -125,5 +132,10 @@ describe("LogoutHome", () => {
       );
       await waitFor(() => expect(el("guestLoginButton")).toBeDisabled());
     });
+  });
+
+  it("Contactコンポーネント", async () => {
+    await userEvent.click(el("aboutButton"));
+    expect(el("aboutDialog")).toBeTruthy();
   });
 });

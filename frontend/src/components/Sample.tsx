@@ -6,12 +6,12 @@ import styled from "styled-components";
 import { AnimatedSection } from "./AnimatedSection";
 
 // images
-import BackImage from "../images/about.jpg";
+import BackImage from "../images/sample.jpg";
 import diaryPicture from "../images/sample/diary.png";
 import diaryCreatePicture from "../images/sample/diarycreate.png";
 import Gallery1Picture from "../images/sample/gallery1.png";
 
-const AboutWrapper = styled.div`
+const SampleWrapper = styled.div`
   overflow: hidden;
   background-image: url(${BackImage});
   background-repeat: no-repeat;
@@ -167,10 +167,10 @@ const items = [
   { original: diaryCreatePicture, originalHeight: 768, originalWidth: 768 },
   { original: Gallery1Picture, originalHeight: 768, originalWidth: 768 },
 ];
-export const About: FC = () => {
+export const Sample: FC = () => {
   return (
-    <AboutWrapper data-testid="about">
-      <Title>About</Title>
+    <SampleWrapper data-testid="sample">
+      <Title>Sample</Title>
       <Contents>
         <ContentTitle>Diary</ContentTitle>
         <AnimatedSection>
@@ -205,6 +205,6 @@ export const About: FC = () => {
           </CustomGallery>
         </AnimatedSection>
       </Contents>
-    </AboutWrapper>
+    </SampleWrapper>
   );
 };

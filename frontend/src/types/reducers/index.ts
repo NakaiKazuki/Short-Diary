@@ -1,4 +1,4 @@
-export interface IInitialState {
+export interface ISubmitInitialState {
   postState: string;
 }
 
@@ -8,6 +8,21 @@ export interface ISubmitActionTypes {
   POST_SUCCESS: "POST_SUCCESS";
 }
 
-export interface IAction {
+export interface ISubmitAction {
   type: "INITIAL" | "POSTING" | "POST_SUCCESS";
+}
+
+export interface IAboutInitialState {
+  title: string;
+  jsxElement: JSX.Element;
+}
+
+export interface IAboutActionTypes {
+  PROFILE: "プロフィール";
+  TECHNOLOGY: "使用技術";
+  FUNCTION: "機能一覧";
+}
+
+export interface IAboutAction {
+  title: string;
 }

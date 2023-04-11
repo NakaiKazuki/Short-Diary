@@ -10,7 +10,7 @@ const buttonVariants = {
     scale: 1.1,
   },
   tap: {
-    scale: 0.8,
+    scale: 0.9,
     transition: {
       duration: 0.2,
       ease: "easeOut",

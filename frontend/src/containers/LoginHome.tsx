@@ -496,7 +496,7 @@ export const LoginHome: FC = () => {
   const onPlayerReady: YouTubeProps["onReady"] = (
     e: YouTubeEvent<{ target: YouTubePlayer }>
   ): void => {
-    e.target.pauseVideo();
+    e.target.playVideo();
   };
   // ここまでDiaryDialogで使う関数
 

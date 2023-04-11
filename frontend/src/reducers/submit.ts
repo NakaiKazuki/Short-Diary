@@ -1,9 +1,13 @@
 import { REQUEST_STATE } from "../constants";
 
 // types
-import { ISubmitActionTypes, IInitialState, IAction } from "../types/reducers";
+import {
+  ISubmitActionTypes as IActionTypes,
+  ISubmitInitialState as IInitialState,
+  ISubmitAction as IAction,
+} from "../types/reducers";
 
-export const submitActionTypes: ISubmitActionTypes = {
+export const submitActionTypes: IActionTypes = {
   POST_INITIAL: "INITIAL",
   POSTING: "POSTING",
   POST_SUCCESS: "POST_SUCCESS",
