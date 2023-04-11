@@ -114,10 +114,10 @@ export const AboutDialog: FC<IProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  const hadleCategory = (e: string) => {
-    if (e === state.title) return;
+  const hadleCategory = (title: string) => {
+    if (title === state.title) return;
 
-    onCategory(e);
+    onCategory(title);
     ref?.current?.scrollIntoView();
   };
 

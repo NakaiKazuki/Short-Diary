@@ -3,7 +3,7 @@ import { render, cleanup } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { el } from "../../helpers";
-import { AboutDialog } from "../../../components/aboutDiarlog/AboutDialog";
+import { AboutDialog } from "../../../components/aboutDiarlog";
 afterEach(cleanup);
 
 const state = {

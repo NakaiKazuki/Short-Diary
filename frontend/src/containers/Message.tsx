@@ -11,7 +11,7 @@ const MessageWrapper = styled.div`
   position: fixed;
   z-index: 1;
   transition: all 0.3s;
-  margin-top: 6.6vh;
+  margin-top: 3vh;
 `;
 
 const TextWrapper = styled.p`
