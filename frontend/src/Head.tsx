@@ -1,14 +1,13 @@
 import { FC, useEffect, Fragment } from "react";
 import { Helmet } from "react-helmet-async";
 import { IHeadContext as IContext } from "./types";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 export const Head: FC<IContext> = (props) => {
   const { title } = props;
   const location = useLocation();
   useEffect(() => {
-    if (!(process.env.NODE_ENV === 'production')) return;
-
+    if (!(process.env.NODE_ENV === "production")) return;
 
     if (!(process.env.REACT_APP_GA_UA && process.env.REACT_APP_GA_G)) {
       console.log(
@@ -19,12 +18,12 @@ export const Head: FC<IContext> = (props) => {
 
     window.gtag("config", process.env.REACT_APP_GA_UA, {
       page_path: location.pathname,
-      page_title: `Short Diary ${title}`
+      page_title: `Short Diary ${title}`,
     });
 
     window.gtag("config", process.env.REACT_APP_GA_G, {
       page_path: location.pathname,
-      page_title: `Short Diary ${title}`
+      page_title: `Short Diary ${title}`,
     });
   }, [title, location]);
 
@@ -38,8 +37,7 @@ export const Head: FC<IContext> = (props) => {
         content="Short Diaryでは200文字以内の日記を気軽に作成することができます"
       />
       <title>{`Short Diary ${title}`}</title>
-      {
-        (process.env.NODE_ENV === 'production') &&
+      {process.env.NODE_ENV === "production" && (
         <Fragment>
           <script
             async
@@ -57,7 +55,7 @@ export const Head: FC<IContext> = (props) => {
           `}
           </script>
         </Fragment>
-      }
+      )}
     </Helmet>
   );
 };

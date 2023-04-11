@@ -47,20 +47,20 @@ const router = createBrowserRouter(
       />
       <Route
         path="/signup"
-        element={<GuestRoute jsxElement={<SignUp />} title={"SignUp"} />}
+        element={<GuestRoute jsxElement={<SignUp />} title="SignUp" />}
       />
       <Route
         path="/login"
-        element={<GuestRoute jsxElement={<Login />} title={"Login"} />}
+        element={<GuestRoute jsxElement={<Login />} title="Login" />}
       />
       <Route
         path="/userEdit"
-        element={<PrivateRoute jsxElement={<UserEdit />} title={"UserEdit"} />}
+        element={<PrivateRoute jsxElement={<UserEdit />} title="UserEdit" />}
       />
       <Route
         path="/photoGalley"
         element={
-          <PrivateRoute jsxElement={<PhotoGallery />} title={"PhotoGallery"} />
+          <PrivateRoute jsxElement={<PhotoGallery />} title="PhotoGallery" />
         }
       />
     </Route>
@@ -83,7 +83,6 @@ export const InnerRoute: FC = () => {
           Cookies.set("uid", res.headers["uid"]);
           Cookies.set("client", res.headers["client"]);
           Cookies.set("access-token", res.headers["access-token"]);
-          console.log(res);
           setCurrentUser(res.data.data);
         })
         .catch((e): void => {

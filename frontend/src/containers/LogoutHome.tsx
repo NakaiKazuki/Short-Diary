@@ -6,7 +6,8 @@ import styled from "styled-components";
 
 //contexts
 import { AuthContext } from "../contexts/Auth";
-
+// types
+import { ILogoutHomeInitialState as IInitialState } from "../types/containers";
 // apis
 import { newGuestSession } from "../apis/users/sessions";
 
@@ -15,15 +16,17 @@ import { onSubmitText, isDisabled } from "../helpers";
 
 // reducers
 import {
-  initialState,
+  initialState as initialSubmit,
   submitActionTypes,
   submitReducer,
 } from "../reducers/submit";
+import { initialState as initialAbout, aboutReducer } from "../reducers/about";
 
 // components
-import { BaseButton } from "../components/shared_style";
-import { About } from "../components/About";
 import { SignUp } from "./SignUp";
+import { AboutDialog } from "../components/aboutDiarlog/AboutDialog";
+import { BaseButton } from "../components/shared_style";
+import { Sample } from "../components/Sample";
 
 // images
 import LeftHome from "../images/lefthome.jpg";
@@ -106,7 +109,6 @@ const ButtonsWrapper = styled.span`
 
 const HomeButton = styled(BaseButton)`
   height: 2.5rem;
-  width: 10rem;
   border-style: none;
   letter-spacing: 0.2rem;
   color: white;
@@ -114,11 +116,18 @@ const HomeButton = styled(BaseButton)`
 `;
 
 const SignUpButton = styled(HomeButton)`
+  width: 10rem;
   background-color: royalblue;
 `;
 
 const GuestLogin = styled(HomeButton)`
+  width: 10rem;
   background-color: limegreen;
+`;
+
+const ProfButton = styled(HomeButton)`
+  width: 20rem;
+  background-color: green;
 `;
 
 const RightWrapper = styled.div`
@@ -147,24 +156,35 @@ const variants = {
 };
 
 export const LogoutHome: FC = () => {
-  const { setCurrentUser } = useContext(AuthContext);
-  const [submitState, dispatch] = useReducer(submitReducer, initialState);
   const navigate = useNavigate();
-
-  const [isDesktop, setIsDesktop] = useState(false);
+  const { setCurrentUser } = useContext(AuthContext);
+  const [submitState, dispatchSubmit] = useReducer(
+    submitReducer,
+    initialSubmit
+  );
+  const [aboutState, dispatchAbout] = useReducer(aboutReducer, initialAbout);
+  const initialState: IInitialState = {
+    isDesktop: false,
+    open: false,
+  };
+  const [state, setState] = useState(initialState);
 
   useEffect(() => {
-    const handleResize = () => setIsDesktop(window.innerWidth >= 979);
+    const handleResize = () =>
+      setState({
+        ...state,
+        isDesktop: window.innerWidth >= 979,
+      });
     window.addEventListener("resize", handleResize);
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const onGuestLoginButton = async (): Promise<void> => {
-    dispatch({ type: submitActionTypes.POSTING });
+    dispatchSubmit({ type: submitActionTypes.POSTING });
     await newGuestSession()
       .then((res) => {
-        dispatch({ type: submitActionTypes.POST_SUCCESS });
+        dispatchSubmit({ type: submitActionTypes.POST_SUCCESS });
         Cookies.set("client", res.headers["client"]);
         Cookies.set("uid", res.headers["uid"]);
         Cookies.set("access-token", res.headers["access-token"]);
@@ -179,6 +199,20 @@ export const LogoutHome: FC = () => {
         throw e;
       });
   };
+  // AboutDialog
+  const onOpenButton = (): void =>
+    setState({
+      ...state,
+      open: true,
+    });
+
+  const onCloseButton = (): void =>
+    setState({
+      ...state,
+      open: false,
+    });
+  // AboutDialogここまで
+
   return (
     <LogoutHomeWrapper>
       <LeftWrapper data-testid="leftWrapper">
@@ -211,14 +245,31 @@ export const LogoutHome: FC = () => {
                 {onSubmitText(submitState.postState, "ゲストログイン")}
               </GuestLogin>
             </ButtonsWrapper>
+            <ButtonsWrapper>
+              <ProfButton
+                type="button"
+                onClick={onOpenButton}
+                data-testid="aboutButton"
+              >
+                使用技術と制作者情報
+              </ProfButton>
+            </ButtonsWrapper>
           </Content>
         </ContentWrapper>
-        <About />
+        <Sample />
       </LeftWrapper>
-      {isDesktop && (
+      {state.isDesktop && (
         <RightWrapper>
           <SignUp />
         </RightWrapper>
+      )}
+      {state.open && (
+        <AboutDialog
+          isOpen={state.open}
+          handleClose={onCloseButton}
+          state={aboutState}
+          onCategory={(title: string) => dispatchAbout({ title: title })}
+        />
       )}
     </LogoutHomeWrapper>
   );

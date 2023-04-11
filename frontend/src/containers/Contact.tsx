@@ -78,11 +78,14 @@ const ErrorMessage = styled.p`
   font-size: 0.9rem;
 `;
 
-const transition = forwardRef<unknown, TransitionProps & { children: ReactElement }>(function Transition(props, ref) {
+const transition = forwardRef<
+  unknown,
+  TransitionProps & { children: ReactElement }
+>(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-transition.displayName = 'Transition';
+transition.displayName = "Transition";
 
 export const Contact: FC = () => {
   const { open, setOpenContact } = useContext(ContactContext);

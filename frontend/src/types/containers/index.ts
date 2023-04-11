@@ -95,6 +95,10 @@ export interface IUsersFormValues {
   current_password: string;
 }
 
+export interface ILogoutHomeInitialState {
+  isDesktop: boolean;
+  open: boolean;
+}
 export interface ILoginHomeInitialState {
   anchorEl: HTMLElement | null;
   resultErrors: IResultErrors | undefined;

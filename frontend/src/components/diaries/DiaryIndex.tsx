@@ -26,10 +26,10 @@ const DiariesWrapper = styled.ul`
 
 const buttonVariants = {
   hover: {
-    scale: 1.2,
+    scale: 1.05,
   },
   tap: {
-    scale: 0.8,
+    scale: 0.95,
   },
 } as const;
 
