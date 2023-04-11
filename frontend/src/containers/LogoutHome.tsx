@@ -125,10 +125,10 @@ const GuestLogin = styled(HomeButton)`
   background-color: limegreen;
 `;
 
-const ProfButton = styled(HomeButton)`
-  width: 20rem;
-  background-color: green;
-`;
+// const ProfButton = styled(HomeButton)`
+//   width: 20rem;
+//   background-color: green;
+// `;
 
 const RightWrapper = styled.div`
   margin-bottom: 7vh;
@@ -200,11 +200,11 @@ export const LogoutHome: FC = () => {
       });
   };
   // AboutDialog
-  const onOpenButton = (): void =>
-    setState({
-      ...state,
-      open: true,
-    });
+  // const onOpenButton = (): void =>
+  //   setState({
+  //     ...state,
+  //     open: true,
+  //   });
 
   // const onCloseButton = (): void =>
   //   setState({
@@ -245,7 +245,7 @@ export const LogoutHome: FC = () => {
                 {onSubmitText(submitState.postState, "ゲストログイン")}
               </GuestLogin>
             </ButtonsWrapper>
-            <ButtonsWrapper>
+            {/* <ButtonsWrapper>
               <ProfButton
                 type="button"
                 onClick={onOpenButton}
@@ -253,7 +253,7 @@ export const LogoutHome: FC = () => {
               >
                 使用技術と制作者情報
               </ProfButton>
-            </ButtonsWrapper>
+            </ButtonsWrapper> */}
           </Content>
         </ContentWrapper>
         <Sample />

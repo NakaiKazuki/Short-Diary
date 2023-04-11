@@ -14,6 +14,7 @@ const AppFooter = styled.footer`
   position: fixed;
   bottom: 0;
   width: 99vw;
+  z-index: 10;
 `;
 
 const Link = styled.a`
