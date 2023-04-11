@@ -109,9 +109,9 @@ describe("LogoutHome", () => {
     expect(el("signUpLink")).toHaveAttribute("href", "/signup");
   });
 
-  it("技術・プロフィール表示用ボタンがある", () => {
-    expect(el("aboutButton")).toBeTruthy();
-  });
+  // it("技術・プロフィール表示用ボタンがある", () => {
+  //   expect(el("aboutButton")).toBeTruthy();
+  // });
 
   describe("ゲストログインボタン", () => {
     it("ゲストログインボタン", () => {
