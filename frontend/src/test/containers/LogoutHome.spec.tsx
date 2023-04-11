@@ -133,4 +133,9 @@ describe("LogoutHome", () => {
       await waitFor(() => expect(el("guestLoginButton")).toBeDisabled());
     });
   });
+
+  it("Contactコンポーネント", async () => {
+    await userEvent.click(el("aboutButton"));
+    expect(el("aboutDialog")).toBeTruthy();
+  });
 });
