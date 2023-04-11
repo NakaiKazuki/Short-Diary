@@ -20,11 +20,11 @@ import {
   submitActionTypes,
   submitReducer,
 } from "../reducers/submit";
-import { initialState as initialAbout, aboutReducer } from "../reducers/about";
+// import { initialState as initialAbout, aboutReducer } from "../reducers/about";
 
 // components
 import { SignUp } from "./SignUp";
-import { AboutDialog } from "../components/aboutDiarlog/AboutDialog";
+// import { AboutDialog } from "../components/aboutDiarlog";
 import { BaseButton } from "../components/shared_style";
 import { Sample } from "../components/Sample";
 
@@ -162,7 +162,7 @@ export const LogoutHome: FC = () => {
     submitReducer,
     initialSubmit
   );
-  const [aboutState, dispatchAbout] = useReducer(aboutReducer, initialAbout);
+  // const [aboutState, dispatchAbout] = useReducer(aboutReducer, initialAbout);
   const initialState: IInitialState = {
     isDesktop: false,
     open: false,
@@ -206,11 +206,11 @@ export const LogoutHome: FC = () => {
       open: true,
     });
 
-  const onCloseButton = (): void =>
-    setState({
-      ...state,
-      open: false,
-    });
+  // const onCloseButton = (): void =>
+  //   setState({
+  //     ...state,
+  //     open: false,
+  //   });
   // AboutDialogここまで
 
   return (
@@ -263,14 +263,14 @@ export const LogoutHome: FC = () => {
           <SignUp />
         </RightWrapper>
       )}
-      {state.open && (
+      {/* {state.open && (
         <AboutDialog
           isOpen={state.open}
           handleClose={onCloseButton}
           state={aboutState}
           onCategory={(title: string) => dispatchAbout({ title: title })}
         />
-      )}
+      )} */}
     </LogoutHomeWrapper>
   );
 };
