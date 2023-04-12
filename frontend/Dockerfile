@@ -1,4 +1,4 @@
-FROM node:18.13-alpine3.16
+FROM node:18.15-alpine3.16
 
 ENV APP_ROOT /frontend
 

@@ -26,89 +26,87 @@
 
 ## 使用技術
 
-- Github Actions
+- React
+  - Node 18.15.0
+  - React 18.2.0
+  - TypeScript 5.0.4
+  - React Testing Library
+  - ESLint
+  - Prettier
+- Rails
+  - Ruby 3.2.2
+  - Rails 7.0.4.3
+  - Puma
+  - RSpec
+  - Rubocop
 - AWS
   - VPC
-  - EC2(インスタンス内で docker compose を実行([使用ファイル](https://github.com/NakaiKazuki/Short-Diary/blob/main/docker-compose-prod.yml)))
+  - EC2(インスタンス内で Docker を実行([使用ファイル](https://github.com/NakaiKazuki/Short-Diary/blob/main/docker-compose-prod.yml)))
   - Route53
   - Certificate Manager
   - S3
   - RDS(MySQL 8.0)
-- Docker/Docker-compose
-- MySQL 8.0
-- Rails
-  - Ruby 3.2
-  - Rails 7.0
-  - Puma
-  - RSpec
-  - Rubocop
-- React
-  - Node 18.13
-  - TypeScript 4.9
-  - React 18.1
-  - React Testing Library
-  - ESLint
-  - Prettier
-- Google Analytics
 - Nginx 1.20
+- Docker / Docker Compose
+- MySQL 8.0
+- Google Analytics
+- Github Actions
 
-## Github Actions
-
-下記が実行されます。
-
-- Rails:
-  - Rails Best Practices,
-  - Brakeman,
-  - Bundle Audit,
-  - Rubocop,
-  - RSpec
-- React:
-  - JSLint,
-  - Testing Library
-
-## 主な機能
-
-- Rails
-
-  - ユーザー登録(メール認証)、ログイン機能(devise_token_auth)
-  - 日記投稿機能
-    - 画像投稿(ActiveStorage)
-      - 本番環境では S3 に保存
-  - ページネーション機能(pagy)
-  - タグ機能(acts-as-taggable-on)
-  - 検索機能(ransack)
+## 機能その他
 
 - React
 
   - デザイン
-    - Material-UI
-    - styled-components
+    - Material UI
+    - Styled Components
   - アニメーション
-    - framer-motion
+    - Framer Motion
   - Form
-    - react-hook-form
+    - React Hook Form
     - 画像投稿機能
-  - PhotoGallery(日記に付随した画像一覧の表示)
-    - react-image-gallery
-  - YouTube の動画埋め込み
-    - react-youtube
+  - Photo Gallery(日記に付随した画像一覧)
+    - React Image Gallery
+  - YouTube 動画再生
+    - React Youtube
   - ログイン機能
     - Cookie 保存
   - ルーティング機能
-    - react-router-dom
-  - head のタイトル変更
-    - react-helmet-async
+    - React Router Dom
+  - head 情報の変更
+    - React Helmet Async
+
+- Rails
+
+  - ユーザー登録(メール認証)、ログイン機能(Devise Token Auth)
+  - 日記投稿機能
+    - 画像保存(ActiveStorage)
+      - 本番環境では S3 に保存
+  - ページネーション機能(Pagy)
+  - タグ機能(Acts As Taggable On)
+  - 検索機能(Ransack)
+
+- Github Actions
+  - Rails:
+    - Rails Best Practices,
+    - Brakeman,
+    - Bundle Audit,
+    - Rubocop,
+    - RSpec
+  - React:
+    - JSLint,
+    - Testing Library/Jest
 
 ## テスト
+
+- React
+
+  - React Testing Library
 
 - Rails
 
   - RSpec
     - モデルテスト(models)
     - コントローラーテスト(requests)
-
-- React
-  - React Testing Library
 
 ## ローカルで使用する場合(Docker を利用して構築。wsl2 を使用した Ubuntu 環境では動作確認済み)
 

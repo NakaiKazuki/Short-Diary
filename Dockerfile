@@ -1,4 +1,4 @@
-FROM ruby:3.2.0-alpine3.17
+FROM ruby:3.2.2-alpine3.17
 ENV APP_ROOT /Short-Diary
 
 WORKDIR $APP_ROOT
@@ -22,6 +22,7 @@ COPY Gemfile Gemfile.lock $APP_ROOT/
 
 RUN gem install bundler -v 2.4.4 && \
     bundle install --verbose
+
 COPY . $APP_ROOT
 RUN mkdir -p $APP_ROOT/tmp/sockets $APP_ROOT/tmp/pids $APP_ROOT/log
 
