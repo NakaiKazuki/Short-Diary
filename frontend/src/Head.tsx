@@ -1,32 +1,10 @@
-import { FC, useEffect, Fragment } from "react";
+import { FC, Fragment } from "react";
 import { Helmet } from "react-helmet-async";
-import { IHeadContext as IContext } from "./types";
+import { IHeadProps as IProps } from "./types";
 import { useLocation } from "react-router-dom";
 
-export const Head: FC<IContext> = (props) => {
-  const { title } = props;
+export const Head: FC<IProps> = ({ title }) => {
   const location = useLocation();
-  useEffect(() => {
-    if (!(process.env.NODE_ENV === "production")) return;
-
-    if (!(process.env.REACT_APP_GA_UA && process.env.REACT_APP_GA_G)) {
-      console.log(
-        "Tracking not enabled, as `trackingId` was not given and there is no `GA_MEASUREMENT_ID`."
-      );
-      return;
-    }
-
-    window.gtag("config", process.env.REACT_APP_GA_UA, {
-      page_path: location.pathname,
-      page_title: `Short Diary ${title}`,
-    });
-
-    window.gtag("config", process.env.REACT_APP_GA_G, {
-      page_path: location.pathname,
-      page_title: `Short Diary ${title}`,
-    });
-  }, [title, location]);
-
   return (
     <Helmet>
       <meta charSet="utf-8" />
@@ -45,14 +23,12 @@ export const Head: FC<IContext> = (props) => {
           ></script>
           <script>
             {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-              window.dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "${process.env.REACT_APP_GA_UA}");
-            gtag("config", "${process.env.REACT_APP_GA_G}");
-          `}
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.REACT_APP_GA_UA}', { page_path: "${location.pathname}", page_title: "Short Diary ${title}" });
+              gtag('config', '${process.env.REACT_APP_GA_G}', { page_path: "${location.pathname}", page_title: "Short Diary ${title}" });
+            `}
           </script>
         </Fragment>
       )}

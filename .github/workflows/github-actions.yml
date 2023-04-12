@@ -26,7 +26,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-          ruby-version: 3.2.0
+          ruby-version: .ruby-version
 
       - name: Bundler and gem install
         run: |
@@ -37,7 +37,7 @@ jobs:
         run: bundle exec rails_best_practices .
 
       - name: Run Brakeman
-        run: bundle exec brakeman -6 -A -w1 --no-pager
+        run: bundle exec brakeman -7 -A -w1 --no-pager
 
       - name: Run Bundle Audit Check
         run: bundle exec bundle-audit check --update
@@ -64,7 +64,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v2
         with:
-          node-version: 18.13
+          node-version: 18.15
 
       - name: Install NodeModules
         run: |
