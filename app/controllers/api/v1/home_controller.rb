@@ -15,6 +15,6 @@ class Api::V1::HomeController < ApplicationController
   private
 
     def search_params
-      params.fetch(:q, {}).permit(:content_or_date_cont, :page)
+      params.fetch(:q, {}).permit(:content_or_date_or_tags_name_cont, :page)
     end
 end
