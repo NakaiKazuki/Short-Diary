@@ -304,7 +304,6 @@ export const LoginHome: FC = () => {
           isOpenDrawer: false,
           fetchState: REQUEST_STATE.OK,
         });
-        console.log(data);
       })
       .catch((e): void => {
         if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
