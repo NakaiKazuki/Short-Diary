@@ -47,7 +47,6 @@ class Diary < ApplicationRecord
     # 紐づいている画像のURLを取得する
     picture.attached? ? url_for(picture) : nil
   end
-
   private
 
   # 画像の拡張子とサイズの制限をしている
