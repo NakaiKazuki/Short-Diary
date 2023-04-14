@@ -61,7 +61,7 @@ const Submit = styled(BaseButton)`
 `;
 
 export const FormWrapper = styled.form`
-  margin: 0 auto;
+  margin: 7vh auto 0 auto;
   width: 80vw;
   @media screen and (min-width: 980px) {
     width: 30vw;
@@ -81,14 +81,13 @@ const ErrorMessage = styled.p`
 const transition = forwardRef<
   unknown,
   TransitionProps & { children: ReactElement }
->(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+>((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
 transition.displayName = "Transition";
 
 export const Contact: FC = () => {
   const { open, setOpenContact } = useContext(ContactContext);
+
   const { currentUser } = useContext(AuthContext);
   const { setMessage } = useContext(MessageContext);
   const [resultErrors, setResultError] = useState<null | IResultErrors>(null);
@@ -103,6 +102,7 @@ export const Contact: FC = () => {
   } = useForm<IFormValues>();
 
   if (!open) return null;
+
 
   const handleClose = () => {
     setOpenContact(false);
