@@ -87,10 +87,10 @@ const variants = {
 };
 
 export const Drawer: FC = () => {
-  const { open, setOpenDrawer } = useContext(DrawerContext);
   const { currentUser } = useContext(AuthContext);
+  const { open, setOpenDrawer } = useContext(DrawerContext);
 
-  if (!currentUser) return null;
+  if (!(currentUser && open)) return null;
 
   const closeDrawer = (): void => setOpenDrawer(false);
 

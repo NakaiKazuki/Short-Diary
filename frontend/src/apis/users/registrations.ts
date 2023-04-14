@@ -1,6 +1,8 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 import { registration } from "../../urls";
+
+// helpers
+import { getCookie } from "../../helpers";
 
 // types
 import {
@@ -24,14 +26,21 @@ export const postRegistration = (
 };
 
 export const putRegistration = (params: IParams): Promise<IResult> => {
-  return axios.put(registration, {
-    "access-token": Cookies.get("access-token") ?? "",
-    client: Cookies.get("client") ?? "",
-    uid: Cookies.get("uid") ?? "",
-    name: params.name,
-    email: params.email,
-    password: params.password,
-    password_confirmation: params.password_confirmation,
-    current_password: params.current_password,
-  });
+  return axios.put(
+    registration,
+    {
+      name: params.name,
+      email: params.email,
+      password: params.password,
+      password_confirmation: params.password_confirmation,
+      current_password: params.current_password,
+    },
+    {
+      headers: {
+        "access-token": getCookie("access-token"),
+        client: getCookie("client"),
+        uid: getCookie("uid"),
+      },
+    }
+  );
 };

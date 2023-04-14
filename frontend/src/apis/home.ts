@@ -1,6 +1,8 @@
 import axios from "axios";
 import { home } from "../urls";
-import Cookies from "js-cookie";
+
+// helpers
+import { getCookie } from "../helpers";
 
 // types
 import { IDiariesResult as IResult } from "../types/apis";
@@ -11,9 +13,9 @@ export const fetchHome = (
   return axios
     .get(home, {
       headers: {
-        "access-token": Cookies.get("access-token") ?? "",
-        client: Cookies.get("client") ?? "",
-        uid: Cookies.get("uid") ?? "",
+        "access-token": getCookie("access-token"),
+        client: getCookie("client"),
+        uid: getCookie("uid"),
       },
       params: { q: { content_or_date_or_tags_name_cont: searchWord } },
     })
@@ -27,9 +29,9 @@ export const getDiaries = (
   return axios
     .get(home, {
       headers: {
-        "access-token": Cookies.get("access-token") ?? "",
-        client: Cookies.get("client") ?? "",
-        uid: Cookies.get("uid") ?? "",
+        "access-token": getCookie("access-token"),
+        client: getCookie("client"),
+        uid: getCookie("uid"),
       },
 
       params: {

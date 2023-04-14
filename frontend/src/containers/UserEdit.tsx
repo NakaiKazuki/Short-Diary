@@ -1,7 +1,6 @@
 import { FC, useState, useReducer, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import styled from "styled-components";
 //contexts
 import { AuthContext } from "../contexts/Auth";
@@ -30,7 +29,7 @@ import {
 } from "../reducers/submit";
 
 // helpers
-import { onSubmitText, isDisabled } from "../helpers";
+import { onSubmitText, isDisabled, removeUserCookies, setUserCookies } from "../helpers";
 
 // types
 import {
@@ -160,9 +159,7 @@ export const UserEdit: FC = () => {
     })
       .then((res) => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
-        Cookies.set("uid", res.headers["uid"]);
-        Cookies.set("client", res.headers["client"]);
-        Cookies.set("access-token", res.headers["access-token"]);
+        setUserCookies(res);
         setCurrentUser(res.data.data);
         setMessage("登録情報の編集に成功しました。");
         navigate("../", { replace: true });
@@ -176,9 +173,7 @@ export const UserEdit: FC = () => {
           e.response?.status === HTTP_STATUS_CODE.FORBIDDEN
         ) {
           setCurrentUser(undefined);
-          Cookies.remove("uid");
-          Cookies.remove("client");
-          Cookies.remove("access-token");
+          removeUserCookies();
           navigate("/login", { replace: true });
         } else {
           console.error(e);

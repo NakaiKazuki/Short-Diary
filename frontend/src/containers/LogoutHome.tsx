@@ -1,6 +1,5 @@
 import { FC, useContext, useReducer, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Cookies from "js-cookie";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
@@ -12,7 +11,7 @@ import { ILogoutHomeInitialState as IInitialState } from "../types/containers";
 import { newGuestSession } from "../apis/users/sessions";
 
 // helpers
-import { onSubmitText, isDisabled } from "../helpers";
+import { onSubmitText, isDisabled, removeUserCookies, setUserCookies } from "../helpers";
 
 // reducers
 import {
@@ -20,11 +19,11 @@ import {
   submitActionTypes,
   submitReducer,
 } from "../reducers/submit";
-// import { initialState as initialAbout, aboutReducer } from "../reducers/about";
+import { initialState as initialAbout, aboutReducer } from "../reducers/about";
 
 // components
 import { SignUp } from "./SignUp";
-// import { AboutDialog } from "../components/aboutDiarlog";
+import { AboutDialog } from "../components/aboutDiarlog";
 import { BaseButton } from "../components/shared_style";
 import { Sample } from "../components/Sample";
 
@@ -125,10 +124,10 @@ const GuestLogin = styled(HomeButton)`
   background-color: limegreen;
 `;
 
-// const ProfButton = styled(HomeButton)`
-//   width: 20rem;
-//   background-color: green;
-// `;
+const ProfButton = styled(HomeButton)`
+  width: 20rem;
+  background-color: green;
+`;
 
 const RightWrapper = styled.div`
   margin-bottom: 7vh;
@@ -162,7 +161,7 @@ export const LogoutHome: FC = () => {
     submitReducer,
     initialSubmit
   );
-  // const [aboutState, dispatchAbout] = useReducer(aboutReducer, initialAbout);
+  const [aboutState, dispatchAbout] = useReducer(aboutReducer, initialAbout);
   const initialState: IInitialState = {
     isDesktop: false,
     open: false,
@@ -182,35 +181,32 @@ export const LogoutHome: FC = () => {
 
   const onGuestLoginButton = async (): Promise<void> => {
     dispatchSubmit({ type: submitActionTypes.POSTING });
+    removeUserCookies()
     await newGuestSession()
       .then((res) => {
         dispatchSubmit({ type: submitActionTypes.POST_SUCCESS });
-        Cookies.set("client", res.headers["client"]);
-        Cookies.set("uid", res.headers["uid"]);
-        Cookies.set("access-token", res.headers["access-token"]);
+        setUserCookies(res);
         setCurrentUser(res.data);
         navigate("/");
       })
       .catch((e) => {
-        Cookies.remove("uid");
-        Cookies.remove("client");
-        Cookies.remove("access-token");
+        removeUserCookies()
         setCurrentUser(undefined);
         throw e;
       });
   };
   // AboutDialog
-  // const onOpenButton = (): void =>
-  //   setState({
-  //     ...state,
-  //     open: true,
-  //   });
+  const onOpenButton = (): void =>
+    setState({
+      ...state,
+      open: true,
+    });
 
-  // const onCloseButton = (): void =>
-  //   setState({
-  //     ...state,
-  //     open: false,
-  //   });
+  const onCloseButton = (): void =>
+    setState({
+      ...state,
+      open: false,
+    });
   // AboutDialogここまで
 
   return (
@@ -245,15 +241,15 @@ export const LogoutHome: FC = () => {
                 {onSubmitText(submitState.postState, "ゲストログイン")}
               </GuestLogin>
             </ButtonsWrapper>
-            {/* <ButtonsWrapper>
+            <ButtonsWrapper>
               <ProfButton
                 type="button"
                 onClick={onOpenButton}
                 data-testid="aboutButton"
               >
-                使用技術と制作者情報
+                使用技術や制作者情報
               </ProfButton>
-            </ButtonsWrapper> */}
+            </ButtonsWrapper>
           </Content>
         </ContentWrapper>
         <Sample />
@@ -263,14 +259,14 @@ export const LogoutHome: FC = () => {
           <SignUp />
         </RightWrapper>
       )}
-      {/* {state.open && (
+      {state.open && (
         <AboutDialog
           isOpen={state.open}
           handleClose={onCloseButton}
           state={aboutState}
           onCategory={(title: string) => dispatchAbout({ title: title })}
         />
-      )} */}
+      )}
     </LogoutHomeWrapper>
   );
 };

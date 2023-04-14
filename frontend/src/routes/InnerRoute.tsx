@@ -32,7 +32,8 @@ import { HTTP_STATUS_CODE } from "../constants";
 
 // apis
 import { getCurrentUser } from "../apis/users/sessions";
-
+// helpers
+import { removeUserCookies, setUserCookies } from "../helpers";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RouteLayout />}>
@@ -71,32 +72,22 @@ export const InnerRoute: FC = () => {
   const { setCurrentUser } = useContext(AuthContext);
 
   useEffect(() => {
-    if (
-      !Cookies.get("access-token") ||
-      !Cookies.get("client") ||
-      !Cookies.get("uid")
-    ) {
-      return;
-    } else {
-      getCurrentUser()
-        .then((res): void => {
-          Cookies.set("uid", res.headers["uid"]);
-          Cookies.set("client", res.headers["client"]);
-          Cookies.set("access-token", res.headers["access-token"]);
-          setCurrentUser(res.data.data);
-        })
-        .catch((e): void => {
-          if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-            Cookies.remove("uid");
-            Cookies.remove("client");
-            Cookies.remove("access-token");
-            setCurrentUser(undefined);
-          } else {
-            console.log(e);
-            throw e;
-          }
-        });
-    }
+    if (!(Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid"))) return;
+
+    getCurrentUser()
+      .then((res): void => {
+        setUserCookies(res)
+        setCurrentUser(res.data.data);
+      })
+      .catch((e): void => {
+        if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          removeUserCookies();
+          setCurrentUser(undefined);
+        } else {
+          console.log(e);
+          throw e;
+        }
+      });
   }, []);
 
   return (

@@ -1,7 +1,6 @@
 import { FC, useState, useReducer, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import styled from "styled-components";
 //contexts
 import { AuthContext } from "../contexts/Auth";
@@ -32,7 +31,7 @@ import {
 } from "../reducers/submit";
 
 // helpers
-import { onSubmitText, isDisabled } from "../helpers";
+import { onSubmitText, isDisabled, removeUserCookies, setUserCookies } from "../helpers";
 
 // types
 import { IUsersFormValues as IFormValues } from "../types/containers";
@@ -46,12 +45,12 @@ const LoginWrapper = styled.div`
 
 // エラーメッセージ
 export const Login: FC = () => {
+  const { setCurrentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [resultErrors, setErrorMessage] = useState<Array<string> | undefined>(
     undefined
   );
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
-  const { setCurrentUser } = useContext(AuthContext);
   const {
     handleSubmit,
     control,
@@ -104,9 +103,7 @@ export const Login: FC = () => {
     })
       .then((res) => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
-        Cookies.set("client", res.headers["client"]);
-        Cookies.set("uid", res.headers["uid"]);
-        Cookies.set("access-token", res.headers["access-token"]);
+        setUserCookies(res);
 
         setCurrentUser(res.data.data);
         navigate("/", { replace: true });
@@ -117,9 +114,7 @@ export const Login: FC = () => {
           e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
           e.response?.status === HTTP_STATUS_CODE.UNPROCESSABLE
         ) {
-          Cookies.remove("uid");
-          Cookies.remove("client");
-          Cookies.remove("access-token");
+          removeUserCookies()
           setCurrentUser(undefined);
           setErrorMessage(e.response.data.errors);
         } else {

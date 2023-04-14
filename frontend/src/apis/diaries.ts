@@ -1,7 +1,8 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 import { diary, photoGallery } from "../urls";
 
+// helpers
+import { getCookie } from "../helpers";
 // types
 import {
   IDiaryParams as IParams,
@@ -15,16 +16,23 @@ export const createDiary = (params: IParams): Promise<IResult> => {
     name: params.picture.name,
   };
   return axios
-    .post(diary, {
-      "access-token": Cookies.get("access-token") || "",
-      client: Cookies.get("client") || "",
-      uid: Cookies.get("uid") || "",
-      date: params.date,
-      tag_list: params.tag_list ?? undefined,
-      content: params.content,
-      movie_source: params.movie_source || undefined,
-      picture: picture,
-    })
+    .post(
+      diary,
+      {
+        date: params.date,
+        tag_list: params.tag_list ?? undefined,
+        content: params.content,
+        movie_source: params.movie_source || undefined,
+        picture: picture,
+      },
+      {
+        headers: {
+          "access-token": getCookie("access-token"),
+          client: getCookie("client"),
+          uid: getCookie("uid"),
+        },
+      }
+    )
     .then((res) => res.data);
 };
 
@@ -38,17 +46,24 @@ export const updateDiary = (
     name: params.picture.name,
   };
   return axios
-    .patch(`${diary}/${diaryId}`, {
-      "access-token": Cookies.get("access-token") ?? "",
-      client: Cookies.get("client") ?? "",
-      uid: Cookies.get("uid") ?? "",
-      date: params.date,
-      tag_list: params.tag_list ?? undefined,
-      content: params.content,
-      movie_source: params.movie_source ?? undefined,
-      picture: picture,
-      page: page,
-    })
+    .patch(
+      `${diary}/${diaryId}`,
+      {
+        date: params.date,
+        tag_list: params.tag_list ?? undefined,
+        content: params.content,
+        movie_source: params.movie_source ?? undefined,
+        picture: picture,
+        page: page,
+      },
+      {
+        headers: {
+          "access-token": getCookie("access-token"),
+          client: getCookie("client"),
+          uid: getCookie("uid"),
+        },
+      }
+    )
     .then((res) => res.data);
 };
 
@@ -59,9 +74,9 @@ export const deleteDiary = (
   return axios
     .delete(`${diary}/${diaryId}`, {
       headers: {
-        "access-token": Cookies.get("access-token") ?? "",
-        client: Cookies.get("client") ?? "",
-        uid: Cookies.get("uid") ?? "",
+        "access-token": getCookie("access-token"),
+        client: getCookie("client"),
+        uid: getCookie("uid"),
       },
       data: { page: page },
     })
@@ -72,9 +87,9 @@ export const fetchPhotoGallery = (): Promise<IPhotoGalleryResult> => {
   return axios
     .get(photoGallery, {
       headers: {
-        "access-token": Cookies.get("access-token") ?? "",
-        client: Cookies.get("client") ?? "",
-        uid: Cookies.get("uid") ?? "",
+        "access-token": getCookie("access-token"),
+        client: getCookie("client"),
+        uid: getCookie("uid"),
       },
     })
     .then((res) => res.data);

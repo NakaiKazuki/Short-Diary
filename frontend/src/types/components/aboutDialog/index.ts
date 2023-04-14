@@ -11,5 +11,3 @@ export interface IAboutProps {
   handleClose(): void;
   onCategory(title: string): void;
 }
-
-export type TMouseEvent = React.MouseEvent<HTMLLIElement, MouseEvent>;

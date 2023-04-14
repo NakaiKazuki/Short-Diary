@@ -20,7 +20,8 @@ const TextWrapper = styled.p`
   color: white;
   font-size: 1rem;
 `;
-const MESSAGE_DISPLAY_TIME = 10000;
+const MESSAGE_DISPLAY_TIME = 7000;
+
 export const Message: FC = () => {
   const { message, setMessage } = useContext(MessageContext);
   if (!message) return null;

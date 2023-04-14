@@ -1,7 +1,8 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 import { signIn, signOut, guestSignIn, userLogin } from "../../urls";
 
+// helpers
+import { getCookie } from "../../helpers";
 // types
 import {
   IUserParams as IParams,
@@ -24,9 +25,9 @@ export const getCurrentUser = (): Promise<IResult> => {
     {},
     {
       headers: {
-        "access-token": Cookies.get("access-token") ?? "",
-        client: Cookies.get("client") ?? "",
-        uid: Cookies.get("uid") ?? "",
+        "access-token": getCookie("access-token"),
+        client: getCookie("client"),
+        uid: getCookie("uid"),
       },
     }
   );
@@ -35,9 +36,9 @@ export const getCurrentUser = (): Promise<IResult> => {
 export const deleteSession = (): Promise<void> => {
   return axios.delete(signOut, {
     headers: {
-      "access-token": Cookies.get("access-token") ?? "",
-      client: Cookies.get("client") ?? "",
-      uid: Cookies.get("uid") ?? "",
+      "access-token": getCookie("access-token"),
+      client: getCookie("client"),
+      uid: getCookie("uid"),
     },
   });
 };

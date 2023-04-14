@@ -1,7 +1,6 @@
 import { FC, useContext, useState, Fragment, MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Toolbar } from "@material-ui/core";
-import Cookies from "js-cookie";
 import styled from "styled-components";
 
 //contexts
@@ -20,6 +19,9 @@ import { deleteSession } from "../apis/users/sessions";
 
 // images
 import mainLogo from "../images/logo.png";
+
+// helpers
+import { removeUserCookies } from "../helpers";
 
 // css
 const AppHeader = styled(AppBar)`
@@ -66,9 +68,7 @@ export const Header: FC = () => {
       .then(() => {
         setAnchorEl(null);
         setCurrentUser(undefined);
-        Cookies.remove("uid");
-        Cookies.remove("client");
-        Cookies.remove("access-token");
+        removeUserCookies()
       })
       .catch((e) => {
         console.error(e);

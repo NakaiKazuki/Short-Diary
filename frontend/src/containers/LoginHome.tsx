@@ -12,7 +12,6 @@ import {
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { YouTubeProps, YouTubeEvent, YouTubePlayer } from "react-youtube";
-import Cookies from "js-cookie";
 import styled from "styled-components";
 // contexts
 import { AuthContext } from "../contexts/Auth";
@@ -40,7 +39,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { HTTP_STATUS_CODE, REQUEST_STATE } from "../constants";
 
 // helpers
-import { onSubmitText, isDisabled, dateToday, formattedDate } from "../helpers";
+import { onSubmitText, isDisabled, dateToday, formattedDate, removeUserCookies } from "../helpers";
 
 // reducers
 import {
@@ -198,9 +197,7 @@ export const LoginHome: FC = () => {
       })
       .catch((e): void => {
         if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-          Cookies.remove("uid");
-          Cookies.remove("client");
-          Cookies.remove("access-token");
+          removeUserCookies();
           navigate("/login", { replace: true });
           setCurrentUser(undefined);
         } else {
@@ -227,9 +224,7 @@ export const LoginHome: FC = () => {
       .catch((e) => {
         if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          Cookies.remove("uid");
-          Cookies.remove("client");
-          Cookies.remove("access-token");
+          removeUserCookies();
           navigate("/login", { replace: true });
         } else {
           console.error(e);
@@ -249,7 +244,9 @@ export const LoginHome: FC = () => {
   };
   // 日付を指定して検索する場合に使用
   const convertDate = (selectedDate: Date): Date | undefined => {
+
     if (!selectedDate) return undefined;
+
     const dateTime = new Date(new Date(selectedDate).toLocaleString("ja"));
     return new Date(
       dateTime.getFullYear(),
@@ -277,10 +274,8 @@ export const LoginHome: FC = () => {
       })
       .catch((e): void => {
         if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          removeUserCookies();
           setCurrentUser(undefined);
-          Cookies.remove("uid");
-          Cookies.remove("client");
-          Cookies.remove("access-token");
           navigate("/login", { replace: true });
         } else {
           console.error(e);
@@ -308,9 +303,7 @@ export const LoginHome: FC = () => {
       .catch((e): void => {
         if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          Cookies.remove("uid");
-          Cookies.remove("client");
-          Cookies.remove("access-token");
+          removeUserCookies();
           navigate("/login", { replace: true });
         } else {
           console.error(e);
@@ -337,9 +330,7 @@ export const LoginHome: FC = () => {
       .catch((e): void => {
         if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          Cookies.remove("uid");
-          Cookies.remove("client");
-          Cookies.remove("access-token");
+          removeUserCookies();
           navigate("/login", { replace: true });
         } else {
           console.error(e);
@@ -367,7 +358,9 @@ export const LoginHome: FC = () => {
   // fileをbase64にエンコード
   const onFileChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const file = e.target?.files?.[0] as IFile;
+
     if (!file) return;
+
     const reader = new FileReader();
     reader.onload = () => (file.data = reader.result);
     reader.readAsDataURL(file);
@@ -403,9 +396,7 @@ export const LoginHome: FC = () => {
           });
         } else if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          Cookies.remove("uid");
-          Cookies.remove("client");
-          Cookies.remove("access-token");
+          removeUserCookies();
           navigate("/login", { replace: true });
         } else {
           console.error(e);
@@ -435,50 +426,49 @@ export const LoginHome: FC = () => {
   // ここからDiaryEditで使う関数
   const onEditSubmit = async (formValues: IFormValues): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
-    state.pagy &&
-      state.selectedDiary &&
-      (await updateDiary(
-        {
-          date: formValues.date,
-          tag_list: formValues.tag_list?.trim() || undefined,
-          content: formValues.content,
-          picture: formValues.picture?.[0],
-          movie_source: formValues.movie_source || undefined,
-        },
-        state.pagy.page,
-        state.selectedDiary.id
-      )
-        .then((data): void => {
-          dispatch({ type: submitActionTypes.POST_INITIAL });
+
+    if (!(state.pagy && state.selectedDiary)) return;
+
+    (await updateDiary(
+      {
+        date: formValues.date,
+        tag_list: formValues.tag_list?.trim() || undefined,
+        content: formValues.content,
+        picture: formValues.picture?.[0],
+        movie_source: formValues.movie_source || undefined,
+      },
+      state.pagy.page,
+      state.selectedDiary.id
+    )
+      .then((data): void => {
+        dispatch({ type: submitActionTypes.POST_INITIAL });
+        setState({
+          ...state,
+          diaries: data.diaries,
+          pagy: data.pagy,
+          isOpenDiaryEdit: false,
+          isOpenDiaryDialog: false,
+          selectedDate: null,
+        });
+      })
+      .catch((e): void => {
+        dispatch({ type: submitActionTypes.POST_INITIAL });
+        if (e.response?.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
           setState({
             ...state,
-            diaries: data.diaries,
-            pagy: data.pagy,
-            isOpenDiaryEdit: false,
-            isOpenDiaryDialog: false,
-            selectedDate: null,
+            resultErrors: e.response?.data.errors,
           });
-        })
-        .catch((e): void => {
-          dispatch({ type: submitActionTypes.POST_INITIAL });
-          if (e.response?.status === HTTP_STATUS_CODE.UNPROCESSABLE) {
-            setState({
-              ...state,
-              resultErrors: e.response?.data.errors,
-            });
-          } else if (
-            e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
-            e.response?.status === HTTP_STATUS_CODE.FORBIDDEN
-          ) {
-            setCurrentUser(undefined);
-            Cookies.remove("uid");
-            Cookies.remove("client");
-            Cookies.remove("access-token");
-            navigate("/login", { replace: true });
-          } else {
-            alert(e);
-          }
-        }));
+        } else if (
+          e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
+          e.response?.status === HTTP_STATUS_CODE.FORBIDDEN
+        ) {
+          setCurrentUser(undefined);
+          removeUserCookies();
+          navigate("/login", { replace: true });
+        } else {
+          alert(e);
+        }
+      }));
   };
   // ここまでDiaryEditで使う関数
 
@@ -536,9 +526,7 @@ export const LoginHome: FC = () => {
           e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED
         ) {
           setCurrentUser(undefined);
-          Cookies.remove("uid");
-          Cookies.remove("client");
-          Cookies.remove("access-token");
+          removeUserCookies();
           navigate("/login", { replace: true });
         } else {
           console.error(e);
