@@ -2,7 +2,7 @@ import axios from "axios";
 import { home } from "../urls";
 
 // helpers
-import { getCookie } from "../helpers";
+import { setHeaders } from "../helpers";
 
 // types
 import { IDiariesResult as IResult } from "../types/apis";
@@ -12,11 +12,7 @@ export const fetchHome = (
 ): Promise<IResult> => {
   return axios
     .get(home, {
-      headers: {
-        "access-token": getCookie("access-token"),
-        client: getCookie("client"),
-        uid: getCookie("uid"),
-      },
+      headers: setHeaders(),
       params: { q: { content_or_date_or_tags_name_cont: searchWord } },
     })
     .then((res) => res.data);
@@ -28,11 +24,7 @@ export const getDiaries = (
 ): Promise<IResult> => {
   return axios
     .get(home, {
-      headers: {
-        "access-token": getCookie("access-token"),
-        client: getCookie("client"),
-        uid: getCookie("uid"),
-      },
+      headers: setHeaders(),
 
       params: {
         q: { content_or_date_or_tags_name_cont: searchWord },

@@ -2,7 +2,7 @@ import axios from "axios";
 import { diary, photoGallery } from "../urls";
 
 // helpers
-import { getCookie } from "../helpers";
+import { setHeaders } from "../helpers";
 // types
 import {
   IDiaryParams as IParams,
@@ -26,11 +26,7 @@ export const createDiary = (params: IParams): Promise<IResult> => {
         picture: picture,
       },
       {
-        headers: {
-          "access-token": getCookie("access-token"),
-          client: getCookie("client"),
-          uid: getCookie("uid"),
-        },
+        headers: setHeaders(),
       }
     )
     .then((res) => res.data);
@@ -57,11 +53,7 @@ export const updateDiary = (
         page: page,
       },
       {
-        headers: {
-          "access-token": getCookie("access-token"),
-          client: getCookie("client"),
-          uid: getCookie("uid"),
-        },
+        headers: setHeaders(),
       }
     )
     .then((res) => res.data);
@@ -73,11 +65,7 @@ export const deleteDiary = (
 ): Promise<IResult> => {
   return axios
     .delete(`${diary}/${diaryId}`, {
-      headers: {
-        "access-token": getCookie("access-token"),
-        client: getCookie("client"),
-        uid: getCookie("uid"),
-      },
+      headers: setHeaders(),
       data: { page: page },
     })
     .then((res) => res.data);
@@ -86,11 +74,7 @@ export const deleteDiary = (
 export const fetchPhotoGallery = (): Promise<IPhotoGalleryResult> => {
   return axios
     .get(photoGallery, {
-      headers: {
-        "access-token": getCookie("access-token"),
-        client: getCookie("client"),
-        uid: getCookie("uid"),
-      },
+      headers: setHeaders(),
     })
     .then((res) => res.data);
 };

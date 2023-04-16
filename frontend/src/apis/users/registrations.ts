@@ -2,7 +2,7 @@ import axios from "axios";
 import { registration } from "../../urls";
 
 // helpers
-import { getCookie } from "../../helpers";
+import { setHeaders } from "../../helpers";
 
 // types
 import {
@@ -36,11 +36,7 @@ export const putRegistration = (params: IParams): Promise<IResult> => {
       current_password: params.current_password,
     },
     {
-      headers: {
-        "access-token": getCookie("access-token"),
-        client: getCookie("client"),
-        uid: getCookie("uid"),
-      },
+      headers: setHeaders(),
     }
   );
 };

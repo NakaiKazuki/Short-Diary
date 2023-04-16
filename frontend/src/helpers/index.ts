@@ -3,6 +3,7 @@ export {
   isLoggedIn,
   setUserCookies,
   removeUserCookies,
-  getCookie,
+  setHeaders,
 } from "./session";
 export { dateToday, formattedDate } from "./date";
+export { scroll } from "./scroll";
