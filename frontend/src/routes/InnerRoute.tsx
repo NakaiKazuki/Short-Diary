@@ -33,6 +33,12 @@ import { HTTP_STATUS_CODE } from "../constants";
 // apis
 import { getCurrentUser } from "../apis/users/sessions";
 
+// helpers
+import { removeUserCookies, setUserCookies } from "../helpers";
+
+const getCookie = (name: string) => Cookies.get(name);
+const isCookies: string | undefined = (getCookie("access-token") && getCookie("client") && getCookie("uid"))
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RouteLayout />}>
@@ -42,25 +48,26 @@ const router = createBrowserRouter(
           <LoggedInRoute
             login={{ jsxElement: <LoginHome />, title: "User Home" }}
             logout={{ jsxElement: <LogoutHome />, title: "Home" }}
+            type="website"
           />
         }
       />
       <Route
         path="/signup"
-        element={<GuestRoute jsxElement={<SignUp />} title="SignUp" />}
+        element={<GuestRoute jsxElement={<SignUp />} title="SignUp" type="article" />}
       />
       <Route
         path="/login"
-        element={<GuestRoute jsxElement={<Login />} title="Login" />}
+        element={<GuestRoute jsxElement={<Login />} title="Login" type="article" />}
       />
       <Route
         path="/userEdit"
-        element={<PrivateRoute jsxElement={<UserEdit />} title="UserEdit" />}
+        element={<PrivateRoute jsxElement={<UserEdit />} title="UserEdit" type="article" />}
       />
       <Route
         path="/photoGalley"
         element={
-          <PrivateRoute jsxElement={<PhotoGallery />} title="PhotoGallery" />
+          <PrivateRoute jsxElement={<PhotoGallery />} title="PhotoGallery" type="article" />
         }
       />
     </Route>
@@ -71,32 +78,22 @@ export const InnerRoute: FC = () => {
   const { setCurrentUser } = useContext(AuthContext);
 
   useEffect(() => {
-    if (
-      !Cookies.get("access-token") ||
-      !Cookies.get("client") ||
-      !Cookies.get("uid")
-    ) {
-      return;
-    } else {
-      getCurrentUser()
-        .then((res): void => {
-          Cookies.set("uid", res.headers["uid"]);
-          Cookies.set("client", res.headers["client"]);
-          Cookies.set("access-token", res.headers["access-token"]);
-          setCurrentUser(res.data.data);
-        })
-        .catch((e): void => {
-          if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-            Cookies.remove("uid");
-            Cookies.remove("client");
-            Cookies.remove("access-token");
-            setCurrentUser(undefined);
-          } else {
-            console.log(e);
-            throw e;
-          }
-        });
-    }
+    if (!isCookies) return;
+
+    getCurrentUser()
+      .then((res): void => {
+        setUserCookies(res);
+        setCurrentUser(res.data.data);
+      })
+      .catch((e): void => {
+        if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
+          removeUserCookies();
+          setCurrentUser(undefined);
+        } else {
+          console.log(e);
+          throw e;
+        }
+      });
   }, []);
 
   return (

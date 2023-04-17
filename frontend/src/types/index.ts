@@ -9,8 +9,10 @@ declare global {
     "access-token": string;
     client: string;
     uid: string;
+    [key: string]: string;
   }
 }
 export interface IHeadProps {
   title: string;
+  type: string;
 }

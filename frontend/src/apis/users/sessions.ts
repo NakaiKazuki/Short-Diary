@@ -1,6 +1,7 @@
-import axios from "axios";
-import Cookies from "js-cookie";
 import { signIn, signOut, guestSignIn, userLogin } from "../../urls";
+
+// helpers
+import { axiosPost, axiosDelete } from "../../helpers";
 
 // types
 import {
@@ -12,36 +13,17 @@ import {
 export const createSession = (
   params: Pick<IParams, "email" | "password">
 ): Promise<IResult> => {
-  return axios.post(signIn, {
-    email: params.email,
-    password: params.password,
-  });
+  return axiosPost(signIn, params);
 };
 
 export const getCurrentUser = (): Promise<IResult> => {
-  return axios.post(
-    userLogin,
-    {},
-    {
-      headers: {
-        "access-token": Cookies.get("access-token") ?? "",
-        client: Cookies.get("client") ?? "",
-        uid: Cookies.get("uid") ?? "",
-      },
-    }
-  );
+  return axiosPost(userLogin, {});
 };
 
 export const deleteSession = (): Promise<void> => {
-  return axios.delete(signOut, {
-    headers: {
-      "access-token": Cookies.get("access-token") ?? "",
-      client: Cookies.get("client") ?? "",
-      uid: Cookies.get("uid") ?? "",
-    },
-  });
+  return axiosDelete(signOut);
 };
 
 export const newGuestSession = (): Promise<IGestResult> => {
-  return axios.post(guestSignIn);
+  return axiosPost(guestSignIn);
 };

@@ -36,6 +36,7 @@ group :development do
   gem 'letter_opener_web' # メール確認用
   gem 'listen'
   gem 'rails_best_practices', require: false # railsのベストプラクティスに則っているかをチェック
+  gem 'rails-erd'
   gem 'rubocop', require: false # rubocop関連
   gem 'rubocop-performance', require: false # rubocop関連
   gem 'rubocop-rails', require: false # rubocop関連

@@ -5,7 +5,7 @@
 # Table name: contacts
 #
 #  id         :bigint           not null, primary key
-#  content    :string(255)      not null
+#  content    :text(65535)      not null
 #  email      :string(255)      not null
 #  name       :string(255)      not null
 #  over_view  :string(255)      not null

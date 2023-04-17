@@ -8,7 +8,7 @@ import { AuthContext } from "../../contexts/Auth";
 import { LoginHome } from "../../containers/LoginHome";
 import { home, diary } from "../../urls";
 import { dateToday, formattedDate } from "../../helpers";
-import { el } from "../helpers";
+import { el, testString } from "../helpers";
 
 // types
 import { IAuthProviderProps as IProviderProps } from "../../types/test";
@@ -20,10 +20,6 @@ const currentUser = {
   id: 1,
   name: "test",
   email: "test@example.com",
-};
-
-const testString = (count: number): string => {
-  return "0123456789".repeat(count);
 };
 
 // Apiから返ってくるデータ

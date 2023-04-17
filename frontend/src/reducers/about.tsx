@@ -3,16 +3,18 @@ import {
   IAboutInitialState as IInitialState,
   IAboutAction as IAction,
 } from "../types/reducers";
-
+import { Profile } from "../components/aboutDiarlog/Profile";
+import { Tools } from "../components/aboutDiarlog/Tools";
+import { FeatureList } from "../components/aboutDiarlog/FeatureList";
 export const initialState: IInitialState = {
-  title: "プロフィール",
-  jsxElement: <h1>ここにプロフィールコンポーネント</h1>,
+  title: "プロフィール他",
+  jsxElement: <Profile />,
 };
 
 const aboutActionTypes: IActionTypes = {
-  PROFILE: "プロフィール",
-  TECHNOLOGY: "使用技術",
-  FUNCTION: "機能一覧",
+  PROFILE: "プロフィール他",
+  TECHNOLOGY: "使用技術一覧",
+  FUNCTION: "機能その他",
 };
 
 export const aboutReducer = (
@@ -23,20 +25,20 @@ export const aboutReducer = (
     case aboutActionTypes.PROFILE:
       return {
         ...state,
-        title: "プロフィール",
-        jsxElement: <h1>ここにプロフィールコンポーネント</h1>,
+        title: "プロフィール他",
+        jsxElement: <Profile />,
       };
     case aboutActionTypes.TECHNOLOGY:
       return {
         ...state,
-        title: "使用技術",
-        jsxElement: <h1>ここに使用技術コンポーネント</h1>,
+        title: "使用技術一覧",
+        jsxElement: <Tools />,
       };
     case aboutActionTypes.FUNCTION:
       return {
         ...state,
-        title: "機能一覧",
-        jsxElement: <h1>ここに機能一覧コンポーネント</h1>,
+        title: "機能その他",
+        jsxElement: <FeatureList />,
       };
     default:
       throw new Error();

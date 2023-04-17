@@ -10,7 +10,7 @@ import { MessageContext } from "../../contexts/Message";
 import { AuthContext } from "../../contexts/Auth";
 import { Contact } from "../../containers/Contact";
 import { contact } from "../../urls";
-import { el } from "../helpers";
+import { el, testString } from "../helpers";
 
 // types
 import {
@@ -34,8 +34,6 @@ const errorResult = {
     content: ["cotent ResultError"],
   },
 };
-
-const errorOverView = "123456789012345678901234567890123456789012345678901";
 
 const currentUser = {
   id: 1,
@@ -151,7 +149,7 @@ describe("Contact", () => {
       // 各項目に無効な値を入力
       await userEvent.clear(el("nameArea"));
       await userEvent.clear(el("emailArea"));
-      await userEvent.type(el("overViewArea"), errorOverView);
+      await userEvent.type(el("overViewArea"), testString(6));
       await userEvent.clear(el("contentArea"));
 
       // ユーザが送信ボタンをクリック

@@ -97,6 +97,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  host = 'short-diary.com'
-  Rails.application.routes.default_url_options[:host] = host
+  Rails.application.routes.default_url_options[:host] = Rails.application.credentials.dig(:host_server, :name)
 end

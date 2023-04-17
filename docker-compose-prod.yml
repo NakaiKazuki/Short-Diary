@@ -30,7 +30,8 @@ services:
   nginx:
     build:
       context: ./nginx
-      dockerfile: Dockerfile-prod
+    environment:
+      - HOST=short-diary.com
     volumes:
       - public-prod-data:/Short-Diary/public
       - build-prod-data:/Short-Diary/frontend/build

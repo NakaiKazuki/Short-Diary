@@ -52,6 +52,18 @@ class Api::V1::DiariesController < ApplicationController
     render json: { items: }, status: :ok
   end
 
+  # 画像つき日記だけを表示させる用
+  # def photo_gallery
+  # diaries_with_picture = current_user.diaries.with_attached_picture.filter_map do |diary|
+  #   diary if diary.picture.attached?
+  # end
+  # @pagy, diaries = pagy(diaries_with_picture, page: pagy_params[:page])
+  # render json: {
+  #   diaries:,
+  #   pagy: pagy_metadata(@pagy)
+  # }, methods: [:picture_url], status: :ok
+  # end
+
   private
 
     def diary_params

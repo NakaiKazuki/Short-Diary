@@ -51,6 +51,8 @@ services:
     volumes:
       - public-data:/Short-Diary/public
       - tmp-data:/Short-Diary/tmp
+    environment:
+      - HOST=localhost
     ports:
       - 80:80
     depends_on:

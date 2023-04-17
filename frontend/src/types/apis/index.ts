@@ -1,3 +1,4 @@
+// User
 export interface IUserParams {
   name: string;
   email: string;
@@ -15,10 +16,11 @@ export interface IGestResult {
   data: ICurrentUser;
 }
 
+// Contact
 export interface IContactParams {
   name: string;
   email: string;
-  overView: string | undefined;
+  over_view: string;
   content: string;
 }
 
@@ -26,6 +28,7 @@ export interface IContactResult {
   message: string;
 }
 
+// Diary
 interface IItemsProps {
   original: string;
   originalHeight: number;
@@ -62,3 +65,22 @@ export interface IPhotoGalleryResult {
   items: Array<IItemsProps> | [];
   originalWidth: number;
 }
+
+// Home
+export type TSearchWord = undefined | string | Date;
+
+export interface IHomeData {
+  params: {
+    q: { content_or_date_or_tags_name_cont: TSearchWord };
+    page?: number;
+  };
+}
+
+// 共通
+export type TAxiosPost = <T, R>(url: string, data?: T) => Promise<R>;
+export type TAxiosGet = <T, R>(url: string, data?: T) => Promise<R>;
+export type TAxiosPut = <T, R>(url: string, data: T) => Promise<R>;
+export type TAxiosPatch = <T, R>(url: string, data: T) => Promise<R>;
+export type TAxiosDelete = <T, R>(url: string, data?: T) => Promise<R>;
+
+export type TData<D> = { data: D };

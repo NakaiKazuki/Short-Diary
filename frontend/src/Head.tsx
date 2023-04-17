@@ -3,7 +3,9 @@ import { Helmet } from "react-helmet-async";
 import { IHeadProps as IProps } from "./types";
 import { useLocation } from "react-router-dom";
 
-export const Head: FC<IProps> = ({ title }) => {
+const ogpImage = "https://user-images.githubusercontent.com/62586169/232545086-920d2ecb-026e-4add-8aa8-9228efed8a2e.png";
+const description = "Short Diaryでは200文字以内の日記を気軽に作成することができます"
+export const Head: FC<IProps> = ({ title, type }) => {
   const location = useLocation();
   return (
     <Helmet>
@@ -12,8 +14,14 @@ export const Head: FC<IProps> = ({ title }) => {
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta
         name="description"
-        content="Short Diaryでは200文字以内の日記を気軽に作成することができます"
+        content={description}
       />
+      <meta property="og:url" content={`${process.env.REACT_APP_HOST_SERVER}${location}`} />
+      <meta property="og:type" content={type} />
+      <meta property="og:title" content={`Short Diary ${title}`} />
+      <meta property="og:site_name" content="Short Diary" />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={ogpImage} />
       <title>{`Short Diary ${title}`}</title>
       {process.env.NODE_ENV === "production" && (
         <Fragment>

@@ -60,8 +60,16 @@ DeviseTokenAuth.setup do |config|
 
   # 追加
   # ユーザー登録メール送信後のリダイレクト先
-  # config.default_confirm_success_url = "http://localhost:3000"
+  success_url =
+    if Rails.env.production?
+      "#{Rails.application.credentials.dig(:host_server, :name)}/login"
+    elsif Rails.env.test?
+      'http://localhost:4444/login'
+    else
+      'http://localhost:3000/login'
+    end
 
+  config.default_confirm_success_url = success_url
   # パスワードリセットメール送信後のリダイレクト先
   # config.default_password_reset_url = default_nil
   config.check_current_password_before_update = :password

@@ -33,6 +33,7 @@ const FormLink = styled(Link)`
   :hover {
     background-color: royalblue;
     color: white;
+    transition: 0.3s;
   }
 `;
 

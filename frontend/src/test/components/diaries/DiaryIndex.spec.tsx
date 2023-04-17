@@ -2,13 +2,9 @@ import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { DiaryIndex } from "../../../components/diaries";
 import { formattedDate } from "../../../helpers";
-import { el } from "../../helpers";
+import { el, testString } from "../../helpers";
 
 afterEach(cleanup);
-
-const testString = (count: number): string => {
-  return "0123456789".repeat(count);
-};
 
 const date = new Date().toISOString().split("T")[0];
 const testTContent: string = testString(6);

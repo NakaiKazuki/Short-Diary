@@ -24,14 +24,12 @@ const customRender = (ui: JSX.Element) => {
 describe("AboutDialog コンポーネント", () => {
   const setup = () =>
     customRender(
-      <HelmetProvider>
-        <AboutDialog
-          isOpen={true}
-          state={state}
-          handleClose={jest.fn()}
-          onCategory={jest.fn()}
-        />
-      </HelmetProvider>
+      <AboutDialog
+        isOpen={true}
+        state={state}
+        handleClose={jest.fn()}
+        onCategory={jest.fn()}
+      />
     );
 
   it("Dialog表示", () => {
@@ -45,7 +43,7 @@ describe("AboutDialog コンポーネント", () => {
     expect(el("contents")).toContainElement(el("main"));
     expect(el("contents")).toContainElement(el("categories"));
     expect(el("categories")).toContainElement(el("categoryProfile"));
-    expect(el("categories")).toContainElement(el("categoryTechnology"));
-    expect(el("categories")).toContainElement(el("categoryFunction"));
+    expect(el("categories")).toContainElement(el("categoryTool"));
+    expect(el("categories")).toContainElement(el("categoryFeatureList"));
   });
 });

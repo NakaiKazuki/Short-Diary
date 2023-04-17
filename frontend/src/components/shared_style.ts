@@ -7,10 +7,10 @@ const buttonVariants = {
     scale: 1,
   },
   hover: {
-    scale: 1.1,
+    scale: 1.05,
   },
   tap: {
-    scale: 0.9,
+    scale: 0.95,
     transition: {
       duration: 0.2,
       ease: "easeOut",

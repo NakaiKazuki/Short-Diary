@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ImageGallery from "react-image-gallery";
-import Cookies from "js-cookie";
 // contexts
 import { AuthContext } from "../contexts/Auth";
 
@@ -11,12 +10,13 @@ import { AuthContext } from "../contexts/Auth";
 import { HTTP_STATUS_CODE, REQUEST_STATE } from "../constants";
 
 // apis
-import { fetchPhotoGallery } from "../apis/diaries";
-
+import { getPhotoGallery } from "../apis/diaries";
+// helpers
+import { removeUserCookies } from "../helpers";
 // types
 import { IPhotoGalleryInitialState as IInitialState } from "../types/containers";
-// css
 
+// css
 const PhotoGalleryWrapper = styled.div`
   width: 100vw;
   min-height: 81vh;
@@ -181,7 +181,7 @@ export const PhotoGallery: FC = () => {
       ...state,
       fetchState: REQUEST_STATE.LOADING,
     });
-    fetchPhotoGallery()
+    getPhotoGallery()
       .then((data): void => {
         setState({
           ...state,
@@ -192,9 +192,7 @@ export const PhotoGallery: FC = () => {
       .catch((e): void => {
         if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
           setCurrentUser(undefined);
-          Cookies.remove("uid");
-          Cookies.remove("client");
-          Cookies.remove("access-token");
+          removeUserCookies();
           navigate("/login", { replace: true });
         } else {
           console.error(e);

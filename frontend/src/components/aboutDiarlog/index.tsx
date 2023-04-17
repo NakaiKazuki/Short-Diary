@@ -11,18 +11,18 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import styled from "styled-components";
 
-// Head
-import { Head } from "../../Head";
-
+//helpers
+import { scroll } from "../../helpers";
+// components
+import { Footer } from "../../containers/Footer";
 //types
-import {
-  IAboutProps as IProps,
-  TMouseEvent,
-} from "../../types/components/aboutDialog";
-// css
+import { IAboutProps as IProps } from "../../types/components/aboutDialog";
+
+// images
+import BackImage from "../../images/sample.jpg";
 const AboutWrapper = styled.div`
   width: 90vw;
-  margin: 4vh auto 0 auto;
+  margin: 4vh auto 10vh auto;
 `;
 
 const Title = styled.h1`
@@ -41,6 +41,7 @@ const Categories = styled.ul`
   width: 60%;
   @media screen and (min-width: 980px) {
     width: 15vw;
+    left: 20vh;
     position: fixed;
     li:not(:first-child) {
       margin-top: 1rem;
@@ -55,8 +56,7 @@ const Categories = styled.ul`
     justify-contents: center;
   }
 `;
-
-const Category = styled.li`
+const Category = styled.li<{ disabled: boolean }>`
   cursor: pointer;
   float: left;
   list-style: none;
@@ -65,10 +65,19 @@ const Category = styled.li`
   padding: 0.4rem;
   text-align: center;
   border: 0.0125rem solid royalblue;
-  background-color: white;
+
+  ${({ disabled }) =>
+    disabled
+      ? {
+        "background-color": "royalblue",
+        color: "white",
+        "pointer-events": "none",
+      }
+      : { "background-color": "white" }};
   :hover {
     color: white;
     background-color: royalblue;
+    transition: 0.3s;
   }
   :active {
     color: white;
@@ -88,10 +97,12 @@ const Category = styled.li`
 `;
 
 const Main = styled.div`
-  min-height: 150vh;
+  background-image: url(${BackImage});
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
   @media screen and (min-width: 980px) {
-    padding-left: 15vw;
-    float: right;
+    padding-left: 20vw;
     flex: 1;
   }
   @media screen and (max-width: 979px) {
@@ -102,10 +113,9 @@ const Main = styled.div`
 const transition = forwardRef<
   unknown,
   TransitionProps & { children: ReactElement }
->(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+>((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
+transition.displayName = "Transition";
 export const AboutDialog: FC<IProps> = ({
   isOpen,
   state,
@@ -113,17 +123,17 @@ export const AboutDialog: FC<IProps> = ({
   onCategory,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const isDisabeld = (title: string): boolean => state.title === title;
 
-  const hadleCategory = (title: string) => {
+  const hadleClick = (title: string) => {
     if (title === state.title) return;
 
     onCategory(title);
-    ref?.current?.scrollIntoView();
+    scroll(ref);
   };
 
   return (
     <Fragment>
-      <Head title="About" />
       <Dialog
         fullScreen
         open={isOpen}
@@ -131,7 +141,7 @@ export const AboutDialog: FC<IProps> = ({
         TransitionComponent={transition}
         data-testid="aboutDialog"
       >
-        <AppBar sx={{ position: "relative" }} ref={ref} data-testid="appBar">
+        <AppBar sx={{ position: "relative" }} ref={ref} style={{ color: "royalblue", backgroundColor: "white" }} data-testid="appBar">
           <Toolbar>
             <IconButton
               edge="start"
@@ -151,33 +161,33 @@ export const AboutDialog: FC<IProps> = ({
           <Contents data-testid="contents">
             <Categories data-testid="categories">
               <Category
-                onClick={(e: TMouseEvent) =>
-                  hadleCategory(e.currentTarget.innerText)
-                }
+                onClick={() => hadleClick("プロフィール他")}
+                disabled={isDisabeld("プロフィール他")}
                 data-testid="categoryProfile"
               >
-                プロフィール
+                プロフィール他
               </Category>
               <Category
-                onClick={(e: TMouseEvent) =>
-                  hadleCategory(e.currentTarget.innerText)
-                }
-                data-testid="categoryTechnology"
+                onClick={() => hadleClick("使用技術一覧")}
+                disabled={isDisabeld("使用技術一覧")}
+                data-testid="categoryTool"
               >
-                使用技術
+                使用技術一覧
               </Category>
               <Category
-                onClick={(e: TMouseEvent) =>
-                  hadleCategory(e.currentTarget.innerText)
-                }
-                data-testid="categoryFunction"
+                onClick={() => {
+                  hadleClick("機能その他");
+                }}
+                disabled={isDisabeld("機能その他")}
+                data-testid="categoryFeatureList"
               >
-                機能一覧
+                機能その他
               </Category>
             </Categories>
             <Main data-testid="main">{state.jsxElement}</Main>
           </Contents>
         </AboutWrapper>
+        <Footer />
       </Dialog>
     </Fragment>
   );
