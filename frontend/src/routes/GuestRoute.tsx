@@ -10,15 +10,14 @@ import { isLoggedIn } from "../helpers";
 export const GuestRoute: FC<{
   jsxElement: JSX.Element;
   title: string;
-  type: string;
-}> = ({ jsxElement, title, type }) => {
+}> = ({ jsxElement, title }) => {
   const { currentUser } = useContext(AuthContext);
 
   return isLoggedIn(currentUser) ? (
     <Navigate to="/" />
   ) : (
     <Fragment>
-      <Head title={title} type={type} />
+      <Head title={title} />
       {jsxElement}
     </Fragment>
   );

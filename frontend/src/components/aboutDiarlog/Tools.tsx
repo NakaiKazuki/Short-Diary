@@ -90,7 +90,7 @@ const OthersBlock = (): JSX.Element => {
 export const Tools: FC = () => {
   return (
     <Fragment>
-      <Head title="Tools" type="article" />
+      <Head title="Tools" />
       <ToolWrapper data-testid="tools">
         <ReactBlock />
         <RailsBlock />

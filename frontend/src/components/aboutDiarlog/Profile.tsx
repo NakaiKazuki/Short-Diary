@@ -180,7 +180,7 @@ const Message = (): JSX.Element => {
 export const Profile: FC = () => {
   return (
     <Fragment>
-      <Head title="Profile" type="article" />
+      <Head title="Profile" />
       <ProfileWrapper data-testid="profile">
         <Introduction />
         <AppExplanation />
