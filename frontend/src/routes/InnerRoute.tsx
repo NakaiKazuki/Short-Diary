@@ -48,6 +48,7 @@ const router = createBrowserRouter(
           <LoggedInRoute
             login={{ jsxElement: <LoginHome />, title: "User Home" }}
             logout={{ jsxElement: <LogoutHome />, title: "Home" }}
+            type="website"
           />
         }
       />
@@ -89,7 +90,6 @@ export const InnerRoute: FC = () => {
           removeUserCookies();
           setCurrentUser(undefined);
         } else {
-          console.log(e);
           throw e;
         }
       });
