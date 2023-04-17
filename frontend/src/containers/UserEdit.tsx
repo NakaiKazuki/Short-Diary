@@ -29,7 +29,12 @@ import {
 } from "../reducers/submit";
 
 // helpers
-import { onSubmitText, isDisabled, removeUserCookies, setUserCookies } from "../helpers";
+import {
+  onSubmitText,
+  isDisabled,
+  removeUserCookies,
+  setUserCookies,
+} from "../helpers";
 
 // types
 import {
@@ -97,10 +102,10 @@ export const UserEdit: FC = () => {
       defaultValue: currentUser.email,
       autoComplete: "email",
       autoFocus: false,
-      rules: { maxLength: 255 },
+      rules: { required: true, maxLength: 255 },
     },
     password: {
-      formLabel: "新規パスワード: ",
+      formLabel: "新規パスワード(6文字以上):",
       errorsProperty: errors.password,
       errorMessage: "新しいパスワードを入力してください",
       resultErrorProperty: resultErrors?.password,

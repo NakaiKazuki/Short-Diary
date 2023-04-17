@@ -10,7 +10,7 @@ import { AuthContext } from "../contexts/Auth";
 import { HTTP_STATUS_CODE, REQUEST_STATE } from "../constants";
 
 // apis
-import { fetchPhotoGallery } from "../apis/diaries";
+import { getPhotoGallery } from "../apis/diaries";
 // helpers
 import { removeUserCookies } from "../helpers";
 // types
@@ -181,7 +181,7 @@ export const PhotoGallery: FC = () => {
       ...state,
       fetchState: REQUEST_STATE.LOADING,
     });
-    fetchPhotoGallery()
+    getPhotoGallery()
       .then((data): void => {
         setState({
           ...state,

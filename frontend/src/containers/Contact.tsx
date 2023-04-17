@@ -50,33 +50,40 @@ import {
   IContactFormValues as IFormValues,
 } from "../types/containers";
 
-const Submit = styled(BaseButton)`
-  margin-top: 2rem;
-  background-color: royalblue;
-  color: white;
-  border-style: none;
-  width: 100%;
-  height: 3rem;
-  font-size: 1.1rem;
+export const FormTitle = styled.h1`
+  text-align: center;
+  color: royalblue;
+  letter-spacing: 0.1rem;
+  margin-top: 20vh;
 `;
 
 export const FormWrapper = styled.form`
-  margin: 7vh auto 0 auto;
+  margin: 0 auto;
   width: 80vw;
   @media screen and (min-width: 980px) {
     width: 30vw;
   }
-`;
+  `;
 
 const FormItemWrapper = styled.div`
   margin-top: 1rem;
-`;
+  `;
 
 const ErrorMessage = styled.p`
   margin: 0.6rem auto auto auto;
   color: red;
   font-size: 0.9rem;
-`;
+  `;
+
+const Submit = styled(BaseButton)`
+    margin-top: 2rem;
+    background-color: royalblue;
+    color: white;
+    border-style: none;
+    width: 100%;
+    height: 3rem;
+    font-size: 1.1rem;
+  `;
 
 const transition = forwardRef<
   unknown,
@@ -101,9 +108,6 @@ export const Contact: FC = () => {
     formState: { errors },
   } = useForm<IFormValues>();
 
-  if (!open) return null;
-
-
   const handleClose = () => {
     setOpenContact(false);
   };
@@ -113,7 +117,7 @@ export const Contact: FC = () => {
     await postContact({
       name: formValues.name,
       email: formValues.email,
-      overView: formValues.overView,
+      over_view: formValues.overView || "無題",
       content: formValues.content,
     })
       .then((data): void => {
@@ -135,7 +139,7 @@ export const Contact: FC = () => {
 
   return (
     <Fragment>
-      <Head title="Contact" />
+      <Head title="Contact" type="article" />
       <Dialog
         fullScreen
         open={open}
@@ -143,7 +147,7 @@ export const Contact: FC = () => {
         TransitionComponent={transition}
         data-testid="contact"
       >
-        <AppBar sx={{ position: "relative" }}>
+        <AppBar sx={{ position: "relative" }} style={{ color: "royalblue", backgroundColor: "white" }}>
           <Toolbar>
             <IconButton
               edge="start"
@@ -158,13 +162,14 @@ export const Contact: FC = () => {
             </Typography>
           </Toolbar>
         </AppBar>
+        <FormTitle>お問い合わせ</FormTitle>
         <FormWrapper
           onSubmit={handleSubmit(onSubmit)}
           data-testid="contactForm"
         >
           <FormItemWrapper>
             <InputLabel>
-              Name
+              Name(必須)
               {resultErrors?.name?.map((message: string, index: number) => (
                 <ErrorMessage
                   key={`name-${index}`}
@@ -180,13 +185,12 @@ export const Contact: FC = () => {
                 name="name"
                 control={control}
                 rules={{ required: true, maxLength: 50 }}
-                defaultValue={currentUser?.name ?? "未登録"}
+                defaultValue={currentUser?.name || "未登録"}
                 shouldUnregister
                 render={({ field }) => (
                   <TextField
                     {...field}
                     type="text"
-                    autoFocus={true}
                     autoComplete="username"
                     fullWidth
                     inputProps={{
@@ -199,7 +203,7 @@ export const Contact: FC = () => {
           </FormItemWrapper>
           <FormItemWrapper>
             <InputLabel>
-              Email
+              Email(必須)
               {resultErrors?.email?.map((message: string, index: number) => (
                 <ErrorMessage
                   key={`email-${index}`}
@@ -215,13 +219,12 @@ export const Contact: FC = () => {
                 name="email"
                 control={control}
                 rules={{ required: true, maxLength: 255 }}
-                defaultValue={currentUser?.email ?? ""}
+                defaultValue={currentUser?.email || ""}
                 shouldUnregister
                 render={({ field }) => (
                   <TextField
                     {...field}
                     type="email"
-                    autoFocus={false}
                     autoComplete="email"
                     fullWidth
                     inputProps={{
@@ -259,7 +262,6 @@ export const Contact: FC = () => {
                   <TextField
                     {...field}
                     type="text"
-                    autoFocus={true}
                     autoComplete="text"
                     fullWidth
                     multiline
@@ -274,7 +276,7 @@ export const Contact: FC = () => {
           </FormItemWrapper>
           <FormItemWrapper>
             <InputLabel>
-              お問い合わせ内容
+              お問い合わせ内容(必須)
               {resultErrors?.content?.map((message: string, index: number) => (
                 <ErrorMessage
                   key={`content-${index}`}
@@ -296,7 +298,6 @@ export const Contact: FC = () => {
                   <TextField
                     {...field}
                     type="text"
-                    autoFocus={true}
                     autoComplete="text"
                     fullWidth
                     multiline

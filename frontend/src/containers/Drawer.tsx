@@ -2,7 +2,6 @@ import { FC, Fragment, useContext } from "react";
 import styled from "styled-components";
 import { Box, SwipeableDrawer, List, Divider, ListItem } from "@mui/material";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 
 //contexts
 import { DrawerContext } from "../contexts/Drawer";
@@ -11,6 +10,7 @@ import { AuthContext } from "../contexts/Auth";
 // components
 import { BaseButton } from "../components/shared_style";
 import { PictureIcon } from "../components/icon";
+
 // images
 import mainLogo from "../images/logo.png";
 
@@ -25,7 +25,7 @@ const CustomSwipeableDrawer = styled(SwipeableDrawer)`
     width: 15rem;
   }
 `;
-const DrawerContainer = styled(motion.div)`
+const DrawerContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -66,33 +66,13 @@ const CustomLink = styled(Link)`
   }
 `;
 
-const variants = {
-  open: {
-    clipPath: "circle(150% at 0 0)",
-    transition: {
-      type: "spring",
-      stiffness: 20,
-      restDelta: 2,
-    },
-  },
-  closed: {
-    clipPath: "circle(0% at 0 0)",
-    transition: {
-      delay: 0.2,
-      type: "spring",
-      stiffness: 400,
-      damping: 40,
-    },
-  },
-};
-
 export const Drawer: FC = () => {
   const { currentUser } = useContext(AuthContext);
   const { open, setOpenDrawer } = useContext(DrawerContext);
 
-  if (!(currentUser && open)) return null;
+  if (!(currentUser)) return null;
 
-  const closeDrawer = (): void => setOpenDrawer(false);
+  const handleClose = (): void => setOpenDrawer(false);
 
   return (
     <Fragment key={"left"}>
@@ -104,19 +84,16 @@ export const Drawer: FC = () => {
         data-testid="drawer"
       >
         <Box role="presentation" data-testid="MenuDrawer">
-          <DrawerContainer
-            variants={variants}
-            animate={open ? "open" : "closed"}
-          >
+          <DrawerContainer>
             <List>
-              <CustomLink to="/" data-testid="homeLink" onClick={closeDrawer}>
+              <CustomLink to="/" data-testid="homeLink" onClick={handleClose}>
                 <MainLogo src={mainLogo} alt="main logo" />
               </CustomLink>
               <Divider />
               <CustomLink
                 to="/photoGalley"
                 data-testid="photoGalleyLink"
-                onClick={closeDrawer}
+                onClick={handleClose}
               >
                 <ListItem>
                   <ItemWrapper>

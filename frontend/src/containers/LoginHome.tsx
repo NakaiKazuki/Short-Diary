@@ -13,11 +13,12 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { YouTubeProps, YouTubeEvent, YouTubePlayer } from "react-youtube";
 import styled from "styled-components";
+
 // contexts
 import { AuthContext } from "../contexts/Auth";
 
 // apis
-import { fetchHome, getDiaries } from "../apis/home";
+import { getHome, getDiaries } from "../apis/home";
 import { createDiary, updateDiary, deleteDiary } from "../apis/diaries";
 
 // icons
@@ -39,7 +40,14 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { HTTP_STATUS_CODE, REQUEST_STATE } from "../constants";
 
 // helpers
-import { onSubmitText, isDisabled, dateToday, formattedDate, removeUserCookies } from "../helpers";
+import {
+  onSubmitText,
+  isDisabled,
+  dateToday,
+  formattedDate,
+  removeUserCookies,
+  scroll,
+} from "../helpers";
 
 // reducers
 import {
@@ -179,6 +187,21 @@ export const LoginHome: FC = () => {
   };
   const [state, setState] = useState<IInitialState>(initialState);
 
+  // ユーザ情報削除してログイン画面へ誘導
+  const removeSession = (e: { response: { status: 401 | 403 } }): void => {
+    if (
+      e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
+      HTTP_STATUS_CODE.FORBIDDEN
+    ) {
+      setCurrentUser(undefined);
+      removeUserCookies();
+      navigate("/login", { replace: true });
+    } else {
+      console.error(e);
+      throw e;
+    }
+  };
+
   // このコンポーネントが開かれた時にだけ実行される
   useEffect(() => {
     const abortController = new AbortController();
@@ -186,7 +209,7 @@ export const LoginHome: FC = () => {
       ...state,
       fetchState: REQUEST_STATE.LOADING,
     });
-    fetchHome()
+    getHome()
       .then((data): void => {
         setState({
           ...state,
@@ -196,13 +219,8 @@ export const LoginHome: FC = () => {
         });
       })
       .catch((e): void => {
-        if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-          removeUserCookies();
-          navigate("/login", { replace: true });
-          setCurrentUser(undefined);
-        } else {
-          console.error(e);
-        }
+        console.log()
+        removeSession(e);
       });
 
     return () => abortController.abort();
@@ -210,7 +228,7 @@ export const LoginHome: FC = () => {
 
   // ここからPagenationAreaで使う関数
   // ページネションのページ番号が選択されたら、その番号に応じてデータを受け取る
-  const scrollIndexTopRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const onPageChange = async (page: number): Promise<void> => {
     await getDiaries(page, state.selectedDate?.toISOString().split("T")[0])
       .then((data) => {
@@ -219,17 +237,10 @@ export const LoginHome: FC = () => {
           diaries: data.diaries,
           pagy: data.pagy,
         });
-        scrollIndexTopRef?.current?.scrollIntoView();
+        scroll(ref);
       })
       .catch((e) => {
-        if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-          setCurrentUser(undefined);
-          removeUserCookies();
-          navigate("/login", { replace: true });
-        } else {
-          console.error(e);
-          throw e;
-        }
+        removeSession(e);
       });
   };
   // ここまでPagenationAreaで使う関数
@@ -244,7 +255,6 @@ export const LoginHome: FC = () => {
   };
   // 日付を指定して検索する場合に使用
   const convertDate = (selectedDate: Date): Date | undefined => {
-
     if (!selectedDate) return undefined;
 
     const dateTime = new Date(new Date(selectedDate).toLocaleString("ja"));
@@ -259,7 +269,7 @@ export const LoginHome: FC = () => {
   };
 
   const onDateChange = async (selectedDate: null | Date): Promise<void> => {
-    await fetchHome(selectedDate ? convertDate(selectedDate) : undefined)
+    await getHome(selectedDate ? convertDate(selectedDate) : undefined)
       .then((data): void => {
         setState({
           ...state,
@@ -273,14 +283,7 @@ export const LoginHome: FC = () => {
         reset({ searchWord: "" });
       })
       .catch((e): void => {
-        if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-          removeUserCookies();
-          setCurrentUser(undefined);
-          navigate("/login", { replace: true });
-        } else {
-          console.error(e);
-          throw e;
-        }
+        removeSession(e);
       });
   };
 
@@ -288,7 +291,7 @@ export const LoginHome: FC = () => {
   const onWordSearchSubmit = async (
     formValues: ISearchFormValue
   ): Promise<void> => {
-    await fetchHome(formValues.searchWord)
+    await getHome(formValues.searchWord)
       .then((data): void => {
         setState({
           ...state,
@@ -301,20 +304,12 @@ export const LoginHome: FC = () => {
         });
       })
       .catch((e): void => {
-        if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-          setCurrentUser(undefined);
-          removeUserCookies();
-          navigate("/login", { replace: true });
-        } else {
-          console.error(e);
-          throw e;
-        }
+        removeSession(e);
       });
   };
-
   // 検索内容を消去するボタンに使用
   const onSearchClearButton = async (): Promise<void> => {
-    await fetchHome()
+    await getHome()
       .then((data): void => {
         setState({
           ...state,
@@ -328,14 +323,7 @@ export const LoginHome: FC = () => {
         reset({ searchWord: "" });
       })
       .catch((e): void => {
-        if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-          setCurrentUser(undefined);
-          removeUserCookies();
-          navigate("/login", { replace: true });
-        } else {
-          console.error(e);
-          throw e;
-        }
+        removeSession(e);
       });
   };
   // ここまでSearchFieldで使う関数
@@ -394,14 +382,7 @@ export const LoginHome: FC = () => {
             ...state,
             resultErrors: e.response?.data.errors,
           });
-        } else if (e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED) {
-          setCurrentUser(undefined);
-          removeUserCookies();
-          navigate("/login", { replace: true });
-        } else {
-          console.error(e);
-          throw e;
-        }
+        } else removeSession(e);
       });
   };
 
@@ -429,7 +410,7 @@ export const LoginHome: FC = () => {
 
     if (!(state.pagy && state.selectedDiary)) return;
 
-    (await updateDiary(
+    await updateDiary(
       {
         date: formValues.date,
         tag_list: formValues.tag_list?.trim() || undefined,
@@ -458,17 +439,8 @@ export const LoginHome: FC = () => {
             ...state,
             resultErrors: e.response?.data.errors,
           });
-        } else if (
-          e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
-          e.response?.status === HTTP_STATUS_CODE.FORBIDDEN
-        ) {
-          setCurrentUser(undefined);
-          removeUserCookies();
-          navigate("/login", { replace: true });
-        } else {
-          alert(e);
-        }
-      }));
+        } else removeSession(e);
+      });
   };
   // ここまでDiaryEditで使う関数
 
@@ -521,17 +493,7 @@ export const LoginHome: FC = () => {
         });
       })
       .catch((e): void => {
-        if (
-          e.response?.status === HTTP_STATUS_CODE.FORBIDDEN ||
-          e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED
-        ) {
-          setCurrentUser(undefined);
-          removeUserCookies();
-          navigate("/login", { replace: true });
-        } else {
-          console.error(e);
-          throw e;
-        }
+        removeSession(e);
       });
   };
 
@@ -568,9 +530,10 @@ export const LoginHome: FC = () => {
       anchorEl: null,
     });
   };
+
   // ここまでDiaryMenuで使う関数
   return (
-    <LoginHomeWrapper ref={scrollIndexTopRef}>
+    <LoginHomeWrapper ref={ref}>
       <Heading data-testid="pageTitle">Diaries</Heading>
       <DiaryCreateOpenButton
         onClick={onOpenDiaryCreateDialog}

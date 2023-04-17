@@ -27,9 +27,10 @@ const ErrorMessage = styled.p`
   font-size: 0.9rem;
 `;
 
-const ContentCount = styled.span`
+const ContentCount = styled.span<{ contentCount: number }>`
   float: right;
   font-size: 1rem;
+  ${({ contentCount }) => { if (contentCount > 200) return "color:red" }};
 `;
 
 const Submit = styled(BaseButton)`
@@ -163,7 +164,7 @@ export const FormArea: FC<IProps> = ({
               multiline
               fullWidth
               helperText={
-                <ContentCount data-testid="contentCount">
+                <ContentCount data-testid="contentCount" contentCount={contentCount}>
                   {contentCount}/200
                 </ContentCount>
               }

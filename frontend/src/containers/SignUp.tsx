@@ -48,9 +48,9 @@ export const SignUp: FC = () => {
   const navigate = useNavigate();
   const [resultErrors, setErrorMessage] = useState<
     | Pick<
-        IResultErrors,
-        "name" | "email" | "password" | "password_confirmation"
-      >
+      IResultErrors,
+      "name" | "email" | "password" | "password_confirmation"
+    >
     | undefined
   >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
@@ -67,7 +67,7 @@ export const SignUp: FC = () => {
     "name" | "email" | "password" | "password_confirmation"
   > = {
     name: {
-      formLabel: "Name:",
+      formLabel: "Name(必須):",
       errorsProperty: errors.name,
       errorMessage: "1文字以上、50文字以内で入力してください",
       resultErrorProperty: resultErrors?.name,
@@ -80,7 +80,7 @@ export const SignUp: FC = () => {
       rules: { required: true, maxLength: 50 },
     },
     email: {
-      formLabel: "Email:",
+      formLabel: "Email(必須):",
       errorsProperty: errors.email,
       errorMessage: "1文字以上、255文字以内で入力してください",
       resultErrorProperty: resultErrors?.email,
@@ -93,9 +93,9 @@ export const SignUp: FC = () => {
       rules: { required: true, maxLength: 255 },
     },
     password: {
-      formLabel: "パスワード: ",
+      formLabel: "パスワード(必須): ",
       errorsProperty: errors.password,
-      errorMessage: "正しいパスワードを入力してください",
+      errorMessage: "6文字以上128文字以内で入力してください",
       resultErrorProperty: resultErrors?.password,
       apiMessagePropertyName: "パスワード",
       nameAttribute: "password",
@@ -106,7 +106,7 @@ export const SignUp: FC = () => {
       rules: { required: true, minLength: 6, maxLength: 128 },
     },
     password_confirmation: {
-      formLabel: "確認用パスワード:",
+      formLabel: "確認用パスワード(必須):",
       errorsProperty: errors.password_confirmation,
       errorMessage: "パスワードと同じ内容を入力してください",
       resultErrorProperty: resultErrors?.password_confirmation,

@@ -10,3 +10,5 @@ export { default as LogoutIcon } from "@material-ui/icons/ExitToApp";
 export { default as SearchIcon } from "@material-ui/icons/Search";
 export { default as MenuIcon } from "@material-ui/icons/Menu";
 export { default as MovieIcon } from "@mui/icons-material/Movie";
+export { default as GitHubIcon } from "@mui/icons-material/GitHub";
+export { default as TwitterIcon } from "@mui/icons-material/Twitter";

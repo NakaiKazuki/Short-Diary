@@ -18,7 +18,7 @@ export interface IAboutInitialState {
 }
 
 export interface IAboutActionTypes {
-  PROFILE: "プロフィール";
+  PROFILE: "プロフィール他";
   TECHNOLOGY: "使用技術一覧";
   FUNCTION: "機能その他";
 }

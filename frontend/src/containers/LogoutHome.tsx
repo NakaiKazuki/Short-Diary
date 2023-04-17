@@ -11,7 +11,12 @@ import { ILogoutHomeInitialState as IInitialState } from "../types/containers";
 import { newGuestSession } from "../apis/users/sessions";
 
 // helpers
-import { onSubmitText, isDisabled, removeUserCookies, setUserCookies } from "../helpers";
+import {
+  onSubmitText,
+  isDisabled,
+  removeUserCookies,
+  setUserCookies,
+} from "../helpers";
 
 // reducers
 import {
@@ -181,7 +186,6 @@ export const LogoutHome: FC = () => {
 
   const onGuestLoginButton = async (): Promise<void> => {
     dispatchSubmit({ type: submitActionTypes.POSTING });
-    removeUserCookies()
     await newGuestSession()
       .then((res) => {
         dispatchSubmit({ type: submitActionTypes.POST_SUCCESS });
@@ -190,7 +194,7 @@ export const LogoutHome: FC = () => {
         navigate("/");
       })
       .catch((e) => {
-        removeUserCookies()
+        removeUserCookies();
         setCurrentUser(undefined);
         throw e;
       });
@@ -219,9 +223,10 @@ export const LogoutHome: FC = () => {
               <Paragraph>
                 日記を付けたいけど、文章を書くのは面倒だと思ったことはありませんか？
                 <br />
-                Short Diaryでは日々の日記を一言二言の内容で書くことで、
+                Short
+                Diaryでは日々の出来事、思いつきをで記録することが目的なので
                 <br />
-                メモ感覚で日記をつけることができます。
+                メモ感覚で日記をつけることができます！
                 <br />
                 さっそく登録して日記を付けよう!
                 <br />
@@ -247,7 +252,7 @@ export const LogoutHome: FC = () => {
                 onClick={onOpenButton}
                 data-testid="aboutButton"
               >
-                使用技術や制作者情報
+                アプリと制作者情報
               </ProfButton>
             </ButtonsWrapper>
           </Content>

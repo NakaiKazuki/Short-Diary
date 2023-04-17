@@ -29,7 +29,7 @@ const Content = styled.li`
   font-size: 1.5rem;
 `;
 
-const ReactTooLs = (): JSX.Element => {
+const ReactBlock = (): JSX.Element => {
   return (
     <Fragment>
       <SubTitle data-testid="react">React</SubTitle>
@@ -44,7 +44,7 @@ const ReactTooLs = (): JSX.Element => {
     </Fragment>
   );
 };
-const RailsTooLs = (): JSX.Element => {
+const RailsBlock = (): JSX.Element => {
   return (
     <Fragment>
       <SubTitle data-testid="rails">Ruby on Rails</SubTitle>
@@ -58,7 +58,7 @@ const RailsTooLs = (): JSX.Element => {
     </Fragment>
   );
 };
-const AwsTooLs = (): JSX.Element => {
+const AwsBlock = (): JSX.Element => {
   return (
     <Fragment>
       <SubTitle data-testid="aws">AWS</SubTitle>
@@ -73,7 +73,7 @@ const AwsTooLs = (): JSX.Element => {
     </Fragment>
   );
 };
-const OthersTooLs = (): JSX.Element => {
+const OthersBlock = (): JSX.Element => {
   return (
     <Fragment>
       <SubTitle data-testid="others">その他</SubTitle>
@@ -90,12 +90,12 @@ const OthersTooLs = (): JSX.Element => {
 export const Tools: FC = () => {
   return (
     <Fragment>
-      <Head title="Tools" />
+      <Head title="Tools" type="article" />
       <ToolWrapper data-testid="tools">
-        <ReactTooLs />
-        <RailsTooLs />
-        <AwsTooLs />
-        <OthersTooLs />
+        <ReactBlock />
+        <RailsBlock />
+        <AwsBlock />
+        <OthersBlock />
       </ToolWrapper>
     </Fragment>
   );

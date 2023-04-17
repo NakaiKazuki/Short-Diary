@@ -7,12 +7,12 @@ import { Profile } from "../components/aboutDiarlog/Profile";
 import { Tools } from "../components/aboutDiarlog/Tools";
 import { FeatureList } from "../components/aboutDiarlog/FeatureList";
 export const initialState: IInitialState = {
-  title: "プロフィール",
+  title: "プロフィール他",
   jsxElement: <Profile />,
 };
 
 const aboutActionTypes: IActionTypes = {
-  PROFILE: "プロフィール",
+  PROFILE: "プロフィール他",
   TECHNOLOGY: "使用技術一覧",
   FUNCTION: "機能その他",
 };
@@ -25,7 +25,7 @@ export const aboutReducer = (
     case aboutActionTypes.PROFILE:
       return {
         ...state,
-        title: "プロフィール",
+        title: "プロフィール他",
         jsxElement: <Profile />,
       };
     case aboutActionTypes.TECHNOLOGY:

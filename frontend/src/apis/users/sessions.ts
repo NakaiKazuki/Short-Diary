@@ -1,8 +1,7 @@
-import axios from "axios";
 import { signIn, signOut, guestSignIn, userLogin } from "../../urls";
 
 // helpers
-import { setHeaders } from "../../helpers";
+import { axiosPost, axiosDelete } from "../../helpers";
 
 // types
 import {
@@ -14,28 +13,17 @@ import {
 export const createSession = (
   params: Pick<IParams, "email" | "password">
 ): Promise<IResult> => {
-  return axios.post(signIn, {
-    email: params.email,
-    password: params.password,
-  });
+  return axiosPost(signIn, params);
 };
 
 export const getCurrentUser = (): Promise<IResult> => {
-  return axios.post(
-    userLogin,
-    {},
-    {
-      headers: setHeaders(),
-    }
-  );
+  return axiosPost(userLogin, {});
 };
 
 export const deleteSession = (): Promise<void> => {
-  return axios.delete(signOut, {
-    headers: setHeaders(),
-  });
+  return axiosDelete(signOut);
 };
 
 export const newGuestSession = (): Promise<IGestResult> => {
-  return axios.post(guestSignIn);
+  return axiosPost(guestSignIn);
 };

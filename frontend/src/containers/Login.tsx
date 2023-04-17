@@ -31,7 +31,12 @@ import {
 } from "../reducers/submit";
 
 // helpers
-import { onSubmitText, isDisabled, removeUserCookies, setUserCookies } from "../helpers";
+import {
+  onSubmitText,
+  isDisabled,
+  removeUserCookies,
+  setUserCookies,
+} from "../helpers";
 
 // types
 import { IUsersFormValues as IFormValues } from "../types/containers";
@@ -114,7 +119,7 @@ export const Login: FC = () => {
           e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
           e.response?.status === HTTP_STATUS_CODE.UNPROCESSABLE
         ) {
-          removeUserCookies()
+          removeUserCookies();
           setCurrentUser(undefined);
           setErrorMessage(e.response.data.errors);
         } else {

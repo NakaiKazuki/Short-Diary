@@ -15,6 +15,8 @@ RUN apk update && apk add --no-cache \
     mysql-dev \
     tzdata \
     zsh \
+    graphviz \
+    ttf-freefont \
     vim  && \
     mkdir -p $APP_ROOT
 

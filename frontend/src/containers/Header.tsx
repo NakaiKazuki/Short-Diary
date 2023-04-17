@@ -68,7 +68,7 @@ export const Header: FC = () => {
       .then(() => {
         setAnchorEl(null);
         setCurrentUser(undefined);
-        removeUserCookies()
+        removeUserCookies();
       })
       .catch((e) => {
         console.error(e);

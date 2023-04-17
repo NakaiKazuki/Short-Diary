@@ -24,3 +24,6 @@ export const createObserver = (): void => {
     value: IntersectionObserver,
   });
 };
+export const testString = (count: number): string => {
+  return "0123456789".repeat(count);
+};

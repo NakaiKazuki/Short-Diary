@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 // Head
 import { Head } from "../../Head";
-
+import erImage from "../../images/er.png"
 // css
 const FeatureListWrapper = styled.div`
   margin-top: 3vh;
@@ -38,7 +38,7 @@ const InnerLi = styled.li`
   margin-top: 0.5rem;
 `;
 
-const ReactFeatureList = (): JSX.Element => {
+const ReactBlock = (): JSX.Element => {
   return (
     <Fragment>
       <SubTitle data-testid="react">React</SubTitle>
@@ -98,7 +98,7 @@ const ReactFeatureList = (): JSX.Element => {
   );
 };
 
-const RailsFeatureList = (): JSX.Element => {
+const RailsBlock = (): JSX.Element => {
   return (
     <Fragment>
       <SubTitle data-testid="rails">Ruby on Rails</SubTitle>
@@ -144,7 +144,7 @@ const RailsFeatureList = (): JSX.Element => {
   );
 };
 
-const GitHubActionsFeatureList = (): JSX.Element => {
+const GitHubActionsBlock = (): JSX.Element => {
   return (
     <Fragment>
       <SubTitle data-testid="gitHubActions">GitHub Actions</SubTitle>
@@ -170,7 +170,7 @@ const GitHubActionsFeatureList = (): JSX.Element => {
   );
 };
 
-const TestActionsFeatureList = (): JSX.Element => {
+const TestBlock = (): JSX.Element => {
   return (
     <Fragment>
       <SubTitle data-testid="test">テスト</SubTitle>
@@ -195,15 +195,25 @@ const TestActionsFeatureList = (): JSX.Element => {
     </Fragment>
   );
 };
+
+const ErBlock = (): JSX.Element => {
+  return (
+    <Fragment>
+      <SubTitle data-testid="er">ER図</SubTitle>
+      <img src={erImage} />
+    </Fragment>
+  );
+}
 export const FeatureList: FC = () => {
   return (
     <Fragment>
-      <Head title="FeatureList" />
+      <Head title="FeatureList" type="article" />
       <FeatureListWrapper data-testid="featureList">
-        <ReactFeatureList />
-        <RailsFeatureList />
-        <GitHubActionsFeatureList />
-        <TestActionsFeatureList />
+        <ReactBlock />
+        <RailsBlock />
+        <GitHubActionsBlock />
+        <TestBlock />
+        <ErBlock />
       </FeatureListWrapper>
     </Fragment>
   );

@@ -1,35 +1,38 @@
-import axios from "axios";
 import { home } from "../urls";
 
 // helpers
-import { setHeaders } from "../helpers";
+import { axiosGet } from "../helpers";
 
 // types
-import { IDiariesResult as IResult } from "../types/apis";
+import {
+  IDiariesResult as IResult,
+  TSearchWord,
+  IHomeData,
+  TData,
+} from "../types/apis";
 
-export const fetchHome = (
-  searchWord: undefined | string | Date = undefined
-): Promise<IResult> => {
-  return axios
-    .get(home, {
-      headers: setHeaders(),
-      params: { q: { content_or_date_or_tags_name_cont: searchWord } },
-    })
-    .then((res) => res.data);
+export const getHome = (searchWord?: TSearchWord): Promise<IResult> => {
+  const data: IHomeData = {
+    params: { q: { content_or_date_or_tags_name_cont: searchWord } },
+  };
+
+  return axiosGet<IHomeData, TData<IResult>>(home, data).then(
+    (res) => res.data
+  );
 };
 
 export const getDiaries = (
   page: number,
-  searchWord: undefined | string | Date
+  searchWord: TSearchWord
 ): Promise<IResult> => {
-  return axios
-    .get(home, {
-      headers: setHeaders(),
+  const data: IHomeData = {
+    params: {
+      q: { content_or_date_or_tags_name_cont: searchWord },
+      page: page,
+    },
+  };
 
-      params: {
-        q: { content_or_date_or_tags_name_cont: searchWord },
-        page: page,
-      },
-    })
-    .then((res) => res.data);
+  return axiosGet<IHomeData, TData<IResult>>(home, data).then(
+    (res) => res.data
+  );
 };
