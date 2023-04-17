@@ -16,7 +16,7 @@ export const Head: FC<IProps> = ({ title, type }) => {
         name="description"
         content={description}
       />
-      <meta property="og:url" content={`${process.env.REACT_APP_HOST_SERVER}${location}`} />
+      <meta property="og:url" content={`${process.env.REACT_APP_HOST_SERVER}${location.pathname}`} />
       <meta property="og:type" content={type} />
       <meta property="og:title" content={`Short Diary ${title}`} />
       <meta property="og:site_name" content="Short Diary" />
