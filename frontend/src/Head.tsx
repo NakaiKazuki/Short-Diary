@@ -16,6 +16,11 @@ export const Head: FC<IProps> = ({ title, type }) => {
         name="description"
         content={description}
       />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content={process.env.REACT_APP_TWITTER_USER} />
+      <meta name="twitter:title" content="Short Diary" />
+      <meta name="twitter:description" content={`${description} React/Rails 就活用ポートフォリオ`} />
+      <meta name="twitter:image" content={ogpImage} />
       <meta property="og:url" content={`${process.env.REACT_APP_HOST_SERVER}${location.pathname}`} />
       <meta property="og:type" content={type} />
       <meta property="og:title" content={`Short Diary ${title}`} />
@@ -23,11 +28,6 @@ export const Head: FC<IProps> = ({ title, type }) => {
       <meta property="og:description" content={description} />
       <meta property="og:image" content={ogpImage} />
 
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content={process.env.REACT_APP_TWITTER_USER} />
-      <meta name="twitter:title" content="Short Diary" />
-      <meta name="twitter:description" content={`${description} React/Rails 就活用ポートフォリオ`} />
-      <meta name="twitter:image" content={ogpImage} />
       <title>{`Short Diary ${title}`}</title>
       {process.env.NODE_ENV === "production" && (
         <Fragment>
