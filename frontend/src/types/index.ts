@@ -14,5 +14,4 @@ declare global {
 }
 export interface IHeadProps {
   title: string;
-  type: string;
 }

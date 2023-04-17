@@ -207,7 +207,7 @@ const ErBlock = (): JSX.Element => {
 export const FeatureList: FC = () => {
   return (
     <Fragment>
-      <Head title="FeatureList" type="article" />
+      <Head title="FeatureList" />
       <FeatureListWrapper data-testid="featureList">
         <ReactBlock />
         <RailsBlock />

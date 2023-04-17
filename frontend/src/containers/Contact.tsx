@@ -139,7 +139,7 @@ export const Contact: FC = () => {
 
   return (
     <Fragment>
-      <Head title="Contact" type="article" />
+      <Head title="Contact" />
       <Dialog
         fullScreen
         open={open}

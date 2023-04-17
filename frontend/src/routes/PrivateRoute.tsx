@@ -10,12 +10,11 @@ import { isLoggedIn } from "../helpers";
 export const PrivateRoute: FC<{
   jsxElement: JSX.Element;
   title: string;
-  type: string;
-}> = ({ jsxElement, title, type }) => {
+}> = ({ jsxElement, title }) => {
   const { currentUser } = useContext(AuthContext);
   return isLoggedIn(currentUser) ? (
     <Fragment>
-      <Head title={title} type={type} />
+      <Head title={title} />
       {jsxElement}
     </Fragment>
   ) : (
