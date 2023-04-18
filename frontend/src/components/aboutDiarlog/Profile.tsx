@@ -95,6 +95,7 @@ const Introduction = (): JSX.Element => {
             <InnerLi>希望職種: フロントエンドエンジニア</InnerLi>
             <InnerLi>住んでる場所: 大阪</InnerLi>
             <InnerLi>職探し: 東京大阪をメインに自社で開発を行なっているor受託開発を行なっている企業で探してます!</InnerLi>
+            <InnerLi>今やってること: 面白そうなんでこのアプリをRESTからGraphQLに変更しようとしています!</InnerLi>
 
             <InnerLi>
               My Accounts:
