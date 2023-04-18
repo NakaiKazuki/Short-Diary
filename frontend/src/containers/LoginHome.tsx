@@ -219,7 +219,6 @@ export const LoginHome: FC = () => {
         });
       })
       .catch((e): void => {
-        console.log()
         removeSession(e);
       });
 
@@ -307,6 +306,7 @@ export const LoginHome: FC = () => {
         removeSession(e);
       });
   };
+
   // 検索内容を消去するボタンに使用
   const onSearchClearButton = async (): Promise<void> => {
     await getHome()
@@ -338,6 +338,7 @@ export const LoginHome: FC = () => {
     });
   };
   // ここまで DiaryIndexで使う関数
+
   // ここからDiaryCreateDialogとDiaryEditで共通して使う関数
   // DiaryCreateDialogで選択されたfile名を返す
   const setFileName = (): string =>
@@ -462,6 +463,7 @@ export const LoginHome: FC = () => {
   // ここまでDiaryDialogで使う関数
 
   // ここからDiaryMenu(DiaryDialogに埋め込まれている)で使う関数
+  // ConfirmationDialogを開く
   const onOpenCofirmationDialog = (): void => {
     setState({
       ...state,
@@ -470,6 +472,7 @@ export const LoginHome: FC = () => {
     });
   };
 
+  // ConfirmationDialogを閉じる
   const onCloseCofirmationDialog = (): void => {
     setState({
       ...state,
