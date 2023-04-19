@@ -94,7 +94,7 @@ const Introduction = (): JSX.Element => {
             <InnerLi>現職: フリーター</InnerLi>
             <InnerLi>希望職種: フロントエンドエンジニア</InnerLi>
             <InnerLi>住んでる場所: 大阪</InnerLi>
-            <InnerLi>職探し: 東京大阪をメインに探しています。</InnerLi>
+            <InnerLi>職探し: 近畿圏と大阪をメインに色々見てます。</InnerLi>
 
             <InnerLi>
               My Accounts:
