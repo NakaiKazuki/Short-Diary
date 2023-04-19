@@ -94,7 +94,7 @@ const Introduction = (): JSX.Element => {
             <InnerLi>現職: フリーター</InnerLi>
             <InnerLi>希望職種: フロントエンドエンジニア</InnerLi>
             <InnerLi>住んでる場所: 大阪</InnerLi>
-            <InnerLi>職探し: 東京大阪をメインに自社で開発を行なっているor受託開発を行なっている企業で探してます!</InnerLi>
+            <InnerLi>職探し: 東京大阪をメインに探しています。</InnerLi>
 
             <InnerLi>
               My Accounts:
@@ -135,6 +135,16 @@ const Introduction = (): JSX.Element => {
             また勉強を続けられた要因としてエラーを解決できた時の喜びや、自分で作ったものがきちんと画面上で動くというのがとても新鮮で楽しかったので独学でも継続できた要因です。<br />
             今後は作れるものを増やすため一旦腰を落ち着かせて React を軸にデザインやバックエンドについても習得していきたいと考えています。
           </Paragraph>
+          <ContentTitle>この先やってみたいこと:</ContentTitle>
+          <Paragraph>
+            現在はReactを使うことが楽しいので今後はHTMLCSS関連やJacaScriptについての引き出しを増やしながら、コード自体をもっと綺麗書きつつSEOとデザインついての勉強をして見やすく使いやすいサイト作れるようなりたいと考えています。<br />
+            ゆくゆくはデザイン・バックエンドの知識もあるフロントエンドエンジニアを目指したいと考えています。<br />
+            <br />
+            将来的にやってみたいことで地方問題を解決するために機会の創出を行えるサービスを作ってみたいと考えています。<br />
+            理由として継業問題などの今まで続いていてその先も価値を産出し続けるものがただ機会がないというだけでなくなるのは勿体ないと思っているからです。<br />
+            確かに現在でも継業を行うサービスはありますが、現状の問題として純粋にマッチするための分母が足りないと考えているのでその土地の実態を知ってもらい移住のきっかけになるようなサービスを作ってみたいです。<br />
+            将来的にはアイデアを形にできるだけの技術を身に着け、実際に現地で生活しながら他にも解決できそうな問題を発見し解決できるものを作りたいと思っています。<br />
+          </Paragraph>
         </Content>
       </Contents>
     </Fragment>
@@ -172,7 +182,7 @@ const Message = (): JSX.Element => {
       <Paragraph>
         もしお声かけいただけるのならお手数ですが、
         <MessageLink href="https://twitter.com/k_kyube"><TwitterIcon color="primary" />Twitter</MessageLink>
-        か画面左下のContactボタンからのご連絡お待ちしております。</Paragraph>
+        のDMか画面左下のContactボタンからのご連絡お待ちしております。</Paragraph>
     </MessageWrapper>
   )
 }
