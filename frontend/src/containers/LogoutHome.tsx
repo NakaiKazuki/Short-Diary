@@ -185,6 +185,7 @@ export const LogoutHome: FC = () => {
   }, []);
 
   const onGuestLoginButton = async (): Promise<void> => {
+    removeUserCookies();
     dispatchSubmit({ type: submitActionTypes.POSTING });
     await newGuestSession()
       .then((res) => {
