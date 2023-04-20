@@ -171,6 +171,15 @@ const AppExplanation = (): JSX.Element => {
             ログイン後に表示されるページで日記の基本的な動作(CRUD)を全て行えるようにしました。<br />
           </Paragraph>
         </Content>
+        <Content>
+          <ContentTitle>制作時に苦労したこと</ContentTitle>
+          <Paragraph>
+            devise_token_authを利用したゲストユーザーのログイン機能の作り方がわからなかったことです。<br />
+            当時は調べても記事が見つからず途方にくれましたが、いっそソースコードから該当する部位を参考にすればよいのではと考え実装することができました。<br />
+            今ではドキュメントを見て困ったらソースコードを見に行くようにしています。また理解できなくても自分に足りない要素が見つかる癖がついたのは良かったと思います。<br />
+            といっても足りない要素だらけで無限にやることが沸いてきますが(笑)それも含めて楽しいのでこれからも頑張りたいです！
+          </Paragraph>
+        </Content>
       </Contents>
     </Fragment>
   )
@@ -181,7 +190,7 @@ const Message = (): JSX.Element => {
     <MessageWrapper>
       <SubTitle data-testid="messageTitle">さいごに</SubTitle>
       <Paragraph>
-        もしお声かけいただけるのならお手数ですが、
+        お声かけいただけるのであればお手数ですが、
         <MessageLink href="https://twitter.com/k_kyube"><TwitterIcon color="primary" />Twitter</MessageLink>
         のDMか画面左下のContactボタンからのご連絡お待ちしております。</Paragraph>
     </MessageWrapper>
