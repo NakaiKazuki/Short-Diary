@@ -69,10 +69,10 @@ const Category = styled.li<{ disabled: boolean }>`
   ${({ disabled }) =>
     disabled
       ? {
-        "background-color": "royalblue",
-        color: "white",
-        "pointer-events": "none",
-      }
+          "background-color": "royalblue",
+          color: "white",
+          "pointer-events": "none",
+        }
       : { "background-color": "white" }};
   :hover {
     color: white;
@@ -141,7 +141,12 @@ export const AboutDialog: FC<IProps> = ({
         TransitionComponent={transition}
         data-testid="aboutDialog"
       >
-        <AppBar sx={{ position: "relative" }} ref={ref} style={{ color: "royalblue", backgroundColor: "white" }} data-testid="appBar">
+        <AppBar
+          sx={{ position: "relative" }}
+          ref={ref}
+          style={{ color: "royalblue", backgroundColor: "white" }}
+          data-testid="appBar"
+        >
           <Toolbar>
             <IconButton
               edge="start"

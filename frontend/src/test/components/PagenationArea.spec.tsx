@@ -1,5 +1,5 @@
 import { render, cleanup } from "@testing-library/react";
-import "@testing-library/jest-dom";
+
 import { PagenationArea } from "../../components/PagenationArea";
 import { el } from "../helpers";
 

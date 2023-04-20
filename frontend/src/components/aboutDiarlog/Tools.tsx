@@ -82,7 +82,7 @@ const OthersBlock = (): JSX.Element => {
         <Content>MySQL 8.0</Content>
         <Content>Google Analytics</Content>
         <Content>Github Actions</Content>
-        <Content>Nginx 1.20</Content>
+        <Content>Nginx 1.23</Content>
       </Contents>
     </Fragment>
   );

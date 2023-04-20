@@ -1,6 +1,6 @@
+import "@testing-library/jest-dom";
 import { render, cleanup } from "@testing-library/react";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import "@testing-library/jest-dom";
 import { FormLinks } from "../../../components/users";
 import { el } from "../../helpers";
 

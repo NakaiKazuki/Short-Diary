@@ -1,18 +1,15 @@
 import "@testing-library/jest-dom";
 import { screen, cleanup, waitFor, render, act } from "@testing-library/react";
+import { RecoilRoot } from "recoil";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { AuthContext } from "../../contexts/Auth";
+import { authAtom } from "../../recoils/Auth";
 import { LoginHome } from "../../containers/LoginHome";
 import { home, diary } from "../../urls";
 import { dateToday, formattedDate } from "../../helpers";
 import { el, testString } from "../helpers";
-
-// types
-import { IAuthProviderProps as IProviderProps } from "../../types/test";
-
 afterEach(cleanup);
 
 // ユーザデータ
@@ -77,29 +74,28 @@ const formInfo = [
   },
 ];
 
-const providerProps = {
-  value: {
-    currentUser: currentUser,
-    setCurrentUser: jest.fn(),
-  },
-};
-
 const mockAxios = new MockAdapter(axios);
 
 // ApiResponseを設定
 mockAxios.onGet(home).reply(200, result);
 
-const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
+const customRender = (ui: JSX.Element) => {
   const routes = [
     {
       path: "/",
-      element: (
-        <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
-      ),
+      element: ui,
     },
   ];
   const router = createMemoryRouter(routes);
-  return render(<RouterProvider router={router} />);
+  return render(
+    <RecoilRoot
+      initializeState={({ set }) => {
+        set(authAtom, currentUser);
+      }}
+    >
+      <RouterProvider router={router} />
+    </RecoilRoot>
+  );
 };
 
 const idNames = ["date", "tag_list", "content", "movie_source", "picture"];
@@ -110,7 +106,7 @@ describe("LoginHome", () => {
   });
 
   const setup = () => {
-    customRender(<LoginHome />, providerProps);
+    customRender(<LoginHome />);
   };
   beforeEach(
     async () =>

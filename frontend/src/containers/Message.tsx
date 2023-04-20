@@ -1,8 +1,9 @@
-import { FC, useContext, useEffect } from "react";
+import { FC, } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 
-// contexts
-import { MessageContext } from "../contexts/Message";
+// recoils
+import { messageAtom } from "../recoils/Message";
 
 const MessageWrapper = styled.div`
   padding: 2.5vh 0 1.5vh;
@@ -20,19 +21,16 @@ const TextWrapper = styled.p`
   color: white;
   font-size: 1rem;
 `;
-const MESSAGE_DISPLAY_TIME = 7000;
+const MESSAGE_DISPLAY_TIME = 5000;
 
 export const Message: FC = () => {
-  const { message, setMessage } = useContext(MessageContext);
+  const [message, setMessage] = useRecoilState(messageAtom);
   if (!message) return null;
 
-  useEffect(() => {
-    const timeoutId = setTimeout(
-      () => setMessage(undefined),
-      MESSAGE_DISPLAY_TIME
-    );
-    return () => clearTimeout(timeoutId);
-  }, [message, setMessage]);
+  setTimeout(
+    () => setMessage(undefined),
+    MESSAGE_DISPLAY_TIME
+  );
 
   return (
     <MessageWrapper data-testid="message">

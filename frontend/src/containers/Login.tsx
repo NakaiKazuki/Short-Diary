@@ -1,9 +1,10 @@
-import { FC, useState, useReducer, useContext } from "react";
+import { FC, useState, useReducer } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-//contexts
-import { AuthContext } from "../contexts/Auth";
+import { useSetRecoilState } from "recoil";
+// recoils
+import { authAtom } from "../recoils/Auth";
 
 // types
 import { TLinks, IForm } from "../types/containers";
@@ -50,7 +51,7 @@ const LoginWrapper = styled.div`
 
 // エラーメッセージ
 export const Login: FC = () => {
-  const { setCurrentUser } = useContext(AuthContext);
+  const setCurrentUser = useSetRecoilState(authAtom);
   const navigate = useNavigate();
   const [resultErrors, setErrorMessage] = useState<Array<string> | undefined>(
     undefined

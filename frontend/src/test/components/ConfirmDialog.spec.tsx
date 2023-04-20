@@ -1,5 +1,5 @@
-import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { render, cleanup } from "@testing-library/react";
 import { ConfirmDialog } from "../../components/ConfirmDialog";
 import { dateToday } from "../../helpers";
 import { el } from "../helpers";

@@ -1,4 +1,5 @@
-import { FC, useEffect, useContext } from "react";
+import { FC, useEffect } from "react";
+import { useSetRecoilState } from "recoil";
 import {
   RouterProvider,
   createBrowserRouter,
@@ -10,11 +11,8 @@ import Cookies from "js-cookie";
 import { Route } from "react-router-dom";
 import { RouteLayout } from "./RouteLayout";
 
-// cotexts
-import { MessageProvider } from "../contexts/Message";
-import { DrawerProvider } from "../contexts/Drawer";
-import { ContactProvider } from "../contexts/Contact";
-import { AuthContext } from "../contexts/Auth";
+// recoils
+import { authAtom } from "../recoils/Auth";
 
 // components
 import { LogoutHome } from "../containers/LogoutHome";
@@ -37,7 +35,8 @@ import { getCurrentUser } from "../apis/users/sessions";
 import { removeUserCookies, setUserCookies } from "../helpers";
 
 const getCookie = (name: string) => Cookies.get(name);
-const isCookies: string | undefined = (getCookie("access-token") && getCookie("client") && getCookie("uid"))
+const isCookies: string | undefined =
+  getCookie("access-token") && getCookie("client") && getCookie("uid");
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -75,7 +74,7 @@ const router = createBrowserRouter(
 );
 
 export const InnerRoute: FC = () => {
-  const { setCurrentUser } = useContext(AuthContext);
+  const setCurrentUser = useSetRecoilState(authAtom);
 
   useEffect(() => {
     if (!isCookies) return;
@@ -95,13 +94,5 @@ export const InnerRoute: FC = () => {
       });
   }, []);
 
-  return (
-    <ContactProvider>
-      <DrawerProvider>
-        <MessageProvider>
-          <RouterProvider router={router} />
-        </MessageProvider>
-      </DrawerProvider>
-    </ContactProvider>
-  );
+  return <RouterProvider router={router} />;
 };

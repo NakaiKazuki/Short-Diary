@@ -1,11 +1,12 @@
-import { FC, Fragment, useContext } from "react";
+import { FC, Fragment } from "react";
+import { useRecoilValue, useRecoilState } from "recoil";
 import styled from "styled-components";
 import { Box, SwipeableDrawer, List, Divider, ListItem } from "@mui/material";
 import { Link } from "react-router-dom";
 
-//contexts
-import { DrawerContext } from "../contexts/Drawer";
-import { AuthContext } from "../contexts/Auth";
+// recoils
+import { drawerAtom } from "../recoils/Drawer";
+import { authAtom } from "../recoils/Auth";
 
 // components
 import { BaseButton } from "../components/shared_style";
@@ -67,10 +68,10 @@ const CustomLink = styled(Link)`
 `;
 
 export const Drawer: FC = () => {
-  const { currentUser } = useContext(AuthContext);
-  const { open, setOpenDrawer } = useContext(DrawerContext);
+  const currentUser = useRecoilValue(authAtom);
+  const [open, setOpenDrawer] = useRecoilState(drawerAtom);
 
-  if (!(currentUser)) return null;
+  if (!currentUser) return null;
 
   const handleClose = (): void => setOpenDrawer(false);
 
@@ -83,7 +84,7 @@ export const Drawer: FC = () => {
         onOpen={(): void => setOpenDrawer(true)}
         data-testid="drawer"
       >
-        <Box role="presentation" data-testid="MenuDrawer">
+        <Box role="presentation" data-testid="linksDrawer">
           <DrawerContainer>
             <List>
               <CustomLink to="/" data-testid="homeLink" onClick={handleClose}>

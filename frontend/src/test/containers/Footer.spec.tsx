@@ -1,38 +1,34 @@
-import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { render, cleanup } from "@testing-library/react";
+import { RecoilRoot } from "recoil";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { ContactContext } from "../../contexts/Contact";
+import { contactAtom } from "../../recoils/Contact";
 import { Footer } from "../../containers/Footer";
 import { el } from "../helpers";
 
-// types
-import { IContactProviderProps as IProviderProps } from "../../types/test";
-
 afterEach(cleanup);
 
-const providerProps = {
-  value: {
-    open: false,
-    setOpenContact: jest.fn(),
-  },
-};
-
-const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
+const customRender = (ui: JSX.Element) => {
   const routes = [
     {
       path: "/",
-      element: (
-        <ContactContext.Provider {...providerProps}>
-          {ui}
-        </ContactContext.Provider>
-      ),
+      element: ui,
     },
   ];
   const router = createMemoryRouter(routes);
-  return render(<RouterProvider router={router} />);
+  return render(
+    <RecoilRoot
+      initializeState={({ set }) => {
+        set(contactAtom, false);
+      }}
+    >
+      <RouterProvider router={router} />
+    </RecoilRoot>
+  );
 };
+
 describe("Footer", () => {
-  const setup = () => customRender(<Footer />, providerProps);
+  const setup = () => customRender(<Footer />);
 
   beforeEach(() => setup());
 

@@ -1,13 +1,11 @@
+import "@testing-library/jest-dom";
 import { render, screen, cleanup } from "@testing-library/react";
+import { RecoilRoot } from "recoil";
 import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import "@testing-library/jest-dom";
-import { AuthContext } from "../../contexts/Auth";
+import { authAtom } from "../../recoils/Auth";
 import { Header } from "../../containers/Header";
 import { el } from "../helpers";
-
-// types
-import { IAuthProviderProps as IProviderProps } from "../../types/test";
 
 afterEach(cleanup);
 
@@ -17,29 +15,31 @@ const currentUser = {
   email: "test@example.com",
 };
 
-const providerProps = {
-  value: {
-    currentUser: undefined,
-    setCurrentUser: jest.fn(),
-  },
-};
-
-const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
+const customRender = (
+  ui: JSX.Element,
+  currentUser: ICurrentUser | undefined
+) => {
   const routes = [
     {
       path: "/",
-      element: (
-        <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
-      ),
+      element: ui,
     },
   ];
   const router = createMemoryRouter(routes);
-  return render(<RouterProvider router={router} />);
+  return render(
+    <RecoilRoot
+      initializeState={({ set }) => {
+        set(authAtom, currentUser);
+      }}
+    >
+      <RouterProvider router={router} />
+    </RecoilRoot>
+  );
 };
 
 describe("Header コンポーネント", () => {
   describe("ログアウト時", () => {
-    const setup = () => customRender(<Header />, providerProps);
+    const setup = () => customRender(<Header />, undefined);
     beforeEach(() => {
       setup();
     });
@@ -57,14 +57,7 @@ describe("Header コンポーネント", () => {
   });
 
   describe("ログイン時", () => {
-    const providerProps = {
-      value: {
-        currentUser: currentUser,
-        setCurrentUser: jest.fn(),
-      },
-    };
-
-    const setup = () => customRender(<Header />, providerProps);
+    const setup = () => customRender(<Header />, currentUser);
     beforeEach(() => setup());
 
     it("MenuIcon", () => {

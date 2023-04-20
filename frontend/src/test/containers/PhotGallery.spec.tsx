@@ -1,15 +1,12 @@
 import { render, cleanup, waitFor } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import { RecoilRoot } from "recoil";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { AuthContext } from "../../contexts/Auth";
+import { authAtom } from "../../recoils/Auth";
 import { PhotoGallery } from "../../containers/PhotoGallery";
 import { photoGallery } from "../../urls";
 import { el } from "../helpers";
-
-// types
-import { IAuthProviderProps as IProviderProps } from "../../types/test";
 
 afterEach(cleanup);
 
@@ -35,26 +32,23 @@ const emptyResult = {
   items: [],
 };
 
-const providerProps = {
-  value: {
-    currentUser: currentUser,
-    setCurrentUser: jest.fn(),
-  },
-};
-
-const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
+const customRender = (ui: JSX.Element) => {
   const routes = [
     {
-      path: "/photoGalley",
-      element: (
-        <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
-      ),
+      path: "/",
+      element: ui,
     },
   ];
-  const router = createMemoryRouter(routes, {
-    initialEntries: ["/photoGalley"],
-  });
-  return render(<RouterProvider router={router} />);
+  const router = createMemoryRouter(routes);
+  return render(
+    <RecoilRoot
+      initializeState={({ set }) => {
+        set(authAtom, currentUser);
+      }}
+    >
+      <RouterProvider router={router} />
+    </RecoilRoot>
+  );
 };
 
 describe("PhotoGalleryコンポーネント", () => {
@@ -62,7 +56,7 @@ describe("PhotoGalleryコンポーネント", () => {
     mockAxios.resetHistory();
   });
 
-  const setup = () => customRender(<PhotoGallery />, providerProps);
+  const setup = () => customRender(<PhotoGallery />);
 
   describe("Itemがある場合", () => {
     it("PhotoGalleryが表示", async () => {

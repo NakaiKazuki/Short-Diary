@@ -1,10 +1,11 @@
-import { FC, useState, useReducer, useContext } from "react";
+import { FC, useState, useReducer } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-//contexts
-import { AuthContext } from "../contexts/Auth";
-import { MessageContext } from "../contexts/Message";
+// recoils
+import { authAtom } from "../recoils/Auth";
+import { messageAtom } from "../recoils/Message";
 
 // components
 import {
@@ -59,13 +60,13 @@ const GuestErrorMessage = styled.p`
 
 export const UserEdit: FC = () => {
   const navigate = useNavigate();
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const [currentUser, setCurrentUser] = useRecoilState(authAtom);
 
   const [resultErrors, setErrorMessage] = useState<IResultErrors | undefined>(
     undefined
   );
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
-  const { setMessage } = useContext(MessageContext);
+  const setMessage = useSetRecoilState(messageAtom);
   const {
     handleSubmit,
     control,

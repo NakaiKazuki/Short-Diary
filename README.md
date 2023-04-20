@@ -51,7 +51,7 @@
   - Certificate Manager
   - S3
   - RDS(MySQL 8.0)
-- Nginx 1.20
+- Nginx 1.23
 - Docker / Docker Compose
 - MySQL 8.0
 - Google Analytics
@@ -79,6 +79,8 @@
     - React Router Dom
   - head 情報の変更
     - React Helmet Async
+  - 状態管理
+    - Recoil
 
 - Rails
 

@@ -1,12 +1,12 @@
 import {
   forwardRef,
   FC,
-  useContext,
   useReducer,
   useState,
   ReactElement,
   Fragment,
 } from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { BaseButton } from "../components/shared_style";
 import { TransitionProps } from "@mui/material/transitions";
@@ -25,10 +25,10 @@ import { useForm, Controller } from "react-hook-form";
 // apis
 import { postContact } from "../apis/contact";
 
-//contexts
-import { ContactContext } from "../contexts/Contact";
-import { AuthContext } from "../contexts/Auth";
-import { MessageContext } from "../contexts/Message";
+// recoils
+import { contactAtom } from "../recoils/Contact";
+import { authAtom } from "../recoils/Auth";
+import { messageAtom } from "../recoils/Message";
 import { Head } from "../Head";
 
 // reducers
@@ -63,27 +63,27 @@ export const FormWrapper = styled.form`
   @media screen and (min-width: 980px) {
     width: 30vw;
   }
-  `;
+`;
 
 const FormItemWrapper = styled.div`
   margin-top: 1rem;
-  `;
+`;
 
 const ErrorMessage = styled.p`
   margin: 0.6rem auto auto auto;
   color: red;
   font-size: 0.9rem;
-  `;
+`;
 
 const Submit = styled(BaseButton)`
-    margin-top: 2rem;
-    background-color: royalblue;
-    color: white;
-    border-style: none;
-    width: 100%;
-    height: 3rem;
-    font-size: 1.1rem;
-  `;
+  margin-top: 2rem;
+  background-color: royalblue;
+  color: white;
+  border-style: none;
+  width: 100%;
+  height: 3rem;
+  font-size: 1.1rem;
+`;
 
 const transition = forwardRef<
   unknown,
@@ -93,10 +93,10 @@ const transition = forwardRef<
 transition.displayName = "Transition";
 
 export const Contact: FC = () => {
-  const { open, setOpenContact } = useContext(ContactContext);
+  const currentUser = useRecoilValue(authAtom);
+  const [open, setContact] = useRecoilState(contactAtom);
 
-  const { currentUser } = useContext(AuthContext);
-  const { setMessage } = useContext(MessageContext);
+  const setMessage = useSetRecoilState(messageAtom);
   const [resultErrors, setResultError] = useState<null | IResultErrors>(null);
   const [submitState, dispatch] = useReducer(
     submitReducer,
@@ -109,7 +109,7 @@ export const Contact: FC = () => {
   } = useForm<IFormValues>();
 
   const handleClose = () => {
-    setOpenContact(false);
+    setContact(false);
   };
 
   const onSubmit = async (formValues: IFormValues): Promise<void> => {
@@ -122,8 +122,8 @@ export const Contact: FC = () => {
     })
       .then((data): void => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
-        setOpenContact(false);
         setMessage(data.message);
+        setContact(false);
         setResultError(null);
       })
       .catch((e): void => {
@@ -147,7 +147,10 @@ export const Contact: FC = () => {
         TransitionComponent={transition}
         data-testid="contact"
       >
-        <AppBar sx={{ position: "relative" }} style={{ color: "royalblue", backgroundColor: "white" }}>
+        <AppBar
+          sx={{ position: "relative" }}
+          style={{ color: "royalblue", backgroundColor: "white" }}
+        >
           <Toolbar>
             <IconButton
               edge="start"

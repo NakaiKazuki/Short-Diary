@@ -3,19 +3,19 @@ import {
   Fragment,
   useState,
   useEffect,
-  useContext,
   useReducer,
   useRef,
   ChangeEvent,
   MouseEvent,
 } from "react";
+import { useSetRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { YouTubeProps, YouTubeEvent, YouTubePlayer } from "react-youtube";
 import styled from "styled-components";
 
-// contexts
-import { AuthContext } from "../contexts/Auth";
+// recoils
+import { authAtom } from "../recoils/Auth";
 
 // apis
 import { getHome, getDiaries } from "../apis/home";
@@ -156,7 +156,7 @@ const EmptyMessage = styled.span`
 `;
 
 export const LoginHome: FC = () => {
-  const { setCurrentUser } = useContext(AuthContext);
+  const setCurrentUser = useSetRecoilState(authAtom);
   const navigate = useNavigate();
   const {
     handleSubmit,

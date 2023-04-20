@@ -1,5 +1,5 @@
 import { render, cleanup } from "@testing-library/react";
-import "@testing-library/jest-dom";
+
 import userEvent from "@testing-library/user-event";
 import { createObserver, el } from "./helpers";
 import { HelmetProvider } from "react-helmet-async";

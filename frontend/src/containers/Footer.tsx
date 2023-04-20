@@ -1,8 +1,8 @@
-import { FC, useContext } from "react";
+import { FC } from "react";
 import styled from "styled-components";
-
-//contexts
-import { ContactContext } from "../contexts/Contact";
+import { useSetRecoilState } from "recoil";
+// recoils
+import { contactAtom } from "../recoils/Contact";
 
 // components
 import { BaseButton } from "../components/shared_style";
@@ -41,8 +41,8 @@ const ContactButton = styled(Base)`
 `;
 
 export const Footer: FC = () => {
-  const { setOpenContact } = useContext(ContactContext);
-  const onContactButton = (): void => setOpenContact(true);
+  const setContact = useSetRecoilState(contactAtom);
+  const onContactButton = (): void => setContact(true);
   return (
     <AppFooter data-testid="footer">
       <ContactButton onClick={onContactButton} data-testid="contactButton">

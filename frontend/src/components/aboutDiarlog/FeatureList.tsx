@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 // Head
 import { Head } from "../../Head";
-import erImage from "../../images/er.png"
+import erImage from "../../images/er.png";
 // css
 const FeatureListWrapper = styled.div`
   margin-top: 3vh;
@@ -91,6 +91,12 @@ const ReactBlock = (): JSX.Element => {
           head 情報の変更
           <InnerUl>
             <InnerLi>React Helmet Async</InnerLi>
+          </InnerUl>
+        </Content>
+        <Content>
+          状態管理
+          <InnerUl>
+            <InnerLi>Recoil</InnerLi>
           </InnerUl>
         </Content>
       </Contents>
@@ -203,7 +209,7 @@ const ErBlock = (): JSX.Element => {
       <img src={erImage} />
     </Fragment>
   );
-}
+};
 export const FeatureList: FC = () => {
   return (
     <Fragment>

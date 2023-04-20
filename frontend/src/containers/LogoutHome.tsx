@@ -1,10 +1,11 @@
-import { FC, useContext, useReducer, useState, useEffect } from "react";
+import { FC, useReducer, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
-//contexts
-import { AuthContext } from "../contexts/Auth";
+// recoils
+import { authAtom } from "../recoils/Auth";
 // types
 import { ILogoutHomeInitialState as IInitialState } from "../types/containers";
 // apis
@@ -161,7 +162,7 @@ const variants = {
 
 export const LogoutHome: FC = () => {
   const navigate = useNavigate();
-  const { setCurrentUser } = useContext(AuthContext);
+  const setCurrentUser = useSetRecoilState(authAtom);
   const [submitState, dispatchSubmit] = useReducer(
     submitReducer,
     initialSubmit
