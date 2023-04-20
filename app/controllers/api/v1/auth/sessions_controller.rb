@@ -29,7 +29,6 @@ class Api::V1::Auth::SessionsController < DeviseTokenAuth::SessionsController
     }, status: :ok
   end
 
-  # ゲストユーザ作成とログイン DeviseTokenAuth からパクった
   def new_guest
     @resource = User.guest
     @token = @resource.create_token

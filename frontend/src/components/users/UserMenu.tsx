@@ -92,7 +92,7 @@ const StyledMenuItemLogout = withStyles(() => ({
     backgroundColor: "white",
     color: "royalblue",
     borderRadius: 5,
-    margin: "0 .5rem",
+    margin: "0.5rem 0.5rem 0",
     "& .MuiListItemIcon-root": {
       color: "royalblue",
     },
