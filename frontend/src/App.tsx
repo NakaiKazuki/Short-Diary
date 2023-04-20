@@ -1,15 +1,13 @@
 import { FC } from "react";
-
-// cotexts
-import { AuthProvider } from "./contexts/Auth";
+import { RecoilRoot } from "recoil";
 
 // components
 import { InnerRoute } from "./routes/InnerRoute";
 const App: FC = () => {
   return (
-    <AuthProvider>
+    <RecoilRoot>
       <InnerRoute />
-    </AuthProvider>
+    </RecoilRoot>
   );
 };
 

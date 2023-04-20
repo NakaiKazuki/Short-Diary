@@ -1,16 +1,17 @@
-import { render, cleanup, waitFor } from "@testing-library/react";
-import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
+import { render, cleanup, waitFor } from "@testing-library/react";
+import { RecoilRoot } from "recoil";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { AuthContext } from "../../contexts/Auth";
+import { authAtom } from "../../recoils/Auth";
 import { Login } from "../../containers/Login";
 import { signIn } from "../../urls";
 import { el } from "../helpers";
 
 // types
-import { IAuthProviderProps as IProviderProps, TLinks } from "../../types/test";
+import { TLinks } from "../../types/test";
 
 afterEach(cleanup);
 
@@ -46,6 +47,8 @@ const formInfo = [
   },
 ];
 
+const idNames = ["email", "password"];
+
 const linkInfo: TLinks = [
   {
     url: "/signup",
@@ -53,33 +56,32 @@ const linkInfo: TLinks = [
   },
 ];
 
-const providerProps = {
-  value: {
-    currentUser: undefined,
-    setCurrentUser: jest.fn(),
-  },
-};
-
-const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
+const customRender = (ui: JSX.Element) => {
   const routes = [
     {
       path: "/",
-      element: (
-        <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
-      ),
+      element: ui,
     },
   ];
   const router = createMemoryRouter(routes);
-  return render(<RouterProvider router={router} />);
+  return render(
+    <RecoilRoot
+      initializeState={({ set }) => {
+        set(authAtom, undefined);
+      }}
+    >
+      <RouterProvider router={router} />
+    </RecoilRoot>
+  );
 };
-
-const idNames = ["email", "password"];
 
 describe("Loginコンポーネント", () => {
   afterEach(() => {
     mockAxios.resetHistory();
   });
-  const setup = () => customRender(<Login />, providerProps);
+
+  const setup = () => customRender(<Login />);
+
   beforeEach(() => setup());
   describe("Form欄", () => {
     it("Formがある", () => {

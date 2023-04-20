@@ -1,17 +1,18 @@
-import { render, cleanup, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { render, cleanup, waitFor } from "@testing-library/react";
+import { RecoilRoot } from "recoil";
 import userEvent from "@testing-library/user-event";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { AuthContext } from "../../contexts/Auth";
-import { MessageContext } from "../../contexts/Message";
+import { authAtom } from "../../recoils/Auth";
+import { messageAtom } from "../../recoils/Message";
 import { SignUp } from "../../containers/SignUp";
 import { registration } from "../../urls";
 import { el } from "../helpers";
 
 // types
-import { IAuthProviderProps as IProviderProps, TLinks } from "../../types/test";
+import { TLinks } from "../../types/test";
 
 afterEach(cleanup);
 
@@ -51,34 +52,23 @@ const errorResult = {
   },
 };
 
-const providerProps = {
-  value: {
-    currentUser: undefined,
-    setCurrentUser: jest.fn(),
-  },
-};
-
-const messageProps = {
-  value: {
-    message: undefined,
-    setMessage: jest.fn(),
-  },
-};
-
-const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
+const customRender = (ui: JSX.Element) => {
   const routes = [
     {
       path: "/",
-      element: (
-        <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
-      ),
+      element: ui,
     },
   ];
   const router = createMemoryRouter(routes);
   return render(
-    <MessageContext.Provider {...messageProps}>
+    <RecoilRoot
+      initializeState={({ set }) => {
+        set(messageAtom, undefined);
+        set(authAtom, undefined);
+      }}
+    >
       <RouterProvider router={router} />
-    </MessageContext.Provider>
+    </RecoilRoot>
   );
 };
 
@@ -90,7 +80,7 @@ describe("SignUpコンポーネント", () => {
   afterEach(() => {
     mockAxios.resetHistory();
   });
-  const setup = () => customRender(<SignUp />, providerProps);
+  const setup = () => customRender(<SignUp />);
   beforeEach(() => setup());
   describe("Form欄", () => {
     it("Formがある", () => {

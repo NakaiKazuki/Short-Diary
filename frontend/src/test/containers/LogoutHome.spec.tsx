@@ -1,17 +1,15 @@
 import "@testing-library/jest-dom";
 import { render, cleanup, waitFor, screen } from "@testing-library/react";
+import { RecoilRoot } from "recoil";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import { AuthContext } from "../../contexts/Auth";
+import { authAtom } from "../../recoils/Auth";
 import { LogoutHome } from "../../containers/LogoutHome";
 import { guestSignIn } from "../../urls";
 import { el } from "../helpers";
-
-// types
-import { IAuthProviderProps as IProviderProps } from "../../types/test";
 
 afterEach(cleanup);
 
@@ -36,6 +34,7 @@ Object.defineProperty(window, "IntersectionObserver", {
   configurable: true,
   value: IntersectionObserver,
 });
+
 const mockAxios = new MockAdapter(axios);
 
 mockAxios.onPost(guestSignIn).reply(
@@ -52,33 +51,32 @@ mockAxios.onPost(guestSignIn).reply(
   }
 );
 
-const providerProps = {
-  value: {
-    currentUser: undefined,
-    setCurrentUser: jest.fn(),
-  },
-};
-
-const customRender = (ui: JSX.Element, providerProps: IProviderProps) => {
+const customRender = (ui: JSX.Element) => {
   const routes = [
     {
       path: "/",
-      element: (
-        <HelmetProvider>
-          <AuthContext.Provider {...providerProps}>{ui}</AuthContext.Provider>
-        </HelmetProvider>
-      ),
+      element: ui,
     },
   ];
   const router = createMemoryRouter(routes);
-  return render(<RouterProvider router={router} />);
+  return render(
+    <HelmetProvider>
+      <RecoilRoot
+        initializeState={({ set }) => {
+          set(authAtom, undefined);
+        }}
+      >
+        <RouterProvider router={router} />
+      </RecoilRoot>
+    </HelmetProvider>
+  );
 };
 
 describe("LogoutHome", () => {
   afterEach(() => {
     mockAxios.resetHistory();
   });
-  const setup = () => customRender(<LogoutHome />, providerProps);
+  const setup = () => customRender(<LogoutHome />);
   beforeEach(() => setup());
 
   it("要素の確認(スマートフォン以外の場合)", () => {

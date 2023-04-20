@@ -1,4 +1,3 @@
-import "@testing-library/jest-dom";
 import { render, cleanup } from "@testing-library/react";
 import { AnimatedSection } from "../../components/AnimatedSection";
 import { createObserver, el } from "../helpers";

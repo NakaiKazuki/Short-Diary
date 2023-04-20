@@ -1,11 +1,12 @@
-import { FC, useContext, useState, Fragment, MouseEvent } from "react";
+import { FC, useState, Fragment, MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Toolbar } from "@material-ui/core";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
 
-//contexts
-import { AuthContext } from "../contexts/Auth";
-import { DrawerContext } from "../contexts/Drawer";
+// recoils
+import { authAtom } from "../recoils/Auth";
+import { drawerAtom } from "../recoils/Drawer";
 
 // icons
 import { MenuIcon } from "../components/icon";
@@ -58,9 +59,9 @@ const LinkItem = styled(BaseButton)`
 `;
 
 export const Header: FC = () => {
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const [currentUser, setCurrentUser] = useRecoilState(authAtom);
+  const [open, setOpenDrawer] = useRecoilState(drawerAtom);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const { open, setOpenDrawer } = useContext(DrawerContext);
 
   // ユーザのログアウト処理
   const onSignOut = async (): Promise<void> => {

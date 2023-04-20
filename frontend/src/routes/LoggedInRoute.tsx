@@ -1,7 +1,8 @@
-import { FC, useContext, Fragment } from "react";
+import { FC, Fragment } from "react";
+import { useRecoilValue } from "recoil";
 import { Head } from "../Head";
-//contexts
-import { AuthContext } from "../contexts/Auth";
+// recoils
+import { authAtom } from "../recoils/Auth";
 
 // helpers
 import { isLoggedIn } from "../helpers";
@@ -11,11 +12,14 @@ export const LoggedInRoute: FC<{
   logout: { jsxElement: JSX.Element; title: string };
   type: string;
 }> = ({ login, logout, type }) => {
-  const { currentUser } = useContext(AuthContext);
+  const currentUser = useRecoilValue(authAtom);
 
   return (
     <Fragment>
-      <Head title={isLoggedIn(currentUser) ? login.title : logout.title} type={type} />
+      <Head
+        title={isLoggedIn(currentUser) ? login.title : logout.title}
+        type={type}
+      />
       {isLoggedIn(currentUser) ? login.jsxElement : logout.jsxElement};
     </Fragment>
   );

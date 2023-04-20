@@ -1,9 +1,9 @@
-import { FC, useContext, Fragment } from "react";
+import { FC, Fragment } from "react";
 import { Navigate } from "react-router-dom";
 import { Head } from "../Head";
-// contexts
-import { AuthContext } from "../contexts/Auth";
-
+import { useRecoilValue } from "recoil";
+// recoils
+import { authAtom } from "../recoils/Auth";
 // helpers
 import { isLoggedIn } from "../helpers";
 
@@ -11,7 +11,7 @@ export const GuestRoute: FC<{
   jsxElement: JSX.Element;
   title: string;
 }> = ({ jsxElement, title }) => {
-  const { currentUser } = useContext(AuthContext);
+  const currentUser = useRecoilValue(authAtom);
 
   return isLoggedIn(currentUser) ? (
     <Navigate to="/" />

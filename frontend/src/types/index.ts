@@ -1,4 +1,3 @@
-// 型
 declare global {
   interface ICurrentUser {
     id: number;

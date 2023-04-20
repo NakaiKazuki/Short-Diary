@@ -1,10 +1,11 @@
-import { FC, useState, useContext, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { useSetRecoilState } from "recoil";
 import ImageGallery from "react-image-gallery";
-// contexts
-import { AuthContext } from "../contexts/Auth";
+// recoils
+import { authAtom } from "../recoils/Auth";
 
 // constants
 import { HTTP_STATUS_CODE, REQUEST_STATE } from "../constants";
@@ -168,7 +169,7 @@ const EmptyMessage = styled.span`
 
 // エラーメッセージ
 export const PhotoGallery: FC = () => {
-  const { setCurrentUser } = useContext(AuthContext);
+  const setCurrentUser = useSetRecoilState(authAtom);
   const navigate = useNavigate();
   const initialState: IInitialState = {
     items: [],

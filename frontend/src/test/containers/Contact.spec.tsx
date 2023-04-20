@@ -4,20 +4,14 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
 import { HelmetProvider } from "react-helmet-async";
-import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { ContactContext } from "../../contexts/Contact";
-import { MessageContext } from "../../contexts/Message";
-import { AuthContext } from "../../contexts/Auth";
+import { RecoilRoot } from "recoil";
+import { contactAtom } from "../../recoils/Contact";
+import { messageAtom } from "../../recoils/Message";
+import { authAtom } from "../../recoils/Auth";
 import { Contact } from "../../containers/Contact";
 import { contact } from "../../urls";
 import { el, testString } from "../helpers";
-
-// types
-import {
-  IAuthProviderProps,
-  IContactProviderProps,
-  IMessageProviderProps,
-} from "../../types/test";
+import { createMemoryRouter, RouterProvider } from "react-router-dom";
 
 afterEach(cleanup);
 
@@ -41,64 +35,41 @@ const currentUser = {
   email: "test@example.com",
 };
 
-const contactProviderProps = {
-  value: {
-    open: true,
-    setOpenContact: jest.fn(),
-  },
-};
-
-const messageProviderProps = {
-  value: {
-    message: undefined,
-    setMessage: jest.fn(),
-  },
-};
-
 const customRender = (
   ui: JSX.Element,
-  contactProviderProps: IContactProviderProps,
-  messageProviderProps: IMessageProviderProps,
-  authProviderProps: IAuthProviderProps
+  currentUser: ICurrentUser | undefined
 ) => {
   const routes = [
     {
       path: "/",
-      element: (
-        <HelmetProvider>
-          <ContactContext.Provider {...contactProviderProps}>
-            <AuthContext.Provider {...authProviderProps}>
-              <MessageContext.Provider {...messageProviderProps}>
-                {ui}
-              </MessageContext.Provider>
-            </AuthContext.Provider>
-          </ContactContext.Provider>
-        </HelmetProvider>
-      ),
+      element: ui,
     },
   ];
   const router = createMemoryRouter(routes);
-  return render(<RouterProvider router={router} />);
+  return render(
+    <HelmetProvider>
+      <RecoilRoot
+        initializeState={({ set }) => {
+          set(contactAtom, true);
+          set(messageAtom, undefined);
+          set(authAtom, currentUser);
+        }}
+      >
+        <RouterProvider router={router} />
+      </RecoilRoot>
+      ;
+    </HelmetProvider>
+  );
 };
 
-const setup = (authProviderProps: IAuthProviderProps) =>
-  customRender(
-    <Contact />,
-    contactProviderProps,
-    messageProviderProps,
-    authProviderProps
-  );
+const setup = (currentUser: ICurrentUser | undefined) => {
+  customRender(<Contact />, currentUser);
+};
 
 describe("Contact", () => {
   describe("ログインしている場合", () => {
-    const authProviderProps = {
-      value: {
-        currentUser: currentUser,
-        setCurrentUser: jest.fn(),
-      },
-    };
     beforeEach(() => {
-      setup(authProviderProps);
+      setup(currentUser);
     });
 
     it("Form初期値", () => {
@@ -109,13 +80,7 @@ describe("Contact", () => {
   });
 
   describe("ログインしていない場合", () => {
-    const authProviderProps = {
-      value: {
-        currentUser: undefined,
-        setCurrentUser: jest.fn(),
-      },
-    };
-    beforeEach(() => setup(authProviderProps));
+    beforeEach(() => setup(undefined));
     it("Form初期値", () => {
       expect(el("nameArea")).toHaveValue("未登録");
       expect(el("emailArea")).toHaveValue("");
@@ -123,13 +88,7 @@ describe("Contact", () => {
   });
 
   describe("共通", () => {
-    const authProviderProps = {
-      value: {
-        currentUser: undefined,
-        setCurrentUser: jest.fn(),
-      },
-    };
-    beforeEach(() => setup(authProviderProps));
+    beforeEach(() => setup(undefined));
 
     it("入力欄", () => {
       expect(el("contactForm")).toContainElement(el("nameArea"));
