@@ -1,4 +1,5 @@
 import axios from "axios";
+import bcrypt from "bcryptjs";
 import Cookies from "js-cookie";
 // types
 import {
@@ -20,6 +21,11 @@ const setHeaders = (): IHeaders => {
     client: getCookie("client"),
     uid: getCookie("uid"),
   };
+};
+
+export const hashPassword = async (password: string): Promise<string> => {
+  const saltRounds = 10;
+  return await bcrypt.hash(password, saltRounds);
 };
 
 export const axiosGet: TAxiosGet = <T>(url: string, data: T) => {

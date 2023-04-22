@@ -35,6 +35,7 @@ import {
   isDisabled,
   removeUserCookies,
   setUserCookies,
+  hashPassword,
 } from "../helpers";
 
 // types
@@ -159,8 +160,8 @@ export const UserEdit: FC = () => {
     await putRegistration({
       name: formValues.name,
       email: formValues.email,
-      password: formValues.password,
-      password_confirmation: formValues.password_confirmation,
+      password: hashPassword(formValues.password),
+      password_confirmation: hashPassword(formValues.password_confirmation),
       current_password: formValues.current_password,
     })
       .then((res) => {
