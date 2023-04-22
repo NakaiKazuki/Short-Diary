@@ -1,4 +1,4 @@
-import { FC, } from "react";
+import { FC } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 
@@ -27,10 +27,7 @@ export const Message: FC = () => {
   const [message, setMessage] = useRecoilState(messageAtom);
   if (!message) return null;
 
-  setTimeout(
-    () => setMessage(undefined),
-    MESSAGE_DISPLAY_TIME
-  );
+  setTimeout(() => setMessage(undefined), MESSAGE_DISPLAY_TIME);
 
   return (
     <MessageWrapper data-testid="message">

@@ -29,7 +29,7 @@ import {
 } from "../reducers/submit";
 
 // helpers
-import { onSubmitText, isDisabled } from "../helpers";
+import { onSubmitText, isDisabled, hashPassword } from "../helpers";
 
 // types
 import {
@@ -133,8 +133,8 @@ export const SignUp: FC = () => {
     await postRegistration({
       name: formValues.name,
       email: formValues.email,
-      password: formValues.password,
-      password_confirmation: formValues.password_confirmation,
+      password: hashPassword(formValues.password),
+      password_confirmation: hashPassword(formValues.password_confirmation),
     })
       .then(() => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
