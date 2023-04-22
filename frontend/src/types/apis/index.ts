@@ -4,7 +4,7 @@ export interface IUserParams {
   email: string;
   password: Promise<string>;
   password_confirmation: Promise<string>;
-  current_password: string;
+  current_password: Promise<string>;
 }
 
 export interface IUserResult {

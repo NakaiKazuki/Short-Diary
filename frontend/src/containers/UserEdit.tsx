@@ -162,7 +162,7 @@ export const UserEdit: FC = () => {
       email: formValues.email,
       password: hashPassword(formValues.password),
       password_confirmation: hashPassword(formValues.password_confirmation),
-      current_password: formValues.current_password,
+      current_password: hashPassword(formValues.current_password),
     })
       .then((res) => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
