@@ -2,8 +2,8 @@
 export interface IUserParams {
   name: string;
   email: string;
-  password: Promise<string>;
-  password_confirmation: Promise<string>;
+  password: string;
+  password_confirmation: string;
   current_password: string;
 }
 

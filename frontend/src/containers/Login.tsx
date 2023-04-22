@@ -37,7 +37,7 @@ import {
   isDisabled,
   removeUserCookies,
   setUserCookies,
-  hashPassword,
+  // hashPassword,
 } from "../helpers";
 
 // types
@@ -106,7 +106,7 @@ export const Login: FC = () => {
     dispatch({ type: submitActionTypes.POSTING });
     await createSession({
       email: formValues.email,
-      password: hashPassword(formValues.password),
+      password: formValues.password,
     })
       .then((res) => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });

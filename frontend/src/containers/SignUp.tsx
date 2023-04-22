@@ -29,7 +29,8 @@ import {
 } from "../reducers/submit";
 
 // helpers
-import { onSubmitText, isDisabled, hashPassword } from "../helpers";
+// import { onSubmitText, isDisabled, hashPassword } from "../helpers";
+import { onSubmitText, isDisabled, } from "../helpers";
 
 // types
 import {
@@ -49,9 +50,9 @@ export const SignUp: FC = () => {
   const navigate = useNavigate();
   const [resultErrors, setErrorMessage] = useState<
     | Pick<
-        IResultErrors,
-        "name" | "email" | "password" | "password_confirmation"
-      >
+      IResultErrors,
+      "name" | "email" | "password" | "password_confirmation"
+    >
     | undefined
   >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
@@ -133,8 +134,8 @@ export const SignUp: FC = () => {
     await postRegistration({
       name: formValues.name,
       email: formValues.email,
-      password: hashPassword(formValues.password),
-      password_confirmation: hashPassword(formValues.password_confirmation),
+      password: formValues.password,
+      password_confirmation: formValues.password_confirmation,
     })
       .then(() => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
