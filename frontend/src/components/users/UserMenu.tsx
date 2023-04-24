@@ -15,21 +15,21 @@ const UserWrapper = styled.span`
   padding: 0.3rem 0.7rem;
   width: auto;
   margin: 0 0 0 auto;
-  border: 0.0125rem solid #22a398;
+  border: 0.0125rem solid limegreen;
   border-radius: 0.5rem;
-  background-color: white;
-  color: #22a398;
+  background-color: limegreen;
+  color: white;
   letter-spacing: 0.2rem;
   :hover {
     cursor: pointer;
-    background-color: #22a398;
-    color: white;
+    background-color: white;
+    color: limegreen;
   }
 `;
 
 const UserNameWrapper = styled.span`
   margin-left: 0.3rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
 `;
 
 const MenuItemLink = styled(Link)`
@@ -64,21 +64,21 @@ const StyledMenu = withStyles({
 const StyledMenuItem = withStyles(() => ({
   root: {
     backgroundColor: "white",
-    color: "green",
+    color: "limegreen",
     borderRadius: 5,
     margin: "0 .5rem",
     "& .MuiListItemIcon-root": {
-      color: "green",
+      color: "limegreen",
     },
     "&:hover": {
-      backgroundColor: "green",
+      backgroundColor: "limegreen",
       color: "white",
       "& .MuiListItemIcon-root": {
         color: "white",
       },
     },
     "&:focus": {
-      backgroundColor: "green",
+      backgroundColor: "limegreen",
       color: "white",
       "& .MuiListItemIcon-root": {
         color: "white",
@@ -90,21 +90,21 @@ const StyledMenuItem = withStyles(() => ({
 const StyledMenuItemLogout = withStyles(() => ({
   root: {
     backgroundColor: "white",
-    color: "royalblue",
+    color: "red",
     borderRadius: 5,
     margin: "0.5rem 0.5rem 0",
     "& .MuiListItemIcon-root": {
-      color: "royalblue",
+      color: "red",
     },
     "&:hover": {
-      backgroundColor: "royalblue",
+      backgroundColor: "red",
       color: "white",
       "& .MuiListItemIcon-root": {
         color: "white",
       },
     },
     "&:focus": {
-      backgroundColor: "royalblue",
+      backgroundColor: "red",
       color: "white",
       "& .MuiListItemIcon-root": {
         color: "white",

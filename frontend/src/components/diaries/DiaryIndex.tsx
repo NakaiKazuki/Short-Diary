@@ -1,7 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-
 // components
 import { PictureIcon, MovieIcon } from "../icon";
 
@@ -18,9 +17,6 @@ const DiariesWrapper = styled.ul`
   @media screen and (min-width: 481px) {
     display: flex;
     flex-wrap: wrap;
-  }
-  @media screen and (max-width: 480px) {
-    margin-top: 5rem;
   }
 `;
 
@@ -63,7 +59,7 @@ const DiaryWrapper = styled(motion.li).attrs<typeof buttonVariants>(() => ({
   :hover {
     cursor: pointer;
     z-index: 1;
-    background-color: white;
+    background-color: #eeeeee;
     border: 0.12rem solid limegreen;
   }
 `;
@@ -76,7 +72,8 @@ const Date = styled.span`
   font-family: cursive, Century;
   font-style: italic;
   text-align: center;
-  color: mediumblue;
+  font-size: 1.7rem;
+  color: limegreen;
 `;
 
 const ImageIconArea = styled(PictureIcon)`
@@ -86,13 +83,14 @@ const ImageIconArea = styled(PictureIcon)`
 
 const MovieIconArea = styled(MovieIcon)`
   float: right;
-  color: royalblue;
+  color: red;
 `;
 
 const Content = styled.div`
   white-space: pre-line;
   overflow-wrap: break-word;
   padding: 0 1rem;
+  font-size: 1.2rem;
 `;
 
 export const DiaryIndex: FC<IProps> = ({
@@ -113,8 +111,8 @@ export const DiaryIndex: FC<IProps> = ({
               <Date data-testid={`diaryDate-${index}`}>
                 {formattedDate(diary.date)}
               </Date>
-              {diary.picture_url && <ImageIconArea />}
-              {diary.movie_source && <MovieIconArea />}
+              {diary.picture_url && <ImageIconArea fontSize="large" />}
+              {diary.movie_source && <MovieIconArea fontSize="large" />}
             </Paragraph>
             <Content data-testid={`diaryContent-${index}`}>
               {diary.content.length <= 40

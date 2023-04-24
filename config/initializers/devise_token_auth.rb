@@ -51,7 +51,7 @@ DeviseTokenAuth.setup do |config|
   # By default, only Bearer Token authentication is implemented out of the box.
   # If, however, you wish to integrate with legacy Devise authentication, you can
   # do so by enabling this flag. NOTE: This feature is highly experimental!
-  # config.enable_standard_devise_support = false
+  config.enable_standard_devise_support = true
 
   # By default DeviseTokenAuth will not send confirmation email, even when including
   # devise confirmable module. If you want to use devise confirmable module and
@@ -59,18 +59,20 @@ DeviseTokenAuth.setup do |config|
   # config.send_confirmation_email = true
 
   # 追加
-  # ユーザー登録メール送信後のリダイレクト先
-  success_url =
+
+  base_url =
     if Rails.env.production?
-      "#{Rails.application.credentials.dig(:host_server, :name)}/login"
+      Rails.application.credentials.dig(:host_server, :name).to_s
     elsif Rails.env.test?
-      'http://localhost:4444/login'
+      'http://localhost:4444'
     else
-      'http://localhost:3000/login'
+      'http://localhost:3000'
     end
 
-  config.default_confirm_success_url = success_url
+   # ユーザー登録メール送信後のリダイレクト先
+  config.default_confirm_success_url = "#{base_url}/login"
   # パスワードリセットメール送信後のリダイレクト先
-  # config.default_password_reset_url = default_nil
+  config.default_password_reset_url = "#{base_url}/password"
+
   config.check_current_password_before_update = :password
 end

@@ -80,8 +80,11 @@ describe("SignUpコンポーネント", () => {
   afterEach(() => {
     mockAxios.resetHistory();
   });
+
   const setup = () => customRender(<SignUp />);
+
   beforeEach(() => setup());
+
   describe("Form欄", () => {
     it("Formがある", () => {
       expect(el("signUpForm")).toBeTruthy();
@@ -157,7 +160,7 @@ describe("SignUpコンポーネント", () => {
         await userEvent.type(el(formInfo[3].testId), formInfo[3].value);
 
         // 初期値
-        expect(el("formSubmit")).toHaveTextContent("送信");
+        expect(el("formSubmit")).toHaveTextContent("Sign Up!");
         expect(el("formSubmit")).not.toBeDisabled();
 
         // ユーザが送信ボタンをクリック
@@ -180,7 +183,7 @@ describe("SignUpコンポーネント", () => {
         await userEvent.type(el(formInfo[3].testId), formInfo[3].value);
 
         // 初期値
-        expect(el("formSubmit")).toHaveTextContent("送信");
+        expect(el("formSubmit")).toHaveTextContent("Sign Up!");
         expect(el("formSubmit")).not.toBeDisabled();
 
         // ユーザが送信ボタンをクリック
@@ -188,7 +191,7 @@ describe("SignUpコンポーネント", () => {
 
         // APIからエラーが返ってくると初期値に戻る
         await waitFor(() => {
-          expect(el("formSubmit")).toHaveTextContent("送信");
+          expect(el("formSubmit")).toHaveTextContent("Sign Up!");
         });
       });
     });

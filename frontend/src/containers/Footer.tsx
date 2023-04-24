@@ -26,18 +26,18 @@ const Base = styled(BaseButton)`
   height: 4.5vh;
   padding: 0 1rem;
   margin-bottom: 1vh;
-  font-size: 1rem;
+  font-size: 1.1rem;
   border-style: none;
   background-color: white;
 `;
 
 const LinkItem = styled(Base)`
-  color: royalblue;
+  color: limegreen;
 `;
 
 const ContactButton = styled(Base)`
   margin-left: 0.7rem;
-  color: royalblue;
+  color: limegreen;
 `;
 
 export const Footer: FC = () => {

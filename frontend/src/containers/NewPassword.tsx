@@ -1,22 +1,25 @@
 import { FC, useState, useReducer } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { useSetRecoilState } from "recoil";
+
 // recoils
 import { messageAtom } from "../recoils/Message";
+
+// types
+import { IForm } from "../types/containers";
 
 // components
 import {
   FormItem,
   FormSubmit,
-  FormLinks,
   FormTitle,
   FormWrapper,
 } from "../components/users";
 
 // apis
-import { postRegistration } from "../apis/users/registrations";
+import { putNewPassword } from "../apis/users/passwords";
 
 // constants
 import { HTTP_STATUS_CODE } from "../constants";
@@ -37,62 +40,29 @@ import {
   IUsersResultErrors as IResultErrors,
 } from "../types/containers";
 
-import { TLinks, IForm } from "../types/containers";
-
-const SignUpWrapper = styled.div`
+// css
+const NewPasswordWrapper = styled.div`
   width: 100%;
   min-height: 50vh;
   padding-top: 17vh;
 `;
 
-export const SignUp: FC = () => {
+// エラーメッセージ
+export const NewPassword: FC = () => {
+  const setMessage = useSetRecoilState(messageAtom);
   const navigate = useNavigate();
+  const location = useLocation();
   const [resultErrors, setErrorMessage] = useState<
-    | Pick<
-        IResultErrors,
-        "name" | "email" | "password" | "password_confirmation"
-      >
-    | undefined
+    Pick<IResultErrors, "password" | "password_confirmation"> | undefined
   >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
-  const setMessage = useSetRecoilState(messageAtom);
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm<IFormValues>();
 
-  // SignUpページのフォーム欄を表示するために必要な情報群
-  const formInfo: Pick<
-    IForm,
-    "name" | "email" | "password" | "password_confirmation"
-  > = {
-    name: {
-      formLabel: "Name(必須):",
-      errorsProperty: errors.name,
-      errorMessage: "1文字以上、50文字以内で入力してください",
-      resultErrorProperty: resultErrors?.name,
-      apiMessagePropertyName: "名前",
-      nameAttribute: "name",
-      typeAttribute: "text",
-      defaultValue: "",
-      autoComplete: "username",
-      autoFocus: true,
-      rules: { required: true, maxLength: 50 },
-    },
-    email: {
-      formLabel: "Email(必須):",
-      errorsProperty: errors.email,
-      errorMessage: "1文字以上、255文字以内で入力してください",
-      resultErrorProperty: resultErrors?.email,
-      apiMessagePropertyName: "メールアドレス",
-      nameAttribute: "email",
-      typeAttribute: "email",
-      defaultValue: "",
-      autoComplete: "email",
-      autoFocus: false,
-      rules: { required: true, maxLength: 255 },
-    },
+  const formInfo: Pick<IForm, "password" | "password_confirmation"> = {
     password: {
       formLabel: "パスワード(必須): ",
       errorsProperty: errors.password,
@@ -121,27 +91,32 @@ export const SignUp: FC = () => {
     },
   };
 
-  const linkInfo: TLinks = [
-    {
-      url: "/login",
-      text: "登録済みの方はこちら",
-    },
-  ];
-
+  const params = new URLSearchParams(location.search);
+  const resetPasswordToken = params.get("token");
+  const headers: IHeaders = {
+    "access-token": params.get("access-token") ?? "",
+    client: params.get("client") ?? "",
+    uid: params.get("uid") ?? "",
+  };
   const onSubmit = async (formValues: IFormValues): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
-    await postRegistration({
-      name: formValues.name,
-      email: formValues.email,
-      password: formValues.password,
-      password_confirmation: formValues.password_confirmation,
-    })
+
+    if (!resetPasswordToken) {
+      setMessage("再設定用メールを使用しこちらのページを開いてください");
+      return navigate("/", { replace: true });
+    }
+    await putNewPassword(
+      {
+        password: formValues.password,
+        password_confirmation: formValues.password_confirmation,
+        reset_password_token: resetPasswordToken,
+      },
+      headers
+    )
       .then(() => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
-        setMessage(
-          "認証用メールを送信しました。登録されたメールアドレスから認証を済ませてください。"
-        );
-        navigate("/", { replace: true });
+        setMessage("パスワードの再設定に成功しました。");
+        navigate("/login", { replace: true });
       })
       .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
@@ -158,23 +133,20 @@ export const SignUp: FC = () => {
   };
 
   return (
-    <SignUpWrapper>
-      <FormTitle>Sign Up</FormTitle>
-      <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="signUpForm">
-        <FormItem formInfo={formInfo.name} control={control} />
-
-        <FormItem formInfo={formInfo.email} control={control} />
-
+    <NewPasswordWrapper>
+      <FormTitle>PasswordReset</FormTitle>
+      <FormWrapper
+        onSubmit={handleSubmit(onSubmit)}
+        data-testid="newPasswordForm"
+      >
         <FormItem formInfo={formInfo.password} control={control} />
-
         <FormItem formInfo={formInfo.password_confirmation} control={control} />
 
         <FormSubmit
           isDisabled={isDisabled(submitState.postState)}
-          onSubmitText={onSubmitText(submitState.postState, "Sign Up!")}
+          onSubmitText={onSubmitText(submitState.postState, "Password Reset!")}
         />
       </FormWrapper>
-      <FormLinks linkInfo={linkInfo} />
-    </SignUpWrapper>
+    </NewPasswordWrapper>
   );
 };

@@ -10,7 +10,7 @@ import { IDiaryCreateDialogProps as IProps } from "../../types/components/diarie
 
 const FromTitle = styled(DialogTitle)`
   text-align: center;
-  color: royalblue;
+  color: limegreen;
   font-weight: bolder;
 `;
 

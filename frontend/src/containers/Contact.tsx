@@ -52,7 +52,7 @@ import {
 
 export const FormTitle = styled.h1`
   text-align: center;
-  color: royalblue;
+  color: limegreen;
   letter-spacing: 0.1rem;
   margin-top: 20vh;
 `;
@@ -77,7 +77,7 @@ const ErrorMessage = styled.p`
 
 const Submit = styled(BaseButton)`
   margin-top: 2rem;
-  background-color: royalblue;
+  background-color: limegreen;
   color: white;
   border-style: none;
   width: 100%;
@@ -149,7 +149,7 @@ export const Contact: FC = () => {
       >
         <AppBar
           sx={{ position: "relative" }}
-          style={{ color: "royalblue", backgroundColor: "white" }}
+          style={{ color: "limegreen", backgroundColor: "white" }}
         >
           <Toolbar>
             <IconButton

@@ -1,5 +1,4 @@
 import axios from "axios";
-import bcrypt from "bcryptjs";
 import Cookies from "js-cookie";
 // types
 import {
@@ -17,15 +16,10 @@ const getCookie = (name: string): string => {
 // ヘッダーを設定する
 const setHeaders = (): IHeaders => {
   return {
-    "access-token": getCookie("access-token"),
-    client: getCookie("client"),
-    uid: getCookie("uid"),
+    "access-token": getCookie("access-token") ?? "",
+    client: getCookie("client") ?? "",
+    uid: getCookie("uid") ?? "",
   };
-};
-
-export const hashPassword = async (password: string): Promise<string> => {
-  const saltRounds = 10;
-  return await bcrypt.hash(password, saltRounds);
 };
 
 export const axiosGet: TAxiosGet = <T>(url: string, data: T) => {

@@ -5,6 +5,7 @@ export interface IUserParams {
   password: string;
   password_confirmation: string;
   current_password: string;
+  reset_password_token: string;
 }
 
 export interface IUserResult {

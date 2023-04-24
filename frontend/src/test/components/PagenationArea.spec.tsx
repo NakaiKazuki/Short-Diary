@@ -1,6 +1,6 @@
 import { render, cleanup } from "@testing-library/react";
 
-import { PagenationArea } from "../../components/PagenationArea";
+import { PaginationArea } from "../../components/PaginationArea";
 import { el } from "../helpers";
 
 afterEach(cleanup);
@@ -10,12 +10,12 @@ const pagy = {
   pages: 1,
 };
 
-describe("PagenationArea コンポーネント", () => {
+describe("PaginationArea コンポーネント", () => {
   const setup = () =>
-    render(<PagenationArea pagy={pagy} onPageChange={jest.fn()} />);
+    render(<PaginationArea pagy={pagy} onPageChange={jest.fn()} />);
 
-  it("Pagenation欄がある", () => {
+  it("Pagination欄がある", () => {
     setup();
-    expect(el("pagenationBar")).toBeTruthy();
+    expect(el("paginationBar")).toBeTruthy();
   });
 });

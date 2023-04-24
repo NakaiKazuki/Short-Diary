@@ -1,5 +1,5 @@
 import { FC, Fragment } from "react";
-import { Chip, Dialog } from "@material-ui/core";
+import { Chip, Dialog, withStyles } from "@material-ui/core";
 import YouTube from "react-youtube";
 import styled from "styled-components";
 
@@ -11,35 +11,42 @@ import { DiaryEdit } from "./DiaryEdit";
 import { IDiaryDialogProps as IProps } from "../../types/components/diaries";
 
 // css
-const Date = styled.h2`
+const Date = styled.h1`
   text-align: center;
-  color: royalblue;
+  color: limegreen;
   font-weight: normal;
   font-family: cursive, Century;
   width: 50%;
   margin: 0 auto 0.6rem auto;
 `;
 
-const ContentHeading = styled.h4`
-  margin: 0 auto 0 5%;
+const ContentHeading = styled.h2`
+  margin: 0.8rem auto 0.4rem 2rem;
   font-weight: normal;
   opacity: 0.6;
-  color: mediumblue;
+  color: limegreen;
 `;
 
 const TagWrapper = styled.span`
   display: inline-block;
+  margin: 0 auto;
 `;
 
-const Tag = styled(Chip)`
-  margin: 0.3rem;
-`;
+// Material Ui のMenuデザイン変更
+const Tag = withStyles(() => ({
+  root: {
+    backgroundColor: "limegreen",
+    color: "white",
+    borderRadius: 5,
+    margin: "0.3rem",
+  },
+}))(Chip);
 
 const ItemsWrapper = styled.div`
   min-height: 15rem;
   margin: 0.5rem auto 2.5rem auto;
   width: 80%;
-  border: 0.0125rem solid green;
+  border: 0.0125rem solid limegreen;
   border-radius: 0.5rem;
 `;
 
@@ -47,6 +54,7 @@ const Content = styled.div`
   white-space: pre-line;
   word-wrap: break-word;
   padding: 4% 4% 0 4%;
+  font-size: 1.2rem;
 `;
 
 const Picture = styled.img`
@@ -59,12 +67,7 @@ const Picture = styled.img`
 // 型
 
 const opts = {
-  height: "390",
-  width: "600",
-  playerVars: {
-    // https://developers.google.com/youtube/player_parameters
-    autoplay: 1,
-  },
+  width: "100%",
 };
 
 export const DiaryDialog: FC<IProps> = ({
@@ -91,6 +94,12 @@ export const DiaryDialog: FC<IProps> = ({
   onPlayerReady,
   register,
 }) => {
+  const getVideoId = (url: string): string | undefined => {
+    const match = url.match(
+      /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})(?:\S+)?$/
+    );
+    return match ? match[1] : undefined;
+  };
   return (
     <Dialog
       open={isOpen}
@@ -132,7 +141,6 @@ export const DiaryDialog: FC<IProps> = ({
                   <Tag
                     label={tag}
                     color="primary"
-                    size="small"
                     key={`diary-tag-${index}`}
                     data-testid={`diaryTag-${index}`}
                   />
@@ -153,7 +161,7 @@ export const DiaryDialog: FC<IProps> = ({
           </ItemsWrapper>
           {diary.movie_source && (
             <YouTube
-              videoId={diary.movie_source.split("v=")[1]}
+              videoId={getVideoId(diary.movie_source)}
               opts={opts}
               onReady={onPlayerReady}
             />

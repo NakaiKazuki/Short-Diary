@@ -13,7 +13,7 @@ import { IDiaryMenuProps as IProps } from "../../types/components/diaries";
 const MenuOpenIconWrapper = styled.span`
   margin: 0 0 0 auto;
   padding: 0.6rem 0.6rem 0 0;
-  color: royalblue;
+  color: limegreen;
   :hover {
     cursor: pointer;
   }
@@ -44,21 +44,21 @@ const StyledMenu = withStyles({
 const StyledMenuItem = withStyles(() => ({
   root: {
     backgroundColor: "white",
-    color: "royalblue",
+    color: "limegreen",
     borderRadius: 5,
     margin: "0 .5rem",
     "& .MuiListItemIcon-root": {
-      color: "royalblue",
+      color: "limegreen",
     },
     "&:hover": {
-      backgroundColor: "royalblue",
+      backgroundColor: "limegreen",
       color: "white",
       "& .MuiListItemIcon-root": {
         color: "white",
       },
     },
     "&:focus": {
-      backgroundColor: "royalblue",
+      backgroundColor: "limegreen",
       color: "white",
       "& .MuiListItemIcon-root": {
         color: "white",
@@ -72,7 +72,7 @@ const StyledMenuItemDelete = withStyles(() => ({
     backgroundColor: "white",
     color: "red",
     borderRadius: 5,
-    margin: "0 .5rem",
+    margin: "0.5rem 0.5rem 0 0.5rem",
     "& .MuiListItemIcon-root": {
       color: "red",
     },
