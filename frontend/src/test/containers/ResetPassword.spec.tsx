@@ -39,8 +39,7 @@ const linkInfo: TLinks = [
 ];
 
 const errorResult = {
-  errors:
-    ["email ResultError"],
+  errors: ["email ResultError"],
 };
 
 const customRender = (ui: JSX.Element) => {
@@ -77,7 +76,9 @@ describe("ResetPasswordコンポーネント", () => {
     describe("Form入力欄", () => {
       it("各入力欄のブロックがある", () => {
         idNames.forEach((idName) =>
-          expect(el("resetPasswordForm")).toContainElement(el(`FormItem-${idName}`))
+          expect(el("resetPasswordForm")).toContainElement(
+            el(`FormItem-${idName}`)
+          )
         );
       });
 

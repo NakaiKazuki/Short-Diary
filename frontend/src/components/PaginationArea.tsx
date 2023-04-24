@@ -10,35 +10,33 @@ import { IPaginationAreaProps as IProps } from "../types/components";
 const PaginationBar = withStyles((theme) => ({
   root: {
     backgroundColor: "white",
-    color: "white",
     marginBottom: "1.4rem",
+    "& .MuiPaginationItem-page": {
+      fontSize: "2rem",
+      color: "limegreen",
+      backgroundColor: "white",
+      "&:hover": {
+        backgroundColor: "limegreen",
+        color: "white",
+      },
+    },
+    "& .MuiPagination-ul": {
+      margin: "0 auto",
+    },
     "& .Mui-selected": {
       backgroundColor: "limegreen",
       color: "white",
       pointerEvents: "none",
     },
-    "& .MuiPagination-ul": {
-      margin: "0 auto",
-    },
-    "& .MuiPaginationItem-page": {
-      "&:hover": {
-        backgroundColor: "limegreen",
-        color: "white"
-      },
-    },
     [theme.breakpoints.down("xs")]: {
-      margin: "1.4rem 0 1rem 0",
+      margin: "2rem 0 1rem 0",
     },
   },
-
 }))(Pagination);
 
 const PaginationWrapper = styled(PaginationBar)`
   margin: 0 auto 1.4rem auto;
   display: flex;
-  @media screen and (max-width: 480px) {
-    margin: 1.4rem 0 1rem 0;
-  }
 `;
 
 export const PaginationArea: FC<IProps> = ({ pagy, onPageChange }) => {
@@ -46,9 +44,7 @@ export const PaginationArea: FC<IProps> = ({ pagy, onPageChange }) => {
     <PaginationWrapper
       count={pagy.pages}
       page={pagy.page}
-      onChange={(_e: ChangeEvent<unknown>, page: number) =>
-        onPageChange(page)
-      }
+      onChange={(_e: ChangeEvent<unknown>, page: number) => onPageChange(page)}
       data-testid={"paginationBar"}
     />
   );

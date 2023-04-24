@@ -32,10 +32,7 @@ import {
 } from "../reducers/submit";
 
 // helpers
-import {
-  onSubmitText,
-  isDisabled,
-} from "../helpers";
+import { onSubmitText, isDisabled } from "../helpers";
 
 // types
 import {
@@ -52,15 +49,11 @@ const NewPasswordWrapper = styled.div`
 
 // エラーメッセージ
 export const NewPassword: FC = () => {
-  const setMessage = useSetRecoilState(messageAtom)
+  const setMessage = useSetRecoilState(messageAtom);
   const navigate = useNavigate();
   const location = useLocation();
   const [resultErrors, setErrorMessage] = useState<
-    | Pick<
-      IResultErrors,
-      "password" | "password_confirmation"
-    >
-    | undefined
+    Pick<IResultErrors, "password" | "password_confirmation"> | undefined
   >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
   const {
@@ -99,34 +92,33 @@ export const NewPassword: FC = () => {
   };
 
   const params = new URLSearchParams(location.search);
-  const resetPasswordToken = params.get('token')
+  const resetPasswordToken = params.get("token");
   const headers: IHeaders = {
     "access-token": params.get("access-token") ?? "",
     client: params.get("client") ?? "",
     uid: params.get("uid") ?? "",
-  }
+  };
   const onSubmit = async (formValues: IFormValues): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
 
-    if (!(resetPasswordToken)) {
-      setMessage(
-        "再設定用メールを使用しこちらのページを開いてください"
-      )
+    if (!resetPasswordToken) {
+      setMessage("再設定用メールを使用しこちらのページを開いてください");
       return navigate("/", { replace: true });
     }
-    await putNewPassword({
-      password: formValues.password,
-      password_confirmation: formValues.password_confirmation,
-      reset_password_token: resetPasswordToken,
-    }, headers)
+    await putNewPassword(
+      {
+        password: formValues.password,
+        password_confirmation: formValues.password_confirmation,
+        reset_password_token: resetPasswordToken,
+      },
+      headers
+    )
       .then(() => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
-        setMessage(
-          "パスワードの再設定に成功しました。"
-        );
+        setMessage("パスワードの再設定に成功しました。");
         navigate("/login", { replace: true });
       })
-      .catch(e => {
+      .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
         if (
           e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
@@ -143,7 +135,10 @@ export const NewPassword: FC = () => {
   return (
     <NewPasswordWrapper>
       <FormTitle>PasswordReset</FormTitle>
-      <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="newPasswordForm">
+      <FormWrapper
+        onSubmit={handleSubmit(onSubmit)}
+        data-testid="newPasswordForm"
+      >
         <FormItem formInfo={formInfo.password} control={control} />
         <FormItem formInfo={formInfo.password_confirmation} control={control} />
 

@@ -77,20 +77,23 @@ const LoginHomeWrapper = styled.div`
 const Heading = styled.h1`
   text-align: center;
   color: limegreen;
+  font-size: 3rem;
 `;
+
 const ButtonsWrapper = styled.div`
-  width:100%;
+  width: 100%;
   height: auto;
   @media screen and (max-width: 480px) {
     height: 5.2rem;
   }
 `;
+
 const DiaryCreateOpenButton = styled(BaseButton)`
-  height: 2.4rem;
-  width: 10rem;
+  height: 2.8rem;
   border: 0.0125rem solid limegreen;
   letter-spacing: 0.2rem;
-  font-size: 0.95rem;
+  font-size: 1.3rem;
+  padding: 0 2rem;
   background-color: limegreen;
   color: white;
   :hover {
@@ -101,14 +104,14 @@ const DiaryCreateOpenButton = styled(BaseButton)`
   @media screen and (max-width: 480px) {
     width: 100%;
   }
-  `;
+`;
 
 const DrawerOpenButton = styled(BaseButton)`
-  height: 2.4rem;
-  width: 8.5rem;
+  height: 2.8rem;
   border: 0.0125rem solid limegreen;
   letter-spacing: 0.2rem;
-  font-size: 0.95rem;
+  font-size: 1.3rem;
+  padding: 0 2rem;
   background-color: limegreen;
   color: white;
   float: right;
@@ -118,7 +121,7 @@ const DrawerOpenButton = styled(BaseButton)`
     color: limegreen;
   }
   @media screen and (max-width: 480px) {
-    margin-top:0.8rem;
+    margin-top: 0.8rem;
   }
 `;
 
@@ -553,7 +556,7 @@ export const LoginHome: FC = () => {
           data-testid="diaryCreateOpenButton"
         >
           <IconWrapper>
-            <CreateIcon fontSize={"small"} data-testid="createIcon" />
+            <CreateIcon data-testid="createIcon" />
           </IconWrapper>
           日記作成
         </DiaryCreateOpenButton>
@@ -562,7 +565,7 @@ export const LoginHome: FC = () => {
           data-testid="drawerOpenButton"
         >
           <IconWrapper>
-            <SearchIcon fontSize={"small"} data-testid="SearchIcon" />
+            <SearchIcon data-testid="SearchIcon" />
           </IconWrapper>
           Search
         </DrawerOpenButton>

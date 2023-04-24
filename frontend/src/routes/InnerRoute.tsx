@@ -19,8 +19,8 @@ import { LogoutHome } from "../containers/LogoutHome";
 import { LoginHome } from "../containers/LoginHome";
 import { SignUp } from "../containers/SignUp";
 import { Login } from "../containers/Login";
-import { ResetPassword } from "../containers/ResetPassword"
-import { NewPassword } from "../containers/NewPassword"
+import { ResetPassword } from "../containers/ResetPassword";
+import { NewPassword } from "../containers/NewPassword";
 import { UserEdit } from "../containers/UserEdit";
 import { PhotoGallery } from "../containers/PhotoGallery";
 import { GuestRoute } from "../routes/GuestRoute";
@@ -63,11 +63,15 @@ const router = createBrowserRouter(
       />
       <Route
         path="/resetPassword"
-        element={<GuestRoute jsxElement={<ResetPassword />} title="Reset Password" />}
+        element={
+          <GuestRoute jsxElement={<ResetPassword />} title="Reset Password" />
+        }
       />
       <Route
         path="/newPassword"
-        element={<GuestRoute jsxElement={<NewPassword />} title="New Password" />}
+        element={
+          <GuestRoute jsxElement={<NewPassword />} title="New Password" />
+        }
       />
       <Route
         path="/userEdit"

@@ -59,7 +59,7 @@ const DiaryWrapper = styled(motion.li).attrs<typeof buttonVariants>(() => ({
   :hover {
     cursor: pointer;
     z-index: 1;
-    background-color: #EEEEEE;
+    background-color: #eeeeee;
     border: 0.12rem solid limegreen;
   }
 `;

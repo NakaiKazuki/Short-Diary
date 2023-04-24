@@ -120,7 +120,7 @@ describe("LoginHome", () => {
   });
 
   it("PaginationBarが表示", () => {
-    const paginationBars = screen.queryAllByTestId('paginationBar')
+    const paginationBars = screen.queryAllByTestId("paginationBar");
     expect(paginationBars.length).toBe(2);
   });
 

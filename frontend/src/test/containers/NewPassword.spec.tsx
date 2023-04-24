@@ -10,7 +10,6 @@ import { NewPassword } from "../../containers/NewPassword";
 import { password } from "../../urls";
 import { el } from "../helpers";
 
-
 afterEach(cleanup);
 
 // 正しいForm情報
@@ -39,7 +38,15 @@ const customRender = (ui: JSX.Element) => {
         set(messageAtom, undefined);
       }}
     >
-      <MemoryRouter initialEntries={[{ pathname: '/', search: '?access-token=testaccess&client=testclient&token=testtoken&uid=test%40test.com' }]}>
+      <MemoryRouter
+        initialEntries={[
+          {
+            pathname: "/",
+            search:
+              "?access-token=testaccess&client=testclient&token=testtoken&uid=test%40test.com",
+          },
+        ]}
+      >
         {ui}
       </MemoryRouter>
     </RecoilRoot>
@@ -55,7 +62,7 @@ describe(" NewPasswordコンポーネント", () => {
     mockAxios.resetHistory();
   });
 
-  const setup = () => customRender(< NewPassword />);
+  const setup = () => customRender(<NewPassword />);
   beforeEach(() => setup());
   describe("Form欄", () => {
     it("Formがある", () => {
@@ -65,7 +72,9 @@ describe(" NewPasswordコンポーネント", () => {
     describe("Form入力欄", () => {
       it("各入力欄のブロックがある", () => {
         idNames.forEach((idName) =>
-          expect(el("newPasswordForm")).toContainElement(el(`FormItem-${idName}`))
+          expect(el("newPasswordForm")).toContainElement(
+            el(`FormItem-${idName}`)
+          )
         );
       });
 
@@ -155,5 +164,4 @@ describe(" NewPasswordコンポーネント", () => {
       });
     });
   });
-
 });

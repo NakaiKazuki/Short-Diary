@@ -26,7 +26,7 @@ const Base = styled(BaseButton)`
   height: 4.5vh;
   padding: 0 1rem;
   margin-bottom: 1vh;
-  font-size: 1rem;
+  font-size: 1.1rem;
   border-style: none;
   background-color: white;
 `;

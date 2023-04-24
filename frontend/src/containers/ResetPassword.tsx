@@ -33,14 +33,13 @@ import {
 } from "../reducers/submit";
 
 // helpers
-import {
-  onSubmitText,
-  isDisabled,
-  removeUserCookies,
-} from "../helpers";
+import { onSubmitText, isDisabled, removeUserCookies } from "../helpers";
 
 // types
-import { IUsersFormValues as IFormValues, IUsersResultErrors as IResultErrors, } from "../types/containers";
+import {
+  IUsersFormValues as IFormValues,
+  IUsersResultErrors as IResultErrors,
+} from "../types/containers";
 
 // css
 const ResetPasswordWrapper = styled.div`
@@ -52,14 +51,10 @@ const ResetPasswordWrapper = styled.div`
 // エラーメッセージ
 export const ResetPassword: FC = () => {
   const setCurrentUser = useSetRecoilState(authAtom);
-  const setMessage = useSetRecoilState(messageAtom)
+  const setMessage = useSetRecoilState(messageAtom);
   const navigate = useNavigate();
   const [resultErrors, setErrorMessage] = useState<
-    | Pick<
-      IResultErrors,
-      "email"
-    >
-    | undefined
+    Pick<IResultErrors, "email"> | undefined
   >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
   const {
@@ -81,7 +76,7 @@ export const ResetPassword: FC = () => {
       autoComplete: "email",
       autoFocus: true,
       rules: { required: true, maxLength: 255 },
-    }
+    },
   };
 
   // 送信ボタン下にあるリンクの情報
@@ -104,16 +99,12 @@ export const ResetPassword: FC = () => {
     })
       .then(() => {
         dispatch({ type: submitActionTypes.POST_SUCCESS });
-        setMessage(
-          "パスワードリセットメールを送信しました。"
-        );
+        setMessage("パスワードリセットメールを送信しました。");
         navigate("/", { replace: true });
       })
-      .catch(e => {
+      .catch((e) => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
-        if (
-          e.response?.status === HTTP_STATUS_CODE.NOTFOUND
-        ) {
+        if (e.response?.status === HTTP_STATUS_CODE.NOTFOUND) {
           removeUserCookies();
           setCurrentUser(undefined);
           setErrorMessage({ email: e.response.data.errors });
@@ -127,7 +118,10 @@ export const ResetPassword: FC = () => {
   return (
     <ResetPasswordWrapper>
       <FormTitle>PasswordReset</FormTitle>
-      <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="resetPasswordForm">
+      <FormWrapper
+        onSubmit={handleSubmit(onSubmit)}
+        data-testid="resetPasswordForm"
+      >
         <FormItem formInfo={formInfo.email} control={control} />
 
         <FormSubmit

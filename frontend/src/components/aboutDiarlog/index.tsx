@@ -69,10 +69,10 @@ const Category = styled.li<{ disabled: boolean }>`
   ${({ disabled }) =>
     disabled
       ? {
-        "background-color": "limegreen",
-        color: "white",
-        "pointer-events": "none",
-      }
+          "background-color": "limegreen",
+          color: "white",
+          "pointer-events": "none",
+        }
       : { "background-color": "white" }};
   :hover {
     color: white;

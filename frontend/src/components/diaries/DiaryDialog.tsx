@@ -40,7 +40,7 @@ const Tag = withStyles(() => ({
     backgroundColor: "limegreen",
     color: "white",
     borderRadius: 5,
-    margin: "0 0.3rem",
+    margin: "0.3rem",
   },
 }))(Chip);
 
@@ -97,9 +97,11 @@ export const DiaryDialog: FC<IProps> = ({
   register,
 }) => {
   const getVideoId = (url: string): string | undefined => {
-    const match = url.match(/^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})(?:\S+)?$/);
+    const match = url.match(
+      /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})(?:\S+)?$/
+    );
     return match ? match[1] : undefined;
-  }
+  };
   return (
     <Dialog
       open={isOpen}
@@ -141,7 +143,6 @@ export const DiaryDialog: FC<IProps> = ({
                   <Tag
                     label={tag}
                     color="primary"
-                    size="small"
                     key={`diary-tag-${index}`}
                     data-testid={`diaryTag-${index}`}
                   />
