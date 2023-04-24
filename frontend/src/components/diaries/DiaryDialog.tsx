@@ -22,7 +22,7 @@ const Date = styled.h2`
 `;
 
 const ContentHeading = styled.h4`
-  margin: 0 auto 0 5%;
+  margin: 0.8rem auto 0.4rem 2rem;
   font-weight: normal;
   opacity: 0.6;
   font-size: 1.5rem;
@@ -31,20 +31,19 @@ const ContentHeading = styled.h4`
 
 const TagWrapper = styled.span`
   display: inline-block;
+  margin: 0 auto;
 `;
 
-// const Tag = styled(Chip)`
-//   margin: 0.3rem;
-// `;
 // Material Ui のMenuデザイン変更
 const Tag = withStyles(() => ({
   root: {
     backgroundColor: "limegreen",
     color: "white",
     borderRadius: 5,
-    margin: "0 .3rem",
+    margin: "0 0.3rem",
   },
 }))(Chip);
+
 const ItemsWrapper = styled.div`
   min-height: 15rem;
   margin: 0.5rem auto 2.5rem auto;
@@ -70,8 +69,7 @@ const Picture = styled.img`
 // 型
 
 const opts = {
-  height: "390",
-  width: "600",
+  width: "100%",
 };
 
 export const DiaryDialog: FC<IProps> = ({
@@ -98,9 +96,9 @@ export const DiaryDialog: FC<IProps> = ({
   onPlayerReady,
   register,
 }) => {
-  const getVideoId = (url: string) => {
+  const getVideoId = (url: string): string | undefined => {
     const match = url.match(/^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})(?:\S+)?$/);
-    return match ? match[1] : "";
+    return match ? match[1] : undefined;
   }
   return (
     <Dialog
