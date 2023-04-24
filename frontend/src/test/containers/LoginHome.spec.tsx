@@ -6,6 +6,7 @@ import axios from "axios";
 import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { authAtom } from "../../recoils/Auth";
+import { messageAtom } from "../../recoils/Message";
 import { LoginHome } from "../../containers/LoginHome";
 import { home, diary } from "../../urls";
 import { dateToday, formattedDate } from "../../helpers";
@@ -91,6 +92,7 @@ const customRender = (ui: JSX.Element) => {
     <RecoilRoot
       initializeState={({ set }) => {
         set(authAtom, currentUser);
+        set(messageAtom, undefined);
       }}
     >
       <RouterProvider router={router} />
