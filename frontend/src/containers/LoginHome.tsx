@@ -77,7 +77,7 @@ const LoginHomeWrapper = styled.div`
 const Heading = styled.h1`
   text-align: center;
   color: limegreen;
-  font-size: 3rem;
+  font-size: 2.5rem;
 `;
 
 const ButtonsWrapper = styled.div`
