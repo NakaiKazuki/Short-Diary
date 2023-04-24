@@ -119,8 +119,9 @@ describe("LoginHome", () => {
     await waitFor(() => expect(el("diaryIndex")).toBeTruthy());
   });
 
-  it("PagenationBarが表示", () => {
-    expect(el("pagenationBar")).toBeTruthy();
+  it("PaginationBarが表示", () => {
+    const paginationBars = screen.queryAllByTestId('paginationBar')
+    expect(paginationBars.length).toBe(2);
   });
 
   it("日記検索欄が表示", async () => {

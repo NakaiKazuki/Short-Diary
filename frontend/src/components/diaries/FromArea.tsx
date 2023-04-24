@@ -37,7 +37,7 @@ const ContentCount = styled.span<{ contentCount: number }>`
 
 const Submit = styled(BaseButton)`
   margin-top: 2rem;
-  background-color: royalblue;
+  background-color: limegreen;
   color: white;
   border-style: none;
   width: 100%;
@@ -49,9 +49,9 @@ const Picture = styled.label`
   width: 100%;
   text-align: center;
   padding: 0.6rem 0;
-  color: royalblue;
+  color: limegreen;
   background-color: white;
-  border: 0.0125rem solid royalblue;
+  border: 0.0125rem solid limegreen;
   border-radius: 1rem;
   display: inline-block;
   :hover {

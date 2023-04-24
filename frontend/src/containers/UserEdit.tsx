@@ -35,7 +35,6 @@ import {
   isDisabled,
   removeUserCookies,
   setUserCookies,
-  // hashPassword,
 } from "../helpers";
 
 // types

@@ -32,12 +32,12 @@ const Base = styled(BaseButton)`
 `;
 
 const LinkItem = styled(Base)`
-  color: royalblue;
+  color: limegreen;
 `;
 
 const ContactButton = styled(Base)`
   margin-left: 0.7rem;
-  color: royalblue;
+  color: limegreen;
 `;
 
 export const Footer: FC = () => {

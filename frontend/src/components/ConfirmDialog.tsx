@@ -23,11 +23,11 @@ const ConfirmationButton = styled(BaseButton)`
 `;
 
 const CloseButton = styled(ConfirmationButton)`
-  border: 0.0125rem solid royalblue;
+  border: 0.0125rem solid limegreen;
   background-color: white;
-  color: royalblue;
+  color: limegreen;
   :hover {
-    background-color: royalblue;
+    background-color: limegreen;
     color: white;
   }
 `;

@@ -64,24 +64,24 @@ const Category = styled.li<{ disabled: boolean }>`
   margin-block-end: 0;
   padding: 0.4rem;
   text-align: center;
-  border: 0.0125rem solid royalblue;
+  border: 0.0125rem solid limegreen;
 
   ${({ disabled }) =>
     disabled
       ? {
-          "background-color": "royalblue",
-          color: "white",
-          "pointer-events": "none",
-        }
+        "background-color": "limegreen",
+        color: "white",
+        "pointer-events": "none",
+      }
       : { "background-color": "white" }};
   :hover {
     color: white;
-    background-color: royalblue;
+    background-color: limegreen;
     transition: 0.3s;
   }
   :active {
     color: white;
-    background-color: royalblue;
+    background-color: limegreen;
   }
   :focus {
     outline: 0;
@@ -144,7 +144,7 @@ export const AboutDialog: FC<IProps> = ({
         <AppBar
           sx={{ position: "relative" }}
           ref={ref}
-          style={{ color: "royalblue", backgroundColor: "white" }}
+          style={{ color: "limegreen", backgroundColor: "white" }}
           data-testid="appBar"
         >
           <Toolbar>

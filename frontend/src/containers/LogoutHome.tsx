@@ -86,7 +86,7 @@ const MotionWrapper = styled(motion.div)`
 const Heading = styled.h1`
   position: relative;
   padding: 0.5rem;
-  background: royalblue;
+  background: limegreen;
   color: white;
   &:before {
     position: absolute;
@@ -103,7 +103,7 @@ const Paragraph = styled.p`
   margin: 10% 0 0 5%;
   padding: 5%;
   line-height: 1.7;
-  border-left: solid 0.3rem royalblue;
+  border-left: solid 0.3rem limegreen;
 `;
 
 const ButtonsWrapper = styled.span`
@@ -122,7 +122,7 @@ const HomeButton = styled(BaseButton)`
 
 const SignUpButton = styled(HomeButton)`
   width: 10rem;
-  background-color: royalblue;
+  background-color: limegreen;
 `;
 
 const GuestLogin = styled(HomeButton)`
@@ -132,7 +132,7 @@ const GuestLogin = styled(HomeButton)`
 
 const ProfButton = styled(HomeButton)`
   width: 20rem;
-  background-color: green;
+  background-color: limegreen;
 `;
 
 const RightWrapper = styled.div`

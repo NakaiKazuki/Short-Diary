@@ -15,23 +15,30 @@ const LinkList = styled.ul`
   text-align: left;
   list-style: none;
   padding-inline-start: 0;
+  li:first-child {
+    margin-top: 1rem;
+  }
+  li:not(:first-child) {
+    margin-top: 0.7rem;
+  }
 `;
 
 const LinkArea = styled.li`
-  margin-top: 1rem;
+  width: auto;
 `;
 
 const FormLink = styled(Link)`
   cursor: pointer;
   display: block;
   padding: 0.5rem;
-  border: 0.0125rem solid royalblue;
+  border: 0.0125rem solid limegreen;
   border-radius: 0.25rem;
-  color: royalblue;
+  color: limegreen;
   background-color: white;
   text-decoration: none;
+  /* width: 12vh; */
   :hover {
-    background-color: royalblue;
+    background-color: limegreen;
     color: white;
     transition: 0.3s;
   }
@@ -39,22 +46,20 @@ const FormLink = styled(Link)`
 
 export const FormLinks: FC<ILinks> = ({ linkInfo }) => {
   return (
-    <Fragment>
-      {linkInfo.map((obj: ILink, index: number) => {
-        return (
-          <Fragment key={`formLinkArea-${index}`}>
-            <LinkListWrapper>
-              <LinkList>
-                <LinkArea>
-                  <FormLink to={obj.url} data-testid={`formLink-${index}`}>
-                    {obj.text}
-                  </FormLink>
-                </LinkArea>
-              </LinkList>
-            </LinkListWrapper>
-          </Fragment>
-        );
-      })}
-    </Fragment>
+    <LinkListWrapper>
+      <LinkList>
+        {linkInfo.map((obj: ILink, index: number) => {
+          return (
+            <Fragment key={`formLinkArea-${index}`}>
+              <LinkArea>
+                <FormLink to={obj.url} data-testid={`formLink-${index}`}>
+                  {obj.text}
+                </FormLink>
+              </LinkArea>
+            </Fragment>
+          );
+        })}
+      </LinkList>
+    </LinkListWrapper>
   );
 };

@@ -14,7 +14,7 @@ describe("AnimatedSection コンポーネント", () => {
       </AnimatedSection>
     );
 
-  it("Pagenation欄がある", () => {
+  it("Pagination欄がある", () => {
     setup();
     expect(el("animatedSection")).toBeTruthy();
   });

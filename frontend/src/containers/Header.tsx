@@ -54,7 +54,7 @@ const LinkItem = styled(BaseButton)`
   padding: 0 1rem;
   font-size: 1.2rem;
   border-style: none;
-  background-color: royalblue;
+  background-color: limegreen;
   color: white;
 `;
 

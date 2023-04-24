@@ -37,7 +37,7 @@ const DrawerContainer = styled.div`
 `;
 
 const ImageIconArea = styled(PictureIcon)`
-  color: royalblue;
+  color: limegreen;
   margin-right: 0.7rem;
 `;
 
@@ -45,14 +45,14 @@ const ItemWrapper = styled(BaseButton)`
   margin: 0.1rem 0;
   padding: 0.7rem;
   letter-spacing: 0.2rem;
-  color: royalblue;
+  color: limegreen;
   background-color: white;
-  border: 0.0125rem solid royalblue;
+  border: 0.0125rem solid limegreen;
   letter-spacing: 0.2rem;
   font-size: 0.95rem;
   :hover {
     opacity: 0.8;
-    background-color: royalblue;
+    background-color: limegreen;
     color: white;
     ${ImageIconArea} {
       color: white;

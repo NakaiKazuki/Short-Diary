@@ -3,7 +3,7 @@ import styled from "styled-components";
 // css
 export const FormTitle = styled.h1`
   text-align: center;
-  color: royalblue;
+  color: limegreen;
   letter-spacing: 0.1rem;
 `;
 

@@ -1,6 +1,4 @@
-export type TLinks = [
-  {
-    url: string;
-    text: string;
-  }
-];
+export type TLinks = Array<{
+  url: string;
+  text: string;
+}>;

@@ -6,8 +6,9 @@ import userEvent from "@testing-library/user-event";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { authAtom } from "../../recoils/Auth";
-import { Login } from "../../containers/Login";
-import { signIn } from "../../urls";
+import { messageAtom } from "../../recoils/Message";
+import { ResetPassword } from "../../containers/ResetPassword";
+import { password } from "../../urls";
 import { el } from "../helpers";
 
 // types
@@ -16,38 +17,15 @@ import { TLinks } from "../../types/test";
 afterEach(cleanup);
 
 const mockAxios = new MockAdapter(axios);
-const result = {
-  data: {
-    data: {
-      id: 1,
-      name: "testName",
-      email: "test@example.com",
-    },
-  },
-  headers: {
-    "access-token": "testtoken",
-    client: "testclient",
-    uid: "test@example.com",
-  },
-};
-
-const errorResult = {
-  errors: ["ResultError"],
-};
-
 // 正しいForm情報
 const formInfo = [
   {
     testId: "emailArea",
     value: "test@example.com",
   },
-  {
-    testId: "passwordArea",
-    value: "testPassword",
-  },
 ];
 
-const idNames = ["email", "password"];
+const idNames = ["email"];
 
 const linkInfo: TLinks = [
   {
@@ -55,10 +33,15 @@ const linkInfo: TLinks = [
     text: "アカウントが無い方はこちら",
   },
   {
-    url: "/resetPassword",
-    text: "パスワードを忘れた方はこちら",
+    url: "/login",
+    text: "ログイン可能な方はこちら",
   },
 ];
+
+const errorResult = {
+  errors:
+    ["email ResultError"],
+};
 
 const customRender = (ui: JSX.Element) => {
   const routes = [
@@ -72,6 +55,7 @@ const customRender = (ui: JSX.Element) => {
     <RecoilRoot
       initializeState={({ set }) => {
         set(authAtom, undefined);
+        set(messageAtom, undefined);
       }}
     >
       <RouterProvider router={router} />
@@ -79,32 +63,30 @@ const customRender = (ui: JSX.Element) => {
   );
 };
 
-describe("Loginコンポーネント", () => {
+describe("ResetPasswordコンポーネント", () => {
   afterEach(() => {
     mockAxios.resetHistory();
   });
-
-  const setup = () => customRender(<Login />);
-
+  const setup = () => customRender(<ResetPassword />);
   beforeEach(() => setup());
   describe("Form欄", () => {
     it("Formがある", () => {
-      expect(el("loginForm")).toBeTruthy();
+      expect(el("resetPasswordForm")).toBeTruthy();
     });
 
     describe("Form入力欄", () => {
-      it("Form内に各入力欄がある", () => {
+      it("各入力欄のブロックがある", () => {
         idNames.forEach((idName) =>
-          expect(el("loginForm")).toContainElement(el(`FormItem-${idName}`))
+          expect(el("resetPasswordForm")).toContainElement(el(`FormItem-${idName}`))
         );
       });
 
       it("エラーメッセージ", async () => {
         // ApiResponse
-        mockAxios.onPost(signIn).reply(200, result.data, result.headers);
+        mockAxios.onPost(password).reply(200, {});
 
         // 各項目に無効な値を入力
-        formInfo.forEach(async (obj) => await userEvent.clear(el(obj.testId)));
+        formInfo.forEach((obj) => userEvent.clear(el(obj.testId)));
 
         // ユーザが送信ボタンをクリック
         await userEvent.click(el("formSubmit"));
@@ -119,21 +101,16 @@ describe("Loginコンポーネント", () => {
 
       it("Apiエラーメッセージ", async () => {
         // ApiResponse
-        mockAxios.onPost(signIn).reply(401, errorResult);
+        mockAxios.onPost(password).reply(404, errorResult);
 
         // 各項目に値を入力
         await userEvent.type(el(formInfo[0].testId), formInfo[0].value);
-        await userEvent.type(el(formInfo[1].testId), formInfo[1].value);
 
         // ユーザが送信ボタンをクリック
         await userEvent.click(el("formSubmit"));
-
-        // 各項目に対応したApiエラーメッセージが表示
+        // 各項目に対応したApiからのエラーメッセージが表示
         await waitFor(() => {
           expect(el(`${idNames[0]}ResultError`)).toBeTruthy();
-        });
-        await waitFor(() => {
-          expect(el(`${idNames[1]}ResultError`)).toBeTruthy();
         });
       });
     });
@@ -145,42 +122,42 @@ describe("Loginコンポーネント", () => {
 
       it("送信結果に応じてボタンの要素が変化 Status200", async () => {
         // ApiResponse
-        mockAxios.onPost(signIn).reply(200, result.data, result.headers);
-
-        // 初期値
-        expect(el("formSubmit")).toHaveTextContent("Login!");
+        mockAxios.onPost(password).reply(200, { status: 200 });
 
         // 各項目に有効な値を入力
         await userEvent.type(el(formInfo[0].testId), formInfo[0].value);
-        await userEvent.type(el(formInfo[1].testId), formInfo[1].value);
+
+        // 初期値
+        expect(el("formSubmit")).toHaveTextContent("Password Reset!");
+        expect(el("formSubmit")).not.toBeDisabled();
 
         // ユーザが送信ボタンをクリック
         await userEvent.click(el("formSubmit"));
+
         // 送信完了
-        await waitFor(() =>
-          expect(el("formSubmit")).toHaveTextContent("送信完了!")
-        );
+        await waitFor(() => {
+          expect(el("formSubmit")).toHaveTextContent("送信完了!");
+        });
       });
 
-      it("送信結果に応じてボタンの要素が変化 Status401", async () => {
+      it("送信結果に応じてボタンの要素が変化 Status422", async () => {
         // ApiResponse
-        mockAxios.onPost(signIn).reply(401, errorResult);
-
-        // 初期値
-        expect(el("formSubmit")).toHaveTextContent("Login!");
-        expect(el("formSubmit")).not.toBeDisabled();
+        mockAxios.onPost(password).reply(404, errorResult);
 
         // 各項目に有効な値を入力
         await userEvent.type(el(formInfo[0].testId), formInfo[0].value);
-        await userEvent.type(el(formInfo[1].testId), formInfo[1].value);
+
+        // 初期値
+        expect(el("formSubmit")).toHaveTextContent("Password Reset!");
+        expect(el("formSubmit")).not.toBeDisabled();
 
         // ユーザが送信ボタンをクリック
         await userEvent.click(el("formSubmit"));
 
         // APIからエラーが返ってくると初期値に戻る
-        await waitFor(() =>
-          expect(el("formSubmit")).toHaveTextContent("Login!")
-        );
+        await waitFor(() => {
+          expect(el("formSubmit")).toHaveTextContent("Password Reset!");
+        });
       });
     });
   });

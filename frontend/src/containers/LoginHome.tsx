@@ -26,7 +26,7 @@ import { CreateIcon, SearchIcon } from "../components/icon";
 
 // components
 import { BaseButton } from "../components/shared_style";
-import { PagenationArea } from "../components/PagenationArea";
+import { PaginationArea } from "../components/PaginationArea";
 import { ConfirmDialog } from "../components/ConfirmDialog";
 import {
   DiaryIndex,
@@ -76,41 +76,49 @@ const LoginHomeWrapper = styled.div`
 
 const Heading = styled.h1`
   text-align: center;
-  color: royalblue;
+  color: limegreen;
 `;
-
+const ButtonsWrapper = styled.div`
+  width:100%;
+  height: auto;
+  @media screen and (max-width: 480px) {
+    height: 5.2rem;
+  }
+`;
 const DiaryCreateOpenButton = styled(BaseButton)`
-  height: 2.5rem;
+  height: 2.4rem;
   width: 10rem;
-  border: 0.0125rem solid green;
+  border: 0.0125rem solid limegreen;
   letter-spacing: 0.2rem;
   font-size: 0.95rem;
-  background-color: white;
-  color: green;
+  background-color: limegreen;
+  color: white;
   :hover {
     opacity: 0.8;
-    background-color: green;
-    color: white;
+    background-color: white;
+    color: limegreen;
   }
   @media screen and (max-width: 480px) {
     width: 100%;
   }
-`;
+  `;
 
 const DrawerOpenButton = styled(BaseButton)`
   height: 2.4rem;
   width: 8.5rem;
-  border: 0.0125rem solid royalblue;
+  border: 0.0125rem solid limegreen;
   letter-spacing: 0.2rem;
   font-size: 0.95rem;
-  background-color: white;
-  color: royalblue;
+  background-color: limegreen;
+  color: white;
   float: right;
-  margin-top: 0.8rem;
   :hover {
     opacity: 0.8;
-    background-color: royalblue;
-    color: white;
+    background-color: white;
+    color: limegreen;
+  }
+  @media screen and (max-width: 480px) {
+    margin-top:0.8rem;
   }
 `;
 
@@ -225,7 +233,7 @@ export const LoginHome: FC = () => {
     return () => abortController.abort();
   }, []);
 
-  // ここからPagenationAreaで使う関数
+  // ここからPaginationAreaで使う関数
   // ページネションのページ番号が選択されたら、その番号に応じてデータを受け取る
   const ref = useRef<HTMLDivElement>(null);
   const onPageChange = async (page: number): Promise<void> => {
@@ -242,7 +250,7 @@ export const LoginHome: FC = () => {
         removeSession(e);
       });
   };
-  // ここまでPagenationAreaで使う関数
+  // ここまでPaginationAreaで使う関数
 
   // 検索用Drawerで使う関数
   // Drawerの開閉に使用
@@ -455,10 +463,11 @@ export const LoginHome: FC = () => {
     });
   };
 
+  // 動画を再生するのに使用
   const onPlayerReady: YouTubeProps["onReady"] = (
     e: YouTubeEvent<{ target: YouTubePlayer }>
   ): void => {
-    e.target.playVideo();
+    e.target.pauseVideo();
   };
   // ここまでDiaryDialogで使う関数
 
@@ -538,24 +547,26 @@ export const LoginHome: FC = () => {
   return (
     <LoginHomeWrapper ref={ref}>
       <Heading data-testid="pageTitle">Diaries</Heading>
-      <DiaryCreateOpenButton
-        onClick={onOpenDiaryCreateDialog}
-        data-testid="diaryCreateOpenButton"
-      >
-        <IconWrapper>
-          <CreateIcon fontSize={"small"} data-testid="createIcon" />
-        </IconWrapper>
-        日記作成
-      </DiaryCreateOpenButton>
-      <DrawerOpenButton
-        onClick={onDrawerOpenButton(true)}
-        data-testid="drawerOpenButton"
-      >
-        <IconWrapper>
-          <SearchIcon fontSize={"small"} data-testid="SearchIcon" />
-        </IconWrapper>
-        Search
-      </DrawerOpenButton>
+      <ButtonsWrapper>
+        <DiaryCreateOpenButton
+          onClick={onOpenDiaryCreateDialog}
+          data-testid="diaryCreateOpenButton"
+        >
+          <IconWrapper>
+            <CreateIcon fontSize={"small"} data-testid="createIcon" />
+          </IconWrapper>
+          日記作成
+        </DiaryCreateOpenButton>
+        <DrawerOpenButton
+          onClick={onDrawerOpenButton(true)}
+          data-testid="drawerOpenButton"
+        >
+          <IconWrapper>
+            <SearchIcon fontSize={"small"} data-testid="SearchIcon" />
+          </IconWrapper>
+          Search
+        </DrawerOpenButton>
+      </ButtonsWrapper>
       <DiarySearchDrawer
         control={control}
         selectedDate={state.selectedDate}
@@ -573,12 +584,13 @@ export const LoginHome: FC = () => {
         <Fragment>
           {state.diaries?.length && state.pagy != null ? (
             <Fragment>
+              <PaginationArea onPageChange={onPageChange} pagy={state.pagy} />
               <DiaryIndex
                 diaries={state.diaries}
                 formattedDate={formattedDate}
                 onOpenDiaryDialog={onOpenDiaryDialog}
               />
-              <PagenationArea onPageChange={onPageChange} pagy={state.pagy} />
+              <PaginationArea onPageChange={onPageChange} pagy={state.pagy} />
             </Fragment>
           ) : (
             <EmptyMessageWrapper>

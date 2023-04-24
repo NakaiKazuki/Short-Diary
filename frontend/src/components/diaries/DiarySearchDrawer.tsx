@@ -27,16 +27,16 @@ const Submit = styled.button`
 const ClearButton = styled(BaseButton)`
   margin-top: 1rem;
   float: right;
-  color: royalblue;
+  color: limegreen;
   background-color: white;
   height: 1.7rem;
   width: 6rem;
-  border: 0.0125rem solid royalblue;
+  border: 0.0125rem solid limegreen;
   letter-spacing: 0.2rem;
   font-size: 0.95rem;
   :hover {
     opacity: 0.8;
-    background-color: royalblue;
+    background-color: limegreen;
     color: white;
   }
 `;
