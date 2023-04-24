@@ -1,5 +1,4 @@
 import { FC, Fragment } from "react";
-import { DialogTitle } from "@material-ui/core";
 import styled from "styled-components";
 
 // components
@@ -8,10 +7,10 @@ import { FormArea } from "./FromArea";
 // types
 import { IDiaryEditProps as IProps } from "../../types/components/diaries";
 
-const FromTitle = styled(DialogTitle)`
+const FromTitle = styled.h1`
   text-align: center;
   color: limegreen;
-  font-weight: bolder;
+  font-weight: normal;
 `;
 
 export const DiaryEdit: FC<IProps> = ({

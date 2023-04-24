@@ -11,21 +11,19 @@ import { DiaryEdit } from "./DiaryEdit";
 import { IDiaryDialogProps as IProps } from "../../types/components/diaries";
 
 // css
-const Date = styled.h2`
+const Date = styled.h1`
   text-align: center;
   color: limegreen;
   font-weight: normal;
   font-family: cursive, Century;
   width: 50%;
   margin: 0 auto 0.6rem auto;
-  font-size: 2.2rem;
 `;
 
-const ContentHeading = styled.h4`
+const ContentHeading = styled.h2`
   margin: 0.8rem auto 0.4rem 2rem;
   font-weight: normal;
   opacity: 0.6;
-  font-size: 1.5rem;
   color: limegreen;
 `;
 
