@@ -39,6 +39,7 @@ const Tag = withStyles(() => ({
     color: "white",
     borderRadius: 5,
     margin: "0.3rem",
+    fontSize: "1.2rem"
   },
 }))(Chip);
 

@@ -16,6 +16,7 @@ import styled from "styled-components";
 
 // recoils
 import { authAtom } from "../recoils/Auth";
+import { messageAtom } from "../recoils/Message";
 
 // apis
 import { getHome, getDiaries } from "../apis/home";
@@ -168,6 +169,7 @@ const EmptyMessage = styled.span`
 
 export const LoginHome: FC = () => {
   const setCurrentUser = useSetRecoilState(authAtom);
+  const setMessage = useSetRecoilState(messageAtom);
   const navigate = useNavigate();
   const {
     handleSubmit,
@@ -386,6 +388,7 @@ export const LoginHome: FC = () => {
           isOpenDiaryCreateDialog: false,
           pagy: data.pagy,
         });
+        setMessage("日記の作成に成功しました。")
       })
       .catch((e): void => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
@@ -443,6 +446,7 @@ export const LoginHome: FC = () => {
           isOpenDiaryDialog: false,
           selectedDate: null,
         });
+        setMessage("日記の編集に成功しました。")
       })
       .catch((e): void => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
@@ -506,6 +510,7 @@ export const LoginHome: FC = () => {
           isOpenDiaryDialog: false,
           selectedDate: null,
         });
+        setMessage("日記の削除に成功しました。")
       })
       .catch((e): void => {
         removeSession(e);
