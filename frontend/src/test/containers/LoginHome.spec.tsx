@@ -137,7 +137,9 @@ describe("LoginHome", () => {
     expect(el("dateSearchField")).toBeTruthy();
     // 単語検索欄
     expect(el("wordSearchField")).toBeTruthy();
-    // 検索初期化ボタ
+    // 検索ボタン
+    expect(el("searchSubmit")).toBeTruthy();
+    // 検索初期化ボタン
     expect(el("clearButton")).toBeTruthy();
   });
 
