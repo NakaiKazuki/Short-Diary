@@ -12,7 +12,6 @@ export const removeUserCookies = () => {
 const twoWeeks = 14;
 
 export const setUserCookies = (res: { headers: IHeaders }): void => {
-  removeUserCookies();
   Cookies.set("client", res.headers["client"], { expires: twoWeeks });
   Cookies.set("uid", res.headers["uid"], { expires: twoWeeks });
   Cookies.set("access-token", res.headers["access-token"], {
