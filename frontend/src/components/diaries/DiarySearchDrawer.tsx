@@ -20,20 +20,17 @@ const WordSearchForm = styled.form`
   width: 100%;
 `;
 
-const Submit = styled.button`
-  display: none;
-`;
 
-const ClearButton = styled(BaseButton)`
-  margin-top: 1rem;
+const Button = styled(BaseButton)`
+  height:2.5rem;
+  width: 90%;
+  margin: 1rem auto 0 auto;
   float: right;
   color: limegreen;
   background-color: white;
-  height: 1.7rem;
-  width: 6rem;
   border: 0.0125rem solid limegreen;
   letter-spacing: 0.2rem;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   :hover {
     opacity: 0.8;
     background-color: limegreen;
@@ -96,16 +93,20 @@ export const DiarySearchDrawer: FC<IProps> = ({
                     />
                   )}
                 />
-                <Submit type="submit" />
+                <ListItem>
+                  <Button type="submit" data-testid="searchSubmit">
+                    検索
+                  </Button>
+                </ListItem>
               </WordSearchForm>
             </ListItem>
           </List>
           <Divider />
           <List>
             <ListItem>
-              <ClearButton onClick={onClearButton} data-testid="clearButton">
+              <Button onClick={onClearButton} data-testid="clearButton">
                 Clear
-              </ClearButton>
+              </Button>
             </ListItem>
           </List>
         </Box>
