@@ -25,4 +25,4 @@ ActsAsTaggableOn.remove_unused_tags = true
 # ActsAsTaggableOn.taggings_table = 'aato_taggings'
 
 # デフォルトの区切り文字を変更する場合（デフォルトは「,」)。([',', '|'])などの区切り文字の配列を渡すこともできる。
-ActsAsTaggableOn.default_parser = ','
+ActsAsTaggableOn.delimiter = ','
