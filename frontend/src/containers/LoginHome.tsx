@@ -35,7 +35,7 @@ import {
   DiaryDialog,
   DiarySearchDrawer,
 } from "../components/diaries";
-import { CircularProgress } from '@mui/material';
+import { CircularProgress } from "@mui/material";
 
 // constants
 import { HTTP_STATUS_CODE, REQUEST_STATE } from "../constants";
@@ -385,7 +385,7 @@ export const LoginHome: FC = () => {
           isOpenDiaryCreateDialog: false,
           pagy: data.pagy,
         });
-        setMessage("日記の作成に成功しました。")
+        setMessage("日記の作成に成功しました。");
       })
       .catch((e): void => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
@@ -443,7 +443,7 @@ export const LoginHome: FC = () => {
           isOpenDiaryDialog: false,
           selectedDate: null,
         });
-        setMessage("日記の編集に成功しました。")
+        setMessage("日記の編集に成功しました。");
       })
       .catch((e): void => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
@@ -507,7 +507,7 @@ export const LoginHome: FC = () => {
           isOpenDiaryDialog: false,
           selectedDate: null,
         });
-        setMessage("日記の削除に成功しました。")
+        setMessage("日記の削除に成功しました。");
       })
       .catch((e): void => {
         removeSession(e);

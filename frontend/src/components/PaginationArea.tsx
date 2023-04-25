@@ -1,5 +1,5 @@
 import { FC, ChangeEvent } from "react";
-import { Pagination } from '@mui/material';
+import { Pagination } from "@mui/material";
 import { Theme as MuiTheme } from "@mui/material/styles";
 import styled from "styled-components";
 // types
@@ -41,7 +41,9 @@ export const PaginationArea: FC<IProps> = ({ pagy, onPageChange }) => {
       <Pagination
         count={pagy.pages}
         page={pagy.page}
-        onChange={(_e: ChangeEvent<unknown>, page: number) => onPageChange(page)}
+        onChange={(_e: ChangeEvent<unknown>, page: number) =>
+          onPageChange(page)
+        }
         data-testid={"paginationBar"}
         sx={styles}
       />

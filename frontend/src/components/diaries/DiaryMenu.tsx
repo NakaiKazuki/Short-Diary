@@ -1,5 +1,5 @@
 import { FC, Fragment } from "react";
-import { MenuItem, Menu, ListItemIcon } from "@mui/material"
+import { MenuItem, Menu, ListItemIcon } from "@mui/material";
 import styled from "styled-components";
 
 // icons
@@ -23,7 +23,7 @@ const styledMenu = {
   paper: {
     border: ".025rem solid white",
   },
-}
+};
 // Material Ui のMenuItemデザイン変更
 const styledMenuItem = {
   backgroundColor: "white",
@@ -46,8 +46,8 @@ const styledMenuItem = {
     "& .MuiListItemIcon-root": {
       color: "white",
     },
-  }
-}
+  },
+};
 
 const styledMenuItemDelete = {
   backgroundColor: "white",
@@ -71,7 +71,7 @@ const styledMenuItemDelete = {
       color: "white",
     },
   },
-}
+};
 
 export const DiaryMenu: FC<IProps> = ({
   anchorEl,

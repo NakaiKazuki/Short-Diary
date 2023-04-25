@@ -1,7 +1,14 @@
 import { FC, Fragment } from "react";
-import { Box, SwipeableDrawer, List, Divider, ListItem, TextField } from "@mui/material";
-import { LocalizationProvider, StaticDatePicker } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import {
+  Box,
+  SwipeableDrawer,
+  List,
+  Divider,
+  ListItem,
+  TextField,
+} from "@mui/material";
+import { LocalizationProvider, StaticDatePicker } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { Controller } from "react-hook-form";
 import styled from "styled-components";
 
@@ -14,11 +21,11 @@ import { IDiarySearchDrawerProps as IProps } from "../../types/components/diarie
 // css
 const WordSearchForm = styled.form`
   width: 100%;
-  margin:2rem 0;
+  margin: 2rem 0;
 `;
 
 const Button = styled(BaseButton)`
-  height:3rem;
+  height: 3rem;
   width: 100%;
   margin: 2rem auto 0 auto;
   float: right;
@@ -34,10 +41,9 @@ const Button = styled(BaseButton)`
   }
 `;
 
-const style =
-{
+const style = {
   color: "limegreen",
-}
+};
 export const DiarySearchDrawer: FC<IProps> = ({
   control,
   selectedDate,
@@ -61,7 +67,7 @@ export const DiarySearchDrawer: FC<IProps> = ({
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <StaticDatePicker
                   value={selectedDate}
-                  onChange={(onDateChange)}
+                  onChange={onDateChange}
                   orientation="landscape"
                 />
               </LocalizationProvider>

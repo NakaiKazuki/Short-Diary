@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Dialog, DialogTitle } from '@mui/material';
+import { Dialog, DialogTitle } from "@mui/material";
 import styled from "styled-components";
 
 // components
