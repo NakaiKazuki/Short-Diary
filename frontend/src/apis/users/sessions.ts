@@ -25,5 +25,5 @@ export const deleteSession = (): Promise<void> => {
 };
 
 export const newGuestSession = (): Promise<IGestResult> => {
-  return axiosPost(guestSignIn);
+  return axiosPost(guestSignIn, {});
 };

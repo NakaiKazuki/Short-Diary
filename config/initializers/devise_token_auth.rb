@@ -72,7 +72,7 @@ DeviseTokenAuth.setup do |config|
    # ユーザー登録メール送信後のリダイレクト先
   config.default_confirm_success_url = "#{host_server}/login"
   # パスワードリセットメール送信後のリダイレクト先
-  config.default_password_reset_url = "#{host_server}/password"
+  config.default_password_reset_url = "#{host_server}/newPassword"
 
   config.check_current_password_before_update = :password
 end
