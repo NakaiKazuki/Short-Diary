@@ -62,7 +62,7 @@ DeviseTokenAuth.setup do |config|
 
   host_server =
     if Rails.env.production?
-      "https://short-diary.com"
+      'https://short-diary.com'
     elsif Rails.env.test?
       'http://localhost:4444'
     else
@@ -75,5 +75,4 @@ DeviseTokenAuth.setup do |config|
   config.default_password_reset_url = "#{host_server}/newPassword"
 
   config.check_current_password_before_update = :password
-
 end
