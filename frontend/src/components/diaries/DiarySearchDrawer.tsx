@@ -1,12 +1,8 @@
 import { FC, Fragment } from "react";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
-import { TextField } from "@material-ui/core";
-import { Box, SwipeableDrawer, List, Divider, ListItem } from "@mui/material";
+import { Box, SwipeableDrawer, List, Divider, ListItem, TextField } from "@mui/material";
+import { LocalizationProvider, StaticDatePicker } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { Controller } from "react-hook-form";
-import DateFnsUtils from "@date-io/date-fns";
 import styled from "styled-components";
 
 // components
@@ -18,13 +14,13 @@ import { IDiarySearchDrawerProps as IProps } from "../../types/components/diarie
 // css
 const WordSearchForm = styled.form`
   width: 100%;
+  margin:2rem 0;
 `;
 
-
 const Button = styled(BaseButton)`
-  height:2.5rem;
-  width: 90%;
-  margin: 1rem auto 0 auto;
+  height:3rem;
+  width: 100%;
+  margin: 2rem auto 0 auto;
   float: right;
   color: limegreen;
   background-color: white;
@@ -38,6 +34,10 @@ const Button = styled(BaseButton)`
   }
 `;
 
+const style =
+{
+  color: "limegreen",
+}
 export const DiarySearchDrawer: FC<IProps> = ({
   control,
   selectedDate,
@@ -57,30 +57,18 @@ export const DiarySearchDrawer: FC<IProps> = ({
       >
         <Box role="presentation" data-testid="searchDrawer">
           <List>
-            <ListItem>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <KeyboardDatePicker
-                  fullWidth
-                  margin="normal"
-                  label="Search by Date"
-                  format="yyyy/MM/dd"
+            <ListItem data-testid="dateSearchField">
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <StaticDatePicker
                   value={selectedDate}
-                  onChange={onDateChange}
-                  clearable
-                  showTodayButton
-                  data-testid="dateSearchField"
-                  KeyboardButtonProps={{
-                    "aria-label": "change date",
-                  }}
-                  inputProps={{
-                    disabled: true,
-                  }}
+                  onChange={(onDateChange)}
+                  orientation="landscape"
                 />
-              </MuiPickersUtilsProvider>
+              </LocalizationProvider>
             </ListItem>
             <Divider />
-            <ListItem>
-              <WordSearchForm onSubmit={onSubmit} data-testid="wordSearchField">
+            <ListItem data-testid="wordSearchField">
+              <WordSearchForm onSubmit={onSubmit}>
                 <Controller
                   name="searchWord"
                   control={control}
@@ -89,20 +77,18 @@ export const DiarySearchDrawer: FC<IProps> = ({
                       fullWidth
                       label="Search by Word"
                       type="search"
+                      multiline
                       {...field}
+                      sx={style}
                     />
                   )}
                 />
-                <ListItem>
-                  <Button type="submit" data-testid="searchSubmit">
-                    検索
-                  </Button>
-                </ListItem>
+                <Button type="submit" data-testid="searchSubmit">
+                  検索
+                </Button>
               </WordSearchForm>
             </ListItem>
-          </List>
-          <Divider />
-          <List>
+            <Divider />
             <ListItem>
               <Button onClick={onClearButton} data-testid="clearButton">
                 Clear

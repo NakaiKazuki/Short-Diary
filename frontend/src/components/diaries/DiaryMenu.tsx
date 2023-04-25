@@ -1,6 +1,5 @@
 import { FC, Fragment } from "react";
-import { MenuItem, withStyles, Menu, ListItemIcon } from "@material-ui/core";
-import { MenuProps } from "@material-ui/core/Menu";
+import { MenuItem, Menu, ListItemIcon } from "@mui/material"
 import styled from "styled-components";
 
 // icons
@@ -20,78 +19,59 @@ const MenuOpenIconWrapper = styled.span`
 `;
 
 // Material Ui のMenuデザイン変更
-const StyledMenu = withStyles({
+const styledMenu = {
   paper: {
     border: ".025rem solid white",
   },
-})((props: MenuProps) => (
-  <Menu
-    elevation={4}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: "top",
-      horizontal: "left",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "center",
-    }}
-    {...props}
-  />
-));
-
+}
 // Material Ui のMenuItemデザイン変更
-const StyledMenuItem = withStyles(() => ({
-  root: {
-    backgroundColor: "white",
+const styledMenuItem = {
+  backgroundColor: "white",
+  color: "limegreen",
+  borderRadius: 2,
+  margin: "0 .5rem",
+  "& .MuiListItemIcon-root": {
     color: "limegreen",
-    borderRadius: 5,
-    margin: "0 .5rem",
+  },
+  "&:hover": {
+    backgroundColor: "limegreen",
+    color: "white",
     "& .MuiListItemIcon-root": {
-      color: "limegreen",
-    },
-    "&:hover": {
-      backgroundColor: "limegreen",
       color: "white",
-      "& .MuiListItemIcon-root": {
-        color: "white",
-      },
-    },
-    "&:focus": {
-      backgroundColor: "limegreen",
-      color: "white",
-      "& .MuiListItemIcon-root": {
-        color: "white",
-      },
     },
   },
-}))(MenuItem);
+  "&:focus": {
+    backgroundColor: "limegreen",
+    color: "white",
+    "& .MuiListItemIcon-root": {
+      color: "white",
+    },
+  }
+}
 
-const StyledMenuItemDelete = withStyles(() => ({
-  root: {
-    backgroundColor: "white",
+const styledMenuItemDelete = {
+  backgroundColor: "white",
+  color: "red",
+  borderRadius: 2,
+  margin: "0.5rem 0.5rem 0 0.5rem",
+  "& .MuiListItemIcon-root": {
     color: "red",
-    borderRadius: 5,
-    margin: "0.5rem 0.5rem 0 0.5rem",
+  },
+  "&:hover": {
+    backgroundColor: "red",
+    color: "white",
     "& .MuiListItemIcon-root": {
-      color: "red",
-    },
-    "&:hover": {
-      backgroundColor: "red",
       color: "white",
-      "& .MuiListItemIcon-root": {
-        color: "white",
-      },
-    },
-    "&:focus": {
-      backgroundColor: "red",
-      color: "white",
-      "& .MuiListItemIcon-root": {
-        color: "white",
-      },
     },
   },
-}))(MenuItem);
+  "&:focus": {
+    backgroundColor: "red",
+    color: "white",
+    "& .MuiListItemIcon-root": {
+      color: "white",
+    },
+  },
+}
 
 export const DiaryMenu: FC<IProps> = ({
   anchorEl,
@@ -112,43 +92,52 @@ export const DiaryMenu: FC<IProps> = ({
         <MenuOpenIcon fontSize="large" />
       </MenuOpenIconWrapper>
 
-      <StyledMenu
+      <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={onMenuClose}
+        elevation={4}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        sx={styledMenu}
         data-testid="diaryMenuBar"
       >
         {isOpenDiaryEdit ? (
-          <StyledMenuItem
+          <MenuItem
             onClick={() => onDiaryShowMode()}
+            sx={styledMenuItem}
             data-testid="MenuItemDiaryShow"
           >
             <ListItemIcon>
               <VisibilityIcon data-testid="visibilityIcon" />
             </ListItemIcon>
             閲覧
-          </StyledMenuItem>
+          </MenuItem>
         ) : (
-          <StyledMenuItem
+          <MenuItem
             onClick={() => onDiaryEditMode()}
+            sx={styledMenuItem}
             data-testid="MenuItemDiaryEdit"
           >
             <ListItemIcon>
               <EditIcon data-testid="editIcon" />
             </ListItemIcon>
             編集
-          </StyledMenuItem>
+          </MenuItem>
         )}
-        <StyledMenuItemDelete
+        <MenuItem
           onClick={onOpenCofirmationDialog}
+          sx={styledMenuItemDelete}
           data-testid="MenuItemDiaryDelete"
         >
           <ListItemIcon>
             <DeleteIcon data-testid="deleteIcon" />
           </ListItemIcon>
           削除
-        </StyledMenuItemDelete>
-      </StyledMenu>
+        </MenuItem>
+      </Menu>
     </Fragment>
   );
 };

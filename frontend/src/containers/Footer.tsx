@@ -10,11 +10,12 @@ import { BaseButton } from "../components/shared_style";
 const AppFooter = styled.footer`
   height: 5.5vh;
   padding: 1.5vh 1vw 0 0;
-  background-color: limegreen;
+  background-color: white;
   position: fixed;
   bottom: 0;
   width: 99vw;
   z-index: 10;
+  border-top: 1px solid limegreen;
 `;
 
 const Link = styled.a`
@@ -26,7 +27,7 @@ const Base = styled(BaseButton)`
   height: 4.5vh;
   padding: 0 1rem;
   margin-bottom: 1vh;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   border-style: none;
   background-color: white;
 `;

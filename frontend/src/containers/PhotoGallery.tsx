@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useSetRecoilState } from "recoil";
 import ImageGallery from "react-image-gallery";
 // recoils

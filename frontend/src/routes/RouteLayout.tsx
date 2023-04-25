@@ -10,7 +10,7 @@ import { Contact } from "../containers/Contact";
 import { Footer } from "../containers/Footer";
 
 const Main = styled.div`
-  min-height: 81vh;
+  min-height: 100vh;
   margin-top: 5.5vh;
 `;
 

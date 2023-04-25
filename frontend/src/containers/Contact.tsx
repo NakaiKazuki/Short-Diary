@@ -19,7 +19,7 @@ import {
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { TextField, InputLabel } from "@material-ui/core";
+import { TextField, InputLabel } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 
 // apis
@@ -58,8 +58,9 @@ export const FormTitle = styled.h1`
 `;
 
 export const FormWrapper = styled.form`
-  margin: 0 auto;
+  margin: 1rem auto;
   width: 80vw;
+  padding: 0 10% 5% 10%;
   @media screen and (min-width: 980px) {
     width: 30vw;
   }
@@ -170,9 +171,8 @@ export const Contact: FC = () => {
           onSubmit={handleSubmit(onSubmit)}
           data-testid="contactForm"
         >
-          <FormItemWrapper>
-            <InputLabel>
-              Name(必須)
+          <InputLabel>
+            <FormItemWrapper>
               {resultErrors?.name?.map((message: string, index: number) => (
                 <ErrorMessage
                   key={`name-${index}`}
@@ -194,6 +194,7 @@ export const Contact: FC = () => {
                   <TextField
                     {...field}
                     type="text"
+                    label="Name(必須)"
                     autoComplete="username"
                     fullWidth
                     inputProps={{
@@ -202,11 +203,10 @@ export const Contact: FC = () => {
                   />
                 )}
               />
-            </InputLabel>
-          </FormItemWrapper>
-          <FormItemWrapper>
-            <InputLabel>
-              Email(必須)
+            </FormItemWrapper>
+          </InputLabel>
+          <InputLabel>
+            <FormItemWrapper>
               {resultErrors?.email?.map((message: string, index: number) => (
                 <ErrorMessage
                   key={`email-${index}`}
@@ -228,6 +228,7 @@ export const Contact: FC = () => {
                   <TextField
                     {...field}
                     type="email"
+                    label="Email(必須)"
                     autoComplete="email"
                     fullWidth
                     inputProps={{
@@ -237,11 +238,10 @@ export const Contact: FC = () => {
                   />
                 )}
               />
-            </InputLabel>
-          </FormItemWrapper>
-          <FormItemWrapper>
-            <InputLabel>
-              概要
+            </FormItemWrapper>
+          </InputLabel>
+          <InputLabel>
+            <FormItemWrapper>
               {resultErrors?.over_view?.map(
                 (message: string, index: number) => (
                   <ErrorMessage
@@ -265,6 +265,7 @@ export const Contact: FC = () => {
                   <TextField
                     {...field}
                     type="text"
+                    label="概要"
                     autoComplete="text"
                     fullWidth
                     multiline
@@ -275,11 +276,10 @@ export const Contact: FC = () => {
                   />
                 )}
               />
-            </InputLabel>
-          </FormItemWrapper>
-          <FormItemWrapper>
-            <InputLabel>
-              お問い合わせ内容(必須)
+            </FormItemWrapper>
+          </InputLabel>
+          <InputLabel>
+            <FormItemWrapper>
               {resultErrors?.content?.map((message: string, index: number) => (
                 <ErrorMessage
                   key={`content-${index}`}
@@ -301,6 +301,7 @@ export const Contact: FC = () => {
                   <TextField
                     {...field}
                     type="text"
+                    label="お問い合わせ内容(必須)"
                     autoComplete="text"
                     fullWidth
                     multiline
@@ -311,8 +312,8 @@ export const Contact: FC = () => {
                   />
                 )}
               />
-            </InputLabel>
-          </FormItemWrapper>
+            </FormItemWrapper>
+          </InputLabel>
           <Submit
             type="submit"
             disabled={isDisabled(submitState.postState)}

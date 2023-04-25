@@ -27,6 +27,7 @@ const SampleWrapper = styled.div`
 
 const Title = styled.h1`
   text-align: center;
+  color: limegreen;
   @media screen and (max-width: 480px) {
     margin-top: 15vh;
   }
@@ -35,6 +36,7 @@ const Title = styled.h1`
 const Contents = styled.span`
   width: 55vw;
   float: right;
+  font-size: 1.2rem;
   @media screen and (max-width: 979px) {
     width: 100vw;
   }
@@ -42,6 +44,7 @@ const Contents = styled.span`
 
 const ContentTitle = styled.h2`
   margin-left: 7.5vw;
+  color: limegreen;
 `;
 const OverView = styled.p`
   margin-left: 10vw;
@@ -98,6 +101,7 @@ const CustomGallery = styled.div`
   .image-gallery-right-nav,
   .image-gallery-play-button {
     cursor: pointer;
+    color: limegreen;
   }
   .image-gallery-left-nav,
   .image-gallery-right-nav {
@@ -110,6 +114,7 @@ const CustomGallery = styled.div`
     height: 13.5%;
     opacity: 0;
     z-index: 1;
+    color: limegreen;
     @media screen and (min-width: 768px) and (max-width: 979px) {
       width: 15%;
       height: 13.5%;

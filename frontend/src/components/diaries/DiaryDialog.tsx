@@ -1,5 +1,5 @@
 import { FC, Fragment } from "react";
-import { Chip, Dialog, withStyles } from "@material-ui/core";
+import { Chip, Dialog } from "@mui/material";
 import YouTube from "react-youtube";
 import styled from "styled-components";
 
@@ -32,16 +32,6 @@ const TagWrapper = styled.span`
   margin: 0 auto;
 `;
 
-// Material Ui のMenuデザイン変更
-const Tag = withStyles(() => ({
-  root: {
-    backgroundColor: "limegreen",
-    color: "white",
-    borderRadius: 5,
-    margin: "0.3rem",
-    fontSize: "1.2rem"
-  },
-}))(Chip);
 
 const ItemsWrapper = styled.div`
   min-height: 15rem;
@@ -49,14 +39,14 @@ const ItemsWrapper = styled.div`
   width: 80%;
   border: 0.0125rem solid limegreen;
   border-radius: 0.5rem;
-`;
+  `;
 
 const Content = styled.div`
   white-space: pre-line;
   word-wrap: break-word;
   padding: 4% 4% 0 4%;
   font-size: 1.2rem;
-`;
+  `;
 
 const Picture = styled.img`
   display: flex;
@@ -64,7 +54,16 @@ const Picture = styled.img`
   max-height: 95%;
   max-width: 95%;
   object-fit: scale-down;
-`;
+  `;
+// Material Ui のChipデザイン変更
+const style =
+{
+  backgroundColor: "limegreen",
+  color: "white",
+  borderRadius: 5,
+  margin: "0.3rem",
+  fontSize: "1.2rem"
+}
 // 型
 
 const opts = {
@@ -139,11 +138,12 @@ export const DiaryDialog: FC<IProps> = ({
             {diary.tag_list.map(
               (tag: string | undefined, index: number): JSX.Element => {
                 return (
-                  <Tag
+                  <Chip
                     label={tag}
                     color="primary"
                     key={`diary-tag-${index}`}
                     data-testid={`diaryTag-${index}`}
+                    sx={style}
                   />
                 );
               }
