@@ -60,7 +60,7 @@ DeviseTokenAuth.setup do |config|
 
   # 追加
 
-  base_url =
+  host_server =
     if Rails.env.production?
       Rails.application.credentials.dig(:host_server, :name)
     elsif Rails.env.test?
@@ -70,9 +70,9 @@ DeviseTokenAuth.setup do |config|
     end
 
    # ユーザー登録メール送信後のリダイレクト先
-  config.default_confirm_success_url = "#{base_url}/login"
+  config.default_confirm_success_url = "#{host_server}/login"
   # パスワードリセットメール送信後のリダイレクト先
-  config.default_password_reset_url = "#{base_url}/newPassword"
+  config.default_password_reset_url = "#{host_server}/password"
 
   config.check_current_password_before_update = :password
 end
