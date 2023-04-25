@@ -16,7 +16,7 @@ const DiariesWrapper = styled.span`
 `;
 
 const Diaries = styled.ul`
-  margin:  0 auto;
+  margin: 0 auto;
   padding-inline-start: 0;
   width: 100%;
   @media screen and (min-width: 481px) {
@@ -43,7 +43,7 @@ const DiaryWrapper = styled.span`
     height: 10rem;
     width: 100%;
   }
-`
+`;
 const Diary = styled(motion.li).attrs<typeof buttonVariants>(() => ({
   variants: buttonVariants,
   whileHover: "hover",

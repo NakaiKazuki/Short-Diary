@@ -32,21 +32,20 @@ const TagWrapper = styled.span`
   margin: 0 auto;
 `;
 
-
 const ItemsWrapper = styled.div`
   min-height: 15rem;
   margin: 0.5rem auto 2.5rem auto;
   width: 80%;
   border: 0.0125rem solid limegreen;
   border-radius: 0.5rem;
-  `;
+`;
 
 const Content = styled.div`
   white-space: pre-line;
   word-wrap: break-word;
   padding: 4% 4% 0 4%;
   font-size: 1.2rem;
-  `;
+`;
 
 const Picture = styled.img`
   display: flex;
@@ -54,16 +53,15 @@ const Picture = styled.img`
   max-height: 95%;
   max-width: 95%;
   object-fit: scale-down;
-  `;
+`;
 // Material Ui のChipデザイン変更
-const style =
-{
+const style = {
   backgroundColor: "limegreen",
   color: "white",
   borderRadius: 5,
   margin: "0.3rem",
-  fontSize: "1.2rem"
-}
+  fontSize: "1.2rem",
+};
 // 型
 
 const opts = {

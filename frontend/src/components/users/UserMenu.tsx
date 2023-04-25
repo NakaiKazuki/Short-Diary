@@ -42,8 +42,8 @@ const MenuItemLink = styled(Link)`
 const styledMenu = {
   paper: {
     border: ".025rem solid white",
-  }
-}
+  },
+};
 
 // Material Ui のMenuItemデザイン変更
 const styledMenuItem = {
@@ -68,7 +68,7 @@ const styledMenuItem = {
       color: "white",
     },
   },
-}
+};
 
 const styledMenuItemLogout = {
   backgroundColor: "white",
@@ -92,7 +92,7 @@ const styledMenuItemLogout = {
       color: "white",
     },
   },
-}
+};
 
 export const UserMenu: FC<IProps> = ({
   anchorEl,
@@ -136,7 +136,11 @@ export const UserMenu: FC<IProps> = ({
             ProfileEdit
           </MenuItemLink>
         </MenuItem>
-        <MenuItem onClick={onSignOut} sx={styledMenuItemLogout} data-testid="logoutButton">
+        <MenuItem
+          onClick={onSignOut}
+          sx={styledMenuItemLogout}
+          data-testid="logoutButton"
+        >
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>
