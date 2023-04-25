@@ -1,6 +1,6 @@
 import { FC, useState, Fragment, MouseEvent } from "react";
 import { Link } from "react-router-dom";
-import { AppBar, Toolbar } from "@material-ui/core";
+import { AppBar, Toolbar } from "@mui/material";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 

@@ -11,9 +11,14 @@ import {
 } from "../../types/components/diaries";
 
 // css
-const DiariesWrapper = styled.ul`
-  margin-top: 1.5rem;
+const DiariesWrapper = styled.span`
+  height: 100%;
+`;
+
+const Diaries = styled.ul`
+  margin:  0 auto;
   padding-inline-start: 0;
+  width: 100%;
   @media screen and (min-width: 481px) {
     display: flex;
     flex-wrap: wrap;
@@ -29,33 +34,33 @@ const buttonVariants = {
   },
 } as const;
 
-const DiaryWrapper = styled(motion.li).attrs<typeof buttonVariants>(() => ({
+const DiaryWrapper = styled.span`
+  width: 20%;
+  @media screen and (min-width: 768px) and (max-width: 979px) {
+    width: 50%;
+  }
+  @media screen and (max-width: 480px) {
+    height: 10rem;
+    width: 100%;
+  }
+`
+const Diary = styled(motion.li).attrs<typeof buttonVariants>(() => ({
   variants: buttonVariants,
   whileHover: "hover",
   whileTap: "tap",
   initial: "rest",
   animate: "rest",
 }))`
-  margin-top: 0.5rem;
+  margin: 0.5rem auto 0 auto;
   list-style: none;
   height: 22vh;
-  width: 18%;
+  width: 98%;
   border: 0.0125rem solid limegreen;
   border-radius: 0.5rem;
   position: relative;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  @media screen and (min-width: 481px) {
-    margin-left: 1rem;
-  }
-  @media screen and (min-width: 768px) and (max-width: 979px) {
-    width: 44%;
-  }
-  @media screen and (max-width: 480px) {
-    height: 10rem;
-    width: 100%;
-  }
   :hover {
     cursor: pointer;
     z-index: 1;
@@ -99,29 +104,32 @@ export const DiaryIndex: FC<IProps> = ({
   onOpenDiaryDialog,
 }) => {
   return (
-    <DiariesWrapper data-testid="diaryIndex">
-      {diaries.map((diary: IDiary, index: number): JSX.Element => {
-        return (
-          <DiaryWrapper
-            key={`diary-${index}`}
-            onClick={() => onOpenDiaryDialog(diary)}
-            data-testid={`diary-${index}`}
-          >
-            <Paragraph>
-              <Date data-testid={`diaryDate-${index}`}>
-                {formattedDate(diary.date)}
-              </Date>
-              {diary.picture_url && <ImageIconArea fontSize="large" />}
-              {diary.movie_source && <MovieIconArea fontSize="large" />}
-            </Paragraph>
-            <Content data-testid={`diaryContent-${index}`}>
-              {diary.content.length <= 40
-                ? diary.content
-                : `${diary.content.slice(0, 40)}......`}
-            </Content>
-          </DiaryWrapper>
-        );
-      })}
+    <DiariesWrapper>
+      <Diaries data-testid="diaryIndex">
+        {diaries.map((diary: IDiary, index: number): JSX.Element => {
+          return (
+            <DiaryWrapper key={`diary-${index}`}>
+              <Diary
+                onClick={() => onOpenDiaryDialog(diary)}
+                data-testid={`diary-${index}`}
+              >
+                <Paragraph>
+                  <Date data-testid={`diaryDate-${index}`}>
+                    {formattedDate(diary.date)}
+                  </Date>
+                  {diary.picture_url && <ImageIconArea fontSize="large" />}
+                  {diary.movie_source && <MovieIconArea fontSize="large" />}
+                </Paragraph>
+                <Content data-testid={`diaryContent-${index}`}>
+                  {diary.content.length <= 40
+                    ? diary.content
+                    : `${diary.content.slice(0, 40)}......`}
+                </Content>
+              </Diary>
+            </DiaryWrapper>
+          );
+        })}
+      </Diaries>
     </DiariesWrapper>
   );
 };

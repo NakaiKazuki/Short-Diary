@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Controller } from "react-hook-form";
-import { TextField, InputLabel } from "@material-ui/core";
+import { TextField, InputLabel } from "@mui/material";
 import styled from "styled-components";
 
 // types
@@ -19,9 +19,8 @@ const ErrorMessage = styled.p`
 
 export const FormItem: FC<IProps> = ({ formInfo, control }) => {
   return (
-    <FormItemWrapper data-testid={`FormItem-${formInfo.nameAttribute}`}>
-      <InputLabel>
-        {formInfo.formLabel}
+    <InputLabel>
+      <FormItemWrapper data-testid={`FormItem-${formInfo.nameAttribute}`}>
         {formInfo.errorsProperty && (
           <ErrorMessage data-testid={`${formInfo.nameAttribute}ErrorMessage`}>
             {formInfo.errorMessage}
@@ -46,6 +45,7 @@ export const FormItem: FC<IProps> = ({ formInfo, control }) => {
             <TextField
               {...field}
               type={formInfo.typeAttribute}
+              label={formInfo.formLabel}
               autoFocus={formInfo.autoFocus}
               autoComplete={formInfo.autoComplete}
               fullWidth
@@ -55,7 +55,7 @@ export const FormItem: FC<IProps> = ({ formInfo, control }) => {
             />
           )}
         />
-      </InputLabel>
-    </FormItemWrapper>
+      </FormItemWrapper>
+    </InputLabel>
   );
 };

@@ -1,6 +1,5 @@
 import React, { FC, Fragment } from "react";
-import { MenuItem, withStyles, Menu, ListItemIcon } from "@material-ui/core";
-import { MenuProps } from "@material-ui/core/Menu";
+import { MenuItem, Menu, ListItemIcon } from "@mui/material";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -40,78 +39,60 @@ const MenuItemLink = styled(Link)`
 `;
 
 // Material Ui のMenuデザイン変更
-const StyledMenu = withStyles({
+const styledMenu = {
   paper: {
     border: ".025rem solid white",
-  },
-})((props: MenuProps) => (
-  <Menu
-    elevation={4}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "center",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "center",
-    }}
-    {...props}
-  />
-));
+  }
+}
 
 // Material Ui のMenuItemデザイン変更
-const StyledMenuItem = withStyles(() => ({
-  root: {
-    backgroundColor: "white",
+const styledMenuItem = {
+  backgroundColor: "white",
+  color: "limegreen",
+  borderRadius: 2,
+  margin: "0.5rem 0.5rem 0",
+  "& .MuiListItemIcon-root": {
     color: "limegreen",
-    borderRadius: 5,
-    margin: "0 .5rem",
+  },
+  "&:hover": {
+    backgroundColor: "limegreen",
+    color: "white",
     "& .MuiListItemIcon-root": {
-      color: "limegreen",
-    },
-    "&:hover": {
-      backgroundColor: "limegreen",
       color: "white",
-      "& .MuiListItemIcon-root": {
-        color: "white",
-      },
-    },
-    "&:focus": {
-      backgroundColor: "limegreen",
-      color: "white",
-      "& .MuiListItemIcon-root": {
-        color: "white",
-      },
     },
   },
-}))(MenuItem);
+  "&:focus": {
+    backgroundColor: "limegreen",
+    color: "white",
+    "& .MuiListItemIcon-root": {
+      color: "white",
+    },
+  },
+}
 
-const StyledMenuItemLogout = withStyles(() => ({
-  root: {
-    backgroundColor: "white",
+const styledMenuItemLogout = {
+  backgroundColor: "white",
+  color: "red",
+  borderRadius: 2,
+  margin: "0.5rem 0.5rem 0",
+  "& .MuiListItemIcon-root": {
     color: "red",
-    borderRadius: 5,
-    margin: "0.5rem 0.5rem 0",
+  },
+  "&:hover": {
+    backgroundColor: "red",
+    color: "white",
     "& .MuiListItemIcon-root": {
-      color: "red",
-    },
-    "&:hover": {
-      backgroundColor: "red",
       color: "white",
-      "& .MuiListItemIcon-root": {
-        color: "white",
-      },
-    },
-    "&:focus": {
-      backgroundColor: "red",
-      color: "white",
-      "& .MuiListItemIcon-root": {
-        color: "white",
-      },
     },
   },
-}))(MenuItem);
+  "&:focus": {
+    backgroundColor: "red",
+    color: "white",
+    "& .MuiListItemIcon-root": {
+      color: "white",
+    },
+  },
+}
 
 export const UserMenu: FC<IProps> = ({
   anchorEl,
@@ -131,27 +112,37 @@ export const UserMenu: FC<IProps> = ({
         <UserNameWrapper data-testid="userName">{userName}</UserNameWrapper>
       </UserWrapper>
 
-      <StyledMenu
+      <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={onMenuClose}
+        elevation={4}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        sx={styledMenu}
         data-testid="menuBar"
       >
-        <StyledMenuItem data-testid="userEditLink">
+        <MenuItem sx={styledMenuItem} data-testid="userEditLink">
           <MenuItemLink to="/userEdit" onClick={onMenuClose}>
             <ListItemIcon>
               <EditIcon />
             </ListItemIcon>
             ProfileEdit
           </MenuItemLink>
-        </StyledMenuItem>
-        <StyledMenuItemLogout onClick={onSignOut} data-testid="logoutButton">
+        </MenuItem>
+        <MenuItem onClick={onSignOut} sx={styledMenuItemLogout} data-testid="logoutButton">
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>
           Logout
-        </StyledMenuItemLogout>
-      </StyledMenu>
+        </MenuItem>
+      </Menu>
     </Fragment>
   );
 };

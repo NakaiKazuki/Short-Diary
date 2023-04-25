@@ -320,7 +320,7 @@ describe("LoginHome", () => {
     });
   });
 
-  describe("DiaryDialog", () => {
+  describe("DiaryDialog初期値(タグなし, 画像なし, 動画urlなし)", () => {
     beforeEach(async () => {
       await userEvent.click(el("diary-0"));
     });
@@ -571,22 +571,22 @@ describe("LoginHome", () => {
         );
       });
     });
+  });
 
-    it("DiaryDialog初期値(タグあり, 画像あり, 動画urlあり)", async () => {
-      await userEvent.click(el("diary-1"));
-      expect(el("menuOpenIcon")).toBeTruthy();
+  it("DiaryDialog初期値(タグあり, 画像あり, 動画urlあり)", async () => {
+    await userEvent.click(el("diary-1"));
+    expect(el("menuOpenIcon")).toBeTruthy();
 
-      // タグがあれば表示
-      expect(el("diaryTag-0")).toHaveTextContent(result.diaries[1].tag_list[0]);
-      expect(el("diaryTag-1")).toHaveTextContent(result.diaries[1].tag_list[1]);
-      // 日付が表示
-      expect(el("diaryDate")).toHaveTextContent(
-        formattedDate(result.diaries[1].date)
-      );
-      // 日記内容が表示
-      expect(el("diaryContent")).toHaveTextContent(result.diaries[1].content);
-      // 画像があれば表示
-      expect(el("diaryPicture")).toBeTruthy();
-    });
+    // タグがあれば表示
+    expect(el("diaryTag-0")).toHaveTextContent(result.diaries[1].tag_list[0]);
+    expect(el("diaryTag-1")).toHaveTextContent(result.diaries[1].tag_list[1]);
+    // 日付が表示
+    expect(el("diaryDate")).toHaveTextContent(
+      formattedDate(result.diaries[1].date)
+    );
+    // 日記内容が表示
+    expect(el("diaryContent")).toHaveTextContent(result.diaries[1].content);
+    // 画像があれば表示
+    expect(el("diaryPicture")).toBeTruthy();
   });
 });

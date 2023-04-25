@@ -35,7 +35,7 @@ import {
   DiaryDialog,
   DiarySearchDrawer,
 } from "../components/diaries";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { CircularProgress } from '@mui/material';
 
 // constants
 import { HTTP_STATUS_CODE, REQUEST_STATE } from "../constants";
@@ -267,8 +267,6 @@ export const LoginHome: FC = () => {
   };
   // 日付を指定して検索する場合に使用
   const convertDate = (selectedDate: Date): Date | undefined => {
-    if (!selectedDate) return undefined;
-
     const dateTime = new Date(new Date(selectedDate).toLocaleString("ja"));
     return new Date(
       dateTime.getFullYear(),
@@ -292,7 +290,6 @@ export const LoginHome: FC = () => {
           isOpenDrawer: false,
           fetchState: REQUEST_STATE.OK,
         });
-        reset({ searchWord: "" });
       })
       .catch((e): void => {
         removeSession(e);
@@ -607,23 +604,21 @@ export const LoginHome: FC = () => {
           )}
         </Fragment>
       )}
-      {state.isOpenDiaryCreateDialog && (
-        <DiaryCreateDialog
-          resultErrors={state.resultErrors}
-          contentCount={watch("content", "").length || 0}
-          control={control}
-          dateToday={dateToday()}
-          errors={errors}
-          isOpen={state.isOpenDiaryCreateDialog}
-          isDisabled={isDisabled(reducerState.postState)}
-          onClose={onCloseDiaryCreateDialog}
-          onFileChange={onFileChange}
-          onSubmit={handleSubmit(onCreateSubmit)}
-          onSubmitText={onSubmitText(reducerState.postState, "日記作成")}
-          register={register}
-          setFileName={setFileName()}
-        />
-      )}
+      <DiaryCreateDialog
+        resultErrors={state.resultErrors}
+        contentCount={watch("content", "").length || 0}
+        control={control}
+        dateToday={dateToday()}
+        errors={errors}
+        isOpen={state.isOpenDiaryCreateDialog}
+        isDisabled={isDisabled(reducerState.postState)}
+        onClose={onCloseDiaryCreateDialog}
+        onFileChange={onFileChange}
+        onSubmit={handleSubmit(onCreateSubmit)}
+        onSubmitText={onSubmitText(reducerState.postState, "日記作成")}
+        register={register}
+        setFileName={setFileName()}
+      />
       {state.isOpenDiaryDialog && state.selectedDiary && (
         <DiaryDialog
           anchorEl={state.anchorEl}
