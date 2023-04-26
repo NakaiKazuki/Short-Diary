@@ -12,10 +12,8 @@ interface IPagy {
   pages: number;
 }
 
-interface IItemsProps {
+interface IItemProps {
   original: string;
-  originalHeight: number;
-  originalWidth: number;
 }
 
 // エラーメッセージ
@@ -143,7 +141,7 @@ export interface IFile extends File {
 }
 
 export interface IPhotoGalleryInitialState {
-  items: Array<IItemsProps> | [];
+  items: Array<IItemProps> | [];
   fetchState: "INITIAL" | "LOADING" | "OK";
 }
 
