@@ -26,7 +26,7 @@ services:
       - api
     environment:
       - FAST_REFRESH=false
-      - NODE_OPTIONS=--max_old_space_size=718
+      - NODE_OPTIONS=--max_old_space_size=1024
 
   nginx:
     build:
