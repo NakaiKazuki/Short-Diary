@@ -1,10 +1,9 @@
 import { FC, Fragment } from "react";
-import ImageGallery from "react-image-gallery";
 import styled from "styled-components";
 
 // components
 import { AnimatedSection } from "./AnimatedSection";
-
+import { CustomGallery } from "./CustomGallery";
 // images
 import BackImage from "../images/sample.jpg";
 import diaryPicture from "../images/sample/diary.png";
@@ -59,128 +58,20 @@ const Img = styled.img`
   height: auto;
 `;
 
-const CustomGallery = styled.div`
-  overflow: hidden;
-  margin-bottom: 10vh;
-  @media screen and (max-width: 480px) {
-    margin-top: 0;
-  }
-  .image-gallery {
-    position: relative;
-  }
-  .image-gallery-slides {
-    height: 60vh;
-    white-space: nowrap;
-  }
-  .image-gallery-slide,
-  .image-gallery-image {
-    width: 100%;
-    object-fit: contain;
-    align-items: center;
-    @media screen and (max-width: 480px) {
-      height: 50vh;
-    }
-  }
-  .image-gallery-slide {
-    position: absolute;
-    text-align: center;
-    .right {
-      visibility: hidden;
-    }
-  }
-  .image-gallery-slide-wrapper:hover .image-gallery-right-nav {
-    opacity: 1;
-  }
-  .image-gallery-slide-wrapper:hover .image-gallery-left-nav {
-    opacity: 1;
-  }
-  .image-gallery-slide-wrapper:hover .image-gallery-play-button {
-    opacity: 1;
-  }
-  .image-gallery-left-nav,
-  .image-gallery-right-nav,
-  .image-gallery-play-button {
-    cursor: pointer;
-    color: limegreen;
-  }
-  .image-gallery-left-nav,
-  .image-gallery-right-nav {
-    position: absolute;
-    background-color: transparent;
-    border: none;
-    top: 42%;
-    border: none;
-    width: 6%;
-    height: 13.5%;
-    opacity: 0;
-    z-index: 1;
-    color: limegreen;
-    @media screen and (min-width: 768px) and (max-width: 979px) {
-      width: 15%;
-      height: 13.5%;
-      top: 37%;
-    }
-    @media screen and (max-width: 480px) {
-      width: 20%;
-      height: 13.5%;
-      top: 19%;
-    }
-  }
-  .image-gallery-right-nav {
-    right: 10%;
-    @media screen and (max-width: 979px) {
-      right: 0;
-    }
-  }
-  .image-gallery-left-nav {
-    left: 10%;
-    @media screen and (max-width: 979px) {
-      left: 0;
-    }
-  }
-  .image-gallery-play-button {
-    z-index: 1;
-    position: absolute;
-    background-color: transparent;
-    border: none;
-    top: -2%;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: auto;
-    width: 7%;
-    height: 13.5%;
-    opacity: 0;
-    :hover {
-      opacity: 1;
-    }
-    @media screen and (min-width: 768px) and (max-width: 979px) {
-      width: 15%;
-      height: 13.5%;
-      top: 0;
-    }
-    @media screen and (max-width: 480px) {
-      width: 20%;
-      height: 13.5%;
-      top: -37%;
-    }
-  }
-`;
-
 const items = [
-  { original: diaryPicture, originalHeight: 768, originalWidth: 768 },
-  { original: diaryCreatePicture, originalHeight: 768, originalWidth: 768 },
-  { original: Gallery1Picture, originalHeight: 768, originalWidth: 768 },
+  { original: diaryPicture },
+  { original: diaryCreatePicture },
+  { original: Gallery1Picture },
 ];
 export const Sample: FC = () => {
   return (
     <SampleWrapper data-testid="sample">
       <Title>Sample</Title>
       <Contents>
-        <ContentTitle>Diary</ContentTitle>
+        <ContentTitle data-testid="titleDiary">Diary</ContentTitle>
         <AnimatedSection>
           <Fragment>
-            <OverView>
+            <OverView data-testid="overViewDiary">
               日記を作成する際、日付・内容以外にもタグの作成や画像の添付を行うことができます。
               <br />
               またYoutubeの動画リンクを記載することで日記の詳細画面で動画の再生が可能です。
@@ -192,22 +83,17 @@ export const Sample: FC = () => {
           </Fragment>
         </AnimatedSection>
         <AnimatedSection>
-          <ContentTitle>PhotGallery</ContentTitle>
+          <ContentTitle data-testid="titlePhotoGallery">
+            PhotGallery
+          </ContentTitle>
         </AnimatedSection>
         <AnimatedSection>
-          <OverView>
+          <OverView data-testid="overViewPhotoGallery">
             日記に添付された画像をスライドショーとして閲覧することができます。
           </OverView>
         </AnimatedSection>
         <AnimatedSection>
-          <CustomGallery data-testid="imageGallery">
-            <ImageGallery
-              items={items}
-              showNav={true}
-              disableKeyDown={false}
-              showFullscreenButton={false}
-            />
-          </CustomGallery>
+          <CustomGallery items={items} />
         </AnimatedSection>
       </Contents>
     </SampleWrapper>

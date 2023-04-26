@@ -204,7 +204,7 @@ export const LoginHome: FC = () => {
   const removeSession = (e: { response: { status: 401 | 403 } }): void => {
     if (
       e.response?.status === HTTP_STATUS_CODE.UNAUTHORIZED ||
-      HTTP_STATUS_CODE.FORBIDDEN
+      e.response?.status === HTTP_STATUS_CODE.FORBIDDEN
     ) {
       setCurrentUser(undefined);
       removeUserCookies();

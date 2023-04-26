@@ -12,6 +12,9 @@ interface IPagy {
   pages: number;
 }
 
+interface IItemProps {
+  original: string;
+}
 export interface IConfirmDialogProps {
   isOpen: boolean;
   title: string;
@@ -28,4 +31,7 @@ export interface IPaginationAreaProps {
 
 export interface IAnimatedSection {
   children: JSX.Element;
+}
+export interface ICustomGalleryProps {
+  items: Array<IItemProps> | [];
 }

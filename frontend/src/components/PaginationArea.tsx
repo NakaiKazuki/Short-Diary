@@ -21,6 +21,9 @@ const styles = (theme: MuiTheme) => ({
   "& .MuiPagination-ul": {
     margin: "0 auto",
   },
+  "& .MuiPaginationItem-icon": {
+    color: "limegreen",
+  },
   "&& .Mui-selected": {
     backgroundColor: "limegreen",
     color: "white",
