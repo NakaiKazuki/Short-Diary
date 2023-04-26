@@ -32,7 +32,6 @@ services:
     build:
       context: ./frontend
     environment:
-      - CHOKIDAR_USEPOLLING=true
       - IS_REACT_ACT_ENVIRONMENT=true
       - FAST_REFRESH=false
     volumes:
