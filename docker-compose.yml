@@ -25,6 +25,7 @@ services:
     ports:
       - 3001:3001
     tty: true
+    # command: zsh -c "bundle exec rails s -e production"
     command: zsh -c "bundle exec pumactl start"
     depends_on:
       - db
