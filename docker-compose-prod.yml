@@ -16,19 +16,19 @@ services:
   front:
     build:
       context: ./frontend
-      dockerfile: Dockerfile-prod
-    tty: true
-    volumes:
-      - build-prod-data:/frontend/build
-      - node_modules-prod-data:/frontend/node_modules
-    command: zsh -c "yarn install && yarn build && npx serve -s build -n"
-    depends_on:
-      - api
+    dockerfile: Dockerfile-prod
     environment:
       - CHOKIDAR_USEPOLLING=true
       - IS_REACT_ACT_ENVIRONMENT=true
       - FAST_REFRESH=false
       - NODE_OPTIONS=--max_old_space_size=1024
+      - node_modules-prod-data:/frontend/node_modules
+    volumes:
+      - build-prod-data:/frontend/build
+    command: zsh -c "yarn install && yarn build && npx serve -s build -n"
+    tty: true
+    depends_on:
+      - api
 
   nginx:
     build:

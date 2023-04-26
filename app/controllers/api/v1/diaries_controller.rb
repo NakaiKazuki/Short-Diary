@@ -47,7 +47,7 @@ class Api::V1::DiariesController < ApplicationController
 
   def photo_gallery
     items = current_user.diaries.with_attached_picture.filter_map do |diary|
-      { original: url_for(diary.picture), originalHeight: 768, originalWidth: 768 } if diary.picture.attached?
+      { original: url_for(diary.picture) } if diary.picture.attached?
     end
     render json: { items: }, status: :ok
   end

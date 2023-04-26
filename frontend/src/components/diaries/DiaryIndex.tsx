@@ -36,11 +36,10 @@ const buttonVariants = {
 
 const DiaryWrapper = styled.span`
   width: 20%;
-  @media screen and (min-width: 768px) and (max-width: 979px) {
-    width: 50%;
+  @media screen and (min-width: 980px) and (max-width: 1300px) {
+    width: 33%;
   }
-  @media screen and (max-width: 480px) {
-    height: 10rem;
+  @media screen and (max-width: 979px) {
     width: 100%;
   }
 `;

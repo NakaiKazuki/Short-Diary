@@ -32,8 +32,6 @@ export interface IContactResult {
 // Diary
 interface IItemsProps {
   original: string;
-  originalHeight: number;
-  originalWidth: number;
 }
 
 export interface IDiaryParams {

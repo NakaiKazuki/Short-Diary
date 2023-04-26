@@ -1,4 +1,4 @@
-import { FC, useLayoutEffect } from "react";
+import { FC, useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import {
   RouterProvider,
@@ -90,7 +90,7 @@ const router = createBrowserRouter(
 export const InnerRoute: FC = () => {
   const setCurrentUser = useSetRecoilState(authAtom);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!isCookies) return;
 
     getCurrentUser()

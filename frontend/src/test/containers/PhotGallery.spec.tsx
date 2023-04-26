@@ -63,7 +63,7 @@ describe("PhotoGalleryコンポーネント", () => {
       mockAxios.onGet(photoGallery).reply(200, result);
       setup();
       await waitFor(() => {
-        expect(el("photGallery")).toBeTruthy();
+        expect(el("customGallery")).toBeTruthy();
       });
     });
   });

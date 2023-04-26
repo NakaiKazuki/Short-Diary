@@ -100,7 +100,7 @@ describe("LogoutHome", () => {
   });
 
   it("PhotGalleryがある", () => {
-    expect(el("imageGallery")).toBeTruthy();
+    expect(el("customGallery")).toBeTruthy();
   });
 
   it("ユーザ登録画面へのリンクがある", () => {
