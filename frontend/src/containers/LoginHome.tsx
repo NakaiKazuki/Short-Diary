@@ -217,7 +217,6 @@ export const LoginHome: FC = () => {
 
   // このコンポーネントが開かれた時にだけ実行される
   useEffect(() => {
-    const abortController = new AbortController();
     setState({
       ...state,
       fetchState: REQUEST_STATE.LOADING,
@@ -234,8 +233,6 @@ export const LoginHome: FC = () => {
       .catch((e): void => {
         removeSession(e);
       });
-
-    return () => abortController.abort();
   }, []);
 
   // ここからPaginationAreaで使う関数
