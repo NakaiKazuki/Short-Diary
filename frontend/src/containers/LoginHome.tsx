@@ -208,7 +208,7 @@ export const LoginHome: FC = () => {
     ) {
       setCurrentUser(undefined);
       removeUserCookies();
-      // navigate("/login", { replace: true });
+      navigate("/login", { replace: true });
     } else {
       console.error(e);
       throw e;

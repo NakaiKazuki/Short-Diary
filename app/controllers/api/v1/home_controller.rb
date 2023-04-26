@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::HomeController < ApplicationController
-  before_action :authenticate_user
+  before_action :authenticate_user!
 
   def home
     @q = current_user.diaries.ransack(search_params)
