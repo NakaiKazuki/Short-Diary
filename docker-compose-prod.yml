@@ -25,6 +25,8 @@ services:
     depends_on:
       - api
     environment:
+      - CHOKIDAR_USEPOLLING=true
+      - IS_REACT_ACT_ENVIRONMENT=true
       - FAST_REFRESH=false
       - NODE_OPTIONS=--max_old_space_size=1024
 
