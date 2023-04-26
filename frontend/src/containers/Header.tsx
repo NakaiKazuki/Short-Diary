@@ -30,9 +30,28 @@ const AppHeader = styled(AppBar)`
 `;
 
 const MenuIconWrapper = styled.span`
+  position: relative;
   margin: auto 0.8rem auto 0;
   cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  &:hover {
+    background-color: #eeeeee;
+    cursor: pointer;
+  }
 `;
+
+const style = {
+  width: "1.7rem",
+  height: "1.7rem",
+  color: "limegreen",
+  margin: "auto 0",
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+}
 
 const MainLogo = styled.img`
   height: 2.5rem;
@@ -57,7 +76,6 @@ const LinkItem = styled(BaseButton)`
   background-color: limegreen;
   color: white;
 `;
-
 export const Header: FC = () => {
   const [currentUser, setCurrentUser] = useRecoilState(authAtom);
   const [open, setOpenDrawer] = useRecoilState(drawerAtom);
@@ -85,7 +103,7 @@ export const Header: FC = () => {
             onClick={(): void => setOpenDrawer(!open)}
             data-testid="menuIcon"
           >
-            <MenuIcon />
+            <MenuIcon sx={style} />
           </MenuIconWrapper>
         )}
         <Link to="/" data-testid="homeLink">
