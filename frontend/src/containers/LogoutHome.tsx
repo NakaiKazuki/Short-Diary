@@ -35,22 +35,21 @@ import { Sample } from "../components/Sample";
 
 // images
 import LeftHome from "../images/lefthome.jpg";
-
 // css
 const LogoutHomeWrapper = styled.div`
   position: relative;
   display: flex;
   flex-wrap: wrap;
   flex: 1;
-  min-height: 100vh;
+  min-height: 94.5vh;
   overflow: auto;
 `;
 
 const LeftWrapper = styled.div`
   @media screen and (min-width: 980px) {
-    flex: 0.45;
-    max-height: 93vh;
+    flex: 0.5;
     top: 0;
+    max-height: 94.5vh;
   }
   @media screen and (max-width: 979px) {
     width: 100vw;
@@ -88,6 +87,7 @@ const Heading = styled.h1`
   padding: 0.5rem;
   background: limegreen;
   color: white;
+  font-size: 3rem;
   &:before {
     position: absolute;
     content: "";
@@ -97,6 +97,9 @@ const Heading = styled.h1`
     border-bottom: solid 1rem transparent;
     border-right: solid 1.3rem rgb(149, 158, 155);
   }
+  @media screen and (min-width: 481px) {
+    font-size: 3rem;
+    }
 `;
 
 const Paragraph = styled.p`
@@ -104,6 +107,7 @@ const Paragraph = styled.p`
   padding: 5%;
   line-height: 1.7;
   border-left: solid 0.3rem limegreen;
+  font-size: 1.3rem;
 `;
 
 const ButtonsWrapper = styled.span`
@@ -112,27 +116,17 @@ const ButtonsWrapper = styled.span`
   justify-content: space-evenly;
 `;
 
-const HomeButton = styled(BaseButton)`
-  height: 2.5rem;
+const CustomButton = styled(BaseButton)`
   border-style: none;
   letter-spacing: 0.2rem;
   color: white;
-  font-size: 0.95rem;
+  background-color: limegreen;
+  font-size: 1.2rem;
+  padding: 0.5rem;
 `;
 
-const SignUpButton = styled(HomeButton)`
-  width: 10rem;
-  background-color: limegreen;
-`;
-
-const GuestLogin = styled(HomeButton)`
-  width: 10rem;
-  background-color: limegreen;
-`;
-
-const ProfButton = styled(HomeButton)`
-  width: 20rem;
-  background-color: limegreen;
+const ProfButton = styled(CustomButton)`
+  margin-bottom:2rem;
 `;
 
 const RightWrapper = styled.div`
@@ -140,7 +134,7 @@ const RightWrapper = styled.div`
   @media screen and (min-width: 980px) {
     position: sticky;
     position: -webkit-sticky; /*Safari用*/
-    flex: 0.45;
+    flex: 0.5;
     top: 0;
     margin: 0 auto 7vh auto;
   }
@@ -236,16 +230,16 @@ export const LogoutHome: FC = () => {
             </MotionWrapper>
             <ButtonsWrapper>
               <Link to="/signup" data-testid="signUpLink">
-                <SignUpButton type="button">ユーザー登録</SignUpButton>
+                <CustomButton type="button">ユーザー登録</CustomButton>
               </Link>
-              <GuestLogin
+              <CustomButton
                 type="button"
                 onClick={onGuestLoginButton}
                 disabled={isDisabled(submitState.postState)}
                 data-testid="guestLoginButton"
               >
                 {onSubmitText(submitState.postState, "ゲストログイン")}
-              </GuestLogin>
+              </CustomButton>
             </ButtonsWrapper>
             <ButtonsWrapper>
               <ProfButton

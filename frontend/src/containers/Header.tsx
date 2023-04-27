@@ -76,6 +76,7 @@ const LinkItem = styled(BaseButton)`
   background-color: limegreen;
   color: white;
 `;
+
 export const Header: FC = () => {
   const [currentUser, setCurrentUser] = useRecoilState(authAtom);
   const [open, setOpenDrawer] = useRecoilState(drawerAtom);

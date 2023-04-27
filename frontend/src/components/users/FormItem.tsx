@@ -9,17 +9,18 @@ import { IFormItemProps as IProps } from "../../types/components/users";
 // css
 const FormItemWrapper = styled.div`
   margin-top: 1rem;
-`;
+  `;
 
 const ErrorMessage = styled.p`
-  margin: 0.6rem auto auto auto;
+  margin: 1rem auto;
   color: red;
   font-size: 0.9rem;
+  overflow-wrap: break-word;
 `;
-
+const style = { whiteSpace: "unset" }
 export const FormItem: FC<IProps> = ({ formInfo, control }) => {
   return (
-    <InputLabel>
+    <InputLabel sx={style}>
       <FormItemWrapper data-testid={`FormItem-${formInfo.nameAttribute}`}>
         {formInfo.errorsProperty && (
           <ErrorMessage data-testid={`${formInfo.nameAttribute}ErrorMessage`}>

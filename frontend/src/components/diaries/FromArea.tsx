@@ -21,7 +21,6 @@ const FormItemWrapper = styled.div`
 `;
 
 const ErrorMessage = styled.p`
-  text-align: center;
   margin: 0.4rem auto;
   color: red;
   font-size: 0.9rem;

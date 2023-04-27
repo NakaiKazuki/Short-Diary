@@ -20,12 +20,7 @@ const MainLogo = styled.img`
   margin: 0 1rem;
 `;
 
-const CustomSwipeableDrawer = styled(SwipeableDrawer)`
-  .MuiDrawer-paper {
-    overflow-x: hidden;
-    width: 15rem;
-  }
-`;
+
 const DrawerContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -34,12 +29,12 @@ const DrawerContainer = styled.div`
   background-color: white;
   justify-content: center;
   align-items: center;
-`;
+  `;
 
 const ImageIconArea = styled(PictureIcon)`
   color: limegreen;
   margin-right: 0.7rem;
-`;
+  `;
 
 const ItemWrapper = styled(BaseButton)`
   margin: 0.1rem 0;
@@ -58,14 +53,21 @@ const ItemWrapper = styled(BaseButton)`
       color: white;
     }
   }
-`;
+  `;
 
 const CustomLink = styled(Link)`
   text-decoration: none;
   :visited {
     color: inherit;
   }
-`;
+  `;
+
+const style = {
+  "&.MuiDrawer-paper": {
+    overflowX: "hidden",
+    width: "15rem",
+  }
+}
 
 export const Drawer: FC = () => {
   const currentUser = useRecoilValue(authAtom);
@@ -77,12 +79,13 @@ export const Drawer: FC = () => {
 
   return (
     <Fragment key={"left"}>
-      <CustomSwipeableDrawer
+      <SwipeableDrawer
         anchor={"left"}
         open={open}
         onClose={(): void => setOpenDrawer(false)}
         onOpen={(): void => setOpenDrawer(true)}
         data-testid="drawer"
+        sx={style}
       >
         <Box role="presentation" data-testid="linksDrawer">
           <DrawerContainer>
@@ -107,7 +110,7 @@ export const Drawer: FC = () => {
             </List>
           </DrawerContainer>
         </Box>
-      </CustomSwipeableDrawer>
+      </SwipeableDrawer>
     </Fragment>
   );
 };

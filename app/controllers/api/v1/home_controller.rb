@@ -5,7 +5,7 @@ class Api::V1::HomeController < ApplicationController
 
   def home
     @q = current_user.diaries.ransack(search_params)
-    @pagy, diaries = pagy(@q.result(distinct: true))
+    @pagy, diaries = pagy(@q.result(distinct: true), items: 12)
     render json: {
       diaries:,
       pagy: pagy_metadata(@pagy)
