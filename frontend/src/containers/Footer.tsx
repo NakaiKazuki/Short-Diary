@@ -8,7 +8,7 @@ import { contactAtom } from "../recoils/Contact";
 import { BaseButton } from "../components/shared_style";
 
 const AppFooter = styled.footer`
-  height: 5.5vh;
+  min-height: 5.5vh;
   padding: 1.5vh 1vw 0 0;
   background-color: white;
   position: fixed;

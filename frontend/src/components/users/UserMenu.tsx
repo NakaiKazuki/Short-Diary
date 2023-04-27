@@ -28,7 +28,7 @@ const UserWrapper = styled.span`
 
 const UserNameWrapper = styled.span`
   margin-left: 0.3rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
 `;
 
 const MenuItemLink = styled(Link)`

@@ -43,7 +43,7 @@ const ItemsWrapper = styled.div`
 const Content = styled.div`
   white-space: pre-line;
   word-wrap: break-word;
-  padding: 4% 4% 0 4%;
+  padding: 4%;
   font-size: 1.2rem;
 `;
 

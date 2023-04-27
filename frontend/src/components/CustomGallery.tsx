@@ -12,6 +12,9 @@ const ImageGalleryWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    @media screen and (max-width: 480px) {
+      height: 50vh;
+    }
   }
   .image-gallery-slide-wrapper:hover .image-gallery-right-nav {
     opacity: 1;

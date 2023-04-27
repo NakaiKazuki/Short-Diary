@@ -35,7 +35,7 @@ const buttonVariants = {
 } as const;
 
 const DiaryWrapper = styled.span`
-  width: 20%;
+  width: 25%;
   @media screen and (min-width: 980px) and (max-width: 1300px) {
     width: 33%;
   }
@@ -43,6 +43,7 @@ const DiaryWrapper = styled.span`
     width: 100%;
   }
 `;
+
 const Diary = styled(motion.li).attrs<typeof buttonVariants>(() => ({
   variants: buttonVariants,
   whileHover: "hover",
@@ -60,11 +61,19 @@ const Diary = styled(motion.li).attrs<typeof buttonVariants>(() => ({
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  height: 20rem;
+  background-color: white;
   :hover {
     cursor: pointer;
     z-index: 1;
     background-color: #eeeeee;
     border: 0.12rem solid limegreen;
+  }
+  @media screen and (min-width: 980px) and (max-width: 1300px) {
+    height: 20rem;
+  }
+  @media screen and (max-width: 979px) {
+    height: 10rem;
   }
 `;
 
