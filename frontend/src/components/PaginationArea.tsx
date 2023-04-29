@@ -12,7 +12,6 @@ const styles = (theme: MuiTheme) => ({
   "& .MuiPaginationItem-page": {
     fontSize: "2rem",
     color: "limegreen",
-    backgroundColor: "white",
     "&:hover": {
       backgroundColor: "limegreen",
       color: "white",
@@ -34,13 +33,13 @@ const styles = (theme: MuiTheme) => ({
   },
 });
 
-const PaginationWrapper = styled.div`
+const Container = styled.div`
   margin: 2rem 0 1.4rem;
 `;
 
 export const PaginationArea: FC<IProps> = ({ pagy, onPageChange }) => {
   return (
-    <PaginationWrapper>
+    <Container>
       <Pagination
         count={pagy.pages}
         page={pagy.page}
@@ -50,6 +49,6 @@ export const PaginationArea: FC<IProps> = ({ pagy, onPageChange }) => {
         data-testid={"paginationBar"}
         sx={styles}
       />
-    </PaginationWrapper>
+    </Container>
   );
 };

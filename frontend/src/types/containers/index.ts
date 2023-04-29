@@ -95,7 +95,8 @@ export interface IUsersFormValues {
 
 export interface ILogoutHomeInitialState {
   isDesktop: boolean;
-  open: boolean;
+  isAboutOpen: boolean;
+  isSignUpOpen: boolean;
 }
 export interface ILoginHomeInitialState {
   anchorEl: HTMLElement | null;
@@ -180,4 +181,9 @@ export interface IUserEditForm {
   password: IUserEditObject;
   password_confirmation: IUserEditObject;
   current_password: IUserEditObject;
+}
+export interface HomeTopItemProps {
+  url: string;
+  scale: number | [number, number] | undefined;
+  position: [x: number, y: number, z: number];
 }

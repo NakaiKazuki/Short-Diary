@@ -1,11 +1,15 @@
 import { render, cleanup } from "@testing-library/react";
-
 import userEvent from "@testing-library/user-event";
-import { createObserver, el } from "./helpers";
+import {
+  createResizeObserver,
+  createIntersectionObserver,
+  el,
+} from "./helpers";
 import { HelmetProvider } from "react-helmet-async";
 import App from "../App";
 
-createObserver();
+createIntersectionObserver();
+createResizeObserver();
 afterEach(cleanup);
 
 const customRender = (ui: JSX.Element) => {
@@ -15,17 +19,32 @@ const customRender = (ui: JSX.Element) => {
 describe("App", () => {
   const setup = () => customRender(<App />);
   beforeEach(() => setup());
-  it("Headerコンポーネント", () => {
-    expect(el("header")).toBeTruthy();
+
+  describe("Before", () => {
+    it("Loadコンポーネント", () => {
+      expect(el("load")).toBeTruthy();
+    });
   });
 
-  it("footerコンポーネント", () => {
-    expect(el("footer")).toBeTruthy();
-  });
+  describe("After", () => {
+    it("Headerコンポーネント", () => {
+      setTimeout(() => {
+        expect(el("header")).toBeTruthy();
+      }, 3000);
+    });
 
-  // 以下クリックで開く系
-  it("Contactコンポーネント", async () => {
-    await userEvent.click(el("contactButton"));
-    expect(el("contact")).toBeTruthy();
+    it("footerコンポーネント", () => {
+      setTimeout(() => {
+        expect(el("footer")).toBeTruthy();
+      }, 3000);
+    });
+
+    // 以下クリックで開く系
+    it("Contactコンポーネント", () => {
+      setTimeout(async () => {
+        await userEvent.click(el("contactButton"));
+        expect(el("contact")).toBeTruthy();
+      }, 3000);
+    });
   });
 });

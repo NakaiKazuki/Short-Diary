@@ -67,10 +67,10 @@ import {
 } from "../types/containers";
 
 // css
-const LoginHomeWrapper = styled.div`
+const Container = styled.div`
   position: relative;
+  min-height: 93.5vh;
   width: 90vw;
-  min-height: 83vh;
   margin: 6.6vh auto 9vh auto;
   padding-top: 2rem;
 `;
@@ -81,7 +81,7 @@ const Heading = styled.h1`
   font-size: 2.5rem;
 `;
 
-const ButtonsWrapper = styled.div`
+const ButtonsContainer = styled.div`
   width: 100%;
   height: auto;
   @media screen and (max-width: 480px) {
@@ -130,7 +130,7 @@ const IconWrapper = styled.span`
   margin-right: 1rem;
 `;
 
-const CircularProgressWrapper = styled.span`
+const CircularProgressContainer = styled.span`
   position: absolute;
   top: 50vh;
   left: 50%;
@@ -139,7 +139,7 @@ const CircularProgressWrapper = styled.span`
   -ms-transform: translate(-50%, -50%);
 `;
 
-const EmptyMessageWrapper = styled.div`
+const EmptyMessageContainer = styled.div`
   text-align: center;
   margin: 2rem auto 0 auto;
   height: 17vh;
@@ -150,7 +150,7 @@ const EmptyMessageWrapper = styled.div`
   @media screen and (min-width: 768px) and (max-width: 979px) {
     width: 44%;
   }
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 767px) {
     margin-top: 4rem;
     height: 10rem;
     width: 100%;
@@ -547,9 +547,9 @@ export const LoginHome: FC = () => {
 
   // ここまでDiaryMenuで使う関数
   return (
-    <LoginHomeWrapper ref={ref}>
+    <Container ref={ref}>
       <Heading data-testid="pageTitle">Diaries</Heading>
-      <ButtonsWrapper>
+      <ButtonsContainer>
         <DiaryCreateOpenButton
           onClick={onOpenDiaryCreateDialog}
           data-testid="diaryCreateOpenButton"
@@ -568,7 +568,7 @@ export const LoginHome: FC = () => {
           </IconWrapper>
           Search
         </DrawerOpenButton>
-      </ButtonsWrapper>
+      </ButtonsContainer>
       <DiarySearchDrawer
         control={control}
         selectedDate={state.selectedDate}
@@ -579,9 +579,9 @@ export const LoginHome: FC = () => {
         onDateChange={(date: Date | null): Promise<void> => onDateChange(date)}
       />
       {state.fetchState === REQUEST_STATE.LOADING ? (
-        <CircularProgressWrapper>
+        <CircularProgressContainer>
           <CircularProgress />
-        </CircularProgressWrapper>
+        </CircularProgressContainer>
       ) : (
         <Fragment>
           {state.diaries?.length && state.pagy != null ? (
@@ -595,9 +595,9 @@ export const LoginHome: FC = () => {
               <PaginationArea onPageChange={onPageChange} pagy={state.pagy} />
             </Fragment>
           ) : (
-            <EmptyMessageWrapper>
+            <EmptyMessageContainer>
               <EmptyMessage>日記がありません</EmptyMessage>
-            </EmptyMessageWrapper>
+            </EmptyMessageContainer>
           )}
         </Fragment>
       )}
@@ -656,6 +656,6 @@ export const LoginHome: FC = () => {
           onClose={onCloseCofirmationDialog}
         />
       )}
-    </LoginHomeWrapper>
+    </Container>
   );
 };

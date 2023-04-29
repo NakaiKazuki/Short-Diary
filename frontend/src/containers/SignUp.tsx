@@ -39,9 +39,9 @@ import {
 
 import { TLinks, IForm } from "../types/containers";
 
-const SignUpWrapper = styled.div`
+const Container = styled.div`
   width: 100%;
-  min-height: 50vh;
+  min-height: 93.5vh;
   padding-top: 17vh;
 `;
 
@@ -158,7 +158,7 @@ export const SignUp: FC = () => {
   };
 
   return (
-    <SignUpWrapper>
+    <Container>
       <FormTitle>Sign Up</FormTitle>
       <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="signUpForm">
         <FormItem formInfo={formInfo.name} control={control} />
@@ -175,6 +175,6 @@ export const SignUp: FC = () => {
         />
       </FormWrapper>
       <FormLinks linkInfo={linkInfo} />
-    </SignUpWrapper>
+    </Container>
   );
 };

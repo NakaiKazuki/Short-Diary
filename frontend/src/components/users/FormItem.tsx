@@ -7,9 +7,9 @@ import styled from "styled-components";
 import { IFormItemProps as IProps } from "../../types/components/users";
 
 // css
-const FormItemWrapper = styled.div`
+const Item = styled.div`
   margin-top: 1rem;
-  `;
+`;
 
 const ErrorMessage = styled.p`
   margin: 1rem auto;
@@ -17,11 +17,12 @@ const ErrorMessage = styled.p`
   font-size: 0.9rem;
   overflow-wrap: break-word;
 `;
-const style = { whiteSpace: "unset" }
+
+const style = { whiteSpace: "unset" };
 export const FormItem: FC<IProps> = ({ formInfo, control }) => {
   return (
     <InputLabel sx={style}>
-      <FormItemWrapper data-testid={`FormItem-${formInfo.nameAttribute}`}>
+      <Item data-testid={`FormItem-${formInfo.nameAttribute}`}>
         {formInfo.errorsProperty && (
           <ErrorMessage data-testid={`${formInfo.nameAttribute}ErrorMessage`}>
             {formInfo.errorMessage}
@@ -56,7 +57,7 @@ export const FormItem: FC<IProps> = ({ formInfo, control }) => {
             />
           )}
         />
-      </FormItemWrapper>
+      </Item>
     </InputLabel>
   );
 };

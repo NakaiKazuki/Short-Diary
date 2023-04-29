@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Head } from "../../Head";
 
 // css
-const ToolWrapper = styled.div`
+const Container = styled.div`
   margin-top: 3vh;
   @media screen and (min-width: 481px) {
     margin-left: 10vw;
@@ -91,12 +91,12 @@ export const Tools: FC = () => {
   return (
     <Fragment>
       <Head title="Tools" />
-      <ToolWrapper data-testid="tools">
+      <Container data-testid="tools">
         <ReactBlock />
         <RailsBlock />
         <AwsBlock />
         <OthersBlock />
-      </ToolWrapper>
+      </Container>
     </Fragment>
   );
 };

@@ -61,7 +61,7 @@ export const DiarySearchDrawer: FC<IProps> = ({
         onClose={onOpenButton(false)}
         onOpen={onOpenButton(true)}
       >
-        <Box role="presentation" data-testid="searchDrawer">
+        <Box component="div" role="presentation" data-testid="searchDrawer">
           <List>
             <ListItem data-testid="dateSearchField">
               <LocalizationProvider dateAdapter={AdapterDateFns}>

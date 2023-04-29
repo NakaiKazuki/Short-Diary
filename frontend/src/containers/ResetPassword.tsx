@@ -42,9 +42,9 @@ import {
 } from "../types/containers";
 
 // css
-const ResetPasswordWrapper = styled.div`
+const Container = styled.div`
   width: 100%;
-  min-height: 50vh;
+  min-height: 93.5vh;
   padding-top: 17vh;
 `;
 
@@ -116,7 +116,7 @@ export const ResetPassword: FC = () => {
   };
 
   return (
-    <ResetPasswordWrapper>
+    <Container>
       <FormTitle>PasswordReset</FormTitle>
       <FormWrapper
         onSubmit={handleSubmit(onSubmit)}
@@ -130,6 +130,6 @@ export const ResetPassword: FC = () => {
         />
       </FormWrapper>
       <FormLinks linkInfo={linkInfo} />
-    </ResetPasswordWrapper>
+    </Container>
   );
 };

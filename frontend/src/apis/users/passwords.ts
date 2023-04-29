@@ -1,7 +1,6 @@
 import { password } from "../../urls";
-import axios from "axios";
 // helpers
-import { axiosPost } from "../../helpers";
+import { axiosPost, axiosPut } from "../../helpers";
 
 // types
 import { IUserParams as IParams } from "../../types/apis";
@@ -23,5 +22,5 @@ export const putNewPassword = (
     ...params,
     ...headers,
   };
-  return axios.put(password, data);
+  return axiosPut(password, data);
 };

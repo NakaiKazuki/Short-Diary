@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { useInView } from "framer-motion";
 import styled from "styled-components";
 import { IAnimatedSection as IProps } from "../types/components";
+
 const Span = styled.span<{ isInView: boolean }>`
   transform: ${(props) => (props.isInView ? "none" : "translateX(-200px)")};
   opacity: ${(props) => (props.isInView ? 1 : 0)};

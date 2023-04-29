@@ -29,7 +29,7 @@ const AppHeader = styled(AppBar)`
   height: auto;
 `;
 
-const MenuIconWrapper = styled.span`
+const Icon = styled.span`
   position: relative;
   margin: auto 0.8rem auto 0;
   cursor: pointer;
@@ -51,9 +51,9 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-}
+};
 
-const MainLogo = styled.img`
+const Logo = styled.img`
   height: 2.5rem;
   padding: 1.15vh 0;
 `;
@@ -100,15 +100,15 @@ export const Header: FC = () => {
     <AppHeader position="fixed" color="inherit" data-testid="header">
       <Toolbar>
         {currentUser && (
-          <MenuIconWrapper
+          <Icon
             onClick={(): void => setOpenDrawer(!open)}
             data-testid="menuIcon"
           >
             <MenuIcon sx={style} />
-          </MenuIconWrapper>
+          </Icon>
         )}
         <Link to="/" data-testid="homeLink">
-          <MainLogo src={mainLogo} alt="main logo" />
+          <Logo src={mainLogo} alt="main logo" />
         </Link>
         {currentUser ? (
           <UserMenu

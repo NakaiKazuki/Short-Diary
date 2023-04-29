@@ -7,8 +7,8 @@ import { contactAtom } from "../recoils/Contact";
 // components
 import { BaseButton } from "../components/shared_style";
 
-const AppFooter = styled.footer`
-  min-height: 5.5vh;
+const FooterWrapper = styled.footer`
+  height: 5.5vh;
   padding: 1.5vh 1vw 0 0;
   background-color: white;
   position: fixed;
@@ -45,7 +45,7 @@ export const Footer: FC = () => {
   const setContact = useSetRecoilState(contactAtom);
   const onContactButton = (): void => setContact(true);
   return (
-    <AppFooter data-testid="footer">
+    <FooterWrapper data-testid="footer">
       <ContactButton onClick={onContactButton} data-testid="contactButton">
         Contact
       </ContactButton>
@@ -56,6 +56,6 @@ export const Footer: FC = () => {
       >
         <LinkItem>制作者Twitter</LinkItem>
       </Link>
-    </AppFooter>
+    </FooterWrapper>
   );
 };
