@@ -1,9 +1,9 @@
 import "@testing-library/jest-dom";
 import { render, cleanup } from "@testing-library/react";
 import { Sample } from "../../components/Sample";
-import { el, createObserver } from "../helpers";
+import { el, createIntersectionObserver } from "../helpers";
 
-createObserver();
+createIntersectionObserver();
 afterEach(cleanup);
 
 describe("Sample コンポーネント", () => {

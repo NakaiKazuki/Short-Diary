@@ -6,7 +6,7 @@ import "react-image-gallery/styles/css/image-gallery.css";
 // types
 import { ICustomGalleryProps as IProps } from "../types/components";
 
-const ImageGalleryWrapper = styled.div`
+const Container = styled.div`
   .image-gallery-slide-wrapper {
     height: 81vh;
     display: flex;
@@ -45,13 +45,13 @@ const ImageGalleryWrapper = styled.div`
 
 export const CustomGallery: FC<IProps> = ({ items }) => {
   return (
-    <ImageGalleryWrapper data-testid="customGallery">
+    <Container data-testid="customGallery">
       <ImageGallery
         items={items}
         showNav={true}
         disableKeyDown={false}
         showFullscreenButton={false}
       />
-    </ImageGalleryWrapper>
+    </Container>
   );
 };

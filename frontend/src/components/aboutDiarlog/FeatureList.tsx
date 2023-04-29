@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Head } from "../../Head";
 import erImage from "../../images/er.png";
 // css
-const FeatureListWrapper = styled.div`
+const Container = styled.div`
   margin-top: 3vh;
   @media screen and (min-width: 481px) {
     margin-left: 10vw;
@@ -214,13 +214,13 @@ export const FeatureList: FC = () => {
   return (
     <Fragment>
       <Head title="FeatureList" />
-      <FeatureListWrapper data-testid="featureList">
+      <Container data-testid="featureList">
         <ReactBlock />
         <RailsBlock />
         <GitHubActionsBlock />
         <TestBlock />
         <ErBlock />
-      </FeatureListWrapper>
+      </Container>
     </Fragment>
   );
 };

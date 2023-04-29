@@ -22,14 +22,14 @@ import { removeUserCookies } from "../helpers";
 import { IPhotoGalleryInitialState as IInitialState } from "../types/containers";
 
 // css
-const PhotoGalleryWrapper = styled.div`
+const Container = styled.div`
   width: 80vw;
   min-height: 81vh;
   margin: 6.6vh auto 0 auto;
   padding-top: 5.4vh;
 `;
 
-const CircularProgressWrapper = styled.span`
+const CircularProgressContainer = styled.span`
   position: absolute;
   top: 50vh;
   left: 50%;
@@ -38,7 +38,7 @@ const CircularProgressWrapper = styled.span`
   -ms-transform: translate(-50%, -50%);
 `;
 
-const EmptyMessageWrapper = styled.div`
+const MessageContainer = styled.div`
   text-align: center;
   margin: 20vh auto auto auto;
   height: 17vh;
@@ -55,7 +55,7 @@ const EmptyMessageWrapper = styled.div`
   }
 `;
 
-const EmptyMessage = styled.span`
+const Message = styled.span`
   margin-top: 50% 0;
   position: absolute;
   top: 50%;
@@ -100,18 +100,18 @@ export const PhotoGallery: FC = () => {
   }, []);
 
   return state.fetchState === REQUEST_STATE.LOADING ? (
-    <CircularProgressWrapper>
+    <CircularProgressContainer>
       <CircularProgress />
-    </CircularProgressWrapper>
+    </CircularProgressContainer>
   ) : (
-    <PhotoGalleryWrapper>
+    <Container>
       {state.items.length ? (
         <CustomGallery items={state.items} />
       ) : (
-        <EmptyMessageWrapper data-testid="emptyMessage">
-          <EmptyMessage>画像がありません</EmptyMessage>
-        </EmptyMessageWrapper>
+        <MessageContainer data-testid="emptyMessage">
+          <Message>画像がありません</Message>
+        </MessageContainer>
       )}
-    </PhotoGalleryWrapper>
+    </Container>
   );
 };

@@ -5,7 +5,7 @@ import styled from "styled-components";
 // recoils
 import { messageAtom } from "../recoils/Message";
 
-const MessageWrapper = styled.div`
+const Container = styled.div`
   padding: 2.5vh 0 1.5vh;
   width: 100%;
   background-color: limegreen;
@@ -30,8 +30,8 @@ export const Message: FC = () => {
   setTimeout(() => setMessage(undefined), MESSAGE_DISPLAY_TIME);
 
   return (
-    <MessageWrapper data-testid="message">
+    <Container data-testid="message">
       <TextWrapper>{message}</TextWrapper>
-    </MessageWrapper>
+    </Container>
   );
 };

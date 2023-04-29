@@ -57,7 +57,7 @@ export const FormTitle = styled.h1`
   margin-top: 20vh;
 `;
 
-export const FormWrapper = styled.form`
+export const Form = styled.form`
   margin: 1rem auto;
   width: 80vw;
   padding: 0 10% 5% 10%;
@@ -66,7 +66,7 @@ export const FormWrapper = styled.form`
   }
 `;
 
-const FormItemWrapper = styled.div`
+const ItemWrapper = styled.div`
   margin-top: 1rem;
 `;
 
@@ -167,12 +167,9 @@ export const Contact: FC = () => {
           </Toolbar>
         </AppBar>
         <FormTitle>お問い合わせ</FormTitle>
-        <FormWrapper
-          onSubmit={handleSubmit(onSubmit)}
-          data-testid="contactForm"
-        >
+        <Form onSubmit={handleSubmit(onSubmit)} data-testid="contactForm">
           <InputLabel>
-            <FormItemWrapper>
+            <ItemWrapper>
               {resultErrors?.name?.map((message: string, index: number) => (
                 <ErrorMessage
                   key={`name-${index}`}
@@ -203,10 +200,10 @@ export const Contact: FC = () => {
                   />
                 )}
               />
-            </FormItemWrapper>
+            </ItemWrapper>
           </InputLabel>
           <InputLabel>
-            <FormItemWrapper>
+            <ItemWrapper>
               {resultErrors?.email?.map((message: string, index: number) => (
                 <ErrorMessage
                   key={`email-${index}`}
@@ -238,10 +235,10 @@ export const Contact: FC = () => {
                   />
                 )}
               />
-            </FormItemWrapper>
+            </ItemWrapper>
           </InputLabel>
           <InputLabel>
-            <FormItemWrapper>
+            <ItemWrapper>
               {resultErrors?.over_view?.map(
                 (message: string, index: number) => (
                   <ErrorMessage
@@ -276,10 +273,10 @@ export const Contact: FC = () => {
                   />
                 )}
               />
-            </FormItemWrapper>
+            </ItemWrapper>
           </InputLabel>
           <InputLabel>
-            <FormItemWrapper>
+            <ItemWrapper>
               {resultErrors?.content?.map((message: string, index: number) => (
                 <ErrorMessage
                   key={`content-${index}`}
@@ -312,7 +309,7 @@ export const Contact: FC = () => {
                   />
                 )}
               />
-            </FormItemWrapper>
+            </ItemWrapper>
           </InputLabel>
           <Submit
             type="submit"
@@ -321,7 +318,7 @@ export const Contact: FC = () => {
           >
             {onSubmitText(submitState.postState, "送信する")}
           </Submit>
-        </FormWrapper>
+        </Form>
       </Dialog>
     </Fragment>
   );

@@ -45,13 +45,13 @@ import {
   TLinks,
 } from "../types/containers";
 // css
-const UserEditWrapper = styled.div`
+const Container = styled.div`
   width: 100%;
-  min-height: 50vh;
+  min-height: 93.5vh;
   margin-top: 21vh;
 `;
 
-const GuestErrorMessage = styled.p`
+const GuestMessage = styled.p`
   text-align: center;
   margin: 0.6rem auto auto auto;
   color: red;
@@ -189,17 +189,17 @@ export const UserEdit: FC = () => {
   };
 
   return (
-    <UserEditWrapper>
+    <Container>
       <FormTitle>Profile Edit</FormTitle>
 
       <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="userEditForm">
         {resultErrors?.guest?.map((message: string, index: number) => (
-          <GuestErrorMessage
+          <GuestMessage
             key={`guestError-${index}`}
             data-testid="guestResultError"
           >
             {message}
-          </GuestErrorMessage>
+          </GuestMessage>
         ))}
         <FormItem formInfo={formInfo.name} control={control} />
 
@@ -217,6 +217,6 @@ export const UserEdit: FC = () => {
         />
       </FormWrapper>
       <FormLinks linkInfo={linkInfo} />
-    </UserEditWrapper>
+    </Container>
   );
 };

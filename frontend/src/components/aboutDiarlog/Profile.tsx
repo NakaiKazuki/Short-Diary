@@ -7,7 +7,7 @@ import { Head } from "../../Head";
 import { GitHubIcon, TwitterIcon } from "../icon";
 
 // css
-const ProfileWrapper = styled.div`
+const Container = styled.div`
   margin-top: 3vh;
   @media screen and (min-width: 481px) {
     margin-left: 10vw;
@@ -238,11 +238,11 @@ export const Profile: FC = () => {
   return (
     <Fragment>
       <Head title="Profile" />
-      <ProfileWrapper data-testid="profile">
+      <Container data-testid="profile">
         <Introduction />
         <AppExplanation />
         <Message />
-      </ProfileWrapper>
+      </Container>
     </Fragment>
   );
 };

@@ -1,10 +1,10 @@
 import { render, cleanup } from "@testing-library/react";
 import { AnimatedSection } from "../../components/AnimatedSection";
-import { createObserver, el } from "../helpers";
+import { createIntersectionObserver, el } from "../helpers";
 import testPicture from "../../images/sample/diary.png";
 
 afterEach(cleanup);
-createObserver();
+createIntersectionObserver();
 
 describe("AnimatedSection コンポーネント", () => {
   const setup = () =>
@@ -14,7 +14,7 @@ describe("AnimatedSection コンポーネント", () => {
       </AnimatedSection>
     );
 
-  it("Pagination欄がある", () => {
+  it("AnimatedSectionがある", () => {
     setup();
     expect(el("animatedSection")).toBeTruthy();
   });

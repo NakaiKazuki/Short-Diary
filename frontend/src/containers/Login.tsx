@@ -43,9 +43,9 @@ import {
 import { IUsersFormValues as IFormValues } from "../types/containers";
 
 // css
-const LoginWrapper = styled.div`
+const Container = styled.div`
   width: 100%;
-  min-height: 50vh;
+  min-height: 93.5vh;
   padding-top: 17vh;
 `;
 
@@ -134,7 +134,7 @@ export const Login: FC = () => {
   };
 
   return (
-    <LoginWrapper>
+    <Container>
       <FormTitle>Login</FormTitle>
       <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="loginForm">
         <FormItem formInfo={formInfo.email} control={control} />
@@ -147,6 +147,6 @@ export const Login: FC = () => {
         />
       </FormWrapper>
       <FormLinks linkInfo={linkInfo} />
-    </LoginWrapper>
+    </Container>
   );
 };

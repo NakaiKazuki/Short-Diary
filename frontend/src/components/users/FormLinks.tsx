@@ -19,7 +19,7 @@ const LinkList = styled.ul`
     margin-top: 1rem;
   }
   li:not(:first-child) {
-    margin-top: 0.7rem;
+    margin: 0.7rem 0;
   }
 `;
 

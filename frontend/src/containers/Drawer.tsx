@@ -20,8 +20,7 @@ const MainLogo = styled.img`
   margin: 0 1rem;
 `;
 
-
-const DrawerContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -29,12 +28,12 @@ const DrawerContainer = styled.div`
   background-color: white;
   justify-content: center;
   align-items: center;
-  `;
+`;
 
-const ImageIconArea = styled(PictureIcon)`
+const Icon = styled(PictureIcon)`
   color: limegreen;
   margin-right: 0.7rem;
-  `;
+`;
 
 const ItemWrapper = styled(BaseButton)`
   margin: 0.1rem 0;
@@ -49,25 +48,25 @@ const ItemWrapper = styled(BaseButton)`
     opacity: 0.8;
     background-color: limegreen;
     color: white;
-    ${ImageIconArea} {
+    ${Icon} {
       color: white;
     }
   }
-  `;
+`;
 
 const CustomLink = styled(Link)`
   text-decoration: none;
   :visited {
     color: inherit;
   }
-  `;
+`;
 
 const style = {
   "&.MuiDrawer-paper": {
     overflowX: "hidden",
     width: "15rem",
-  }
-}
+  },
+};
 
 export const Drawer: FC = () => {
   const currentUser = useRecoilValue(authAtom);
@@ -87,8 +86,8 @@ export const Drawer: FC = () => {
         data-testid="drawer"
         sx={style}
       >
-        <Box role="presentation" data-testid="linksDrawer">
-          <DrawerContainer>
+        <Box component="div" role="presentation" data-testid="linksDrawer">
+          <Container>
             <List>
               <CustomLink to="/" data-testid="homeLink" onClick={handleClose}>
                 <MainLogo src={mainLogo} alt="main logo" />
@@ -101,14 +100,14 @@ export const Drawer: FC = () => {
               >
                 <ListItem>
                   <ItemWrapper>
-                    <ImageIconArea />
+                    <Icon />
                     Photo Gallery
                   </ItemWrapper>
                 </ListItem>
               </CustomLink>
               <Divider />
             </List>
-          </DrawerContainer>
+          </Container>
         </Box>
       </SwipeableDrawer>
     </Fragment>

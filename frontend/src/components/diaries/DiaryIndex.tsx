@@ -11,7 +11,7 @@ import {
 } from "../../types/components/diaries";
 
 // css
-const DiariesWrapper = styled.span`
+const Container = styled.span`
   height: 100%;
 `;
 
@@ -112,7 +112,7 @@ export const DiaryIndex: FC<IProps> = ({
   onOpenDiaryDialog,
 }) => {
   return (
-    <DiariesWrapper>
+    <Container>
       <Diaries data-testid="diaryIndex">
         {diaries.map((diary: IDiary, index: number): JSX.Element => {
           return (
@@ -138,6 +138,6 @@ export const DiaryIndex: FC<IProps> = ({
           );
         })}
       </Diaries>
-    </DiariesWrapper>
+    </Container>
   );
 };

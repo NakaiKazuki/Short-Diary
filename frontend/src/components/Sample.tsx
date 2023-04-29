@@ -8,7 +8,7 @@ import { CustomGallery } from "./CustomGallery";
 import diaryPicture from "../images/sample/diary.png";
 import Gallery1Picture from "../images/sample/gallery1.png";
 
-const SampleWrapper = styled.div`
+const Container = styled.div`
   @media screen and (min-width: 980px) {
     flex: 0.55;
   }
@@ -53,13 +53,10 @@ const Img = styled.img`
   height: auto;
 `;
 
-const items = [
-  { original: diaryPicture },
-  { original: Gallery1Picture },
-];
+const items = [{ original: diaryPicture }, { original: Gallery1Picture }];
 export const Sample: FC = () => {
   return (
-    <SampleWrapper data-testid="sample">
+    <Container data-testid="sample">
       <Title>Sample</Title>
       <Contents>
         <ContentTitle data-testid="titleDiary">Diary</ContentTitle>
@@ -89,6 +86,6 @@ export const Sample: FC = () => {
           <CustomGallery items={items} />
         </AnimatedSection>
       </Contents>
-    </SampleWrapper>
+    </Container>
   );
 };

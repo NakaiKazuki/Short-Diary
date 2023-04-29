@@ -20,13 +20,25 @@ import { IAboutProps as IProps } from "../../types/components/aboutDialog";
 
 // images
 import BackImage from "../../images/sample.jpg";
-const AboutWrapper = styled.div`
+
+const StyledDialog = styled(Dialog)`
+  .MuiPaper-root {
+    background-color: red;
+    background-image: url(${BackImage});
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+  }
+`;
+
+const Container = styled.div`
   width: 90vw;
   margin: 4vh auto 10vh auto;
 `;
 
 const Title = styled.h1`
   text-align: center;
+  margin-top: 3rem;
 `;
 
 const Contents = styled.div`
@@ -97,10 +109,6 @@ const Category = styled.li<{ disabled: boolean }>`
 `;
 
 const Main = styled.div`
-  background-image: url(${BackImage});
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-size: cover;
   @media screen and (min-width: 980px) {
     padding-left: 20vw;
     flex: 1;
@@ -134,7 +142,7 @@ export const AboutDialog: FC<IProps> = ({
 
   return (
     <Fragment>
-      <Dialog
+      <StyledDialog
         fullScreen
         open={isOpen}
         onClose={handleClose}
@@ -142,7 +150,7 @@ export const AboutDialog: FC<IProps> = ({
         data-testid="aboutDialog"
       >
         <AppBar
-          sx={{ position: "relative" }}
+          sx={{ position: "fixed" }}
           ref={ref}
           style={{ color: "limegreen", backgroundColor: "white" }}
           data-testid="appBar"
@@ -161,7 +169,7 @@ export const AboutDialog: FC<IProps> = ({
             </Typography>
           </Toolbar>
         </AppBar>
-        <AboutWrapper>
+        <Container>
           <Title data-testid="title">{state.title}</Title>
           <Contents data-testid="contents">
             <Categories data-testid="categories">
@@ -191,9 +199,9 @@ export const AboutDialog: FC<IProps> = ({
             </Categories>
             <Main data-testid="main">{state.jsxElement}</Main>
           </Contents>
-        </AboutWrapper>
+        </Container>
         <Footer />
-      </Dialog>
+      </StyledDialog>
     </Fragment>
   );
 };

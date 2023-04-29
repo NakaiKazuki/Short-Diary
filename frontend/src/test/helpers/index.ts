@@ -2,7 +2,7 @@ import { screen } from "@testing-library/react";
 export const el = screen.getByTestId;
 
 // IntersectionObserverのモックを作成
-export const createObserver = (): void => {
+export const createIntersectionObserver = (): void => {
   class IntersectionObserver {
     observe() {
       return null;
@@ -24,6 +24,22 @@ export const createObserver = (): void => {
     value: IntersectionObserver,
   });
 };
+
+export const createResizeObserver = (): void => {
+  class ResizeObserver {
+    observe() {
+      return null;
+    }
+    unobserve() {
+      return null;
+    }
+    disconnect() {
+      return null;
+    }
+  }
+  window.ResizeObserver = ResizeObserver;
+};
+
 export const testString = (count: number): string => {
   return "0123456789".repeat(count);
 };

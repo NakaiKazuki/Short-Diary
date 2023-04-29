@@ -41,9 +41,9 @@ import {
 } from "../types/containers";
 
 // css
-const NewPasswordWrapper = styled.div`
+const Container = styled.div`
   width: 100%;
-  min-height: 50vh;
+  min-height: 93.5vh;
   padding-top: 17vh;
 `;
 
@@ -133,7 +133,7 @@ export const NewPassword: FC = () => {
   };
 
   return (
-    <NewPasswordWrapper>
+    <Container>
       <FormTitle>PasswordReset</FormTitle>
       <FormWrapper
         onSubmit={handleSubmit(onSubmit)}
@@ -147,6 +147,6 @@ export const NewPassword: FC = () => {
           onSubmitText={onSubmitText(submitState.postState, "Password Reset!")}
         />
       </FormWrapper>
-    </NewPasswordWrapper>
+    </Container>
   );
 };

@@ -60,3 +60,8 @@ export interface IUserMenuProps {
   onMenuClose(): void;
   onSignOut(): void;
 }
+
+export interface ISignUpDialogProps {
+  isOpen: boolean;
+  handleClose(): void;
+}

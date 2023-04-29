@@ -10,7 +10,7 @@ import { LogoutIcon, UserIcon, EditIcon } from "../icon";
 import { IUserMenuProps as IProps } from "../../types/components/users";
 
 // css
-const UserWrapper = styled.span`
+const Container = styled.span`
   padding: 0.3rem 0.7rem;
   width: auto;
   margin: 0 0 0 auto;
@@ -103,14 +103,14 @@ export const UserMenu: FC<IProps> = ({
 }) => {
   return (
     <Fragment>
-      <UserWrapper
+      <Container
         aria-haspopup="true"
         onClick={onMenuOpen}
         data-testid="userWrapper"
       >
         <UserIcon viewBox="0 0 24 20" data-testid="userIcon" />
         <UserNameWrapper data-testid="userName">{userName}</UserNameWrapper>
-      </UserWrapper>
+      </Container>
 
       <Menu
         anchorEl={anchorEl}
