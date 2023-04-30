@@ -23,10 +23,10 @@ import { IPhotoGalleryInitialState as IInitialState } from "../types/containers"
 
 // css
 const Container = styled.div`
-  width: 80vw;
-  min-height: 81vh;
-  margin: 6.6vh auto 0 auto;
-  padding-top: 5.4vh;
+  margin: 0 auto 0;
+  width: 100%;
+  min-height: 93.5vh;
+  padding-top: 14vh;
 `;
 
 const CircularProgressContainer = styled.span`

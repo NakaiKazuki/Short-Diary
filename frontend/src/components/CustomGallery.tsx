@@ -8,13 +8,17 @@ import { ICustomGalleryProps as IProps } from "../types/components";
 
 const Container = styled.div`
   .image-gallery-slide-wrapper {
-    height: 81vh;
-    display: flex;
+    height: 84.5vh;
     align-items: center;
     justify-content: center;
     @media screen and (max-width: 480px) {
       height: 50vh;
+      display: flex;
     }
+  }
+  .image-gallery-swipe{
+    align-items: center;
+    justify-content: center;
   }
   .image-gallery-slide-wrapper:hover .image-gallery-right-nav {
     opacity: 1;
@@ -39,7 +43,16 @@ const Container = styled.div`
     opacity: 0;
   }
   .image-gallery-image {
-    width: 80%;
+    width: 50%;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    @media screen and (min-width: 481px) and (max-width: 980px){
+      width: 60%;
+    }
+    @media screen and (max-width: 480px) {
+      width: 80%;
+    }
   }
 `;
 

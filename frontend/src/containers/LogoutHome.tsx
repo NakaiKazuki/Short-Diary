@@ -2,7 +2,7 @@ import { FC, useReducer, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-
+import { motion } from "framer-motion";
 // recoils
 import { authAtom } from "../recoils/Auth";
 
@@ -28,7 +28,7 @@ import { AboutDialog } from "../components/aboutDiarlog";
 import { SignUpDilalog } from "../components/users/SignUpDialog";
 import { CanvasContainer } from "../components/logoutHome";
 // css
-const LogoutHomeContainer = styled.div`
+const LogoutHomeContainer = styled(motion.div)`
   overscroll-behavior: none;
   font-family: "Inter var", sans-serif;
   width: 100%;
@@ -92,7 +92,11 @@ export const LogoutHome: FC = () => {
     });
 
   return (
-    <LogoutHomeContainer data-testid="logoutHome">
+    <LogoutHomeContainer
+      exit={{ opacity: 1 }}
+      transition={{ duration: 3 }}
+      data-testid="logoutHome"
+    >
       <CanvasContainer
         postState={submitState.postState}
         onSignUpOpenButton={onSignUpOpenButton}

@@ -184,6 +184,5 @@ export interface IUserEditForm {
 }
 export interface HomeTopItemProps {
   url: string;
-  scale: number | [number, number] | undefined;
   position: [x: number, y: number, z: number];
 }

@@ -29,6 +29,8 @@ export const BaseButton = styled(motion.button).attrs<typeof buttonVariants>(
 )`
   cursor: pointer;
   border-radius: 0.25rem;
+  position: relative;
+  overflow: hidden;
   :hover {
     opacity: 0.9;
   }
@@ -39,9 +41,6 @@ export const BaseButton = styled(motion.button).attrs<typeof buttonVariants>(
     background-color: gray;
     color: white;
   }
-  position: relative;
-  overflow: hidden;
-
   &:before {
     content: "";
     display: block;
