@@ -1,37 +1,40 @@
-import { MathUtils, Mesh, BufferGeometry } from "three";
-import { useRef, FC, useState } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
-import { Image, useIntersect } from "@react-three/drei";
+import { useRef, FC } from "react";
+import * as THREE from 'three';
+import { useFrame, useThree, useLoader } from "@react-three/fiber";
+import { useIntersect } from "@react-three/drei";
 import { HomeTopItemProps as IItemProps } from "../../types/containers";
 
-const Item: FC<IItemProps> = ({ url, scale, ...props }) => {
+
+const Item: FC<IItemProps> = ({ url, position }) => {
   const visible = useRef(false);
-  const [, hover] = useState(false);
+  const texture = useLoader(THREE.TextureLoader, url);
+  const geometry = new THREE.BoxGeometry(2.5, 2.5, 2.5);
+  const material = new THREE.MeshBasicMaterial({ map: texture });
+  const mesh = new THREE.Mesh(geometry, material);
+  const { height } = useThree((state) => state.viewport);
+
   const ref: React.MutableRefObject<THREE.Object3D<THREE.Event>> = useIntersect(
     (isVisible) => {
       visible.current = isVisible;
     }
   );
 
-  const { height } = useThree((state) => state.viewport);
   useFrame((_state, delta) => {
-    ref.current.position.y = MathUtils.damp(
+    visible.current ? 0 : -height / 2 + 1;
+    ref.current.position.y = THREE.MathUtils.damp(
       ref.current.position.y,
       visible.current ? 0 : -height / 2 + 1,
-      4,
+      5,
       delta
     );
-    ref.current.rotateZ(0.006);
+    ref.current.rotateZ(0.007);
+    ref.current.rotateX(0.009);
+    ref.current.rotateY(0.007);
   });
+
   return (
-    <group {...props}>
-      <Image
-        ref={ref as React.RefObject<Mesh<BufferGeometry>>}
-        onPointerOver={() => hover(true)}
-        onPointerOut={() => hover(false)}
-        scale={scale}
-        url={url}
-      />
+    <group position={position}>
+      <primitive object={mesh} ref={ref} />
     </group>
   );
 };
@@ -42,48 +45,40 @@ export const Back: FC = () => {
     <group>
       <Item
         url="/images/1.jpg"
-        scale={[w / 3.5, w / 4]}
         position={[-w / 11, 0, 1]}
+
       />
       <Item
         url="/images/2.jpg"
-        scale={[w / 5, w / 3.6]}
         position={[w / 5, -h * 0.4, -1]}
       />
       <Item
         url="/images/3.jpg"
-        scale={[w / 3.4, w / 3.7]}
-        position={[-w / 5, -h * 0.9 * 0.7, 1.5]}
+        position={[-w / 5, -h * 0.9 * 0.7, 0.8]}
       />
       <Item
         url="/images/4.jpg"
-        scale={[w / 6, w / 3.4]}
-        position={[w / 10, -h * 1.2, -0.2]}
+        position={[w / 10, -h * 1.2, 0.2]}
       />
       <Item
         url="/images/5.jpg"
-        scale={[w / 4.2, w / 4]}
-        position={[-w / 5, -h * 1.4, 1.5]}
+        position={[-w / 5, -h * 1.4, -0.4]}
       />
       <Item
         url="/images/6.jpg"
-        scale={[w / 3.8, w / 3.8]}
-        position={[w / 10, -h * 1.9, 1.1]}
+        position={[w / 10, -h * 1.9, 0.5]}
       />
       <Item
         url="/images/7.jpg"
-        scale={[w / 5, w / 3.5]}
-        position={[-w / 4, -h * 2.2, 1.6]}
+        position={[-w / 4, -h * 2.2, -0.1]}
       />
       <Item
         url="/images/8.jpg"
-        scale={[w / 3, w / 4]}
         position={[w / 12, -h * 2.5, -1.4]}
       />
       <Item
         url="/images/9.jpg"
-        scale={[w / 4, w / 6]}
-        position={[-w / 7, -h * 2.9, 1.8]}
+        position={[-w / 7, -h * 2.8, 0.6]}
       />
     </group>
   );
