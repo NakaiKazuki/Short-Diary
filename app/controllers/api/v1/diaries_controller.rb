@@ -6,9 +6,7 @@ class Api::V1::DiariesController < ApplicationController
   # include Rails.application.routes.url_helpers
   def create
     @diary = current_user.diaries.build(diary_params)
-
-    # 画像が送られてきたら、その画像データ(base64)をデコード
-    file_decode if params[:picture]
+    file_attach if params[:picture]
 
     if @diary.save
       @pagy, diaries = pagy(current_user.diaries.all)
@@ -22,8 +20,7 @@ class Api::V1::DiariesController < ApplicationController
   end
 
   def update
-    # 画像が送られてきたら、その画像データ(base64)をデコード
-    file_decode if params[:picture]
+    file_attach if params[:picture]
 
     if @diary.update(diary_params)
       @pagy, diaries = pagy(current_user.diaries.all, page: pagy_params[:page])
@@ -80,16 +77,7 @@ class Api::V1::DiariesController < ApplicationController
     end
 
     # 画像ファイルをデコードしてアタッチ
-    def file_decode
-      blob = ActiveStorage::Blob.create_and_upload!(
-        io: StringIO.new("#{decode(params[:picture][:data])}\n"),
-        filename: params[:picture][:name]
-      )
-      @diary.picture.attach(blob)
-    end
-
-    # 画像ファイルデコード
-    def decode(str)
-      Base64.decode64(str.split(',').last)
+    def file_attach
+      @diary.picture.attach(data: params[:picture][:data], filename: params[:picture][:name])
     end
 end

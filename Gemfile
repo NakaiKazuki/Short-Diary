@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.2.2'
 
+gem 'active_storage_base64'
 gem 'acts-as-taggable-on' # タグ機能
 gem 'bootsnap', require: false
 gem 'devise' # User関連
@@ -18,7 +19,6 @@ gem 'rack-cors' # apiで使うのに必要なやつ
 gem 'rails', '~> 7.0.4'
 gem 'rails-i18n' # 日本語化
 gem 'ransack', '~> 3' # 検索
-
 group :development, :test do
   gem 'factory_bot_rails' # テスト用
   gem 'faker' # テスト用
