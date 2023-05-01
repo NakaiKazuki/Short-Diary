@@ -34,9 +34,10 @@ const Content = styled.li`
 `;
 
 const ContentTitle = styled.div`
-  margin-top: 1rem;
+  margin-top: 1.8rem;
   font-weight: bold;
 `;
+
 const ContentSubTitle = styled.span`
   font-size: 1.2rem;
   margin-left: 1rem;
@@ -48,6 +49,7 @@ const InnerUl = styled.ul`
 `;
 
 const InnerLi = styled.li`
+  margin-top: 1rem;
   list-style: none;
   font-size: 1.2rem;
 `;

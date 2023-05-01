@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 // recoils
 import { messageAtom } from "../recoils/Message";
 
@@ -14,7 +15,6 @@ import {
   FormTitle,
   FormWrapper,
 } from "../components/users";
-
 // apis
 import { postRegistration } from "../apis/users/registrations";
 

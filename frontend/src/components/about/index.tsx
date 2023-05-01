@@ -68,6 +68,7 @@ const Categories = styled.ul`
     justify-contents: center;
   }
 `;
+
 const Category = styled.li<{ disabled: boolean }>`
   cursor: pointer;
   float: left;

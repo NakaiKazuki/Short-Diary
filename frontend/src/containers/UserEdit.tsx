@@ -15,7 +15,6 @@ import {
   FormTitle,
   FormWrapper,
 } from "../components/users";
-
 // apis
 import { putRegistration } from "../apis/users/registrations";
 
@@ -44,6 +43,7 @@ import {
   IUserEditForm as IForm,
   TLinks,
 } from "../types/containers";
+
 // css
 const Container = styled.div`
   width: 100%;

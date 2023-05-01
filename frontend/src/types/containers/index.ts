@@ -17,14 +17,6 @@ interface IItemProps {
 }
 
 // エラーメッセージ
-interface IResultErrors {
-  name?: Array<string>;
-  password?: Array<string>;
-  password_confirmation?: Array<string>;
-  current_password?: Array<string>;
-  guest?: Array<string>;
-}
-
 interface IRurles {
   required: boolean;
   minLength?: number;
@@ -147,13 +139,13 @@ export interface IPhotoGalleryInitialState {
 }
 
 export interface IUsersResultErrors {
-  name?: Array<string>;
-  email?: Array<string>;
-  password?: Array<string>;
-  password_confirmation?: Array<string>;
+  name: Array<string> | undefined;
+  email: Array<string> | undefined;
+  password: Array<string> | undefined;
+  password_confirmation: Array<string> | undefined;
 
-  current_password?: Array<string>;
-  guest?: Array<string>;
+  current_password: Array<string> | undefined;
+  guest: Array<string> | undefined;
 }
 
 export interface IErrors {

@@ -1,19 +1,25 @@
 import { useRef, FC } from "react";
-import * as THREE from 'three';
+import {
+  TextureLoader,
+  BoxGeometry,
+  MeshBasicMaterial,
+  Mesh,
+  Object3D,
+  MathUtils,
+} from "three";
 import { useFrame, useThree, useLoader } from "@react-three/fiber";
 import { useIntersect } from "@react-three/drei";
 import { HomeTopItemProps as IItemProps } from "../../types/containers";
 
-
 const Item: FC<IItemProps> = ({ url, position }) => {
   const visible = useRef(false);
-  const texture = useLoader(THREE.TextureLoader, url);
-  const geometry = new THREE.BoxGeometry(2.5, 2.5, 2.5);
-  const material = new THREE.MeshBasicMaterial({ map: texture });
-  const mesh = new THREE.Mesh(geometry, material);
+  const texture = useLoader(TextureLoader, url);
+  const geometry = new BoxGeometry(2.5, 2.5, 2.5);
+  const material = new MeshBasicMaterial({ map: texture });
+  const mesh = new Mesh(geometry, material);
   const { height } = useThree((state) => state.viewport);
 
-  const ref: React.MutableRefObject<THREE.Object3D<THREE.Event>> = useIntersect(
+  const ref: React.MutableRefObject<Object3D<Event>> = useIntersect(
     (isVisible) => {
       visible.current = isVisible;
     }
@@ -21,7 +27,7 @@ const Item: FC<IItemProps> = ({ url, position }) => {
 
   useFrame((_state, delta) => {
     visible.current ? 0 : -height / 2 + 1;
-    ref.current.position.y = THREE.MathUtils.damp(
+    ref.current.position.y = MathUtils.damp(
       ref.current.position.y,
       visible.current ? 0 : -height / 2 + 1,
       5,
@@ -43,43 +49,15 @@ export const Back: FC = () => {
   const { width: w, height: h } = useThree((state) => state.viewport);
   return (
     <group>
-      <Item
-        url="/images/1.jpg"
-        position={[-w / 11, 0, 1]}
-
-      />
-      <Item
-        url="/images/2.jpg"
-        position={[w / 5, -h * 0.4, -1]}
-      />
-      <Item
-        url="/images/3.jpg"
-        position={[-w / 5, -h * 0.9 * 0.7, 0.8]}
-      />
-      <Item
-        url="/images/4.jpg"
-        position={[w / 10, -h * 1.2, 0.2]}
-      />
-      <Item
-        url="/images/5.jpg"
-        position={[-w / 5, -h * 1.4, -0.4]}
-      />
-      <Item
-        url="/images/6.jpg"
-        position={[w / 10, -h * 1.9, 0.5]}
-      />
-      <Item
-        url="/images/7.jpg"
-        position={[-w / 4, -h * 2.2, -0.1]}
-      />
-      <Item
-        url="/images/8.jpg"
-        position={[w / 12, -h * 2.5, -1.4]}
-      />
-      <Item
-        url="/images/9.jpg"
-        position={[-w / 7, -h * 2.8, 0.6]}
-      />
+      <Item url="/images/1.jpg" position={[-w / 11, 0, 1]} />
+      <Item url="/images/2.jpg" position={[w / 5, -h * 0.4, -1]} />
+      <Item url="/images/3.jpg" position={[-w / 5, -h * 0.9 * 0.7, 0.8]} />
+      <Item url="/images/4.jpg" position={[w / 10, -h * 1.2, 0.2]} />
+      <Item url="/images/5.jpg" position={[-w / 5, -h * 1.4, -0.4]} />
+      <Item url="/images/6.jpg" position={[w / 10, -h * 1.9, 0.5]} />
+      <Item url="/images/7.jpg" position={[-w / 4, -h * 2.2, -0.1]} />
+      <Item url="/images/8.jpg" position={[w / 12, -h * 2.5, -1.4]} />
+      <Item url="/images/9.jpg" position={[-w / 7, -h * 2.8, 0.6]} />
     </group>
   );
 };

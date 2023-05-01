@@ -3,7 +3,7 @@ import { render, cleanup } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { el } from "../../helpers";
-import { Tools } from "../../../components/aboutDiarlog/Tools";
+import { Tools } from "../../../components/about/Tools";
 afterEach(cleanup);
 
 const customRender = (ui: JSX.Element) => {

@@ -17,7 +17,6 @@ import {
   FormTitle,
   FormWrapper,
 } from "../components/users";
-
 // apis
 import { putNewPassword } from "../apis/users/passwords";
 
