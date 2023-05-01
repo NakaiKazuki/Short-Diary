@@ -46,6 +46,8 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_storage_base64 (2.0.0)
+      rails (>= 7.0)
     activejob (7.0.4.3)
       activesupport (= 7.0.4.3)
       globalid (>= 0.3.6)
@@ -324,6 +326,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  active_storage_base64
   acts-as-taggable-on
   annotate
   aws-sdk-s3

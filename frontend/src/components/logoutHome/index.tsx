@@ -66,18 +66,9 @@ export const CanvasContainer: FC<IProps> = ({
           <Text style={{ top: "200vh", left: "50vw" }}>Life</Text>
           <CustomButton
             type="button"
-            onClick={onSignUpOpenButton}
-            style={{ top: "250vh", left: "30vw" }}
-            data-testid="signUpButton"
-          >
-            ユーザー登録
-          </CustomButton>
-          <br />
-          <CustomButton
-            type="button"
             onClick={onGuestLoginButton}
             disabled={isDisabled(postState)}
-            style={{ top: "265vh", left: "50vw" }}
+            style={{ top: "85vh", left: "10vw" }}
             data-testid="guestLoginButton"
           >
             {onSubmitText(postState, "ゲストログイン")}
@@ -85,8 +76,17 @@ export const CanvasContainer: FC<IProps> = ({
           <br />
           <CustomButton
             type="button"
+            onClick={onSignUpOpenButton}
+            style={{ top: "250vh", left: "10vw" }}
+            data-testid="signUpButton"
+          >
+            ユーザー登録
+          </CustomButton>
+          <br />
+          <CustomButton
+            type="button"
             onClick={onAboutOpenButton}
-            style={{ top: "280vh", left: "30vw" }}
+            style={{ top: "265vh", left: "50vw" }}
             data-testid="aboutButton"
           >
             アプリと制作者情報

@@ -71,7 +71,8 @@ Lint/StructNewOverride:
 
 Layout/LineLength:
   Max: 150
-
+  Exclude:
+    - "spec/requests/diaries_spec.rb"
 Metrics/AbcSize:
   Exclude:
     - "lib/tasks/dev.rake"
