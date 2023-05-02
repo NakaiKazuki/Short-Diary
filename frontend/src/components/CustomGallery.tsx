@@ -16,7 +16,7 @@ const Container = styled.div`
       display: flex;
     }
   }
-  .image-gallery-swipe{
+  .image-gallery-swipe {
     align-items: center;
     justify-content: center;
   }
@@ -47,7 +47,7 @@ const Container = styled.div`
     height: auto;
     align-items: center;
     justify-content: center;
-    @media screen and (min-width: 481px) and (max-width: 980px){
+    @media screen and (min-width: 481px) and (max-width: 980px) {
       width: 60%;
     }
     @media screen and (max-width: 480px) {

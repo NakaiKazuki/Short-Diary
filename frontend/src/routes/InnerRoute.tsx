@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { BrowserRouter, Routes } from "react-router-dom";
-
+import { Routes } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 // routes
 import { Route } from "react-router-dom";
 import { RouteLayout } from "./RouteLayout";
@@ -14,14 +14,16 @@ import { ResetPassword } from "../containers/ResetPassword";
 import { NewPassword } from "../containers/NewPassword";
 import { UserEdit } from "../containers/UserEdit";
 import { PhotoGallery } from "../containers/PhotoGallery";
+import { About } from "../containers/About";
 import { GuestRoute } from "../routes/GuestRoute";
 import { PrivateRoute } from "../routes/PrivateRoute";
 import { LoggedInRoute } from "./LoggedInRoute";
+import { FreeRoute } from "./FreeRoute";
 
 export const InnerRoute: FC = () => {
   return (
-    <BrowserRouter>
-      <Routes>
+    <Router>
+      <Routes location={location} key={location.pathname}>
         <Route path="/" element={<RouteLayout />}>
           <Route
             index
@@ -71,8 +73,12 @@ export const InnerRoute: FC = () => {
               />
             }
           />
+          <Route
+            path="/about"
+            element={<FreeRoute jsxElement={<About />} title="About" />}
+          />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 };

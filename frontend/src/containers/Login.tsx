@@ -17,7 +17,6 @@ import {
   FormTitle,
   FormWrapper,
 } from "../components/users";
-
 // apis
 import { createSession } from "../apis/users/sessions";
 
@@ -41,14 +40,12 @@ import {
 
 // types
 import { IUsersFormValues as IFormValues } from "../types/containers";
-
 // css
 const Container = styled.div`
   width: 100%;
   min-height: 93.5vh;
   padding-top: 17vh;
 `;
-
 // エラーメッセージ
 export const Login: FC = () => {
   const setCurrentUser = useSetRecoilState(authAtom);
@@ -93,7 +90,6 @@ export const Login: FC = () => {
   };
 
   // 送信ボタン下にあるリンクの情報
-
   const linkInfo: TLinks = [
     {
       url: "/signup",
@@ -104,7 +100,6 @@ export const Login: FC = () => {
       text: "パスワードを忘れた方はこちら",
     },
   ];
-
   const onSubmit = async (formValues: IFormValues): Promise<void> => {
     dispatch({ type: submitActionTypes.POSTING });
     await createSession({

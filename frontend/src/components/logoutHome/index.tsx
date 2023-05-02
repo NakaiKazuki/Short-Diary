@@ -8,7 +8,7 @@ import { Back } from "./Back";
 import { onSubmitText, isDisabled } from "../../helpers";
 
 // components
-import { BaseButton } from "../shared_style";
+import { CurtainButton } from "../shared_style";
 
 // types
 import { IProps } from "../../types/components/logoutHome";
@@ -31,16 +31,33 @@ const Text = styled.h1`
   }
 `;
 
-const CustomButton = styled(BaseButton)`
-  border-style: none;
+const Title = styled.h2`
+  font-size: 6rem;
+  letter-spacing: 0.5rem;
+  line-height: 0.7em;
+  color: limegreen;
+  font-weight: bold;
+  position: absolute;
+  text-shadow: 1px 0px 35px green;
+  top: 235vh;
+  left: 10vw;
+  @media screen and (max-width: 980px) {
+    font-size: 6rem;
+    left: 10vw;
+  }
+  @media screen and (max-width: 480px) {
+    font-size: 4rem;
+    left: 10vw;
+  }
+`;
+
+const CustomButton = styled(CurtainButton)`
   letter-spacing: 0.2rem;
-  color: white;
-  background-color: limegreen;
   font-size: 1.2rem;
   padding: 0.5rem;
   width: 20rem;
   height: 5rem;
-  border: 0.3rem solid white;
+  font-weight: 900;
   @media screen and (max-width: 980px) {
     font-size: 0.95rem;
     width: 12rem;
@@ -50,11 +67,11 @@ const CustomButton = styled(BaseButton)`
 export const CanvasContainer: FC<IProps> = ({
   postState,
   onGuestLoginButton,
-  onSignUpOpenButton,
-  onAboutOpenButton,
+  onSignUpButton,
+  onAboutButton,
 }) => {
   return (
-    <Canvas data-testid="logoutHomeCanvas">
+    <Canvas data-testid="logoutHomeCanvas" id="canvas">
       <ScrollControls damping={0.5} pages={4} distance={1.5}>
         <Scroll>
           <Back />
@@ -64,11 +81,13 @@ export const CanvasContainer: FC<IProps> = ({
           <Text style={{ top: "100vh", left: "50vw" }}>Your</Text>
           <Text style={{ top: "150vh", left: "10vw" }}>Daily</Text>
           <Text style={{ top: "200vh", left: "50vw" }}>Life</Text>
+          <Title>Links</Title>
           <CustomButton
+            color="limegreen"
             type="button"
             onClick={onGuestLoginButton}
             disabled={isDisabled(postState)}
-            style={{ top: "85vh", left: "10vw" }}
+            style={{ top: "255vh", left: "10vw" }}
             data-testid="guestLoginButton"
           >
             {onSubmitText(postState, "ゲストログイン")}
@@ -76,8 +95,8 @@ export const CanvasContainer: FC<IProps> = ({
           <br />
           <CustomButton
             type="button"
-            onClick={onSignUpOpenButton}
-            style={{ top: "250vh", left: "10vw" }}
+            onClick={onSignUpButton}
+            style={{ top: "275vh", left: "10vw" }}
             data-testid="signUpButton"
           >
             ユーザー登録
@@ -85,8 +104,8 @@ export const CanvasContainer: FC<IProps> = ({
           <br />
           <CustomButton
             type="button"
-            onClick={onAboutOpenButton}
-            style={{ top: "265vh", left: "50vw" }}
+            onClick={onAboutButton}
+            style={{ top: "295vh", left: "10vw" }}
             data-testid="aboutButton"
           >
             アプリと制作者情報

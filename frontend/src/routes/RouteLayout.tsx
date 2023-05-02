@@ -1,9 +1,8 @@
-import { FC, useEffect, Fragment, useState } from "react";
+import { FC, useEffect, useState, Fragment } from "react";
 import { useSetRecoilState } from "recoil";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Cookies from "js-cookie";
-
 // components
 import { Load } from "../containers/Load";
 import { Header } from "../containers/Header";
@@ -11,7 +10,6 @@ import { Message } from "../containers/Message";
 import { Drawer } from "../containers/Drawer";
 import { Contact } from "../containers/Contact";
 import { Footer } from "../containers/Footer";
-
 // recoils
 import { authAtom } from "../recoils/Auth";
 

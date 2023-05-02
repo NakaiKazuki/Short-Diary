@@ -36,7 +36,6 @@ import {
   DiarySearchDrawer,
 } from "../components/diaries";
 import { CircularProgress } from "@mui/material";
-
 // constants
 import { HTTP_STATUS_CODE, REQUEST_STATE } from "../constants";
 

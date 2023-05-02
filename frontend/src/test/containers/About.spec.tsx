@@ -2,14 +2,10 @@ import "@testing-library/jest-dom";
 import { render, cleanup } from "@testing-library/react";
 import { HelmetProvider } from "react-helmet-async";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { el } from "../../helpers";
-import { AboutDialog } from "../../../components/aboutDiarlog";
+import { el } from "../helpers";
+import { About } from "../../containers/About";
 afterEach(cleanup);
 
-const state = {
-  title: "testTitle",
-  jsxElement: <div>TestElement</div>,
-};
 const customRender = (ui: JSX.Element) => {
   const routes = [
     {
@@ -21,25 +17,13 @@ const customRender = (ui: JSX.Element) => {
   return render(<RouterProvider router={router} />);
 };
 
-describe("AboutDialog コンポーネント", () => {
-  const setup = () =>
-    customRender(
-      <AboutDialog
-        isOpen={true}
-        state={state}
-        handleClose={jest.fn()}
-        onCategory={jest.fn()}
-      />
-    );
+describe("About コンポーネント", () => {
+  const setup = () => customRender(<About />);
 
-  it("Dialog表示", () => {
-    setup();
-    expect(el("aboutDialog")).toBeTruthy();
-  });
+  beforeEach(() => setup());
+
   it("要素の確認", () => {
-    setup();
-    expect(el("appBar")).toBeTruthy();
-    expect(el("title")).toHaveTextContent(state.title);
+    expect(el("title")).toBeTruthy();
     expect(el("contents")).toContainElement(el("main"));
     expect(el("contents")).toContainElement(el("categories"));
     expect(el("categories")).toContainElement(el("categoryProfile"));
