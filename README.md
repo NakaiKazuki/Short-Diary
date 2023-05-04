@@ -4,13 +4,7 @@
 日記帳などの紙に書く日記との差別化として、その日 YouTube で見た動画でよかったものを記録再生可能にすることで差別化をしています。
 スマホ PC タブレットからご利用可能です。
 
-![スクリーンショット (41)](https://user-images.githubusercontent.com/62586169/232224791-51a70f2f-bc9e-4b50-b59f-715dd5921fb3.png)
-
-![スクリーンショット (13)](https://user-images.githubusercontent.com/62586169/175801483-c92a036e-7f62-4ae4-948a-10d16c596156.png)
-
-![スクリーンショット (11)](https://user-images.githubusercontent.com/62586169/175801478-e6f0fc35-45e3-4345-a420-755552a03af9.png)
-
-![スクリーンショット (12)](https://user-images.githubusercontent.com/62586169/175801481-c7d2089c-7813-4023-bd34-40d88a52f4e7.png)
+![Short-Diary2 gif](https://user-images.githubusercontent.com/62586169/235717331-49a247cb-56fb-48e8-be07-090dc900a6f7.gif)
 
 # こだわったポイント
 
