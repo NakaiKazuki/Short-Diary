@@ -41,9 +41,6 @@ const Button = styled(BaseButton)`
   }
 `;
 
-const style = {
-  color: "limegreen",
-};
 export const DiarySearchDrawer: FC<IProps> = ({
   control,
   selectedDate,
@@ -85,7 +82,7 @@ export const DiarySearchDrawer: FC<IProps> = ({
                       type="search"
                       multiline
                       {...field}
-                      sx={style}
+                      sx={{ color: "limegreen" }}
                     />
                   )}
                 />

@@ -1,6 +1,6 @@
 import { render, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { Load } from "../../containers/Load";
+import { Load } from "../../utils/Load";
 import { createIntersectionObserver, el } from "../helpers";
 
 afterEach(cleanup);

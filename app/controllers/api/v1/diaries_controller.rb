@@ -64,7 +64,13 @@ class Api::V1::DiariesController < ApplicationController
   private
 
     def diary_params
-      params.require(:diary).permit(:date, :content, :tag_list, :picture, :movie_source)
+    # require の代わりに permit を使い、空の値も許可する
+      params.fetch(:diary, {}).permit(:date, :content, :tag_list, :picture, :movie_source).tap do |whitelisted|
+        # もし params に tag_list, picture, movie_source が含まれていない場合、
+        # whitelisted に nil を設定する
+        whitelisted[:tag_list] = nil unless whitelisted.key?(:tag_list)
+        whitelisted[:movie_source] = nil unless whitelisted.key?(:movie_source)
+      end
     end
 
     def pagy_params

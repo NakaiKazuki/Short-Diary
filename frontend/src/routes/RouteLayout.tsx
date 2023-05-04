@@ -4,11 +4,11 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Cookies from "js-cookie";
 // components
-import { Load } from "../containers/Load";
+import { Load } from "../utils/Load";
 import { Header } from "../containers/Header";
-import { Message } from "../containers/Message";
-import { Drawer } from "../containers/Drawer";
-import { Contact } from "../containers/Contact";
+import { Message } from "../utils/Message";
+import { Drawer } from "../utils/Drawer";
+import { Contact } from "../utils/Contact";
 import { Footer } from "../containers/Footer";
 // recoils
 import { authAtom } from "../recoils/Auth";

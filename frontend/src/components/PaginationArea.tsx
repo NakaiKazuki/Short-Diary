@@ -6,6 +6,11 @@ import styled from "styled-components";
 import { IPaginationAreaProps as IProps } from "../types/components";
 
 // css
+
+const Container = styled.div`
+  margin: 2rem 0 1.4rem;
+  `;
+
 const styles = (theme: MuiTheme) => ({
   margin: "0 auto",
   display: "flex",
@@ -32,10 +37,6 @@ const styles = (theme: MuiTheme) => ({
     margin: "5rem 0 1rem 0",
   },
 });
-
-const Container = styled.div`
-  margin: 2rem 0 1.4rem;
-`;
 
 export const PaginationArea: FC<IProps> = ({ pagy, onPageChange }) => {
   return (

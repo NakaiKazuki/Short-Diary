@@ -232,6 +232,7 @@ export const FormArea: FC<IProps> = ({
             })}
             type="file"
             accept="image/*,.png,.jpg,.jpeg,.gif"
+            id="pictureArea"
             data-testid="pictureArea"
           />
         </Picture>
