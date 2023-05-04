@@ -3,7 +3,7 @@ import { render, cleanup, screen } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import { drawerAtom } from "../../recoils/Drawer";
 import { authAtom } from "../../recoils/Auth";
-import { Drawer } from "../../containers/Drawer";
+import { Drawer } from "../../utils/Drawer";
 import { el } from "../helpers";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 

@@ -20,7 +20,7 @@ const Date = styled.h1`
   margin: 0 auto 0.6rem auto;
 `;
 
-const ContentHeading = styled.h2`
+const Name = styled.h2`
   margin: 0.8rem auto 0.4rem 2rem;
   font-weight: normal;
   opacity: 0.6;
@@ -32,8 +32,8 @@ const TagWrapper = styled.span`
   margin: 0 auto;
 `;
 
-const ItemsWrapper = styled.div`
-  min-height: 15rem;
+const CoontentWrapper = styled.div`
+  min-height: 30vh;
   margin: 0.5rem auto 2.5rem auto;
   width: 80%;
   border: 0.0125rem solid limegreen;
@@ -147,24 +147,31 @@ export const DiaryDialog: FC<IProps> = ({
               }
             )}
           </TagWrapper>
-          <ContentHeading>Content</ContentHeading>
-          <ItemsWrapper>
+          <Name>Content</Name>
+          <CoontentWrapper>
             <Content data-testid="diaryContent">{diary.content}</Content>
-            {diary.picture_url && (
+          </CoontentWrapper>
+          {diary.picture_url && (
+            <Fragment>
+              <Name>Picture</Name>
               <Picture
                 src={diary.picture_url}
                 alt="日記画像"
                 data-testid="diaryPicture"
               />
-            )}
-          </ItemsWrapper>
-          {diary.movie_source && (
-            <YouTube
-              videoId={getVideoId(diary.movie_source)}
-              opts={opts}
-              onReady={onPlayerReady}
-            />
+            </Fragment>
           )}
+          {diary.movie_source && (
+            <Fragment>
+              <Name>Movie</Name>
+              <YouTube
+                videoId={getVideoId(diary.movie_source)}
+                opts={opts}
+                onReady={onPlayerReady}
+              />
+            </Fragment>
+          )
+          }
         </Fragment>
       )}
     </Dialog>

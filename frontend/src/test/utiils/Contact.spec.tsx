@@ -1,5 +1,5 @@
-import { render, cleanup, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { render, cleanup, waitFor } from "@testing-library/react";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
@@ -8,7 +8,7 @@ import { RecoilRoot } from "recoil";
 import { contactAtom } from "../../recoils/Contact";
 import { messageAtom } from "../../recoils/Message";
 import { authAtom } from "../../recoils/Auth";
-import { Contact } from "../../containers/Contact";
+import { Contact } from "../../utils/Contact";
 import { contact } from "../../urls";
 import { el, testString } from "../helpers";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";

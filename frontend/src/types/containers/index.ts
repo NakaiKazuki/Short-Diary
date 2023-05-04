@@ -62,7 +62,7 @@ interface IUserEditObject {
   rules: IUserEditRurles;
 }
 
-type TPicture = Array<{ data: string; name: string }>;
+export type TPicture = Array<{ data: string; name: string }>;
 export interface IContactFormValues {
   name: string;
   email: string;

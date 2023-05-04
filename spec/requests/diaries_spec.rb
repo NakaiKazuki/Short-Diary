@@ -155,14 +155,14 @@ RSpec.describe 'Diaries' do
     let!(:diary) { create(:diary, user:) }
 
     # 有効な情報を保持している
-    def patch_information(content, tokens)
+    def patch_information(content, tokens, tag_list = 'Path Tag1, Path Tag2', movie_source = 'example.com')
       patch api_v1_diary_path(diary), params: {
         diary: {
           id: diary.id,
           date: (Time.zone.today - 1).strftime('%Y-%m-%d'),
           content:,
-          tag_list: 'Path Tag1, Path Tag2',
-          movie_source: 'example.com'
+          tag_list:,
+          movie_source:
         }
       }, headers: tokens
     end
@@ -245,7 +245,13 @@ RSpec.describe 'Diaries' do
 
         it '画像が追加された場合でも編集される' do
           patch_information_add_picture(auth_tokens)
-          expect(diary.reload.content).to eq 'テスト編集済みContent'
+          expect(diary.reload.picture).to be_truthy
+        end
+
+        it 'タグ,動画が空の場合は削除' do
+          patch_information('テスト編集済みcontent', auth_tokens, nil, nil)
+          expect(diary.reload.tag_list).to eq []
+          expect(diary.reload.movie_source).to be_nil
         end
 
         describe 'JSON' do

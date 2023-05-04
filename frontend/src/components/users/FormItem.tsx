@@ -18,10 +18,9 @@ const ErrorMessage = styled.p`
   overflow-wrap: break-word;
 `;
 
-const style = { whiteSpace: "unset" };
 export const FormItem: FC<IProps> = ({ formInfo, control }) => {
   return (
-    <InputLabel sx={style}>
+    <InputLabel sx={{ whiteSpace: "unset" }}>
       <Item data-testid={`FormItem-${formInfo.nameAttribute}`}>
         {formInfo.errorsProperty && (
           <ErrorMessage data-testid={`${formInfo.nameAttribute}ErrorMessage`}>
