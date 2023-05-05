@@ -1,10 +1,10 @@
-import { FC, useState, useReducer } from "react";
+import { FC, useState, useReducer, Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 
-// recoils
+// atoms
 import { messageAtom } from "../recoils/Message";
 
 // types
@@ -17,6 +17,8 @@ import {
   FormTitle,
   FormWrapper,
 } from "../components/users";
+import { ColorRed } from "../components/shared_style";
+
 // apis
 import { putNewPassword } from "../apis/users/passwords";
 
@@ -63,7 +65,11 @@ export const NewPassword: FC = () => {
 
   const formInfo: Pick<IForm, "password" | "password_confirmation"> = {
     password: {
-      formLabel: "パスワード(必須): ",
+      formLabel: (
+        <Fragment>
+          パスワード<ColorRed>※</ColorRed>:
+        </Fragment>
+      ),
       errorsProperty: errors.password,
       errorMessage: "6文字以上128文字以内で入力してください",
       resultErrorProperty: resultErrors?.password,
@@ -76,7 +82,11 @@ export const NewPassword: FC = () => {
       rules: { required: true, minLength: 6, maxLength: 128 },
     },
     password_confirmation: {
-      formLabel: "確認用パスワード(必須):",
+      formLabel: (
+        <Fragment>
+          確認用パスワード<ColorRed>※</ColorRed>:
+        </Fragment>
+      ),
       errorsProperty: errors.password_confirmation,
       errorMessage: "パスワードと同じ内容を入力してください",
       resultErrorProperty: resultErrors?.password_confirmation,

@@ -2,7 +2,7 @@ import { FC, Fragment } from "react";
 import { Navigate } from "react-router-dom";
 import { Head } from "../Head";
 import { useRecoilValue } from "recoil";
-// recoils
+// atoms
 import { authAtom } from "../recoils/Auth";
 // helpers
 import { isLoggedIn } from "../helpers";

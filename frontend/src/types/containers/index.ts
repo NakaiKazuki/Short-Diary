@@ -24,7 +24,7 @@ interface IRurles {
 }
 
 interface IObject {
-  formLabel: string;
+  formLabel: JSX.Element | string;
   errorsProperty: FieldError | undefined;
   errorMessage: string;
   resultErrorProperty: Array<string> | undefined;
@@ -44,7 +44,7 @@ interface IUserEditRurles {
 }
 
 interface IUserEditObject {
-  formLabel: string;
+  formLabel: JSX.Element | string;
   errorsProperty: FieldError | undefined;
   errorMessage: string;
   resultErrorProperty: Array<string> | undefined;

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
-// recoils
+// atoms
 import { contactAtom } from "../recoils/Contact";
 
 // components

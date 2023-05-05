@@ -1,9 +1,9 @@
-import { FC, useState, useReducer } from "react";
+import { FC, useState, useReducer, Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
-// recoils
+// atoms
 import { authAtom } from "../recoils/Auth";
 import { messageAtom } from "../recoils/Message";
 
@@ -18,6 +18,7 @@ import {
   FormTitle,
   FormWrapper,
 } from "../components/users";
+import { ColorRed } from "../components/shared_style";
 // apis
 import { postResetPassword } from "../apis/users/passwords";
 
@@ -64,7 +65,11 @@ export const ResetPassword: FC = () => {
 
   const formInfo: Pick<IForm, "email"> = {
     email: {
-      formLabel: "Email:",
+      formLabel: (
+        <Fragment>
+          Email<ColorRed>※</ColorRed>:
+        </Fragment>
+      ),
       errorsProperty: errors.email,
       errorMessage: "登録したメールアドレスを入力してください",
       resultErrorProperty: resultErrors?.email,

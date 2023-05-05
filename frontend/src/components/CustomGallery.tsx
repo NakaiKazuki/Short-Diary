@@ -11,40 +11,40 @@ const Container = styled.div`
     height: 84.5vh;
     align-items: center;
     justify-content: center;
+    display: flex;
+
     @media screen and (max-width: 480px) {
       height: 50vh;
       display: flex;
     }
   }
+
+  .image-gallery-slide .image-gallery-image {
+    max-height: 70vh;
+  }
+
   .image-gallery-swipe {
     align-items: center;
     justify-content: center;
   }
-  .image-gallery-slide-wrapper:hover .image-gallery-right-nav {
-    opacity: 1;
+
+  .image-gallery-slide {
+    &-wrapper:hover {
+      .image-gallery-right-nav,
+      .image-gallery-left-nav {
+        opacity: 1;
+      }
+    }
   }
-  .image-gallery-slide-wrapper:hover .image-gallery-left-nav {
-    opacity: 1;
-  }
-  .image-gallery-slide-wrapper:hover .image-gallery-play-button {
-    opacity: 1;
-  }
-  .image-gallery-play-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  .image-gallery-left-nav,
+
   .image-gallery-right-nav,
-  .image-gallery-play-button {
+  .image-gallery-left-nav {
     cursor: pointer;
     color: limegreen;
     opacity: 0;
   }
+
   .image-gallery-image {
-    width: 50%;
-    height: auto;
     align-items: center;
     justify-content: center;
     @media screen and (min-width: 481px) and (max-width: 980px) {
@@ -63,6 +63,7 @@ export const CustomGallery: FC<IProps> = ({ items }) => {
         items={items}
         showNav={true}
         disableKeyDown={false}
+        showPlayButton={false}
         showFullscreenButton={false}
       />
     </Container>

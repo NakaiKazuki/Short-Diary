@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { YouTubeProps, YouTubeEvent, YouTubePlayer } from "react-youtube";
 import styled from "styled-components";
 
-// recoils
+// atoms
 import { authAtom } from "../recoils/Auth";
 import { messageAtom } from "../recoils/Message";
 

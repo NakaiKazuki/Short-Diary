@@ -1,9 +1,9 @@
-import { FC, useState, useReducer } from "react";
+import { FC, useState, useReducer, Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
-// recoils
+// atoms
 import { authAtom } from "../recoils/Auth";
 
 // types
@@ -17,6 +17,7 @@ import {
   FormTitle,
   FormWrapper,
 } from "../components/users";
+import { ColorRed } from "../components/shared_style";
 // apis
 import { createSession } from "../apis/users/sessions";
 
@@ -62,7 +63,11 @@ export const Login: FC = () => {
 
   const formInfo: Pick<IForm, "email" | "password"> = {
     email: {
-      formLabel: "Email:",
+      formLabel: (
+        <Fragment>
+          Email<ColorRed>※</ColorRed>:
+        </Fragment>
+      ),
       errorsProperty: errors.email,
       errorMessage: "登録したメールアドレスを入力してください",
       resultErrorProperty: resultErrors,
@@ -75,7 +80,11 @@ export const Login: FC = () => {
       rules: { required: true, maxLength: 255 },
     },
     password: {
-      formLabel: "パスワード: ",
+      formLabel: (
+        <Fragment>
+          パスワード<ColorRed>※</ColorRed>:
+        </Fragment>
+      ),
       errorsProperty: errors.password,
       errorMessage: "正しいパスワードを入力してください",
       resultErrorProperty: resultErrors,

@@ -19,6 +19,7 @@ const Diaries = styled.ul`
   margin: 0 auto;
   padding-inline-start: 0;
   width: 100%;
+
   @media screen and (min-width: 481px) {
     display: flex;
     flex-wrap: wrap;
@@ -36,9 +37,11 @@ const buttonVariants = {
 
 const DiaryWrapper = styled.span`
   width: 25%;
+
   @media screen and (min-width: 980px) and (max-width: 1300px) {
     width: 33%;
   }
+
   @media screen and (max-width: 979px) {
     width: 100%;
   }
@@ -63,15 +66,18 @@ const Diary = styled(motion.li).attrs<typeof buttonVariants>(() => ({
   white-space: nowrap;
   height: 20rem;
   background-color: white;
+
   :hover {
     cursor: pointer;
     z-index: 1;
     background-color: #eeeeee;
     border: 0.12rem solid limegreen;
   }
+
   @media screen and (min-width: 980px) and (max-width: 1300px) {
     height: 20rem;
   }
+
   @media screen and (max-width: 979px) {
     height: 10rem;
   }

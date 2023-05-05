@@ -170,8 +170,7 @@ export const DiaryDialog: FC<IProps> = ({
                 onReady={onPlayerReady}
               />
             </Fragment>
-          )
-          }
+          )}
         </Fragment>
       )}
     </Dialog>

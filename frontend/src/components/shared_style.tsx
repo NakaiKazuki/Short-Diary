@@ -89,3 +89,7 @@ export const CurtainButton = styled.button`
     z-index: -1;
   }
 `;
+
+export const ColorRed = styled.span`
+  color: red;
+`;

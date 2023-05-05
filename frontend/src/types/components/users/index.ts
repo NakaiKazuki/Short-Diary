@@ -8,7 +8,7 @@ interface IRurles {
 }
 
 interface IFormInfo {
-  formLabel: string;
+  formLabel: JSX.Element | string;
   errorsProperty: FieldError | undefined;
   errorMessage: string;
   resultErrorProperty: Array<string> | undefined;

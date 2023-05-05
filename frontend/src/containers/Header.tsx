@@ -4,7 +4,7 @@ import { AppBar, Toolbar } from "@mui/material";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 
-// recoils
+// atoms
 import { authAtom } from "../recoils/Auth";
 import { drawerAtom } from "../recoils/Drawer";
 

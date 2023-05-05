@@ -38,7 +38,7 @@ const ReactBlock = (): JSX.Element => {
         <Content>React 18.2.0</Content>
         <Content>TypeScript 5.0.4</Content>
         <Content>React Testing Library</Content>
-        <Content>ESLint</Content>React Tree Fiber
+        <Content>ESLint</Content>
         <Content>Prettier</Content>
       </Contents>
     </Fragment>

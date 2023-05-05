@@ -1,10 +1,10 @@
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import { TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
 import styled from "styled-components";
 
 // components
-import { BaseButton } from "../shared_style";
+import { BaseButton, ColorRed } from "../shared_style";
 
 // icons
 import { AddPictureIcon } from "../icon";
@@ -99,7 +99,11 @@ export const FormArea: FC<IProps> = ({
           shouldUnregister
           render={({ field }) => (
             <TextField
-              label="Date"
+              label={
+                <Fragment>
+                  Date<ColorRed>※</ColorRed>
+                </Fragment>
+              }
               type="date"
               inputProps={{
                 "data-testid": "dateArea",
@@ -157,7 +161,11 @@ export const FormArea: FC<IProps> = ({
           shouldUnregister
           render={({ field }) => (
             <TextField
-              label="Content"
+              label={
+                <Fragment>
+                  Content<ColorRed>※</ColorRed>
+                </Fragment>
+              }
               type="textarea"
               autoFocus={true}
               minRows="8"

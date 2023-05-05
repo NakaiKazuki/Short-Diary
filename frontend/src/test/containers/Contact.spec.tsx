@@ -8,7 +8,7 @@ import { RecoilRoot } from "recoil";
 import { contactAtom } from "../../recoils/Contact";
 import { messageAtom } from "../../recoils/Message";
 import { authAtom } from "../../recoils/Auth";
-import { Contact } from "../../utils/Contact";
+import { Contact } from "../../containers/Contact";
 import { contact } from "../../urls";
 import { el, testString } from "../helpers";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";

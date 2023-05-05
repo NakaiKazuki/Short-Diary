@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 
-// recoils
+// atoms
 import { messageAtom } from "../recoils/Message";
 
 const Container = styled.div`
