@@ -75,7 +75,7 @@
     - React Helmet Async
   - 状態管理
     - Recoil
-  - 3D
+  - WebGL
     - React Tree Fiber
 
 - Rails
