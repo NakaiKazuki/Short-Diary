@@ -26,6 +26,7 @@ RUN gem install bundler -v 2.4.4 && \
     bundle install --verbose
 
 COPY . $APP_ROOT
+
 RUN mkdir -p $APP_ROOT/tmp/sockets $APP_ROOT/tmp/pids $APP_ROOT/log
 
 EXPOSE 3001

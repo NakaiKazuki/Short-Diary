@@ -1,5 +1,4 @@
 import { forwardRef, FC, ReactElement, useRef, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
 import { TransitionProps } from "@mui/material/transitions";
 import { Slide } from "@mui/material";
 import styled from "styled-components";
@@ -79,14 +78,14 @@ const Base = styled.li`
   }
 `;
 
-const Category = styled(Base)<{ disabled: boolean }>`
+const Category = styled(Base) <{ disabled: boolean }>`
   ${({ disabled }) =>
     disabled
       ? {
-          "background-color": "limegreen",
-          color: "white",
-          "pointer-events": "none",
-        }
+        "background-color": "limegreen",
+        color: "white",
+        "pointer-events": "none",
+      }
       : { "background-color": "white" }};
 `;
 
@@ -110,7 +109,6 @@ transition.displayName = "Transition";
 export const About: FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [state, dispatch] = useReducer(aboutReducer, initialState);
-  const navigate = useNavigate();
   const isDisabeld = (title: string): boolean => state.title === title;
 
   const hadleClick = (title: string) => {
@@ -147,7 +145,6 @@ export const About: FC = () => {
           >
             機能その他
           </Category>
-          <Base onClick={() => navigate("/")}>Home</Base>
         </Categories>
         <Main data-testid="main">{state.jsxElement}</Main>
       </Contents>

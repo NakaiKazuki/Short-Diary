@@ -40,7 +40,14 @@ const Button = styled(BaseButton)`
     color: white;
   }
 `;
-
+const styles = {
+  '& .MuiPickersLayout-toolbar': {
+    display: 'none',
+  },
+  '& .MuiPickersLayout-actionBar': {
+    display: 'none',
+  },
+};
 export const DiarySearchDrawer: FC<IProps> = ({
   control,
   selectedDate,
@@ -57,6 +64,7 @@ export const DiarySearchDrawer: FC<IProps> = ({
         open={isOpenDrawer}
         onClose={onOpenButton(false)}
         onOpen={onOpenButton(true)}
+        sx={styles}
       >
         <Box component="div" role="presentation" data-testid="searchDrawer">
           <List>
