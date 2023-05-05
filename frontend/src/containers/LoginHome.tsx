@@ -238,7 +238,7 @@ export const LoginHome: FC = () => {
   // ページネションのページ番号が選択されたら、その番号に応じてデータを受け取る
   const ref = useRef<HTMLDivElement>(null);
   const onPageChange = async (page: number): Promise<void> => {
-    await getDiaries(page, state.selectedDate?.toISOString().split("T")[0])
+    await getDiaries(page, state.selectedDate?.toISOString().split("T")[0]) // page,2023-05-06 みたいな感じ
       .then((data) => {
         setState({
           ...state,
@@ -263,14 +263,11 @@ export const LoginHome: FC = () => {
   };
   // 日付を指定して検索する場合に使用
   const convertDate = (selectedDate: Date): Date | undefined => {
-    const dateTime = new Date(new Date(selectedDate).toLocaleString("ja"));
+    const date = new Date(new Date(selectedDate).toLocaleString("ja"));
     return new Date(
-      dateTime.getFullYear(),
-      dateTime.getMonth(),
-      dateTime.getDate(),
-      9,
-      0,
-      0
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
     );
   };
 
@@ -368,10 +365,10 @@ export const LoginHome: FC = () => {
     dispatch({ type: submitActionTypes.POSTING });
     await createDiary({
       date: formValues.date,
-      tag_list: formValues.tag_list?.trim() || undefined,
+      tag_list: formValues.tag_list?.trim(),
       content: formValues.content,
       picture: formValues.picture?.[0],
-      movie_source: formValues.movie_source || undefined,
+      movie_source: formValues.movie_source,
     })
       .then((data): void => {
         dispatch({ type: submitActionTypes.POST_INITIAL });
@@ -421,10 +418,10 @@ export const LoginHome: FC = () => {
     await updateDiary(
       {
         date: formValues.date,
-        tag_list: formValues.tag_list?.trim() || undefined,
+        tag_list: formValues.tag_list?.trim(),
         content: formValues.content,
         picture: formValues.picture?.[0],
-        movie_source: formValues.movie_source || undefined,
+        movie_source: formValues.movie_source,
       },
       state.pagy.page,
       state.selectedDiary.id
@@ -491,7 +488,9 @@ export const LoginHome: FC = () => {
 
   // DiaryDialogで開かれている日記データを削除
   const onDiaryDelete = async (diary: IDiary): Promise<void> => {
+
     if (!state.pagy) return;
+
     await deleteDiary(state.pagy.page, diary.id)
       .then((data): void => {
         setState({
@@ -583,7 +582,7 @@ export const LoginHome: FC = () => {
         </CircularProgressContainer>
       ) : (
         <Fragment>
-          {state.diaries?.length && state.pagy != null ? (
+          {state.diaries?.length && state.pagy ? (
             <Fragment>
               <PaginationArea onPageChange={onPageChange} pagy={state.pagy} />
               <DiaryIndex
