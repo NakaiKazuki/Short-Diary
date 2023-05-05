@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { Head } from "../Head";
 import { useRecoilValue } from "recoil";
 
-// recoils
+// atoms
 import { authAtom } from "../recoils/Auth";
 
 // helpers

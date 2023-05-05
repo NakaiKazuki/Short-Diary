@@ -7,6 +7,7 @@ import erImage from "../../images/er.png";
 // css
 const Container = styled.div`
   margin-top: 3vh;
+
   @media screen and (min-width: 481px) {
     margin-left: 10vw;
   }
@@ -19,10 +20,12 @@ const SubTitle = styled.h2`
 const Contents = styled.ul`
   padding-inline-start: 0;
   margin-left: 1.5vw;
+
   li:not(:first-child) {
     margin-top: 1rem;
   }
 `;
+
 const Content = styled.li`
   padding-inline-start: 0;
   margin-left: 1.5vw;
@@ -100,7 +103,7 @@ const ReactBlock = (): JSX.Element => {
           </InnerUl>
         </Content>
         <Content>
-          3D
+          WebGL
           <InnerUl>
             <InnerLi>React Tree Fiber</InnerLi>
           </InnerUl>

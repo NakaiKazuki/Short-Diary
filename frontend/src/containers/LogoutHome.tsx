@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { motion } from "framer-motion";
-// recoils
+// atoms
 import { authAtom } from "../recoils/Auth";
 
 // apis

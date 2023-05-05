@@ -1,7 +1,7 @@
 import { FC, Fragment } from "react";
 import { useRecoilValue } from "recoil";
 import { Head } from "../Head";
-// recoils
+// atoms
 import { authAtom } from "../recoils/Auth";
 
 // helpers

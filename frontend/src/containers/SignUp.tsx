@@ -1,10 +1,10 @@
-import { FC, useState, useReducer } from "react";
+import { FC, useState, useReducer, Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
-// recoils
+// atoms
 import { messageAtom } from "../recoils/Message";
 
 // components
@@ -15,6 +15,7 @@ import {
   FormTitle,
   FormWrapper,
 } from "../components/users";
+import { ColorRed } from "../components/shared_style";
 // apis
 import { postRegistration } from "../apis/users/registrations";
 
@@ -68,7 +69,11 @@ export const SignUp: FC = () => {
     "name" | "email" | "password" | "password_confirmation"
   > = {
     name: {
-      formLabel: "Name(必須):",
+      formLabel: (
+        <Fragment>
+          Nmae<ColorRed>※</ColorRed>:
+        </Fragment>
+      ),
       errorsProperty: errors.name,
       errorMessage: "1文字以上、50文字以内で入力してください",
       resultErrorProperty: resultErrors?.name,
@@ -81,7 +86,11 @@ export const SignUp: FC = () => {
       rules: { required: true, maxLength: 50 },
     },
     email: {
-      formLabel: "Email(必須):",
+      formLabel: (
+        <Fragment>
+          Email<ColorRed>※</ColorRed>:
+        </Fragment>
+      ),
       errorsProperty: errors.email,
       errorMessage: "1文字以上、255文字以内で入力してください",
       resultErrorProperty: resultErrors?.email,
@@ -94,7 +103,11 @@ export const SignUp: FC = () => {
       rules: { required: true, maxLength: 255 },
     },
     password: {
-      formLabel: "パスワード(必須): ",
+      formLabel: (
+        <Fragment>
+          パスワード<ColorRed>※</ColorRed>:
+        </Fragment>
+      ),
       errorsProperty: errors.password,
       errorMessage: "6文字以上128文字以内で入力してください",
       resultErrorProperty: resultErrors?.password,
@@ -107,7 +120,11 @@ export const SignUp: FC = () => {
       rules: { required: true, minLength: 6, maxLength: 128 },
     },
     password_confirmation: {
-      formLabel: "確認用パスワード(必須):",
+      formLabel: (
+        <Fragment>
+          確認用パスワード<ColorRed>※</ColorRed>:
+        </Fragment>
+      ),
       errorsProperty: errors.password_confirmation,
       errorMessage: "パスワードと同じ内容を入力してください",
       resultErrorProperty: resultErrors?.password_confirmation,

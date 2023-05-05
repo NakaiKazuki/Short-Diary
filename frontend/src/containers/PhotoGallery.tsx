@@ -4,7 +4,7 @@ import styled from "styled-components";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useSetRecoilState } from "recoil";
 import "react-image-gallery/styles/css/image-gallery.css";
-// recoils
+// atoms
 import { authAtom } from "../recoils/Auth";
 
 // constants
@@ -25,7 +25,6 @@ import { IPhotoGalleryInitialState as IInitialState } from "../types/containers"
 const Container = styled.div`
   margin: 0 auto 0;
   width: 100%;
-  min-height: 93.5vh;
   padding-top: 14vh;
 `;
 
@@ -46,9 +45,11 @@ const MessageContainer = styled.div`
   border: 0.0125rem solid limegreen;
   border-radius: 0.5rem;
   position: relative;
+
   @media screen and (min-width: 768px) and (max-width: 979px) {
     width: 44%;
   }
+
   @media screen and (max-width: 480px) {
     height: 10rem;
     width: 100%;

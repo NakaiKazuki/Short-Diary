@@ -51,6 +51,7 @@ const Contents = styled.div`
 const Categories = styled.ul`
   padding-inline-start: 0.2rem;
   width: 60%;
+
   @media screen and (min-width: 980px) {
     width: 15vw;
     left: 20vh;
@@ -59,6 +60,7 @@ const Categories = styled.ul`
       margin-top: 1rem;
     }
   }
+
   @media screen and (max-width: 979px) {
     position: sticky;
     position: -webkit-sticky;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Box, SwipeableDrawer, List, Divider, ListItem } from "@mui/material";
 import { Link } from "react-router-dom";
 
-// recoils
+// atoms
 import { drawerAtom } from "../recoils/Drawer";
 import { authAtom } from "../recoils/Auth";
 

@@ -9,7 +9,7 @@ import { IPaginationAreaProps as IProps } from "../types/components";
 
 const Container = styled.div`
   margin: 2rem 0 1.4rem;
-  `;
+`;
 
 const styles = (theme: MuiTheme) => ({
   margin: "0 auto",

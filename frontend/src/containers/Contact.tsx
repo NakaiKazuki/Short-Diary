@@ -25,7 +25,10 @@ import { useForm, Controller } from "react-hook-form";
 // apis
 import { postContact } from "../apis/contact";
 
-// recoils
+// components
+import { ColorRed } from "../components/shared_style";
+
+// atoms
 import { contactAtom } from "../recoils/Contact";
 import { authAtom } from "../recoils/Auth";
 import { messageAtom } from "../recoils/Message";
@@ -191,7 +194,11 @@ export const Contact: FC = () => {
                   <TextField
                     {...field}
                     type="text"
-                    label="Name(必須)"
+                    label={
+                      <Fragment>
+                        Name<ColorRed>※</ColorRed>:
+                      </Fragment>
+                    }
                     autoComplete="username"
                     fullWidth
                     inputProps={{
@@ -225,7 +232,11 @@ export const Contact: FC = () => {
                   <TextField
                     {...field}
                     type="email"
-                    label="Email(必須)"
+                    label={
+                      <Fragment>
+                        Email<ColorRed>※</ColorRed>:
+                      </Fragment>
+                    }
                     autoComplete="email"
                     fullWidth
                     inputProps={{
@@ -298,7 +309,11 @@ export const Contact: FC = () => {
                   <TextField
                     {...field}
                     type="text"
-                    label="お問い合わせ内容(必須)"
+                    label={
+                      <Fragment>
+                        お問い合わせ内容<ColorRed>※</ColorRed>:
+                      </Fragment>
+                    }
                     autoComplete="text"
                     fullWidth
                     multiline

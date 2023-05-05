@@ -1,9 +1,9 @@
-import { FC, useState, useReducer } from "react";
+import { FC, useState, useReducer, Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-// recoils
+// atoms
 import { authAtom } from "../recoils/Auth";
 import { messageAtom } from "../recoils/Message";
 
@@ -15,6 +15,8 @@ import {
   FormTitle,
   FormWrapper,
 } from "../components/users";
+
+import { ColorRed } from "../components/shared_style";
 // apis
 import { putRegistration } from "../apis/users/registrations";
 
@@ -93,7 +95,11 @@ export const UserEdit: FC = () => {
       rules: { maxLength: 50 },
     },
     email: {
-      formLabel: "Email(必須):",
+      formLabel: (
+        <Fragment>
+          Email<ColorRed>※</ColorRed>:
+        </Fragment>
+      ),
       errorsProperty: errors.email,
       errorMessage: "1文字以上、255文字以内で入力してください",
       resultErrorProperty: resultErrors?.email,
@@ -132,7 +138,11 @@ export const UserEdit: FC = () => {
       rules: { minLength: 6, maxLength: 128 },
     },
     current_password: {
-      formLabel: "現在使用中のパスワード(必須):",
+      formLabel: (
+        <Fragment>
+          現在使用中のパスワード<ColorRed>※</ColorRed>:
+        </Fragment>
+      ),
       errorsProperty: errors.current_password,
       errorMessage: "現在使用中のパスワードを入力してください",
       resultErrorProperty: resultErrors?.current_password,
