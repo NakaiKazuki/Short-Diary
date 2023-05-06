@@ -12,12 +12,17 @@ import { authAtom } from "../recoils/Auth";
 import { BaseButton } from "../components/shared_style";
 import { PictureIcon } from "../components/icon";
 
-// images
-import mainLogo from "../images/logo.png";
-
-const MainLogo = styled.img`
-  height: 2.5rem;
-  margin: 0 1rem;
+const MainLogo = styled.span`
+  /* height: 2.5rem; */
+  margin: 1rem auto;
+  padding: 1.15vh 0;
+  font-size: 1.7rem;
+  color: limegreen;
+  font-weight: bold;
+  font-family: Comic Sans MS;
+  @media screen and (max-width: 480px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const Container = styled.div`
@@ -89,9 +94,11 @@ export const Drawer: FC = () => {
         <Box component="div" role="presentation" data-testid="linksDrawer">
           <Container>
             <List>
-              <CustomLink to="/" data-testid="homeLink" onClick={handleClose}>
-                <MainLogo src={mainLogo} alt="main logo" />
-              </CustomLink>
+              <ListItem>
+                <CustomLink to="/" data-testid="homeLink" onClick={handleClose}>
+                  <MainLogo>Short Diary</MainLogo>
+                </CustomLink>
+              </ListItem>
               <Divider />
               <CustomLink
                 to="/photoGalley"

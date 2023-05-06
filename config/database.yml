@@ -5,6 +5,7 @@ default: &default
   username: root
   password: password
   host: db
+  timezone: "Asia/Tokyo"
 
 development:
   <<: *default

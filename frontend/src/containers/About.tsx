@@ -78,14 +78,14 @@ const Base = styled.li`
   }
 `;
 
-const Category = styled(Base) <{ disabled: boolean }>`
+const Category = styled(Base)<{ disabled: boolean }>`
   ${({ disabled }) =>
     disabled
       ? {
-        "background-color": "limegreen",
-        color: "white",
-        "pointer-events": "none",
-      }
+          "background-color": "limegreen",
+          color: "white",
+          "pointer-events": "none",
+        }
       : { "background-color": "white" }};
 `;
 

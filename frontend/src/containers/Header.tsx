@@ -18,9 +18,6 @@ import { UserMenu } from "../components/users/UserMenu";
 // apis
 import { deleteSession } from "../apis/users/sessions";
 
-// images
-import mainLogo from "../images/logo.png";
-
 // helpers
 import { removeUserCookies } from "../helpers";
 
@@ -42,20 +39,16 @@ const Icon = styled.span`
   }
 `;
 
-const style = {
-  width: "1.7rem",
-  height: "1.7rem",
-  color: "limegreen",
-  margin: "auto 0",
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-};
-
-const Logo = styled.img`
-  height: 2.5rem;
+const Logo = styled(Link)`
   padding: 1.15vh 0;
+  font-size: 1.7rem;
+  color: limegreen;
+  font-weight: bold;
+  font-family: Comic Sans MS;
+  text-decoration: none;
+  @media screen and (max-width: 480px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const SignUpLink = styled(Link)`
@@ -76,6 +69,16 @@ const LinkItem = styled(BaseButton)`
   background-color: limegreen;
   color: white;
 `;
+
+const style = {
+  width: "1.7rem",
+  height: "1.7rem",
+  margin: "auto 0",
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+};
 
 export const Header: FC = () => {
   const [currentUser, setCurrentUser] = useRecoilState(authAtom);
@@ -107,9 +110,9 @@ export const Header: FC = () => {
             <MenuIcon sx={style} />
           </Icon>
         )}
-        <Link to="/" data-testid="homeLink">
-          <Logo src={mainLogo} alt="main logo" />
-        </Link>
+        <Logo to="/" data-testid="homeLink">
+          Short Diary
+        </Logo>
         {currentUser ? (
           <UserMenu
             anchorEl={anchorEl}

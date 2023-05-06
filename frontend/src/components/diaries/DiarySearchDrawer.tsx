@@ -41,11 +41,11 @@ const Button = styled(BaseButton)`
   }
 `;
 const styles = {
-  '& .MuiPickersLayout-toolbar': {
-    display: 'none',
+  "& .MuiPickersLayout-toolbar": {
+    display: "none",
   },
-  '& .MuiPickersLayout-actionBar': {
-    display: 'none',
+  "& .MuiPickersLayout-actionBar": {
+    display: "none",
   },
 };
 export const DiarySearchDrawer: FC<IProps> = ({
