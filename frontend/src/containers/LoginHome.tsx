@@ -265,11 +265,7 @@ export const LoginHome: FC = () => {
   // 日付を指定して検索する場合に使用
   const convertDate = (selectedDate: Date): Date | undefined => {
     const date = new Date(new Date(selectedDate).toLocaleString("ja"));
-    return new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate(),
-    );
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   };
 
   const onDateChange = async (selectedDate: null | Date): Promise<void> => {
@@ -489,7 +485,6 @@ export const LoginHome: FC = () => {
 
   // DiaryDialogで開かれている日記データを削除
   const onDiaryDelete = async (diary: IDiary): Promise<void> => {
-
     if (!state.pagy) return;
 
     await deleteDiary(state.pagy.page, diary.id)
