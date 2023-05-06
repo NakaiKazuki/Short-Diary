@@ -158,6 +158,7 @@ const EmptyMessageContainer = styled.div`
 
 const EmptyMessage = styled.span`
   margin-top: 50% 0;
+  background-color: white;
   position: absolute;
   top: 50%;
   left: 50%;

@@ -26,6 +26,7 @@ const Container = styled.div`
   margin: 0 auto 0;
   width: 100%;
   padding-top: 14vh;
+  min-height: 93.5vh;
 `;
 
 const CircularProgressContainer = styled.span`
