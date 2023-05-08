@@ -26,7 +26,7 @@
 ## 使用技術
 
 - React
-  - Node 18.15.0
+  - Node 18.16.0
   - React 18.2.0
   - TypeScript 5.0.4
   - React Testing Library
