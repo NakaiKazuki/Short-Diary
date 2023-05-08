@@ -32,7 +32,7 @@ const Text = styled.h1`
 `;
 
 const Title = styled.h2`
-  font-size: 6rem;
+  font-size: 4rem;
   letter-spacing: 0.5rem;
   line-height: 0.7em;
   color: limegreen;
@@ -55,8 +55,8 @@ const CustomButton = styled(CurtainButton)`
   letter-spacing: 0.2rem;
   font-size: 1.2rem;
   padding: 0.5rem;
-  width: 20rem;
-  height: 5rem;
+  width: 18rem;
+  height: 4rem;
   font-weight: 900;
   @media screen and (max-width: 980px) {
     font-size: 0.95rem;

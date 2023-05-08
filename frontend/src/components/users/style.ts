@@ -6,6 +6,7 @@ export const FormTitle = styled.h1`
   color: limegreen;
   letter-spacing: 0.1rem;
   font-size: 2.2rem;
+  font-family: Comic Sans MS;
 `;
 
 export const FormWrapper = styled.form`

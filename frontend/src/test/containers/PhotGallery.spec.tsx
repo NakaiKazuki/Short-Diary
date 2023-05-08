@@ -3,7 +3,7 @@ import { RecoilRoot } from "recoil";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { authAtom } from "../../recoils/Auth";
+import { authAtom } from "../../atoms/Auth";
 import { PhotoGallery } from "../../containers/PhotoGallery";
 import { photoGallery } from "../../urls";
 import { el } from "../helpers";

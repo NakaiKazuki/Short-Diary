@@ -13,12 +13,17 @@ const Item = styled.div`
 
 const ErrorMessage = styled.p`
   margin: 1rem auto;
+  padding: 0.5rem;
+  opacity: 0.8;
   color: red;
   font-size: 0.9rem;
   overflow-wrap: break-word;
 `;
 
 export const FormItem: FC<IProps> = ({ formInfo, control }) => {
+  const isError = () => {
+    return Boolean(formInfo.errorsProperty || formInfo.resultErrorProperty);
+  };
   return (
     <InputLabel sx={{ whiteSpace: "unset" }}>
       <Item data-testid={`FormItem-${formInfo.nameAttribute}`}>
@@ -45,11 +50,13 @@ export const FormItem: FC<IProps> = ({ formInfo, control }) => {
           render={({ field }) => (
             <TextField
               {...field}
+              error={isError()}
               type={formInfo.typeAttribute}
               label={formInfo.formLabel}
               autoFocus={formInfo.autoFocus}
               autoComplete={formInfo.autoComplete}
               fullWidth
+              sx={{ backgroundColor: "white" }}
               inputProps={{
                 "data-testid": `${formInfo.nameAttribute}Area`,
               }}

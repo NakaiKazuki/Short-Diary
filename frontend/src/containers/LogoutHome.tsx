@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { motion } from "framer-motion";
 // atoms
-import { authAtom } from "../recoils/Auth";
+import { authAtom } from "../atoms/Auth";
 
 // apis
 import { newGuestSession } from "../apis/users/sessions";

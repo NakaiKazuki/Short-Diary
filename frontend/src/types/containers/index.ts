@@ -21,6 +21,7 @@ interface IRurles {
   required: boolean;
   minLength?: number;
   maxLength: number;
+  pattern?: RegExp;
 }
 
 interface IObject {
@@ -41,6 +42,7 @@ interface IUserEditRurles {
   required?: boolean;
   minLength?: number;
   maxLength: number;
+  pattern?: RegExp;
 }
 
 interface IUserEditObject {

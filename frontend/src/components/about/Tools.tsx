@@ -34,7 +34,7 @@ const ReactBlock = (): JSX.Element => {
     <Fragment>
       <SubTitle data-testid="react">React</SubTitle>
       <Contents>
-        <Content>Node 18.15.0</Content>
+        <Content>Node 18.16.0</Content>
         <Content>React 18.2.0</Content>
         <Content>TypeScript 5.0.4</Content>
         <Content>React Testing Library</Content>

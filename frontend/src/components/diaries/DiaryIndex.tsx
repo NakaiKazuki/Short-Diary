@@ -66,11 +66,10 @@ const Diary = styled(motion.li).attrs<typeof buttonVariants>(() => ({
   white-space: nowrap;
   height: 20rem;
   background-color: white;
-
+  box-shadow: 3px 5px 7px -3px green;
   :hover {
     cursor: pointer;
     z-index: 1;
-    background-color: #eeeeee;
     border: 0.12rem solid limegreen;
   }
 
@@ -93,11 +92,12 @@ const Date = styled.span`
   text-align: center;
   font-size: 1.7rem;
   color: limegreen;
+  font-weight: bold;
 `;
 
 const ImageIconArea = styled(PictureIcon)`
   float: right;
-  color: royalblue;
+  color: limegreen;
 `;
 
 const MovieIconArea = styled(MovieIcon)`

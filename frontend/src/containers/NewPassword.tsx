@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 
 // atoms
-import { messageAtom } from "../recoils/Message";
+import { messageAtom } from "../atoms/Message";
 
 // types
 import { IForm } from "../types/containers";

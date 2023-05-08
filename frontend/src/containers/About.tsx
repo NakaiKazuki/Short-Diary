@@ -10,8 +10,8 @@ import { initialState, aboutReducer } from "../reducers/about";
 const Container = styled.div`
   min-height: 93.5vh;
   width: 90vw;
-  margin: 6.6vh auto 9vh auto;
-  padding-top: 2rem;
+  margin: 0 auto 9vh auto;
+  padding-top: 8.6vh;
 `;
 
 const Title = styled.h1`

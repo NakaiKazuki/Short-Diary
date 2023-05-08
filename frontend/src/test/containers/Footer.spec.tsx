@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import { render, cleanup } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { contactAtom } from "../../recoils/Contact";
+import { contactAtom } from "../../atoms/Contact";
 import { Footer } from "../../containers/Footer";
 import { el } from "../helpers";
 

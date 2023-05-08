@@ -93,6 +93,7 @@ export const DiaryDialog: FC<IProps> = ({
   register,
 }) => {
   const getVideoId = (url: string): string | undefined => {
+    //YoutubeのvideoID取得 watch?v=wSTbdqo-j74 のwSTbdqo-j74を取り出してる
     const match = url.match(
       /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})(?:\S+)?$/
     );

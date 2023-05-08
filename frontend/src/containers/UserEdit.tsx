@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 // atoms
-import { authAtom } from "../recoils/Auth";
-import { messageAtom } from "../recoils/Message";
+import { authAtom } from "../atoms/Auth";
+import { messageAtom } from "../atoms/Message";
 
 // components
 import {
@@ -50,7 +50,7 @@ import {
 const Container = styled.div`
   width: 100%;
   min-height: 93.5vh;
-  margin-top: 21vh;
+  padding-top: 17vh;
 `;
 
 const GuestMessage = styled.p`
@@ -101,7 +101,7 @@ export const UserEdit: FC = () => {
         </Fragment>
       ),
       errorsProperty: errors.email,
-      errorMessage: "1文字以上、255文字以内で入力してください",
+      errorMessage: "255文字以内でメールアドレスを入力してください",
       resultErrorProperty: resultErrors?.email,
       apiMessagePropertyName: "メールアドレス",
       nameAttribute: "email",
@@ -109,7 +109,12 @@ export const UserEdit: FC = () => {
       defaultValue: currentUser.email,
       autoComplete: "email",
       autoFocus: false,
-      rules: { required: true, maxLength: 255 },
+      rules: {
+        required: true,
+        maxLength: 255,
+        pattern:
+          /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/,
+      },
     },
     password: {
       formLabel: "新規パスワード(6文字以上):",
