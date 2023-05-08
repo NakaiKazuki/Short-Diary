@@ -29,7 +29,7 @@ const Container = styled.div`
   min-height: 93.5vh;
   @media screen and (max-width: 480px) {
     padding-top: 20vh;
-   }
+  }
 `;
 
 const CircularProgressContainer = styled.span`

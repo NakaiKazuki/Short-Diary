@@ -37,7 +37,6 @@ const ContentCount = styled.span<{ contentCount: number }>`
   }};
 `;
 
-
 const Picture = styled.label`
   width: 100%;
   text-align: center;
@@ -54,24 +53,25 @@ const Picture = styled.label`
 
 const FileNameArea = styled.span`
   margin-left: 0.6rem;
- `;
+`;
 
 const InputPictureArea = styled.input`
   display: none;
- `;
+`;
 const Submit = styled(BaseButton)`
-    margin-top: 2rem;
-    background-color: limegreen;
-    color: white;
-    border-style: none;
-    width: 100%;
-    height: 3rem;
-    font-size: 1.1rem;
+  margin-top: 2rem;
+  background-color: limegreen;
+  color: white;
+  border-style: none;
+  width: 100%;
+  height: 3rem;
+  font-size: 1.1rem;
 `;
 const StyledSubmitIcon = styled(SubmitIcon)`
   margin-right: 0.6rem;
 `;
-const moviePattern = /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})(?:\S+)?$/;
+const moviePattern =
+  /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})(?:\S+)?$/;
 
 export const FormArea: FC<IProps> = ({
   control,
@@ -178,7 +178,7 @@ export const FormArea: FC<IProps> = ({
                 </Fragment>
               }
               type="textarea"
-              error={Boolean((errors?.content || resultErrors?.content))}
+              error={Boolean(errors?.content || resultErrors?.content)}
               autoFocus={true}
               minRows="8"
               placeholder="200文字以内で日記の内容を入力してください"
@@ -219,7 +219,8 @@ export const FormArea: FC<IProps> = ({
           name="movie_source"
           control={control}
           rules={{
-            maxLength: 255, pattern: moviePattern
+            maxLength: 255,
+            pattern: moviePattern,
           }}
           defaultValue={defaultmovie_source}
           shouldUnregister
@@ -227,7 +228,9 @@ export const FormArea: FC<IProps> = ({
             <TextField
               label="YouTube URL"
               type="textarea"
-              error={Boolean((errors?.movie_source || resultErrors?.movie_source))}
+              error={Boolean(
+                errors?.movie_source || resultErrors?.movie_source
+              )}
               placeholder="https://www.youtube.com/watch?v=example"
               fullWidth
               sx={{ backgroundColor: "white" }}

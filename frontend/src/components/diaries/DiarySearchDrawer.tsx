@@ -45,7 +45,7 @@ const Button = styled(BaseButton)`
 `;
 
 const StyledIcon = styled(SearchIcon)`
-  margin-right: 0.6rem
+  margin-right: 0.6rem;
 `;
 const styles = {
   "& .MuiPickersLayout-toolbar": {

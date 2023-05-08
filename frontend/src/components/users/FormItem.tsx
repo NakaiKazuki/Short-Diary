@@ -23,7 +23,7 @@ const ErrorMessage = styled.p`
 export const FormItem: FC<IProps> = ({ formInfo, control }) => {
   const isError = () => {
     return Boolean(formInfo.errorsProperty || formInfo.resultErrorProperty);
-  }
+  };
   return (
     <InputLabel sx={{ whiteSpace: "unset" }}>
       <Item data-testid={`FormItem-${formInfo.nameAttribute}`}>

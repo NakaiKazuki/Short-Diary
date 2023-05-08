@@ -77,7 +77,12 @@ export const Login: FC = () => {
       defaultValue: "",
       autoComplete: "email",
       autoFocus: true,
-      rules: { required: true, maxLength: 255, pattern: /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/ },
+      rules: {
+        required: true,
+        maxLength: 255,
+        pattern:
+          /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/,
+      },
     },
     password: {
       formLabel: (
