@@ -1,7 +1,7 @@
 import { render, screen, cleanup } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import { Message } from "../../utils/Message";
-import { messageAtom } from "../../recoils/Message";
+import { messageAtom } from "../../atoms/Message";
 import { el } from "../helpers";
 
 afterEach(cleanup);

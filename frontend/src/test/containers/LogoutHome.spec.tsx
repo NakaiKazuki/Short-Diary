@@ -3,7 +3,7 @@ import { render, cleanup } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import { authAtom } from "../../recoils/Auth";
+import { authAtom } from "../../atoms/Auth";
 import { LogoutHome } from "../../containers/LogoutHome";
 import {
   createIntersectionObserver,

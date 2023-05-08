@@ -1,4 +1,3 @@
-export { default as PictureIcon } from "@mui/icons-material/InsertPhoto";
 export { default as AddPictureIcon } from "@mui/icons-material/AddAPhoto";
 export { default as MenuOpenIcon } from "@mui/icons-material/MenuOpen";
 export { default as CreateIcon } from "@mui/icons-material/Create";
@@ -12,3 +11,5 @@ export { default as MenuIcon } from "@mui/icons-material/Menu";
 export { default as MovieIcon } from "@mui/icons-material/YouTube";
 export { default as GitHubIcon } from "@mui/icons-material/GitHub";
 export { default as TwitterIcon } from "@mui/icons-material/Twitter";
+export { default as PictureIcon } from "@mui/icons-material/PhotoCameraOutlined";
+export { default as SubmitIcon } from "@mui/icons-material/Telegram";

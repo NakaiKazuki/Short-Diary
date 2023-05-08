@@ -5,7 +5,7 @@ import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { authAtom } from "../../recoils/Auth";
+import { authAtom } from "../../atoms/Auth";
 import { Login } from "../../containers/Login";
 import { signIn } from "../../urls";
 import { el } from "../helpers";

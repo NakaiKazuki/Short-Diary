@@ -7,6 +7,9 @@ import styled from "styled-components";
 import { BaseButton, ColorRed } from "../shared_style";
 
 // icons
+import { SubmitIcon } from "../icon";
+
+// icons
 import { AddPictureIcon } from "../icon";
 
 // types
@@ -34,15 +37,6 @@ const ContentCount = styled.span<{ contentCount: number }>`
   }};
 `;
 
-const Submit = styled(BaseButton)`
-  margin-top: 2rem;
-  background-color: limegreen;
-  color: white;
-  border-style: none;
-  width: 100%;
-  height: 3rem;
-  font-size: 1.1rem;
-`;
 
 const Picture = styled.label`
   width: 100%;
@@ -60,11 +54,24 @@ const Picture = styled.label`
 
 const FileNameArea = styled.span`
   margin-left: 0.6rem;
-`;
+ `;
 
 const InputPictureArea = styled.input`
   display: none;
+ `;
+const Submit = styled(BaseButton)`
+    margin-top: 2rem;
+    background-color: limegreen;
+    color: white;
+    border-style: none;
+    width: 100%;
+    height: 3rem;
+    font-size: 1.1rem;
 `;
+const StyledSubmitIcon = styled(SubmitIcon)`
+  margin-right: 0.6rem;
+`;
+const moviePattern = /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})(?:\S+)?$/;
 
 export const FormArea: FC<IProps> = ({
   control,
@@ -99,16 +106,18 @@ export const FormArea: FC<IProps> = ({
           shouldUnregister
           render={({ field }) => (
             <TextField
+              type="date"
+              error={Boolean(resultErrors?.date)}
+              sx={{ backgroundColor: "white" }}
+              {...field}
               label={
                 <Fragment>
                   Date<ColorRed>※</ColorRed>
                 </Fragment>
               }
-              type="date"
               inputProps={{
                 "data-testid": "dateArea",
               }}
-              {...field}
             />
           )}
         />
@@ -130,8 +139,10 @@ export const FormArea: FC<IProps> = ({
             <TextField
               label="Tag"
               type="textarea"
+              error={Boolean(resultErrors?.tag_list)}
               placeholder="「,」で複数設定 Tag1,Tag2,Tag3..."
               fullWidth
+              sx={{ backgroundColor: "white" }}
               inputProps={{
                 "data-testid": "tag_listArea",
               }}
@@ -167,11 +178,13 @@ export const FormArea: FC<IProps> = ({
                 </Fragment>
               }
               type="textarea"
+              error={Boolean((errors?.content || resultErrors?.content))}
               autoFocus={true}
               minRows="8"
               placeholder="200文字以内で日記の内容を入力してください"
               multiline
               fullWidth
+              sx={{ backgroundColor: "white" }}
               helperText={
                 <ContentCount
                   data-testid="contentCount"
@@ -193,7 +206,7 @@ export const FormArea: FC<IProps> = ({
       <FormItemWrapper data-testid="FormItem-movie_source">
         {errors?.movie_source && (
           <ErrorMessage data-testid="movie_sourceErrorMessage">
-            255文字以内で入力してください
+            YoutubeのURLを入力してください
           </ErrorMessage>
         )}
         {resultErrors?.movie_source?.map((message: string, index: number) => (
@@ -205,15 +218,19 @@ export const FormArea: FC<IProps> = ({
         <Controller
           name="movie_source"
           control={control}
-          rules={{ maxLength: 255 }}
+          rules={{
+            maxLength: 255, pattern: moviePattern
+          }}
           defaultValue={defaultmovie_source}
           shouldUnregister
           render={({ field }) => (
             <TextField
               label="YouTube URL"
               type="textarea"
+              error={Boolean((errors?.movie_source || resultErrors?.movie_source))}
               placeholder="https://www.youtube.com/watch?v=example"
               fullWidth
+              sx={{ backgroundColor: "white" }}
               inputProps={{
                 "data-testid": "movie_sourceArea",
               }}
@@ -247,6 +264,7 @@ export const FormArea: FC<IProps> = ({
       </FormItemWrapper>
 
       <Submit type="submit" disabled={isDisabled} data-testid="formSubmit">
+        <StyledSubmitIcon />
         {onSubmitText}
       </Submit>
     </FormWrapper>

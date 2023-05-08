@@ -2,7 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 // atoms
-import { contactAtom } from "../recoils/Contact";
+import { contactAtom } from "../atoms/Contact";
 
 // components
 import { BaseButton } from "../components/shared_style";

@@ -29,9 +29,9 @@ import { postContact } from "../apis/contact";
 import { ColorRed } from "../components/shared_style";
 
 // atoms
-import { contactAtom } from "../recoils/Contact";
-import { authAtom } from "../recoils/Auth";
-import { messageAtom } from "../recoils/Message";
+import { contactAtom } from "../atoms/Contact";
+import { authAtom } from "../atoms/Auth";
+import { messageAtom } from "../atoms/Message";
 import { Head } from "../Head";
 
 // reducers

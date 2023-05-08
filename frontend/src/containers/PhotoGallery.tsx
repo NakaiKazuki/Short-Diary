@@ -5,7 +5,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useSetRecoilState } from "recoil";
 import "react-image-gallery/styles/css/image-gallery.css";
 // atoms
-import { authAtom } from "../recoils/Auth";
+import { authAtom } from "../atoms/Auth";
 
 // constants
 import { HTTP_STATUS_CODE, REQUEST_STATE } from "../constants";
@@ -23,10 +23,13 @@ import { IPhotoGalleryInitialState as IInitialState } from "../types/containers"
 
 // css
 const Container = styled.div`
-  margin: 0 auto 0;
+  margin: 0 auto;
   width: 100%;
-  padding-top: 14vh;
+  padding-top: 6.5vh;
   min-height: 93.5vh;
+  @media screen and (max-width: 480px) {
+    padding-top: 20vh;
+   }
 `;
 
 const CircularProgressContainer = styled.span`

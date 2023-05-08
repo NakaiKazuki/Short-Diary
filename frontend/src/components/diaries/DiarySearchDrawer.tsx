@@ -15,6 +15,9 @@ import styled from "styled-components";
 // components
 import { BaseButton } from "../shared_style";
 
+// icons
+import { SearchIcon } from "../icon";
+
 // types
 import { IDiarySearchDrawerProps as IProps } from "../../types/components/diaries";
 
@@ -39,6 +42,10 @@ const Button = styled(BaseButton)`
     background-color: limegreen;
     color: white;
   }
+`;
+
+const StyledIcon = styled(SearchIcon)`
+  margin-right: 0.6rem
 `;
 const styles = {
   "& .MuiPickersLayout-toolbar": {
@@ -95,6 +102,7 @@ export const DiarySearchDrawer: FC<IProps> = ({
                   )}
                 />
                 <Button type="submit" data-testid="searchSubmit">
+                  <StyledIcon />
                   検索
                 </Button>
               </WordSearchForm>

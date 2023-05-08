@@ -18,16 +18,10 @@ const Container = styled.div`
       display: flex;
     }
   }
-
   .image-gallery-slide .image-gallery-image {
     max-height: 70vh;
+    height: 70vh;
   }
-
-  .image-gallery-swipe {
-    align-items: center;
-    justify-content: center;
-  }
-
   .image-gallery-slide {
     &-wrapper:hover {
       .image-gallery-right-nav,
@@ -45,8 +39,6 @@ const Container = styled.div`
   }
 
   .image-gallery-image {
-    align-items: center;
-    justify-content: center;
     @media screen and (min-width: 481px) and (max-width: 980px) {
       width: 60%;
     }

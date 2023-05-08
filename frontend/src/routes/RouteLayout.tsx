@@ -11,7 +11,7 @@ import { Drawer } from "../containers/Drawer";
 import { Contact } from "../containers/Contact";
 import { Footer } from "../containers/Footer";
 // atoms
-import { authAtom } from "../recoils/Auth";
+import { authAtom } from "../atoms/Auth";
 
 // constants
 import { HTTP_STATUS_CODE } from "../constants";

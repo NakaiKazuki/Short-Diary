@@ -15,8 +15,8 @@ import { YouTubeProps, YouTubeEvent, YouTubePlayer } from "react-youtube";
 import styled from "styled-components";
 
 // atoms
-import { authAtom } from "../recoils/Auth";
-import { messageAtom } from "../recoils/Message";
+import { authAtom } from "../atoms/Auth";
+import { messageAtom } from "../atoms/Message";
 
 // apis
 import { getHome, getDiaries } from "../apis/home";
@@ -70,14 +70,16 @@ const Container = styled.div`
   position: relative;
   min-height: 93.5vh;
   width: 90vw;
-  margin: 6.6vh auto 9vh auto;
-  padding-top: 2rem;
+  margin: 0 auto 9vh auto;
+  padding-top: 6.5vh;
 `;
 
 const Heading = styled.h1`
   text-align: center;
   color: limegreen;
   font-size: 2.5rem;
+  font-family: Comic Sans MS;
+  margin-top: 10rem;
 `;
 
 const ButtonsContainer = styled.div`

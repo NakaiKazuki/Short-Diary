@@ -5,7 +5,7 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 // atoms
-import { messageAtom } from "../recoils/Message";
+import { messageAtom } from "../atoms/Message";
 
 // components
 import {
@@ -50,9 +50,9 @@ export const SignUp: FC = () => {
   const navigate = useNavigate();
   const [resultErrors, setErrorMessage] = useState<
     | Pick<
-        IResultErrors,
-        "name" | "email" | "password" | "password_confirmation"
-      >
+      IResultErrors,
+      "name" | "email" | "password" | "password_confirmation"
+    >
     | undefined
   >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
@@ -92,7 +92,7 @@ export const SignUp: FC = () => {
         </Fragment>
       ),
       errorsProperty: errors.email,
-      errorMessage: "1文字以上、255文字以内で入力してください",
+      errorMessage: "255文字以内でメールアドレスを入力してください",
       resultErrorProperty: resultErrors?.email,
       apiMessagePropertyName: "メールアドレス",
       nameAttribute: "email",
@@ -100,7 +100,7 @@ export const SignUp: FC = () => {
       defaultValue: "",
       autoComplete: "email",
       autoFocus: false,
-      rules: { required: true, maxLength: 255 },
+      rules: { required: true, maxLength: 255, pattern: /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/ },
     },
     password: {
       formLabel: (
