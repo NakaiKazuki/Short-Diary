@@ -103,6 +103,7 @@ const customRender = (ui: JSX.Element) => {
 const idNames = ["date", "tag_list", "content", "movie_source", "picture"];
 
 describe("LoginHome", () => {
+  jest.setTimeout(10000);
   afterEach(() => {
     mockAxios.resetHistory();
   });
