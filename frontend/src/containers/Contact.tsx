@@ -27,7 +27,8 @@ import { postContact } from "../apis/contact";
 
 // components
 import { ColorRed } from "../components/shared_style";
-
+// icons
+import { SubmitIcon } from "../components/icon";
 // atoms
 import { contactAtom } from "../atoms/Contact";
 import { authAtom } from "../atoms/Auth";
@@ -89,6 +90,9 @@ const Submit = styled(BaseButton)`
   font-size: 1.1rem;
 `;
 
+const StyledIcon = styled(SubmitIcon)`
+  margin-right: 0.6rem;
+`;
 const transition = forwardRef<
   unknown,
   TransitionProps & { children: ReactElement }
@@ -331,6 +335,7 @@ export const Contact: FC = () => {
             disabled={isDisabled(submitState.postState)}
             data-testid="formSubmit"
           >
+            <StyledIcon />
             {onSubmitText(submitState.postState, "送信する")}
           </Submit>
         </Form>

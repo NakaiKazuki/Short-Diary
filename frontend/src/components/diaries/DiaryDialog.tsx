@@ -23,7 +23,6 @@ const Date = styled.h1`
 const Name = styled.h2`
   margin: 0.8rem auto 0.4rem 2rem;
   font-weight: normal;
-  opacity: 0.6;
   color: limegreen;
 `;
 
@@ -36,7 +35,7 @@ const CoontentWrapper = styled.div`
   min-height: 30vh;
   margin: 0.5rem auto 2.5rem auto;
   width: 80%;
-  border: 0.0125rem solid limegreen;
+  border: 2px solid #ffd900;
   border-radius: 0.5rem;
 `;
 
@@ -45,6 +44,8 @@ const Content = styled.div`
   word-wrap: break-word;
   padding: 4%;
   font-size: 1.2rem;
+  color: #333;
+  opacity: 0.9;
 `;
 
 const Picture = styled.img`

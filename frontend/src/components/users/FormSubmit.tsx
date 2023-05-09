@@ -17,6 +17,7 @@ const Submit = styled(BaseButton)`
   height: 3rem;
   font-size: 1.1rem;
 `;
+
 const StyledIcon = styled(SubmitIcon)`
   margin-right: 0.6rem;
 `;

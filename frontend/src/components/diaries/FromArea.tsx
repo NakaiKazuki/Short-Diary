@@ -58,6 +58,7 @@ const FileNameArea = styled.span`
 const InputPictureArea = styled.input`
   display: none;
 `;
+
 const Submit = styled(BaseButton)`
   margin-top: 2rem;
   background-color: limegreen;
@@ -83,7 +84,7 @@ export const FormArea: FC<IProps> = ({
   defaultDate,
   defaultTag,
   defaultContent,
-  defaultmovie_source,
+  defaultMovieSource,
   setFileName,
   register,
   onSubmit,
@@ -142,6 +143,7 @@ export const FormArea: FC<IProps> = ({
               error={Boolean(resultErrors?.tag_list)}
               placeholder="「,」で複数設定 Tag1,Tag2,Tag3..."
               fullWidth
+              multiline
               sx={{ backgroundColor: "white" }}
               inputProps={{
                 "data-testid": "tag_listArea",
@@ -222,7 +224,7 @@ export const FormArea: FC<IProps> = ({
             maxLength: 255,
             pattern: moviePattern,
           }}
-          defaultValue={defaultmovie_source}
+          defaultValue={defaultMovieSource}
           shouldUnregister
           render={({ field }) => (
             <TextField
@@ -233,6 +235,7 @@ export const FormArea: FC<IProps> = ({
               )}
               placeholder="https://www.youtube.com/watch?v=example"
               fullWidth
+              multiline
               sx={{ backgroundColor: "white" }}
               inputProps={{
                 "data-testid": "movie_sourceArea",

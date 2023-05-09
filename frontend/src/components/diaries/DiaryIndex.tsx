@@ -19,19 +19,15 @@ const Diaries = styled.ul`
   margin: 0 auto;
   padding-inline-start: 0;
   width: 100%;
-
   @media screen and (min-width: 481px) {
     display: flex;
     flex-wrap: wrap;
   }
 `;
 
-const buttonVariants = {
+const variants = {
   hover: {
     scale: 1.05,
-  },
-  tap: {
-    scale: 0.95,
   },
 } as const;
 
@@ -47,8 +43,8 @@ const DiaryWrapper = styled.span`
   }
 `;
 
-const Diary = styled(motion.li).attrs<typeof buttonVariants>(() => ({
-  variants: buttonVariants,
+const Diary = styled(motion.li).attrs<typeof variants>(() => ({
+  variants: variants,
   whileHover: "hover",
   whileTap: "tap",
   initial: "rest",
@@ -58,7 +54,6 @@ const Diary = styled(motion.li).attrs<typeof buttonVariants>(() => ({
   list-style: none;
   height: 22vh;
   width: 98%;
-  border: 0.0125rem solid limegreen;
   border-radius: 0.5rem;
   position: relative;
   overflow: hidden;
@@ -66,11 +61,14 @@ const Diary = styled(motion.li).attrs<typeof buttonVariants>(() => ({
   white-space: nowrap;
   height: 20rem;
   background-color: white;
-  box-shadow: 3px 5px 7px -3px green;
+  border: 1px solid limegreen;
+  box-shadow: 2px 2px 2px 1px green, 0px 0px 1px limegreen inset;
+  border-radius: 30px;
   :hover {
     cursor: pointer;
     z-index: 1;
-    border: 0.12rem solid limegreen;
+    border: 3px solid #ffd900;
+    box-shadow: 2px 2px 2px 2px #d1b411, 0px 0px 2px #ffd900 inset;
   }
 
   @media screen and (min-width: 980px) and (max-width: 1300px) {
@@ -110,6 +108,8 @@ const Content = styled.div`
   overflow-wrap: break-word;
   padding: 0 1rem;
   font-size: 1.2rem;
+  opacity: 0.9;
+  color: #333;
 `;
 
 export const DiaryIndex: FC<IProps> = ({
