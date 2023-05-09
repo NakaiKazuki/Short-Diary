@@ -2,7 +2,7 @@ import { FC, Fragment } from "react";
 import styled from "styled-components";
 
 // components
-import { FormArea } from "./FromArea";
+import { FormArea } from "./FormArea";
 
 // types
 import { IDiaryEditProps as IProps } from "../../types/components/diaries";
