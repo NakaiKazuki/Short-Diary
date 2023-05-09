@@ -3,7 +3,7 @@ import { Dialog, DialogTitle } from "@mui/material";
 import styled from "styled-components";
 
 // components
-import { FormArea } from "./FromArea";
+import { FormArea } from "./FormArea";
 
 // types
 import { IDiaryCreateDialogProps as IProps } from "../../types/components/diaries";

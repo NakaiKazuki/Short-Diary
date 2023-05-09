@@ -15,6 +15,9 @@ import { AddPictureIcon } from "../icon";
 // types
 import { IFormAreaProps as IProps } from "../../types/components/diaries";
 
+// helper
+import { isError } from "../../helpers";
+
 const FormWrapper = styled.form`
   padding: 0 10% 5% 10%;
 `;
@@ -71,6 +74,9 @@ const Submit = styled(BaseButton)`
 const StyledSubmitIcon = styled(SubmitIcon)`
   margin-right: 0.6rem;
 `;
+
+const bgcWhite = { backgroundColor: "white" }
+
 const moviePattern =
   /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})(?:\S+)?$/;
 
@@ -108,8 +114,8 @@ export const FormArea: FC<IProps> = ({
           render={({ field }) => (
             <TextField
               type="date"
-              error={Boolean(resultErrors?.date)}
-              sx={{ backgroundColor: "white" }}
+              error={isError(resultErrors?.date)}
+              sx={bgcWhite}
               {...field}
               label={
                 <Fragment>
@@ -140,11 +146,11 @@ export const FormArea: FC<IProps> = ({
             <TextField
               label="Tag"
               type="textarea"
-              error={Boolean(resultErrors?.tag_list)}
+              error={isError(resultErrors?.tag_list)}
               placeholder="「,」で複数設定 Tag1,Tag2,Tag3..."
               fullWidth
               multiline
-              sx={{ backgroundColor: "white" }}
+              sx={bgcWhite}
               inputProps={{
                 "data-testid": "tag_listArea",
               }}
@@ -180,13 +186,13 @@ export const FormArea: FC<IProps> = ({
                 </Fragment>
               }
               type="textarea"
-              error={Boolean(errors?.content || resultErrors?.content)}
+              error={isError(errors?.content || resultErrors?.content)}
               autoFocus={true}
               minRows="8"
               placeholder="200文字以内で日記の内容を入力してください"
               multiline
               fullWidth
-              sx={{ backgroundColor: "white" }}
+              sx={bgcWhite}
               helperText={
                 <ContentCount
                   data-testid="contentCount"
@@ -230,13 +236,13 @@ export const FormArea: FC<IProps> = ({
             <TextField
               label="YouTube URL"
               type="textarea"
-              error={Boolean(
+              error={isError(
                 errors?.movie_source || resultErrors?.movie_source
               )}
               placeholder="https://www.youtube.com/watch?v=example"
               fullWidth
               multiline
-              sx={{ backgroundColor: "white" }}
+              sx={bgcWhite}
               inputProps={{
                 "data-testid": "movie_sourceArea",
               }}

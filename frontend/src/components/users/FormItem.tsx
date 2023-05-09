@@ -3,9 +3,10 @@ import { Controller } from "react-hook-form";
 import { TextField, InputLabel } from "@mui/material";
 import styled from "styled-components";
 
+// helpers
+import { isError } from "../../helpers";
 // types
 import { IFormItemProps as IProps } from "../../types/components/users";
-
 // css
 const Item = styled.div`
   margin-top: 1rem;
@@ -21,9 +22,6 @@ const ErrorMessage = styled.p`
 `;
 
 export const FormItem: FC<IProps> = ({ formInfo, control }) => {
-  const isError = () => {
-    return Boolean(formInfo.errorsProperty || formInfo.resultErrorProperty);
-  };
   return (
     <InputLabel sx={{ whiteSpace: "unset" }}>
       <Item data-testid={`FormItem-${formInfo.nameAttribute}`}>
@@ -50,7 +48,7 @@ export const FormItem: FC<IProps> = ({ formInfo, control }) => {
           render={({ field }) => (
             <TextField
               {...field}
-              error={isError()}
+              error={isError(formInfo.errorsProperty || formInfo.resultErrorProperty)}
               type={formInfo.typeAttribute}
               label={formInfo.formLabel}
               autoFocus={formInfo.autoFocus}
