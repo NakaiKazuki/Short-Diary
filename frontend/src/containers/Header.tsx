@@ -70,7 +70,7 @@ const LinkItem = styled(BaseButton)`
   color: limegreen;
   :hover {
     background-color: limegreen;
-    color:white;
+    color: white;
   }
 `;
 

@@ -19,7 +19,7 @@ const SubTitle = styled.h2`
 `;
 
 const StledTwitterIcon = styled(TwitterIcon)`
-  color: #1DA1F2;
+  color: #1da1f2;
 `;
 
 const Contents = styled.ul`

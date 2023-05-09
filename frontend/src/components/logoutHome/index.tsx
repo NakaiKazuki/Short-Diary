@@ -60,7 +60,7 @@ const CustomButton = styled(CurtainButton)`
   font-weight: 900;
   font-family: Comic Sans MS;
   box-shadow: 2px 2px 2px 2px limegreen;
-  :hover{
+  :hover {
     box-shadow: 2px 2px 2px 2px green;
   }
   @media screen and (max-width: 980px) {

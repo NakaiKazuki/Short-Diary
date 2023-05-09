@@ -62,13 +62,13 @@ const Diary = styled(motion.li).attrs<typeof variants>(() => ({
   height: 20rem;
   background-color: white;
   border: 1px solid limegreen;
-  box-shadow: 2px 2px 2px 1px green,0px 0px 1px limegreen inset;
+  box-shadow: 2px 2px 2px 1px green, 0px 0px 1px limegreen inset;
   border-radius: 30px;
   :hover {
     cursor: pointer;
     z-index: 1;
     border: 3px solid #ffd900;
-    box-shadow: 2px 2px 2px 2px #d1b411,0px 0px 2px #ffd900 inset;
+    box-shadow: 2px 2px 2px 2px #d1b411, 0px 0px 2px #ffd900 inset;
   }
 
   @media screen and (min-width: 980px) and (max-width: 1300px) {

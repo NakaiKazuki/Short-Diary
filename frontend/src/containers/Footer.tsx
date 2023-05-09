@@ -35,42 +35,40 @@ const Base = styled(BaseButton)`
   background-color: white;
 `;
 
-
 const ContactButton = styled(Base)`
   margin-left: 0.7rem;
   border: 2px solid limegreen;
   color: limegreen;
   :hover {
-    color:white;
+    color: white;
     background-color: limegreen;
     border-style: none;
     box-shadow: 2px 2px 2px 2px green;
   }
-  `;
+`;
 
 const StyledMailIcon = styled(EmailIcon)`
   margin-right: 0.6rem;
-  `;
+`;
 
 const StyledTwitterIcon = styled(TwitterIcon)`
-    margin-right: 0.6rem;
-    color: #1DA1F2;
-  `;
+  margin-right: 0.6rem;
+  color: #1da1f2;
+`;
 
 const LinkItem = styled(Base)`
-    border: 2px solid limegreen;
-    color: limegreen;
-    :hover {
-      color:white;
-      background-color: #1DA1F2;
-      border: 2px solid #1DA1F2;
-      box-shadow: 2px 2px 2px 2px #0b81ca;
-      ${StyledTwitterIcon} {
+  border: 2px solid limegreen;
+  color: limegreen;
+  :hover {
+    color: white;
+    background-color: #1da1f2;
+    border: 2px solid #1da1f2;
+    box-shadow: 2px 2px 2px 2px #0b81ca;
+    ${StyledTwitterIcon} {
       color: white;
     }
   }
 `;
-
 
 export const Footer: FC = () => {
   const setContact = useSetRecoilState(contactAtom);

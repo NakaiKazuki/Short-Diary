@@ -80,7 +80,6 @@ const Heading = styled.h1`
   font-size: 4rem;
   font-family: Comic Sans MS;
   margin-top: 10rem;
-
 `;
 
 const ButtonsContainer = styled.div`
@@ -171,7 +170,7 @@ const EmptyMessage = styled.span`
   -ms-transform: translate(-50%, -50%);
 `;
 const DiariesWrapper = styled.div`
-    @media screen and (max-width: 480px) {
+  @media screen and (max-width: 480px) {
     margin-top: 4rem;
   }
 `;
