@@ -16,13 +16,13 @@ const Container = styled.span`
   margin: 0 0 0 auto;
   border: 0.0125rem solid limegreen;
   border-radius: 0.5rem;
-  background-color: limegreen;
-  color: white;
+  background-color: white;
+  color: limegreen;
   letter-spacing: 0.2rem;
   :hover {
     cursor: pointer;
-    background-color: white;
-    color: limegreen;
+    background-color: limegreen;
+    color: white;
   }
 `;
 

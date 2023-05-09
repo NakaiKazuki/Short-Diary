@@ -65,9 +65,13 @@ const LinkItem = styled(BaseButton)`
   height: 2.5rem;
   padding: 0 1rem;
   font-size: 1.2rem;
-  border-style: none;
-  background-color: limegreen;
-  color: white;
+  border: 2px solid limegreen;
+  background-color: white;
+  color: limegreen;
+  :hover {
+    background-color: limegreen;
+    color:white;
+  }
 `;
 
 const style = {

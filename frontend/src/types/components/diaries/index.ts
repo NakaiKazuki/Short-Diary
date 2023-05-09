@@ -132,7 +132,7 @@ export interface IFormAreaProps {
   defaultDate: string;
   defaultTag: string;
   defaultContent: string;
-  defaultmovie_source: string;
+  defaultMovieSource: string;
   setFileName: string | undefined;
   register: UseFormRegister<IFormValues>;
   onSubmit(): void;

@@ -1,12 +1,15 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
+
 // atoms
 import { contactAtom } from "../atoms/Contact";
 
 // components
 import { BaseButton } from "../components/shared_style";
 
+// icons
+import { EmailIcon, TwitterIcon } from "../components/icon";
 const FooterWrapper = styled.footer`
   height: 5.5vh;
   padding: 1.5vh 1vw 0 0;
@@ -15,7 +18,7 @@ const FooterWrapper = styled.footer`
   bottom: 0;
   width: 99vw;
   z-index: 10;
-  border-top: 1px solid limegreen;
+  border-top: 2px solid limegreen;
 `;
 
 const Link = styled.a`
@@ -32,14 +35,42 @@ const Base = styled(BaseButton)`
   background-color: white;
 `;
 
-const LinkItem = styled(Base)`
-  color: limegreen;
-`;
 
 const ContactButton = styled(Base)`
   margin-left: 0.7rem;
+  border: 2px solid limegreen;
   color: limegreen;
+  :hover {
+    color:white;
+    background-color: limegreen;
+    border-style: none;
+    box-shadow: 2px 2px 2px 2px green;
+  }
+  `;
+
+const StyledMailIcon = styled(EmailIcon)`
+  margin-right: 0.6rem;
+  `;
+
+const StyledTwitterIcon = styled(TwitterIcon)`
+    margin-right: 0.6rem;
+    color: #1DA1F2;
+  `;
+
+const LinkItem = styled(Base)`
+    border: 2px solid limegreen;
+    color: limegreen;
+    :hover {
+      color:white;
+      background-color: #1DA1F2;
+      border: 2px solid #1DA1F2;
+      box-shadow: 2px 2px 2px 2px #0b81ca;
+      ${StyledTwitterIcon} {
+      color: white;
+    }
+  }
 `;
+
 
 export const Footer: FC = () => {
   const setContact = useSetRecoilState(contactAtom);
@@ -47,6 +78,7 @@ export const Footer: FC = () => {
   return (
     <FooterWrapper data-testid="footer">
       <ContactButton onClick={onContactButton} data-testid="contactButton">
+        <StyledMailIcon />
         Contact
       </ContactButton>
       <Link
@@ -54,7 +86,10 @@ export const Footer: FC = () => {
         target="_blank"
         data-testid="twitterLink"
       >
-        <LinkItem>制作者Twitter</LinkItem>
+        <LinkItem>
+          <StyledTwitterIcon />
+          Twitter
+        </LinkItem>
       </Link>
     </FooterWrapper>
   );

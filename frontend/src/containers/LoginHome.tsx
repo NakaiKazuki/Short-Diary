@@ -77,9 +77,10 @@ const Container = styled.div`
 const Heading = styled.h1`
   text-align: center;
   color: limegreen;
-  font-size: 2.5rem;
+  font-size: 4rem;
   font-family: Comic Sans MS;
   margin-top: 10rem;
+
 `;
 
 const ButtonsContainer = styled.div`
@@ -92,16 +93,16 @@ const ButtonsContainer = styled.div`
 
 const DiaryCreateOpenButton = styled(BaseButton)`
   height: 2.8rem;
-  border: 0.0125rem solid limegreen;
+  border: 2px solid limegreen;
   letter-spacing: 0.2rem;
   font-size: 1.3rem;
   padding: 0 2rem;
-  background-color: limegreen;
-  color: white;
+  background-color: white;
+  color: limegreen;
   :hover {
     opacity: 0.8;
-    background-color: white;
-    color: limegreen;
+    background-color: limegreen;
+    color: white;
   }
   @media screen and (max-width: 480px) {
     width: 100%;
@@ -110,20 +111,21 @@ const DiaryCreateOpenButton = styled(BaseButton)`
 
 const DrawerOpenButton = styled(BaseButton)`
   height: 2.8rem;
-  border: 0.0125rem solid limegreen;
+  border: 2px solid limegreen;
   letter-spacing: 0.2rem;
   font-size: 1.3rem;
   padding: 0 2rem;
-  background-color: limegreen;
-  color: white;
+  background-color: white;
+  color: limegreen;
   float: right;
   :hover {
     opacity: 0.8;
-    background-color: white;
-    color: limegreen;
+    background-color: limegreen;
+    color: white;
   }
   @media screen and (max-width: 480px) {
     margin-top: 0.8rem;
+    width: 100%;
   }
 `;
 
@@ -167,6 +169,11 @@ const EmptyMessage = styled.span`
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
+`;
+const DiariesWrapper = styled.div`
+    @media screen and (max-width: 480px) {
+    margin-top: 4rem;
+  }
 `;
 
 export const LoginHome: FC = () => {
@@ -581,7 +588,7 @@ export const LoginHome: FC = () => {
       ) : (
         <Fragment>
           {state.diaries?.length && state.pagy ? (
-            <Fragment>
+            <DiariesWrapper>
               <PaginationArea onPageChange={onPageChange} pagy={state.pagy} />
               <DiaryIndex
                 diaries={state.diaries}
@@ -589,7 +596,7 @@ export const LoginHome: FC = () => {
                 onOpenDiaryDialog={onOpenDiaryDialog}
               />
               <PaginationArea onPageChange={onPageChange} pagy={state.pagy} />
-            </Fragment>
+            </DiariesWrapper>
           ) : (
             <EmptyMessageContainer>
               <EmptyMessage>日記がありません</EmptyMessage>

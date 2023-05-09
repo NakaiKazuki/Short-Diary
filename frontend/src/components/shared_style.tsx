@@ -30,6 +30,7 @@ export const BaseButton = styled(motion.button).attrs<typeof buttonVariants>(
   border-radius: 0.25rem;
   position: relative;
   overflow: hidden;
+  font-family: Comic Sans MS;
   :hover {
     opacity: 0.9;
   }
@@ -61,14 +62,14 @@ export const CurtainButton = styled.button`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  transition: 0.3s ease-in-out;
   z-index: 0;
-  border-left: solid 0.32rem limegreen;
+  border-left: solid 2px limegreen;
   border-top: none;
   border-right: none;
   border-bottom: none;
   background: white;
   color: limegreen;
+  font-family: Comic Sans MS;
   &:before {
     content: "";
     position: absolute;

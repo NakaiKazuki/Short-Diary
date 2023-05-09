@@ -18,6 +18,10 @@ const SubTitle = styled.h2`
   font-size: 2rem;
 `;
 
+const StledTwitterIcon = styled(TwitterIcon)`
+  color: #1DA1F2;
+`;
+
 const Contents = styled.ul`
   padding-inline-start: 0;
   margin-left: 1.5vw;
@@ -83,6 +87,7 @@ const MessageLink = styled.a`
     color: inherit;
   }
 `;
+
 const Introduction = (): JSX.Element => {
   return (
     <Fragment>
@@ -105,7 +110,7 @@ const Introduction = (): JSX.Element => {
                 GitHub
               </Link>
               <Link href="https://twitter.com/k_kyube" target="_blank">
-                <TwitterIcon color="primary" />
+                <StledTwitterIcon />
                 Twitter
               </Link>
             </InnerLi>
