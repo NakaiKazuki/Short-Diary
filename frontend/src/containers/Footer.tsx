@@ -11,8 +11,8 @@ import { BaseButton } from "../components/shared_style";
 // icons
 import { EmailIcon, TwitterIcon } from "../components/icon";
 const FooterWrapper = styled.footer`
-  height: 5.5vh;
-  padding: 1.5vh 1vw 0 0;
+  height: 4rem;
+  padding: 1.2rem 1vw 0 0;
   background-color: white;
   position: fixed;
   bottom: 0;
@@ -27,7 +27,7 @@ const Link = styled.a`
 `;
 
 const Base = styled(BaseButton)`
-  height: 4.5vh;
+  height: 3rem;
   padding: 0 1rem;
   margin-bottom: 1vh;
   font-size: 1.4rem;

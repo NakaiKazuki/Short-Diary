@@ -11,7 +11,7 @@ const FromTitle = styled.h1`
   text-align: center;
   color: limegreen;
   font-weight: normal;
-  margin:0;
+  margin: 0;
   font-family: Comic Sans MS;
 `;
 

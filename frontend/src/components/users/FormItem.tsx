@@ -48,7 +48,9 @@ export const FormItem: FC<IProps> = ({ formInfo, control }) => {
           render={({ field }) => (
             <TextField
               {...field}
-              error={isError(formInfo.errorsProperty || formInfo.resultErrorProperty)}
+              error={isError(
+                formInfo.errorsProperty || formInfo.resultErrorProperty
+              )}
               type={formInfo.typeAttribute}
               label={formInfo.formLabel}
               autoFocus={formInfo.autoFocus}
