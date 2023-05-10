@@ -80,17 +80,17 @@ const Heading = styled.h1`
   font-size: 4rem;
   font-family: Comic Sans MS;
   margin-top: 10rem;
+  text-shadow: 3px 0px 2px green;
 `;
 
 const ButtonsContainer = styled.div`
   width: 100%;
-  height: auto;
   @media screen and (max-width: 480px) {
     height: 5.2rem;
   }
 `;
 
-const DiaryCreateOpenButton = styled(BaseButton)`
+const Button = styled(BaseButton)`
   height: 2.8rem;
   border: 2px solid limegreen;
   letter-spacing: 0.2rem;
@@ -108,23 +108,10 @@ const DiaryCreateOpenButton = styled(BaseButton)`
   }
 `;
 
-const DrawerOpenButton = styled(BaseButton)`
-  height: 2.8rem;
-  border: 2px solid limegreen;
-  letter-spacing: 0.2rem;
-  font-size: 1.3rem;
-  padding: 0 2rem;
-  background-color: white;
-  color: limegreen;
+const DrawerOpenButton = styled(Button)`
   float: right;
-  :hover {
-    opacity: 0.8;
-    background-color: limegreen;
-    color: white;
-  }
   @media screen and (max-width: 480px) {
     margin-top: 0.8rem;
-    width: 100%;
   }
 `;
 
@@ -552,7 +539,7 @@ export const LoginHome: FC = () => {
     <Container ref={ref}>
       <Heading data-testid="pageTitle">Diaries</Heading>
       <ButtonsContainer>
-        <DiaryCreateOpenButton
+        <Button
           onClick={onOpenDiaryCreateDialog}
           data-testid="diaryCreateOpenButton"
         >
@@ -560,7 +547,7 @@ export const LoginHome: FC = () => {
             <CreateIcon data-testid="createIcon" />
           </IconWrapper>
           日記作成
-        </DiaryCreateOpenButton>
+        </Button>
         <DrawerOpenButton
           onClick={onDrawerOpenButton(true)}
           data-testid="drawerOpenButton"
@@ -582,7 +569,7 @@ export const LoginHome: FC = () => {
       />
       {state.fetchState === REQUEST_STATE.LOADING ? (
         <CircularProgressContainer>
-          <CircularProgress />
+          <CircularProgress sx={{ color: "limegreen" }} />
         </CircularProgressContainer>
       ) : (
         <Fragment>

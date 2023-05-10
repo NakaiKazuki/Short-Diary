@@ -19,8 +19,7 @@ const Text = styled.h1`
   color: limegreen;
   font-weight: bold;
   position: absolute;
-  text-shadow: 1px 0px 35px green;
-
+  text-shadow: 10px 0px 20px green;
   @media screen and (max-width: 980px) {
     font-size: 6rem;
     left: 10vw;
@@ -38,7 +37,7 @@ const Title = styled.h2`
   color: limegreen;
   font-weight: bold;
   position: absolute;
-  text-shadow: 1px 0px 35px green;
+  text-shadow: 1px 0px 5px green;
   top: 235vh;
   left: 10vw;
   @media screen and (max-width: 980px) {
