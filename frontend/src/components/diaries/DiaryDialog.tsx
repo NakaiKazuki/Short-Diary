@@ -20,7 +20,7 @@ const Date = styled.h1`
   color: limegreen;
   font-family: Comic Sans MS;
   text-align: center;
-  margin:0;
+  margin: 0;
 `;
 
 const Name = styled.h2`
@@ -184,6 +184,6 @@ export const DiaryDialog: FC<IProps> = ({
           )}
         </Container>
       )}
-    </Dialog >
+    </Dialog>
   );
 };

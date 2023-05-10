@@ -75,7 +75,7 @@ const StyledSubmitIcon = styled(SubmitIcon)`
   margin-right: 0.6rem;
 `;
 
-const bgcWhite = { backgroundColor: "white" }
+const bgcWhite = { backgroundColor: "white" };
 
 const moviePattern =
   /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})(?:\S+)?$/;
