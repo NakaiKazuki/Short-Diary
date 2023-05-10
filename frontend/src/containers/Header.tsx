@@ -47,7 +47,7 @@ const Logo = styled(Link)`
   font-family: Comic Sans MS;
   text-decoration: none;
   @media screen and (max-width: 480px) {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 `;
 
