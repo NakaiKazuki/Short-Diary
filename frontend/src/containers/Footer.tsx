@@ -11,7 +11,7 @@ import { BaseButton } from "../components/shared_style";
 // icons
 import { EmailIcon, TwitterIcon } from "../components/icon";
 const FooterWrapper = styled.footer`
-  height: 4rem;
+  height: 3.8em;
   padding: 1.2rem 1vw 0 0;
   background-color: white;
   position: fixed;
