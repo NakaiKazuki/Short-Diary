@@ -23,12 +23,14 @@ const Container = styled.span`
     cursor: pointer;
     background-color: limegreen;
     color: white;
+    transition: 0.25s;
   }
 `;
 
 const UserNameWrapper = styled.span`
   margin-left: 0.3rem;
   font-size: 0.8rem;
+  font-family: Comic Sans MS;
 `;
 
 const MenuItemLink = styled(Link)`
@@ -51,6 +53,7 @@ const styledMenuItem = {
   color: "limegreen",
   borderRadius: 2,
   margin: "0.5rem 0.5rem 0",
+  fontFamily: "Comic Sans MS",
   "& .MuiListItemIcon-root": {
     color: "limegreen",
   },
@@ -75,6 +78,7 @@ const styledMenuItemLogout = {
   color: "red",
   borderRadius: 2,
   margin: "0.5rem 0.5rem 0",
+  fontFamily: "Comic Sans MS",
   "& .MuiListItemIcon-root": {
     color: "red",
   },

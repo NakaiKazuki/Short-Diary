@@ -49,7 +49,6 @@ export const BaseButton = styled(motion.button).attrs<typeof buttonVariants>(
     left: 50%;
     width: 0;
     height: 0;
-    background-color: #fff;
     opacity: 0.3;
     transform: translate(-50%, -50%);
     border-radius: 50%;

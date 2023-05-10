@@ -42,8 +42,6 @@ const ContactButton = styled(Base)`
   :hover {
     color: white;
     background-color: limegreen;
-    border-style: none;
-    box-shadow: 2px 2px 2px 2px green;
   }
 `;
 
@@ -63,7 +61,6 @@ const LinkItem = styled(Base)`
     color: white;
     background-color: #1da1f2;
     border: 2px solid #1da1f2;
-    box-shadow: 2px 2px 2px 2px #0b81ca;
     ${StyledTwitterIcon} {
       color: white;
     }

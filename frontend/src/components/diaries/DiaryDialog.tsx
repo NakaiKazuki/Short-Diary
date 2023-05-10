@@ -11,50 +11,55 @@ import { DiaryEdit } from "./DiaryEdit";
 import { IDiaryDialogProps as IProps } from "../../types/components/diaries";
 
 // css
+const Container = styled.div`
+  width: 90%;
+  margin: 0 auto 1rem auto;
+`;
+
 const Date = styled.h1`
-  text-align: center;
   color: limegreen;
-  font-weight: normal;
-  font-family: cursive, Century;
-  width: 50%;
-  margin: 0 auto 0.6rem auto;
+  font-family: Comic Sans MS;
+  text-align: center;
+  margin:0;
 `;
 
 const Name = styled.h2`
-  margin: 0.8rem auto 0.4rem 2rem;
-  font-weight: normal;
   color: limegreen;
 `;
 
-const TagWrapper = styled.span`
-  display: inline-block;
-  margin: 0 auto;
+const TagsArea = styled.div`
+  text-align: center;
 `;
 
-const CoontentWrapper = styled.div`
+const TagsWrapper = styled.span`
+  display: inline-block;
+`;
+
+const ContentWrapper = styled.div`
   min-height: 30vh;
-  margin: 0.5rem auto 2.5rem auto;
-  width: 80%;
-  border: 2px solid #ffd900;
+  margin: 0.5rem auto;
   border-radius: 0.5rem;
+  border: 1px solid #d5d6da;
+  box-shadow: 2px 2px 4px gray;
 `;
 
 const Content = styled.div`
   white-space: pre-line;
   word-wrap: break-word;
   padding: 4%;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: #333;
   opacity: 0.9;
 `;
 
 const Picture = styled.img`
   display: flex;
-  margin: 1rem auto;
-  max-height: 95%;
-  max-width: 95%;
   object-fit: scale-down;
+  width: 100%;
+  border: 1px solid #d5d6da;
+  box-shadow: 2px 2px 4px gray;
 `;
+
 // Material Ui のChipデザイン変更
 const style = {
   backgroundColor: "limegreen",
@@ -132,27 +137,31 @@ export const DiaryDialog: FC<IProps> = ({
           onFileChange={onFileChange}
         />
       ) : (
-        <Fragment>
+        <Container>
           <Date data-testid="diaryDate">{formattedDate(diary.date)}</Date>
-          <TagWrapper>
-            {diary.tag_list.map(
-              (tag: string | undefined, index: number): JSX.Element => {
-                return (
-                  <Chip
-                    label={tag}
-                    color="primary"
-                    key={`diary-tag-${index}`}
-                    data-testid={`diaryTag-${index}`}
-                    sx={style}
-                  />
-                );
-              }
-            )}
-          </TagWrapper>
-          <Name>Content</Name>
-          <CoontentWrapper>
+          {diary.tag_list.length > 0 && (
+            <TagsArea>
+              <TagsWrapper>
+                {diary.tag_list.map(
+                  (tag: string | undefined, index: number): JSX.Element => {
+                    return (
+                      <Chip
+                        label={tag}
+                        color="primary"
+                        key={`diary-tag-${index}`}
+                        data-testid={`diaryTag-${index}`}
+                        sx={style}
+                      />
+                    );
+                  }
+                )}
+              </TagsWrapper>
+            </TagsArea>
+          )}
+          <Name> Content</Name>
+          <ContentWrapper>
             <Content data-testid="diaryContent">{diary.content}</Content>
-          </CoontentWrapper>
+          </ContentWrapper>
           {diary.picture_url && (
             <Fragment>
               <Name>Picture</Name>
@@ -173,8 +182,8 @@ export const DiaryDialog: FC<IProps> = ({
               />
             </Fragment>
           )}
-        </Fragment>
+        </Container>
       )}
-    </Dialog>
+    </Dialog >
   );
 };

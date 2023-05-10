@@ -27,13 +27,12 @@ const Diaries = styled.ul`
 
 const variants = {
   hover: {
-    scale: 1.05,
+    scale: 1.06,
   },
 } as const;
 
 const DiaryWrapper = styled.span`
   width: 25%;
-
   @media screen and (min-width: 980px) and (max-width: 1300px) {
     width: 33%;
   }
@@ -54,29 +53,19 @@ const Diary = styled(motion.li).attrs<typeof variants>(() => ({
   list-style: none;
   height: 22vh;
   width: 98%;
-  border-radius: 0.5rem;
   position: relative;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   height: 20rem;
   background-color: white;
-  border: 1px solid limegreen;
-  box-shadow: 2px 2px 2px 1px green, 0px 0px 1px limegreen inset;
-  border-radius: 30px;
+  border: 2px solid #d5d6da;
+  box-shadow: 2px 2px 4px #b7b8b9;
   :hover {
     cursor: pointer;
     z-index: 1;
-    border: 3px solid #ffd900;
-    box-shadow: 2px 2px 2px 2px #d1b411, 0px 0px 2px #ffd900 inset;
-  }
-
-  @media screen and (min-width: 980px) and (max-width: 1300px) {
-    height: 20rem;
-  }
-
-  @media screen and (max-width: 979px) {
-    height: 10rem;
+    border: 2px solid limegreen;
+    box-shadow: none;
   }
 `;
 
@@ -85,11 +74,12 @@ const Paragraph = styled.p`
 `;
 
 const Date = styled.span`
-  font-family: cursive, Century;
+  font-family: Comic Sans MS;
   font-style: italic;
-  text-align: center;
-  font-size: 1.7rem;
+  font-size: 1.6rem;
   color: limegreen;
+  margin: 0 auto;
+  opacity: 0.9;
   font-weight: bold;
 `;
 
@@ -106,8 +96,9 @@ const MovieIconArea = styled(MovieIcon)`
 const Content = styled.div`
   white-space: pre-line;
   overflow-wrap: break-word;
-  padding: 0 1rem;
-  font-size: 1.2rem;
+  width: 96%;
+  margin: 0 auto;
+  font-size: 1.3rem;
   opacity: 0.9;
   color: #333;
 `;

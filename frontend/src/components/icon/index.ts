@@ -14,4 +14,4 @@ export { default as TwitterIcon } from "@mui/icons-material/Twitter";
 export { default as PictureIcon } from "@mui/icons-material/PhotoCameraOutlined";
 export { default as SubmitIcon } from "@mui/icons-material/Telegram";
 export { default as EmailIcon } from "@mui/icons-material/EmailOutlined";
-export { default as Home } from "@mui/icons-material/HomeOutlined";
+// export { default as Home } from "@mui/icons-material/HomeOutlined";

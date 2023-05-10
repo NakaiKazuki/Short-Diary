@@ -13,7 +13,6 @@ import { BaseButton } from "../components/shared_style";
 import { PictureIcon } from "../components/icon";
 
 const MainLogo = styled.span`
-  /* height: 2.5rem; */
   margin: 1rem auto;
   padding: 1.15vh 0;
   font-size: 1.7rem;
@@ -48,7 +47,7 @@ const ItemWrapper = styled(BaseButton)`
   background-color: white;
   border: 0.0125rem solid limegreen;
   letter-spacing: 0.2rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
   :hover {
     opacity: 0.8;
     background-color: limegreen;
