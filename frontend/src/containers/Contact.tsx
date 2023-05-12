@@ -200,7 +200,7 @@ export const Contact: FC = () => {
                     type="text"
                     label={
                       <Fragment>
-                        Name<ColorRed>※</ColorRed>:
+                        <ColorRed>*</ColorRed>Name
                       </Fragment>
                     }
                     autoComplete="username"
@@ -238,7 +238,7 @@ export const Contact: FC = () => {
                     type="email"
                     label={
                       <Fragment>
-                        Email<ColorRed>※</ColorRed>:
+                        <ColorRed>*</ColorRed>Email
                       </Fragment>
                     }
                     autoComplete="email"
@@ -315,7 +315,7 @@ export const Contact: FC = () => {
                     type="text"
                     label={
                       <Fragment>
-                        お問い合わせ内容<ColorRed>※</ColorRed>:
+                        <ColorRed>*</ColorRed>お問い合わせ内容
                       </Fragment>
                     }
                     autoComplete="text"

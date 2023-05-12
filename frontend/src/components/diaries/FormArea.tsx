@@ -119,7 +119,7 @@ export const FormArea: FC<IProps> = ({
               {...field}
               label={
                 <Fragment>
-                  Date<ColorRed>※</ColorRed>
+                  <ColorRed>*</ColorRed>Date
                 </Fragment>
               }
               inputProps={{
@@ -182,7 +182,7 @@ export const FormArea: FC<IProps> = ({
             <TextField
               label={
                 <Fragment>
-                  Content<ColorRed>※</ColorRed>
+                  <ColorRed>*</ColorRed>Content
                 </Fragment>
               }
               type="textarea"

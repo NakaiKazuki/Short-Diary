@@ -50,9 +50,9 @@ export const SignUp: FC = () => {
   const navigate = useNavigate();
   const [resultErrors, setErrorMessage] = useState<
     | Pick<
-        IResultErrors,
-        "name" | "email" | "password" | "password_confirmation"
-      >
+      IResultErrors,
+      "name" | "email" | "password" | "password_confirmation"
+    >
     | undefined
   >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
@@ -71,7 +71,7 @@ export const SignUp: FC = () => {
     name: {
       formLabel: (
         <Fragment>
-          Nmae<ColorRed>※</ColorRed>:
+          <ColorRed>*</ColorRed>Name
         </Fragment>
       ),
       errorsProperty: errors.name,
@@ -88,7 +88,7 @@ export const SignUp: FC = () => {
     email: {
       formLabel: (
         <Fragment>
-          Email<ColorRed>※</ColorRed>:
+          <ColorRed>*</ColorRed>Email
         </Fragment>
       ),
       errorsProperty: errors.email,
@@ -110,7 +110,7 @@ export const SignUp: FC = () => {
     password: {
       formLabel: (
         <Fragment>
-          パスワード<ColorRed>※</ColorRed>:
+          <ColorRed>*</ColorRed>パスワード
         </Fragment>
       ),
       errorsProperty: errors.password,
@@ -127,7 +127,7 @@ export const SignUp: FC = () => {
     password_confirmation: {
       formLabel: (
         <Fragment>
-          確認用パスワード<ColorRed>※</ColorRed>:
+          <ColorRed>*</ColorRed>確認用パスワード
         </Fragment>
       ),
       errorsProperty: errors.password_confirmation,

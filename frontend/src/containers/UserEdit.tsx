@@ -97,7 +97,7 @@ export const UserEdit: FC = () => {
     email: {
       formLabel: (
         <Fragment>
-          Email<ColorRed>※</ColorRed>:
+          <ColorRed>*</ColorRed>Email
         </Fragment>
       ),
       errorsProperty: errors.email,
@@ -145,7 +145,7 @@ export const UserEdit: FC = () => {
     current_password: {
       formLabel: (
         <Fragment>
-          現在使用中のパスワード<ColorRed>※</ColorRed>:
+          <ColorRed>*</ColorRed>現在使用中のパスワード
         </Fragment>
       ),
       errorsProperty: errors.current_password,
