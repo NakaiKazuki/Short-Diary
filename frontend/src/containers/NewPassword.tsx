@@ -67,7 +67,7 @@ export const NewPassword: FC = () => {
     password: {
       formLabel: (
         <Fragment>
-          パスワード<ColorRed>※</ColorRed>:
+          <ColorRed>*</ColorRed>パスワード
         </Fragment>
       ),
       errorsProperty: errors.password,
@@ -84,7 +84,7 @@ export const NewPassword: FC = () => {
     password_confirmation: {
       formLabel: (
         <Fragment>
-          確認用パスワード<ColorRed>※</ColorRed>:
+          <ColorRed>*</ColorRed>確認用パスワード
         </Fragment>
       ),
       errorsProperty: errors.password_confirmation,

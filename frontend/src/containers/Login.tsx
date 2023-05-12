@@ -65,7 +65,7 @@ export const Login: FC = () => {
     email: {
       formLabel: (
         <Fragment>
-          Email<ColorRed>※</ColorRed>:
+          <ColorRed>*</ColorRed>Email
         </Fragment>
       ),
       errorsProperty: errors.email,
@@ -87,7 +87,7 @@ export const Login: FC = () => {
     password: {
       formLabel: (
         <Fragment>
-          パスワード<ColorRed>※</ColorRed>:
+          <ColorRed>*</ColorRed>パスワード
         </Fragment>
       ),
       errorsProperty: errors.password,

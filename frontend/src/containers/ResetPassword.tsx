@@ -67,7 +67,7 @@ export const ResetPassword: FC = () => {
     email: {
       formLabel: (
         <Fragment>
-          Email<ColorRed>※</ColorRed>:
+          <ColorRed>*</ColorRed>Email
         </Fragment>
       ),
       errorsProperty: errors.email,
