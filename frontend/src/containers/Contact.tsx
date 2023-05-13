@@ -27,8 +27,10 @@ import { postContact } from "../apis/contact";
 
 // components
 import { ColorRed } from "../components/shared_style";
+
 // icons
 import { SubmitIcon } from "../components/icon";
+
 // atoms
 import { contactAtom } from "../atoms/Contact";
 import { authAtom } from "../atoms/Auth";
@@ -43,7 +45,7 @@ import {
 } from "../reducers/submit";
 
 // helpers
-import { onSubmitText, isDisabled } from "../helpers";
+import { onSubmitText, isDisabled, isError } from "../helpers";
 
 // constants
 import { HTTP_STATUS_CODE } from "../constants";
@@ -197,6 +199,7 @@ export const Contact: FC = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
+                    error={isError(resultErrors?.name || errors.name)}
                     type="text"
                     label={
                       <Fragment>
@@ -223,7 +226,7 @@ export const Contact: FC = () => {
               ))}
               {errors.email && (
                 <ErrorMessage data-testid="emailError">
-                  1文字以上、255文字以内で入力してください
+                  連絡可能なメールアドレスを入力してください
                 </ErrorMessage>
               )}
               <Controller
@@ -235,6 +238,7 @@ export const Contact: FC = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
+                    error={isError(resultErrors?.email || errors.email)}
                     type="email"
                     label={
                       <Fragment>
@@ -276,6 +280,7 @@ export const Contact: FC = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
+                    error={isError(resultErrors?.over_view || errors.overView)}
                     type="text"
                     label="概要"
                     autoComplete="text"
@@ -313,6 +318,7 @@ export const Contact: FC = () => {
                   <TextField
                     {...field}
                     type="text"
+                    error={isError(resultErrors?.content || errors.content)}
                     label={
                       <Fragment>
                         <ColorRed>*</ColorRed>お問い合わせ内容

@@ -79,7 +79,7 @@ export const NewPassword: FC = () => {
       defaultValue: "",
       autoComplete: "new-password",
       autoFocus: false,
-      rules: { required: true, minLength: 6, maxLength: 128 },
+      rules: { required: true, minLength: 6, maxLength: 128, pattern: /^[^\s\t]+$/ },
     },
     password_confirmation: {
       formLabel: (
