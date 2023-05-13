@@ -9,7 +9,7 @@ class Api::V1::DiariesController < ApplicationController
     file_attach if params[:picture]
 
     if @diary.save
-      @pagy, diaries = pagy(current_user.diaries.all)
+      @pagy, diaries = pagy(current_user.diaries.all, items: 12)
       render json: {
         diaries:,
         pagy: pagy_metadata(@pagy)
@@ -23,7 +23,7 @@ class Api::V1::DiariesController < ApplicationController
     file_attach if params[:picture]
 
     if @diary.update(diary_params)
-      @pagy, diaries = pagy(current_user.diaries.all, page: pagy_params[:page])
+      @pagy, diaries = pagy(current_user.diaries.all, page: pagy_params[:page], items: 12)
       render json: {
         diaries:,
         pagy: pagy_metadata(@pagy)
@@ -35,7 +35,7 @@ class Api::V1::DiariesController < ApplicationController
 
   def destroy
     @diary.destroy
-    @pagy, diaries = pagy(current_user.diaries.all, page: pagy_params[:page])
+    @pagy, diaries = pagy(current_user.diaries.all, page: pagy_params[:page], items: 12)
     render json: {
       diaries:,
       pagy: pagy_metadata(@pagy)
