@@ -33,6 +33,7 @@ const TagsArea = styled.div`
 
 const TagsWrapper = styled.span`
   display: inline-block;
+  width: 100%;
 `;
 
 const ContentWrapper = styled.div`
@@ -67,6 +68,7 @@ const style = {
   borderRadius: 5,
   margin: "0.3rem",
   fontSize: "1.2rem",
+  whiteSpace: "preLine",
 };
 // 型
 

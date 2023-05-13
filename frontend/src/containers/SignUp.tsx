@@ -114,7 +114,7 @@ export const SignUp: FC = () => {
         </Fragment>
       ),
       errorsProperty: errors.password,
-      errorMessage: "6文字以上128文字以内で入力してください",
+      errorMessage: "6文字以上128文字以内で入力してください。",
       resultErrorProperty: resultErrors?.password,
       apiMessagePropertyName: "パスワード",
       nameAttribute: "password",
@@ -122,7 +122,7 @@ export const SignUp: FC = () => {
       defaultValue: "",
       autoComplete: "new-password",
       autoFocus: false,
-      rules: { required: true, minLength: 6, maxLength: 128 },
+      rules: { required: true, minLength: 6, maxLength: 128, pattern: /^[^\s\t]+$/ },
     },
     password_confirmation: {
       formLabel: (

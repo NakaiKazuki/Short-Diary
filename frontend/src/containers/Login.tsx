@@ -99,7 +99,7 @@ export const Login: FC = () => {
       defaultValue: "",
       autoComplete: "current-password",
       autoFocus: false,
-      rules: { required: true, minLength: 6, maxLength: 128 },
+      rules: { required: true, minLength: 6, maxLength: 128, pattern: /^[^\s\t]+$/ },
     },
   };
 

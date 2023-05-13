@@ -32,12 +32,9 @@ const ErrorMessage = styled.p`
   font-size: 0.9rem;
 `;
 
-const ContentCount = styled.span<{ contentCount: number }>`
+const ContentCount = styled.span`
   float: right;
   font-size: 1rem;
-  ${({ contentCount }) => {
-    if (contentCount > 200) return "color:red";
-  }};
 `;
 
 const Picture = styled.label`
@@ -147,7 +144,7 @@ export const FormArea: FC<IProps> = ({
               label="Tag"
               type="textarea"
               error={isError(resultErrors?.tag_list)}
-              placeholder="「,」で複数設定 Tag1,Tag2,Tag3..."
+              placeholder="半角カンマ(,)で複数設定 Tag1,Tag2,Tag3..."
               fullWidth
               multiline
               sx={bgcWhite}
@@ -163,7 +160,7 @@ export const FormArea: FC<IProps> = ({
       <FormItemWrapper data-testid="FormItem-content">
         {errors?.content && (
           <ErrorMessage data-testid="contentErrorMessage">
-            1文字以上、200文字以内で入力してください
+            1文字以上,200文字以内で入力してください
           </ErrorMessage>
         )}
         {resultErrors?.content?.map((message: string, index: number) => (
@@ -196,7 +193,6 @@ export const FormArea: FC<IProps> = ({
               helperText={
                 <ContentCount
                   data-testid="contentCount"
-                  contentCount={contentCount}
                 >
                   {contentCount}/200
                 </ContentCount>
