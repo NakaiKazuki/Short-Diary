@@ -16,7 +16,7 @@ import { IProps } from "../../types/components/logoutHome";
 // css
 const Text = styled.h1`
   color: limegreen;
-  font-size: 10rem;
+  font-size: 9rem;
   font-weight: bold;
   letter-spacing: 0.5rem;
   line-height: 0.7em;
@@ -34,21 +34,28 @@ const Text = styled.h1`
 
 const Title = styled.h2`
   color: limegreen;
-  font-size: 4rem;
+  font-size: 5.5rem;
   font-weight: bold;
   left: 10vw;
   letter-spacing: 0.5rem;
   line-height: 0.7em;
   position: absolute;
   text-shadow: 1px 0px 5px green;
-  top: 235vh;
-  @media screen and (max-width: 980px) {
-    font-size: 6rem;
+  top: 245vh;
+
+  @media screen and (min-width: 481px) and (max-width: 980px) {
+    left: 10vw;
+    font-size: 4.5rem;;
+  }
+
+  @media screen and (max-width: 480px) {
+    font-size: 3rem;;
     left: 10vw;
   }
-  @media screen and (max-width: 480px) {
-    font-size: 4rem;
-    left: 10vw;
+
+  @media screen and (orientation: landscape) and (max-height: 600px) and (max-width: 1000px) {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
   }
 `;
 
@@ -69,7 +76,11 @@ const CustomButton = styled(CurtainButton)`
     height: 3rem;
     width: 12rem;
   }
+  @media screen and (orientation: landscape) and (max-width: 1000px) {
+    height: 2.4rem;
+  }
 `;
+
 export const CanvasContainer: FC<IProps> = ({
   postState,
   onGuestLoginButton,
@@ -78,7 +89,7 @@ export const CanvasContainer: FC<IProps> = ({
 }) => {
   return (
     <Canvas data-testid="logoutHomeCanvas" id="canvas">
-      <ScrollControls damping={0.5} pages={4} distance={1.5}>
+      <ScrollControls damping={0.5} pages={4.2} distance={1.5}>
         <Scroll>
           <Back />
         </Scroll>
@@ -93,7 +104,7 @@ export const CanvasContainer: FC<IProps> = ({
             type="button"
             onClick={onGuestLoginButton}
             disabled={isDisabled(postState)}
-            style={{ top: "255vh", left: "10vw" }}
+            style={{ top: "280vh", left: "10vw" }}
             data-testid="guestLoginButton"
           >
             {onSubmitText(postState, "ゲストログイン")}
@@ -102,7 +113,7 @@ export const CanvasContainer: FC<IProps> = ({
           <CustomButton
             type="button"
             onClick={onSignUpButton}
-            style={{ top: "275vh", left: "10vw" }}
+            style={{ top: "305vh", left: "10vw" }}
             data-testid="signUpButton"
           >
             ユーザー登録
@@ -111,7 +122,7 @@ export const CanvasContainer: FC<IProps> = ({
           <CustomButton
             type="button"
             onClick={onAboutButton}
-            style={{ top: "295vh", left: "10vw" }}
+            style={{ top: "330vh", left: "10vw" }}
             data-testid="aboutButton"
           >
             アプリと制作者情報

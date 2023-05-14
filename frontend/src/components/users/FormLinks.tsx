@@ -21,6 +21,10 @@ const LinkList = styled.ul`
   li:not(:first-child) {
     margin: 0.7rem 0;
   }
+
+  @media screen and (orientation: landscape) and (max-width: 1000px) {
+    margin-bottom: 5rem;
+  }
 `;
 
 const LinkArea = styled.li`

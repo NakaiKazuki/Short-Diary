@@ -22,10 +22,6 @@ import { deleteSession } from "../apis/users/sessions";
 import { removeUserCookies } from "../helpers";
 
 // css
-const AppHeader = styled(AppBar)`
-  height: auto;
-`;
-
 const Icon = styled.span`
   border-radius: 50%;
   cursor: pointer;
@@ -104,7 +100,7 @@ export const Header: FC = () => {
   };
 
   return (
-    <AppHeader position="fixed" color="inherit" data-testid="header">
+    <AppBar color="inherit" data-testid="header">
       <Toolbar>
         {currentUser && (
           <Icon
@@ -138,6 +134,6 @@ export const Header: FC = () => {
           </Fragment>
         )}
       </Toolbar>
-    </AppHeader>
+    </AppBar>
   );
 };

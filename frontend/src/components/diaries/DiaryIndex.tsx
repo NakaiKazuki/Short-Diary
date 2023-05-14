@@ -19,6 +19,7 @@ const Diaries = styled.ul`
   margin: 0 auto;
   padding-inline-start: 0;
   width: 100%;
+
   @media screen and (min-width: 481px) {
     display: flex;
     flex-wrap: wrap;
@@ -33,6 +34,7 @@ const variants = {
 
 const DiaryWrapper = styled.span`
   width: 25%;
+
   @media screen and (min-width: 980px) and (max-width: 1300px) {
     width: 33%;
   }
@@ -66,6 +68,14 @@ const Diary = styled(motion.li).attrs<typeof variants>(() => ({
     box-shadow: none;
     cursor: pointer;
     z-index: 1;
+  }
+
+  @media screen and (orientation: landscape) and (max-width: 1300px) {
+    height: 45vh;
+  }
+
+  @media screen and (orientation: landscape) and (max-width: 1000px) {
+    height: 60vh;
   }
 `;
 
