@@ -98,11 +98,13 @@ const Button = styled(BaseButton)`
   height: 2.8rem;
   letter-spacing: 0.2rem;
   padding: 0 2rem;
+
   :hover {
     background-color: limegreen;
     color: white;
     opacity: 0.8;
   }
+
   @media screen and (max-width: 480px) {
     width: 100%;
   }
@@ -136,9 +138,11 @@ const EmptyMessageContainer = styled.div`
   position: relative;
   text-align: center;
   width: 18%;
+
   @media screen and (min-width: 768px) and (max-width: 979px) {
     width: 44%;
   }
+
   @media screen and (max-width: 767px) {
     height: 10rem;
     margin-top: 4rem;
@@ -156,9 +160,12 @@ const EmptyMessage = styled.span`
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 `;
+
 const DiariesWrapper = styled.div`
+  margin-bottom: 3rem;
+
   @media screen and (max-width: 480px) {
-    margin-top: 4rem;
+    margin: 7rem 0;
   }
 `;
 

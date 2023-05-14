@@ -16,11 +16,16 @@ const FooterWrapper = styled.footer`
   background-color: white;
   border-top: 2px solid limegreen;
   bottom: 0;
-  height: 3.8em;
+  height: 3.8rem;
   padding: 1.2rem 1vw 0 0;
   position: fixed;
   width: 99vw;
   z-index: 10;
+
+  @media screen and (orientation: landscape) and (max-width: 1000px) {
+    padding: 0.6rem 0;
+    position: initial;
+  }
 `;
 
 const Link = styled.a`
@@ -41,6 +46,7 @@ const ContactButton = styled(Base)`
   border: 2px solid limegreen;
   color: limegreen;
   margin-left: 0.7rem;
+
   :hover {
     background-color: limegreen;
     color: white;
@@ -59,6 +65,7 @@ const StyledTwitterIcon = styled(TwitterIcon)`
 const LinkItem = styled(Base)`
   border: 2px solid limegreen;
   color: limegreen;
+
   :hover {
     background-color: #1da1f2;
     border: 2px solid #1da1f2;
