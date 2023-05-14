@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+
 // atoms
 import { authAtom } from "../atoms/Auth";
 import { messageAtom } from "../atoms/Message";
@@ -10,8 +11,8 @@ import { messageAtom } from "../atoms/Message";
 // components
 import {
   FormItem,
-  FormSubmit,
   FormLinks,
+  FormSubmit,
   FormTitle,
   FormWrapper,
 } from "../components/users";
@@ -32,32 +33,32 @@ import {
 
 // helpers
 import {
-  onSubmitText,
   isDisabled,
+  onSubmitText,
   removeUserCookies,
   setUserCookies,
 } from "../helpers";
 
 // types
 import {
+  IUserEditForm as IForm,
   IUsersFormValues as IFormValues,
   IUsersResultErrors as IResultErrors,
-  IUserEditForm as IForm,
   TLinks,
 } from "../types/containers";
 
 // css
 const Container = styled.div`
-  width: 100%;
   min-height: 93.5vh;
   padding-top: 17vh;
+  width: 100%;
 `;
 
 const GuestMessage = styled.p`
-  text-align: center;
-  margin: 0.6rem auto auto auto;
   color: red;
   font-size: 0.9rem;
+  margin: 0.6rem auto auto auto;
+  text-align: center;
 `;
 
 export const UserEdit: FC = () => {

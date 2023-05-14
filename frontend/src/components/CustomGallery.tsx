@@ -8,19 +8,19 @@ import { ICustomGalleryProps as IProps } from "../types/components";
 
 const Container = styled.div`
   .image-gallery-slide-wrapper {
-    height: 84.5vh;
     align-items: center;
-    justify-content: center;
     display: flex;
+    height: 84.5vh;
+    justify-content: center;
 
     @media screen and (max-width: 480px) {
-      height: 50vh;
       display: flex;
+      height: 50vh;
     }
   }
   .image-gallery-slide .image-gallery-image {
-    max-height: 70vh;
     height: 70vh;
+    max-height: 70vh;
   }
   .image-gallery-slide {
     &-wrapper:hover {
@@ -33,8 +33,8 @@ const Container = styled.div`
 
   .image-gallery-right-nav,
   .image-gallery-left-nav {
-    cursor: pointer;
     color: limegreen;
+    cursor: pointer;
     opacity: 0;
   }
 

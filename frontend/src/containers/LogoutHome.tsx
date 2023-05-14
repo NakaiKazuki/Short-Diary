@@ -24,10 +24,10 @@ import { CanvasContainer } from "../components/logoutHome";
 
 // css
 const LogoutHomeContainer = styled(motion.div)`
-  overscroll-behavior: none;
   font-family: "Inter var", sans-serif;
-  width: 100%;
   height: 93.5vh;
+  overscroll-behavior: none;
+  width: 100%;
 `;
 
 export const LogoutHome: FC = () => {

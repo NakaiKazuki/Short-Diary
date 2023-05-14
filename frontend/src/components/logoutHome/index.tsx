@@ -12,12 +12,14 @@ import { CurtainButton } from "../shared_style";
 
 // types
 import { IProps } from "../../types/components/logoutHome";
+
+// css
 const Text = styled.h1`
+  color: limegreen;
   font-size: 10rem;
+  font-weight: bold;
   letter-spacing: 0.5rem;
   line-height: 0.7em;
-  color: limegreen;
-  font-weight: bold;
   position: absolute;
   text-shadow: 10px 0px 20px green;
   @media screen and (max-width: 980px) {
@@ -31,15 +33,15 @@ const Text = styled.h1`
 `;
 
 const Title = styled.h2`
+  color: limegreen;
   font-size: 4rem;
+  font-weight: bold;
+  left: 10vw;
   letter-spacing: 0.5rem;
   line-height: 0.7em;
-  color: limegreen;
-  font-weight: bold;
   position: absolute;
   text-shadow: 1px 0px 5px green;
   top: 235vh;
-  left: 10vw;
   @media screen and (max-width: 980px) {
     font-size: 6rem;
     left: 10vw;
@@ -51,21 +53,21 @@ const Title = styled.h2`
 `;
 
 const CustomButton = styled(CurtainButton)`
-  letter-spacing: 0.2rem;
+  box-shadow: 2px 2px 2px 2px limegreen;
+  font-family: Comic Sans MS;
   font-size: 1.2rem;
+  font-weight: 900;
+  height: 4rem;
+  letter-spacing: 0.2rem;
   padding: 0.5rem;
   width: 18rem;
-  height: 4rem;
-  font-weight: 900;
-  font-family: Comic Sans MS;
-  box-shadow: 2px 2px 2px 2px limegreen;
   :hover {
     box-shadow: 2px 2px 2px 2px green;
   }
   @media screen and (max-width: 980px) {
     font-size: 0.95rem;
-    width: 12rem;
     height: 3rem;
+    width: 12rem;
   }
 `;
 export const CanvasContainer: FC<IProps> = ({

@@ -9,9 +9,9 @@ import { FormArea } from "./FormArea";
 import { IDiaryCreateDialogProps as IProps } from "../../types/components/diaries";
 
 const FromTitle = styled(DialogTitle)`
-  text-align: center;
   color: limegreen;
   font-weight: bolder;
+  text-align: center;
 `;
 
 export const DiaryCreateDialog: FC<IProps> = ({

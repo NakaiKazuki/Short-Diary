@@ -19,18 +19,18 @@ const buttonVariants = {
 
 export const BaseButton = styled(motion.button).attrs<typeof buttonVariants>(
   () => ({
+    animate: "rest",
+    initial: "rest",
     variants: buttonVariants,
     whileHover: "hover",
     whileTap: "tap",
-    initial: "rest",
-    animate: "rest",
   })
 )`
-  cursor: pointer;
   border-radius: 0.25rem;
-  position: relative;
-  overflow: hidden;
+  cursor: pointer;
   font-family: Comic Sans MS;
+  overflow: hidden;
+  position: relative;
   :hover {
     opacity: 0.9;
   }
@@ -42,43 +42,43 @@ export const BaseButton = styled(motion.button).attrs<typeof buttonVariants>(
     color: white;
   }
   &:before {
+    border-radius: 50%;
     content: "";
     display: block;
+    height: 0;
+    left: 50%;
+    opacity: 0.3;
     position: absolute;
     top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    opacity: 0.3;
     transform: translate(-50%, -50%);
-    border-radius: 50%;
+    width: 0;
   }
 `;
 
 export const CurtainButton = styled.button`
-  cursor: pointer;
-  position: relative;
-  display: flex;
-  justify-content: space-around;
   align-items: center;
-  z-index: 0;
-  border-left: solid 2px limegreen;
-  border-top: none;
-  border-right: none;
-  border-bottom: none;
   background: white;
+  border-bottom: none;
+  border-left: solid 2px limegreen;
+  border-right: none;
+  border-top: none;
   color: limegreen;
+  cursor: pointer;
+  display: flex;
   font-family: Comic Sans MS;
+  justify-content: space-around;
+  position: relative;
+  z-index: 0;
   &:before {
+    background: limegreen;
+    bottom: 0;
     content: "";
+    display: block;
+    left: 0;
     position: absolute;
     top: 0;
-    bottom: 0;
-    width: 0;
-    display: block;
-    background: limegreen;
     transition: 0.3s;
-    left: 0;
+    width: 0;
   }
 
   &:hover {

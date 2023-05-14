@@ -8,11 +8,11 @@ import { FormArea } from "./FormArea";
 import { IDiaryEditProps as IProps } from "../../types/components/diaries";
 
 const FromTitle = styled.h1`
-  text-align: center;
   color: limegreen;
+  font-family: Comic Sans MS;
   font-weight: normal;
   margin: 0;
-  font-family: Comic Sans MS;
+  text-align: center;
 `;
 
 export const DiaryEdit: FC<IProps> = ({

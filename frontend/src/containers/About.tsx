@@ -8,92 +8,99 @@ import { scroll } from "../helpers";
 //types
 import { initialState, aboutReducer } from "../reducers/about";
 const Container = styled.div`
-  min-height: 93.5vh;
-  width: 90vw;
   margin: 0 auto 9vh auto;
+  min-height: 93.5vh;
   padding-top: 8.6vh;
+  width: 90vw;
 `;
 
 const Title = styled.h1`
-  text-align: center;
   margin-top: 3rem;
+  text-align: center;
 `;
 
 const Contents = styled.div`
-  position: relative;
   display: flex;
   flex-wrap: wrap;
   flex: 1;
+  position: relative;
 `;
 
 const Categories = styled.ul`
   padding-inline-start: 0.2rem;
   width: 60%;
   @media screen and (min-width: 980px) {
-    width: 15vw;
     left: 20vh;
     position: fixed;
+    width: 15vw;
     li:not(:first-child) {
       margin-top: 1rem;
     }
   }
   @media screen and (max-width: 979px) {
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0;
-    width: 100%;
     display: flex;
     justify-contents: center;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    width: 100%;
   }
 `;
 
 const Base = styled.li`
+  border: 0.0125rem solid limegreen;
   cursor: pointer;
   float: left;
   list-style: none;
-  margin-block-start: 0;
   margin-block-end: 0;
+  margin-block-start: 0;
   padding: 0.4rem;
   text-align: center;
-  border: 0.0125rem solid limegreen;
+
   :hover {
-    color: white;
     background-color: limegreen;
+    color: white;
     transition: 0.3s;
   }
+
   :active {
-    color: white;
     background-color: limegreen;
+    color: white;
   }
+
   :focus {
     outline: 0;
   }
+
   @media screen and (min-width: 980px) {
     border-radius: 0.5rem;
     width: 80%;
   }
+
   @media screen and (max-width: 979px) {
     display: block;
     width: 33.3%;
   }
 `;
 
-const Category = styled(Base)<{ disabled: boolean }>`
+const Category = styled(Base) <{ disabled: boolean }>`
   ${({ disabled }) =>
     disabled
       ? {
-          "background-color": "limegreen",
-          color: "white",
-          "pointer-events": "none",
-        }
+        "background-color": "limegreen",
+        "pointer-events": "none",
+        color: "white",
+      }
       : { "background-color": "white" }};
 `;
 
 const Main = styled.div`
+
   @media screen and (min-width: 980px) {
-    padding-left: 20vw;
     flex: 1;
+    padding-left: 20vw;
   }
+
   @media screen and (max-width: 979px) {
     width: 100vw;
   }

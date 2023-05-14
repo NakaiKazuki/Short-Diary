@@ -3,18 +3,18 @@ import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedSection } from "../components/AnimatedSection";
 const LoadContainer = styled.div`
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
 `;
 
 const Title = styled(motion.span)`
-  font-size: 5rem;
   color: limegreen;
-  font-weight: bold;
   font-family: Comic Sans MS;
+  font-size: 5rem;
+  font-weight: bold;
   @media screen and (max-width: 980px) {
     font-size: 3rem;
   }

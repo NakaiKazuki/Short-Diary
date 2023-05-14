@@ -6,26 +6,25 @@ import styled from "styled-components";
 import { messageAtom } from "../atoms/Message";
 
 const Container = styled.div`
-  width: 100%;
-  position: fixed;
-  z-index: 1;
-  transition: all 0.3s;
   margin-top: 10rem;
+  position: fixed;
+  transition: all 0.3s;
+  width: 100%;
+  z-index: 1;
 `;
 
 const TextWrapper = styled.p`
-  text-align: center;
-  margin: 0 auto;
-  font-size: 1rem;
-  width: 50%;
-  padding: 1rem 2rem;
-  font-weight: bold;
-
-  padding: 1rem 2rem;
-  color: white;
   background: limegreen;
-  -webkit-box-shadow: 5px 5px 0 green;
   box-shadow: 5px 5px 0 green;
+  -webkit-box-shadow: 5px 5px 0 green;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  padding: 1rem 2rem;
+  text-align: center;
+  width: 50%;
 
   @media screen and (max-width: 480px) {
     width: 80%;

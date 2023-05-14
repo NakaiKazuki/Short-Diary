@@ -18,8 +18,8 @@ const SubTitle = styled.h2`
 `;
 
 const Contents = styled.ul`
-  padding-inline-start: 0;
   margin-left: 1.5vw;
+  padding-inline-start: 0;
 
   li:not(:first-child) {
     margin-top: 1rem;
@@ -27,9 +27,9 @@ const Contents = styled.ul`
 `;
 
 const Content = styled.li`
-  padding-inline-start: 0;
-  margin-left: 1.5vw;
   font-size: 1.5rem;
+  margin-left: 1.5vw;
+  padding-inline-start: 0;
 `;
 
 const InnerUl = styled.ul`
@@ -37,8 +37,8 @@ const InnerUl = styled.ul`
 `;
 
 const InnerLi = styled.li`
-  padding-inline-start: 0;
   margin-top: 0.5rem;
+  padding-inline-start: 0;
 `;
 
 const ReactBlock = (): JSX.Element => {

@@ -1,12 +1,13 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+
 // types
 import {
-  TAxiosGet,
-  TAxiosPut,
-  TAxiosPost,
-  TAxiosPatch,
   TAxiosDelete,
+  TAxiosGet,
+  TAxiosPatch,
+  TAxiosPost,
+  TAxiosPut,
 } from "../types/apis";
 
 const getCookie = (name: string): string => {

@@ -27,9 +27,9 @@ const FormItemWrapper = styled.div`
 `;
 
 const ErrorMessage = styled.p`
-  margin: 0.4rem auto;
   color: red;
   font-size: 0.9rem;
+  margin: 0.4rem auto;
 `;
 
 const ContentCount = styled.span`
@@ -38,14 +38,14 @@ const ContentCount = styled.span`
 `;
 
 const Picture = styled.label`
-  width: 100%;
-  text-align: center;
-  padding: 0.6rem 0;
-  color: limegreen;
   background-color: white;
-  border: 0.0125rem solid limegreen;
   border-radius: 1rem;
+  border: 0.0125rem solid limegreen;
+  color: limegreen;
   display: inline-block;
+  padding: 0.6rem 0;
+  text-align: center;
+  width: 100%;
   :hover {
     cursor: pointer;
   }
@@ -60,14 +60,15 @@ const InputPictureArea = styled.input`
 `;
 
 const Submit = styled(BaseButton)`
-  margin-top: 2rem;
   background-color: limegreen;
-  color: white;
   border-style: none;
-  width: 100%;
-  height: 3rem;
+  color: white;
   font-size: 1.1rem;
+  height: 3rem;
+  margin-top: 2rem;
+  width: 100%;
 `;
+
 const StyledSubmitIcon = styled(SubmitIcon)`
   margin-right: 0.6rem;
 `;

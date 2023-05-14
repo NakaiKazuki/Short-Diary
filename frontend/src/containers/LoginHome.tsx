@@ -1,12 +1,12 @@
 import {
+  ChangeEvent,
   FC,
   Fragment,
-  useState,
+  MouseEvent,
   useEffect,
   useReducer,
   useRef,
-  ChangeEvent,
-  MouseEvent,
+  useState,
 } from "react";
 import { useSetRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
@@ -30,9 +30,9 @@ import { BaseButton } from "../components/shared_style";
 import { PaginationArea } from "../components/PaginationArea";
 import { ConfirmDialog } from "../components/ConfirmDialog";
 import {
-  DiaryIndex,
   DiaryCreateDialog,
   DiaryDialog,
+  DiaryIndex,
   DiarySearchDrawer,
 } from "../components/diaries";
 import { CircularProgress } from "@mui/material";
@@ -41,10 +41,10 @@ import { HTTP_STATUS_CODE, REQUEST_STATE } from "../constants";
 
 // helpers
 import {
-  onSubmitText,
-  isDisabled,
   dateToday,
   formattedDate,
+  isDisabled,
+  onSubmitText,
   removeUserCookies,
   scroll,
 } from "../helpers";
@@ -58,28 +58,28 @@ import {
 
 // types
 import {
-  ILoginHomeInitialState as IInitialState,
-  ILoginHomeFormValues as IFormValues,
   IDiary,
-  ISearchFormValue,
   IFile,
+  ILoginHomeFormValues as IFormValues,
+  ILoginHomeInitialState as IInitialState,
+  ISearchFormValue,
 } from "../types/containers";
 
 // css
 const Container = styled.div`
-  position: relative;
-  min-height: 93.5vh;
-  width: 90vw;
   margin: 0 auto 9vh auto;
+  min-height: 93.5vh;
   padding-top: 6.5vh;
+  position: relative;
+  width: 90vw;
 `;
 
 const Heading = styled.h1`
-  text-align: center;
   color: limegreen;
-  font-size: 4rem;
   font-family: Comic Sans MS;
+  font-size: 4rem;
   margin-top: 10rem;
+  text-align: center;
   text-shadow: 3px 0px 2px green;
 `;
 
@@ -91,17 +91,17 @@ const ButtonsContainer = styled.div`
 `;
 
 const Button = styled(BaseButton)`
-  height: 2.8rem;
-  border: 2px solid limegreen;
-  letter-spacing: 0.2rem;
-  font-size: 1.3rem;
-  padding: 0 2rem;
   background-color: white;
+  border: 2px solid limegreen;
   color: limegreen;
+  font-size: 1.3rem;
+  height: 2.8rem;
+  letter-spacing: 0.2rem;
+  padding: 0 2rem;
   :hover {
-    opacity: 0.8;
     background-color: limegreen;
     color: white;
+    opacity: 0.8;
   }
   @media screen and (max-width: 480px) {
     width: 100%;
@@ -120,38 +120,38 @@ const IconWrapper = styled.span`
 `;
 
 const CircularProgressContainer = styled.span`
+  left: 50%;
   position: absolute;
   top: 50vh;
-  left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 `;
 
 const EmptyMessageContainer = styled.div`
-  text-align: center;
-  margin: 2rem auto 0 auto;
-  height: 17vh;
-  width: 18%;
-  border: 0.0125rem solid limegreen;
   border-radius: 0.5rem;
+  border: 0.0125rem solid limegreen;
+  height: 17vh;
+  margin: 2rem auto 0 auto;
   position: relative;
+  text-align: center;
+  width: 18%;
   @media screen and (min-width: 768px) and (max-width: 979px) {
     width: 44%;
   }
   @media screen and (max-width: 767px) {
-    margin-top: 4rem;
     height: 10rem;
+    margin-top: 4rem;
     width: 100%;
   }
 `;
 
 const EmptyMessage = styled.span`
-  margin-top: 50% 0;
   background-color: white;
+  left: 50%;
+  margin-top: 50% 0;
   position: absolute;
   top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);

@@ -13,25 +13,25 @@ import { BaseButton } from "../components/shared_style";
 import { PictureIcon } from "../components/icon";
 
 const MainLogo = styled.span`
+  color: limegreen;
+  font-family: Comic Sans MS;
+  font-size: 1.7rem;
+  font-weight: bold;
   margin: 1rem auto;
   padding: 1.15vh 0;
-  font-size: 1.7rem;
-  color: limegreen;
-  font-weight: bold;
-  font-family: Comic Sans MS;
   @media screen and (max-width: 480px) {
     font-size: 1.5rem;
   }
 `;
 
 const Container = styled.div`
+  align-items: center;
+  background-color: white;
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 15rem;
-  background-color: white;
   justify-content: center;
-  align-items: center;
+  width: 15rem;
 `;
 
 const Icon = styled(PictureIcon)`
@@ -40,18 +40,18 @@ const Icon = styled(PictureIcon)`
 `;
 
 const ItemWrapper = styled(BaseButton)`
-  margin: 0.1rem 0;
-  padding: 0.7rem;
-  letter-spacing: 0.2rem;
-  color: limegreen;
   background-color: white;
   border: 0.0125rem solid limegreen;
-  letter-spacing: 0.2rem;
+  color: limegreen;
   font-size: 1rem;
+  letter-spacing: 0.2rem;
+  letter-spacing: 0.2rem;
+  margin: 0.1rem 0;
+  padding: 0.7rem;
   :hover {
-    opacity: 0.8;
     background-color: limegreen;
     color: white;
+    opacity: 0.8;
     ${Icon} {
       color: white;
     }

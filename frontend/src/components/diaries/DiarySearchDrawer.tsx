@@ -28,19 +28,19 @@ const WordSearchForm = styled.form`
 `;
 
 const Button = styled(BaseButton)`
-  height: 3rem;
-  width: 100%;
-  margin: 2rem auto 0 auto;
-  float: right;
-  color: limegreen;
   background-color: white;
   border: 0.0125rem solid limegreen;
-  letter-spacing: 0.2rem;
+  color: limegreen;
+  float: right;
   font-size: 1.2rem;
+  height: 3rem;
+  letter-spacing: 0.2rem;
+  margin: 2rem auto 0 auto;
+  width: 100%;
   :hover {
-    opacity: 0.8;
     background-color: limegreen;
     color: white;
+    opacity: 0.8;
   }
 `;
 

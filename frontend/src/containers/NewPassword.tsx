@@ -43,9 +43,9 @@ import {
 
 // css
 const Container = styled.div`
-  width: 100%;
   min-height: 93.5vh;
   padding-top: 17vh;
+  width: 100%;
 `;
 
 // エラーメッセージ

@@ -9,13 +9,13 @@ import { SubmitIcon } from "../icon";
 import { IFormSubmit as IProps } from "../../types/components/users";
 
 const Submit = styled(BaseButton)`
-  margin: 2rem auto 0 auto;
   background-color: limegreen;
-  color: white;
   border-style: none;
-  width: 100%;
-  height: 3rem;
+  color: white;
   font-size: 1.1rem;
+  height: 3rem;
+  margin: 2rem auto 0 auto;
+  width: 100%;
 `;
 
 const StyledIcon = styled(SubmitIcon)`
