@@ -11,26 +11,26 @@ import { IUserMenuProps as IProps } from "../../types/components/users";
 
 // css
 const Container = styled.span`
-  padding: 0.3rem 0.7rem;
-  width: auto;
-  margin: 0 0 0 auto;
-  border: 0.0125rem solid limegreen;
-  border-radius: 0.5rem;
   background-color: white;
+  border-radius: 0.5rem;
+  border: 0.0125rem solid limegreen;
   color: limegreen;
   letter-spacing: 0.2rem;
+  margin: 0 0 0 auto;
+  padding: 0.3rem 0.7rem;
+  width: auto;
   :hover {
-    cursor: pointer;
     background-color: limegreen;
     color: white;
+    cursor: pointer;
     transition: 0.25s;
   }
 `;
 
 const UserNameWrapper = styled.span`
-  margin-left: 0.3rem;
-  font-size: 0.8rem;
   font-family: Comic Sans MS;
+  font-size: 0.8rem;
+  margin-left: 0.3rem;
 `;
 
 const MenuItemLink = styled(Link)`
@@ -50,10 +50,10 @@ const styledMenu = {
 // Material Ui のMenuItemデザイン変更
 const styledMenuItem = {
   backgroundColor: "white",
-  color: "limegreen",
   borderRadius: 2,
-  margin: "0.5rem 0.5rem 0",
+  color: "limegreen",
   fontFamily: "Comic Sans MS",
+  margin: "0.5rem 0.5rem 0",
   "& .MuiListItemIcon-root": {
     color: "limegreen",
   },
@@ -75,10 +75,10 @@ const styledMenuItem = {
 
 const styledMenuItemLogout = {
   backgroundColor: "white",
-  color: "red",
   borderRadius: 2,
-  margin: "0.5rem 0.5rem 0",
+  color: "red",
   fontFamily: "Comic Sans MS",
+  margin: "0.5rem 0.5rem 0",
   "& .MuiListItemIcon-root": {
     color: "red",
   },

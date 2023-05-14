@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 // css
 export const FormTitle = styled.h1`
-  text-align: center;
   color: limegreen;
-  letter-spacing: 0.1rem;
-  font-size: 2.2rem;
   font-family: Comic Sans MS;
+  font-size: 2.2rem;
+  letter-spacing: 0.1rem;
+  text-align: center;
 `;
 
 export const FormWrapper = styled.form`

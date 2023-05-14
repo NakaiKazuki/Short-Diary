@@ -27,12 +27,12 @@ const AppHeader = styled(AppBar)`
 `;
 
 const Icon = styled.span`
-  position: relative;
-  margin: auto 0.8rem auto 0;
-  cursor: pointer;
-  width: 2.5rem;
-  height: 2.5rem;
   border-radius: 50%;
+  cursor: pointer;
+  height: 2.5rem;
+  margin: auto 0.8rem auto 0;
+  position: relative;
+  width: 2.5rem;
   &:hover {
     background-color: #eeeeee;
     cursor: pointer;
@@ -40,11 +40,11 @@ const Icon = styled.span`
 `;
 
 const Logo = styled(Link)`
-  padding: 1.15vh 0;
-  font-size: 1.7rem;
   color: limegreen;
-  font-weight: bold;
   font-family: Comic Sans MS;
+  font-size: 1.7rem;
+  font-weight: bold;
+  padding: 1.15vh 0;
   text-decoration: none;
   @media screen and (max-width: 480px) {
     font-size: 1.3rem;
@@ -62,12 +62,12 @@ const LoginLink = styled(Link)`
 `;
 
 const LinkItem = styled(BaseButton)`
+  background-color: white;
+  border: 2px solid limegreen;
+  color: limegreen;
+  font-size: 1.2rem;
   height: 2.5rem;
   padding: 0 1rem;
-  font-size: 1.2rem;
-  border: 2px solid limegreen;
-  background-color: white;
-  color: limegreen;
   :hover {
     background-color: limegreen;
     color: white;
@@ -75,13 +75,13 @@ const LinkItem = styled(BaseButton)`
 `;
 
 const style = {
-  width: "1.7rem",
   height: "1.7rem",
+  left: "50%",
   margin: "auto 0",
   position: "absolute",
   top: "50%",
-  left: "50%",
   transform: "translate(-50%, -50%)",
+  width: "1.7rem",
 };
 
 export const Header: FC = () => {

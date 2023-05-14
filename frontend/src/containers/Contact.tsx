@@ -57,16 +57,17 @@ import {
 } from "../types/containers";
 
 export const FormTitle = styled.h1`
-  text-align: center;
   color: limegreen;
+  font-family: Comic Sans MS;
   letter-spacing: 0.1rem;
   margin-top: 20vh;
+  text-align: center;
 `;
 
 export const Form = styled.form`
   margin: 1rem auto;
-  width: 80vw;
   padding: 0 10% 5% 10%;
+  width: 80vw;
   @media screen and (min-width: 980px) {
     width: 30vw;
   }
@@ -77,24 +78,30 @@ const ItemWrapper = styled.div`
 `;
 
 const ErrorMessage = styled.p`
-  margin: 0.6rem auto auto auto;
   color: red;
   font-size: 0.9rem;
+  margin: 0.6rem auto auto auto;
 `;
 
 const Submit = styled(BaseButton)`
-  margin-top: 2rem;
   background-color: limegreen;
-  color: white;
   border-style: none;
-  width: 100%;
-  height: 3rem;
+  color: white;
   font-size: 1.1rem;
+  height: 3rem;
+  margin-top: 2rem;
+  width: 100%;
 `;
 
 const StyledIcon = styled(SubmitIcon)`
   margin-right: 0.6rem;
 `;
+const style = {
+  flex: 1,
+  fontFamily: "Comic Sans MS",
+  ml: 2,
+}
+
 const transition = forwardRef<
   unknown,
   TransitionProps & { children: ReactElement }
@@ -170,7 +177,7 @@ export const Contact: FC = () => {
             >
               <CloseIcon />
             </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+            <Typography sx={style} variant="h6" component="div">
               Contact
             </Typography>
           </Toolbar>

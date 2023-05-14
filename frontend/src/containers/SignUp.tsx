@@ -10,8 +10,8 @@ import { messageAtom } from "../atoms/Message";
 // components
 import {
   FormItem,
-  FormSubmit,
   FormLinks,
+  FormSubmit,
   FormTitle,
   FormWrapper,
 } from "../components/users";
@@ -41,9 +41,9 @@ import {
 import { TLinks, IForm } from "../types/containers";
 
 const Container = styled.div`
-  width: 100%;
   min-height: 93.5vh;
   padding-top: 17vh;
+  width: 100%;
 `;
 
 export const SignUp: FC = () => {

@@ -16,15 +16,15 @@ import { IConfirmDialogProps as IProps } from "../types/components";
 
 // css
 const ConfirmationButton = styled(BaseButton)`
+  border-radius: 0.25rem;
+  font-size: 1rem;
   height: 2.2rem;
   padding: 0 1rem;
-  font-size: 1rem;
-  border-radius: 0.25rem;
 `;
 
 const CloseButton = styled(ConfirmationButton)`
-  border: 0.0125rem solid limegreen;
   background-color: white;
+  border: 0.0125rem solid limegreen;
   color: limegreen;
   :hover {
     background-color: limegreen;
@@ -33,8 +33,8 @@ const CloseButton = styled(ConfirmationButton)`
 `;
 
 const DeleteButton = styled(ConfirmationButton)`
-  border: 0.0125rem solid red;
   background-color: white;
+  border: 0.0125rem solid red;
   color: red;
   :hover {
     background-color: red;

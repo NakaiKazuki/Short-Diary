@@ -24,31 +24,31 @@ import { IPhotoGalleryInitialState as IInitialState } from "../types/containers"
 // css
 const Container = styled.div`
   margin: 0 auto;
-  width: 100%;
-  padding-top: 6.5vh;
   min-height: 93.5vh;
+  padding-top: 6.5vh;
+  width: 100%;
   @media screen and (max-width: 480px) {
     padding-top: 20vh;
   }
 `;
 
 const CircularProgressContainer = styled.span`
+  left: 50%;
   position: absolute;
   top: 50vh;
-  left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 `;
 
 const MessageContainer = styled.div`
-  text-align: center;
-  margin: 20vh auto auto auto;
-  height: 17vh;
-  width: 18%;
-  border: 0.0125rem solid limegreen;
   border-radius: 0.5rem;
+  border: 0.0125rem solid limegreen;
+  height: 17vh;
+  margin: 20vh auto auto auto;
   position: relative;
+  text-align: center;
+  width: 18%;
 
   @media screen and (min-width: 768px) and (max-width: 979px) {
     width: 44%;
@@ -61,10 +61,10 @@ const MessageContainer = styled.div`
 `;
 
 const Message = styled.span`
+  left: 50%;
   margin-top: 50% 0;
   position: absolute;
   top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);

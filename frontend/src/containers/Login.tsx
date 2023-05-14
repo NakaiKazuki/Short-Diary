@@ -12,12 +12,12 @@ import { TLinks, IForm } from "../types/containers";
 // components
 import {
   FormItem,
-  FormSubmit,
   FormLinks,
+  FormSubmit,
   FormTitle,
   FormWrapper,
 } from "../components/users";
-import { ColorRed } from "../components/shared_style";
+
 // apis
 import { createSession } from "../apis/users/sessions";
 
@@ -33,20 +33,24 @@ import {
 
 // helpers
 import {
-  onSubmitText,
   isDisabled,
+  onSubmitText,
   removeUserCookies,
   setUserCookies,
 } from "../helpers";
 
 // types
 import { IUsersFormValues as IFormValues } from "../types/containers";
+
 // css
+import { ColorRed } from "../components/shared_style";
+
 const Container = styled.div`
-  width: 100%;
   min-height: 93.5vh;
   padding-top: 17vh;
+  width: 100%;
 `;
+
 // エラーメッセージ
 export const Login: FC = () => {
   const setCurrentUser = useSetRecoilState(authAtom);

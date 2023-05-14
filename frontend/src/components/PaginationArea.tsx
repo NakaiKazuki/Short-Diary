@@ -12,11 +12,11 @@ const Container = styled.div`
 `;
 
 const styles = (theme: MuiTheme) => ({
-  margin: "0 auto",
   display: "flex",
+  margin: "0 auto",
   "& .MuiPaginationItem-page": {
-    fontSize: "2rem",
     color: "limegreen",
+    fontSize: "2rem",
     "&:hover": {
       backgroundColor: "limegreen",
       color: "white",

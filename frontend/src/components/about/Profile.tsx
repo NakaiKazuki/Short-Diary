@@ -23,29 +23,29 @@ const StledTwitterIcon = styled(TwitterIcon)`
 `;
 
 const Contents = styled.ul`
-  padding-inline-start: 0;
   margin-left: 1.5vw;
+  padding-inline-start: 0;
   li:not(:first-child) {
     margin-top: 1rem;
   }
 `;
 
 const Content = styled.li`
-  list-style: none;
-  padding-inline-start: 0;
-  margin-left: 1.5vw;
   font-size: 1.5rem;
+  list-style: none;
+  margin-left: 1.5vw;
+  padding-inline-start: 0;
 `;
 
 const ContentTitle = styled.div`
-  margin-top: 1.8rem;
   font-weight: bold;
+  margin-top: 1.8rem;
 `;
 
 const ContentSubTitle = styled.span`
   font-size: 1.2rem;
-  margin-left: 1rem;
   font-weight: bold;
+  margin-left: 1rem;
 `;
 
 const InnerUl = styled.ul`
@@ -53,21 +53,21 @@ const InnerUl = styled.ul`
 `;
 
 const InnerLi = styled.li`
-  margin-top: 1rem;
-  list-style: none;
   font-size: 1.2rem;
+  list-style: none;
+  margin-top: 1rem;
 `;
 
 const TextLi = styled.li`
-  list-style: none;
   font-size: 1.2rem;
+  list-style: none;
   margin-left: 1rem;
 `;
 
 const Paragraph = styled.p`
-  width: 95%;
-  margin: 0.5rem auto 0 auto;
   font-size: 1.2rem;
+  margin: 0.5rem auto 0 auto;
+  width: 95%;
 `;
 
 const Link = styled.a`

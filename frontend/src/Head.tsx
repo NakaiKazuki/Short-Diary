@@ -5,10 +5,13 @@ import { useLocation } from "react-router-dom";
 
 const ogpImage =
   "https://user-images.githubusercontent.com/62586169/232545086-920d2ecb-026e-4add-8aa8-9228efed8a2e.png";
+
 const description =
   "Short Diaryでは200文字以内の日記を気軽に作成することができます";
+
 export const Head: FC<IProps> = ({ title, type = "article" }) => {
   const location = useLocation();
+
   return (
     <Helmet>
       <meta charSet="utf-8" />

@@ -19,8 +19,8 @@ const Container = styled.div`
 const Date = styled.h1`
   color: limegreen;
   font-family: Comic Sans MS;
-  text-align: center;
   margin: 0;
+  text-align: center;
 `;
 
 const Name = styled.h2`
@@ -37,37 +37,37 @@ const TagsWrapper = styled.span`
 `;
 
 const ContentWrapper = styled.div`
-  min-height: 30vh;
-  margin: 0.5rem auto;
   border-radius: 0.5rem;
   border: 1px solid #d5d6da;
   box-shadow: 2px 2px 4px gray;
+  margin: 0.5rem auto;
+  min-height: 30vh;
 `;
 
 const Content = styled.div`
+  color: #333;
+  font-size: 1.3rem;
+  opacity: 0.9;
+  padding: 4%;
   white-space: pre-line;
   word-wrap: break-word;
-  padding: 4%;
-  font-size: 1.3rem;
-  color: #333;
-  opacity: 0.9;
 `;
 
 const Picture = styled.img`
+  border: 1px solid #d5d6da;
+  box-shadow: 2px 2px 4px gray;
   display: flex;
   object-fit: scale-down;
   width: 100%;
-  border: 1px solid #d5d6da;
-  box-shadow: 2px 2px 4px gray;
 `;
 
 // Material Ui のChipデザイン変更
 const style = {
   backgroundColor: "limegreen",
-  color: "white",
   borderRadius: 5,
-  margin: "0.3rem",
+  color: "white",
   fontSize: "1.2rem",
+  margin: "0.3rem",
   whiteSpace: "preLine",
 };
 // 型

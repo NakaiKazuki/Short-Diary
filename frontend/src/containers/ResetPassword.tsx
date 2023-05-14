@@ -13,8 +13,8 @@ import { TLinks, IForm } from "../types/containers";
 // components
 import {
   FormItem,
-  FormSubmit,
   FormLinks,
+  FormSubmit,
   FormTitle,
   FormWrapper,
 } from "../components/users";
@@ -43,9 +43,9 @@ import {
 
 // css
 const Container = styled.div`
-  width: 100%;
   min-height: 93.5vh;
   padding-top: 17vh;
+  width: 100%;
 `;
 
 // エラーメッセージ

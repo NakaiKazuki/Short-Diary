@@ -12,9 +12,9 @@ const LinkListWrapper = styled.div`
 
 const LinkList = styled.ul`
   display: inline-block;
-  text-align: left;
   list-style: none;
   padding-inline-start: 0;
+  text-align: left;
   li:first-child {
     margin-top: 1rem;
   }
@@ -28,15 +28,14 @@ const LinkArea = styled.li`
 `;
 
 const FormLink = styled(Link)`
+  background-color: white;
+  border-radius: 0.25rem;
+  border: 0.0125rem solid limegreen;
+  color: limegreen;
   cursor: pointer;
   display: block;
   padding: 0.5rem;
-  border: 0.0125rem solid limegreen;
-  border-radius: 0.25rem;
-  color: limegreen;
-  background-color: white;
   text-decoration: none;
-  /* width: 12vh; */
   :hover {
     background-color: limegreen;
     color: white;

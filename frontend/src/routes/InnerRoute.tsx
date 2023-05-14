@@ -1,24 +1,23 @@
 import { FC } from "react";
-import { Routes } from "react-router-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Routes, BrowserRouter as Router, Route } from "react-router-dom";
+
 // routes
-import { Route } from "react-router-dom";
 import { RouteLayout } from "./RouteLayout";
 
 // components
-import { LogoutHome } from "../containers/LogoutHome";
-import { LoginHome } from "../containers/LoginHome";
-import { SignUp } from "../containers/SignUp";
-import { Login } from "../containers/Login";
-import { ResetPassword } from "../containers/ResetPassword";
-import { NewPassword } from "../containers/NewPassword";
-import { UserEdit } from "../containers/UserEdit";
-import { PhotoGallery } from "../containers/PhotoGallery";
 import { About } from "../containers/About";
-import { GuestRoute } from "../routes/GuestRoute";
-import { PrivateRoute } from "../routes/PrivateRoute";
-import { LoggedInRoute } from "./LoggedInRoute";
 import { FreeRoute } from "./FreeRoute";
+import { GuestRoute } from "../routes/GuestRoute";
+import { LoggedInRoute } from "./LoggedInRoute";
+import { Login } from "../containers/Login";
+import { LoginHome } from "../containers/LoginHome";
+import { LogoutHome } from "../containers/LogoutHome";
+import { NewPassword } from "../containers/NewPassword";
+import { PhotoGallery } from "../containers/PhotoGallery";
+import { PrivateRoute } from "../routes/PrivateRoute";
+import { ResetPassword } from "../containers/ResetPassword";
+import { SignUp } from "../containers/SignUp";
+import { UserEdit } from "../containers/UserEdit";
 
 export const InnerRoute: FC = () => {
   return (

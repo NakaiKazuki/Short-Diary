@@ -43,29 +43,29 @@ const DiaryWrapper = styled.span`
 `;
 
 const Diary = styled(motion.li).attrs<typeof variants>(() => ({
+  animate: "rest",
+  initial: "rest",
   variants: variants,
   whileHover: "hover",
   whileTap: "tap",
-  initial: "rest",
-  animate: "rest",
 }))`
-  margin: 0.5rem auto 0 auto;
-  list-style: none;
-  height: 22vh;
-  width: 98%;
-  position: relative;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  height: 20rem;
   background-color: white;
   border: 2px solid #d5d6da;
   box-shadow: 2px 2px 4px #b7b8b9;
+  height: 20rem;
+  height: 22vh;
+  list-style: none;
+  margin: 0.5rem auto 0 auto;
+  overflow: hidden;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 98%;
   :hover {
-    cursor: pointer;
-    z-index: 1;
     border: 2px solid limegreen;
     box-shadow: none;
+    cursor: pointer;
+    z-index: 1;
   }
 `;
 
@@ -74,33 +74,33 @@ const Paragraph = styled.p`
 `;
 
 const Date = styled.span`
-  font-family: Comic Sans MS;
-  font-style: italic;
-  font-size: 1.6rem;
   color: limegreen;
+  font-family: Comic Sans MS;
+  font-size: 1.6rem;
+  font-style: italic;
+  font-weight: bold;
   margin: 0 auto;
   opacity: 0.9;
-  font-weight: bold;
 `;
 
 const ImageIconArea = styled(PictureIcon)`
-  float: right;
   color: limegreen;
+  float: right;
 `;
 
 const MovieIconArea = styled(MovieIcon)`
-  float: right;
   color: red;
+  float: right;
 `;
 
 const Content = styled.div`
-  white-space: pre-line;
-  overflow-wrap: break-word;
-  width: 96%;
-  margin: 0 auto;
-  font-size: 1.3rem;
-  opacity: 0.9;
   color: #333;
+  font-size: 1.3rem;
+  margin: 0 auto;
+  opacity: 0.9;
+  overflow-wrap: break-word;
+  white-space: pre-line;
+  width: 96%;
 `;
 
 export const DiaryIndex: FC<IProps> = ({

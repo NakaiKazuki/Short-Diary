@@ -13,12 +13,12 @@ const Item = styled.div`
 `;
 
 const ErrorMessage = styled.p`
-  margin: 1rem auto;
-  padding: 0.5rem;
-  opacity: 0.8;
   color: red;
   font-size: 0.9rem;
+  margin: 1rem auto;
+  opacity: 0.8;
   overflow-wrap: break-word;
+  padding: 0.5rem;
 `;
 
 export const FormItem: FC<IProps> = ({ formInfo, control }) => {

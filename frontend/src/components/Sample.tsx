@@ -18,39 +18,41 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  text-align: center;
   color: limegreen;
   font-size: 3rem;
+  text-align: center;
   @media screen and (max-width: 480px) {
     margin-top: 15vh;
   }
 `;
 
 const Contents = styled.span`
-  width: 55vw;
   float: right;
   font-size: 1.2rem;
+  width: 55vw;
   @media screen and (max-width: 979px) {
     width: 100vw;
   }
 `;
 
 const ContentTitle = styled.h2`
-  margin-left: 7.5vw;
   color: limegreen;
   font-size: 2rem;
+  margin-left: 7.5vw;
 `;
+
 const OverView = styled.p`
   margin: 0 10vw;
 `;
+
 const ImgWrapper = styled.div`
   margin-top: 0.2vh 0 0 10vw;
 `;
 
 const Img = styled.img`
+  height: auto;
   margin: 2vh 0 0 10vw;
   width: 70%;
-  height: auto;
 `;
 
 const items = [{ original: diaryPicture }, { original: Gallery1Picture }];

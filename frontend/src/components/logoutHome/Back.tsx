@@ -1,13 +1,17 @@
 import { useRef, FC } from "react";
 import {
-  TextureLoader,
   BoxGeometry,
-  MeshBasicMaterial,
-  Mesh,
-  Object3D,
   MathUtils,
+  Mesh,
+  MeshBasicMaterial,
+  Object3D,
+  TextureLoader,
 } from "three";
-import { useFrame, useThree, useLoader } from "@react-three/fiber";
+import {
+  useFrame,
+  useLoader,
+  useThree,
+} from "@react-three/fiber";
 import { useIntersect } from "@react-three/drei";
 import { HomeTopItemProps as IItemProps } from "../../types/containers";
 

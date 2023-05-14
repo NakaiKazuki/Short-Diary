@@ -10,15 +10,17 @@ import { BaseButton } from "../components/shared_style";
 
 // icons
 import { EmailIcon, TwitterIcon } from "../components/icon";
+
+// css
 const FooterWrapper = styled.footer`
+  background-color: white;
+  border-top: 2px solid limegreen;
+  bottom: 0;
   height: 3.8em;
   padding: 1.2rem 1vw 0 0;
-  background-color: white;
   position: fixed;
-  bottom: 0;
   width: 99vw;
   z-index: 10;
-  border-top: 2px solid limegreen;
 `;
 
 const Link = styled.a`
@@ -27,21 +29,21 @@ const Link = styled.a`
 `;
 
 const Base = styled(BaseButton)`
-  height: 3rem;
-  padding: 0 1rem;
-  margin-bottom: 1vh;
-  font-size: 1.4rem;
-  border-style: none;
   background-color: white;
+  border-style: none;
+  font-size: 1.4rem;
+  height: 3rem;
+  margin-bottom: 1vh;
+  padding: 0 1rem;
 `;
 
 const ContactButton = styled(Base)`
-  margin-left: 0.7rem;
   border: 2px solid limegreen;
   color: limegreen;
+  margin-left: 0.7rem;
   :hover {
-    color: white;
     background-color: limegreen;
+    color: white;
   }
 `;
 
@@ -50,17 +52,17 @@ const StyledMailIcon = styled(EmailIcon)`
 `;
 
 const StyledTwitterIcon = styled(TwitterIcon)`
-  margin-right: 0.6rem;
   color: #1da1f2;
+  margin-right: 0.6rem;
 `;
 
 const LinkItem = styled(Base)`
   border: 2px solid limegreen;
   color: limegreen;
   :hover {
-    color: white;
     background-color: #1da1f2;
     border: 2px solid #1da1f2;
+    color: white;
     ${StyledTwitterIcon} {
       color: white;
     }

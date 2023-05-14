@@ -10,9 +10,9 @@ import { IDiaryMenuProps as IProps } from "../../types/components/diaries";
 
 // css
 const MenuOpenIconWrapper = styled.span`
+  color: limegreen;
   margin: 0 0 0 auto;
   padding: 0.6rem 0.6rem 0 0;
-  color: limegreen;
   :hover {
     cursor: pointer;
   }
@@ -27,8 +27,8 @@ const styledMenu = {
 // Material Ui のMenuItemデザイン変更
 const styledMenuItem = {
   backgroundColor: "white",
-  color: "limegreen",
   borderRadius: 2,
+  color: "limegreen",
   margin: "0 .5rem",
   "& .MuiListItemIcon-root": {
     color: "limegreen",
@@ -51,8 +51,8 @@ const styledMenuItem = {
 
 const styledMenuItemDelete = {
   backgroundColor: "white",
-  color: "red",
   borderRadius: 2,
+  color: "red",
   margin: "0.5rem 0.5rem 0 0.5rem",
   "& .MuiListItemIcon-root": {
     color: "red",
