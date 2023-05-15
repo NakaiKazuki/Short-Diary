@@ -142,6 +142,8 @@ describe("LoginHome", () => {
     expect(el("searchSubmit")).toBeTruthy();
     // 検索初期化ボタン
     expect(el("clearButton")).toBeTruthy();
+    // 閉じるボタン
+    expect(el("closeButton")).toBeTruthy();
   });
 
   describe("DiaryCreateDialog", () => {

@@ -3,6 +3,7 @@ import { useSetRecoilState } from "recoil";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Cookies from "js-cookie";
+
 // components
 import { Load } from "../utils/Load";
 import { Header } from "../containers/Header";
@@ -10,6 +11,7 @@ import { Message } from "../utils/Message";
 import { Drawer } from "../containers/Drawer";
 import { Contact } from "../containers/Contact";
 import { Footer } from "../containers/Footer";
+
 // atoms
 import { authAtom } from "../atoms/Auth";
 
@@ -23,6 +25,7 @@ import { getCurrentUser } from "../apis/users/sessions";
 import { removeUserCookies, setUserCookies } from "../helpers";
 
 import BackImage from "../images/sample.jpg";
+
 const Container = styled.div`
   width: 100%;
   text-size-adjust: 100%;

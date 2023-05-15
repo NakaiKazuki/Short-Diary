@@ -54,8 +54,7 @@ const Diary = styled(motion.li).attrs<typeof variants>(() => ({
   background-color: white;
   border: 2px solid #d5d6da;
   box-shadow: 2px 2px 4px #b7b8b9;
-  height: 20rem;
-  height: 22vh;
+  height: 23vh;
   list-style: none;
   margin: 0.5rem auto 0 auto;
   overflow: hidden;
@@ -68,6 +67,10 @@ const Diary = styled(motion.li).attrs<typeof variants>(() => ({
     box-shadow: none;
     cursor: pointer;
     z-index: 1;
+  }
+
+  @media screen and (max-width: 480px) {
+    height: 35vh;
   }
 
   @media screen and (orientation: landscape) and (max-width: 1300px) {

@@ -192,9 +192,7 @@ export const FormArea: FC<IProps> = ({
               fullWidth
               sx={bgcWhite}
               helperText={
-                <ContentCount
-                  data-testid="contentCount"
-                >
+                <ContentCount data-testid="contentCount">
                   {contentCount}/200
                 </ContentCount>
               }

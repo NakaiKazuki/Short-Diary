@@ -7,11 +7,7 @@ import {
   Object3D,
   TextureLoader,
 } from "three";
-import {
-  useFrame,
-  useLoader,
-  useThree,
-} from "@react-three/fiber";
+import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import { useIntersect } from "@react-three/drei";
 import { HomeTopItemProps as IItemProps } from "../../types/containers";
 
