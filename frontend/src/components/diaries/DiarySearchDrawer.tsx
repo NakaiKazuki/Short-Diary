@@ -23,8 +23,8 @@ import { IDiarySearchDrawerProps as IProps } from "../../types/components/diarie
 
 // css
 const WordSearchForm = styled.form`
+  margin-top: 1rem;
   width: 100%;
-  margin: 2rem 0;
 `;
 
 const Button = styled(BaseButton)`
@@ -35,7 +35,7 @@ const Button = styled(BaseButton)`
   font-size: 1.2rem;
   height: 3rem;
   letter-spacing: 0.2rem;
-  margin: 2rem auto 0 auto;
+  margin: 1.3rem 0 ;
   width: 100%;
   :hover {
     background-color: limegreen;
@@ -55,6 +55,13 @@ const styles = {
     display: "none",
   },
 };
+
+const style = {
+  ".css-1cafy48-MuiPickersSlideTransition-root-MuiDayCalendar-slideTransition": {
+    minHeight: "192px",
+  }
+}
+
 export const DiarySearchDrawer: FC<IProps> = ({
   control,
   selectedDate,
@@ -81,10 +88,10 @@ export const DiarySearchDrawer: FC<IProps> = ({
                   value={selectedDate}
                   onChange={onDateChange}
                   orientation="landscape"
+                  sx={style}
                 />
               </LocalizationProvider>
             </ListItem>
-            <Divider />
             <ListItem data-testid="wordSearchField">
               <WordSearchForm onSubmit={onSubmit}>
                 <Controller
@@ -113,6 +120,13 @@ export const DiarySearchDrawer: FC<IProps> = ({
                 Clear
               </Button>
             </ListItem>
+            <Divider />
+            <ListItem>
+              <Button onClick={onOpenButton(false)} data-testid="closeButton">
+                閉じる
+              </Button>
+            </ListItem>
+            <Divider />
           </List>
         </Box>
       </SwipeableDrawer>
