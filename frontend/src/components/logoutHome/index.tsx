@@ -94,40 +94,43 @@ export const CanvasContainer: FC<IProps> = ({
           <Back />
         </Scroll>
         <Scroll html>
-          <Text style={{ top: "50vh", left: "10vw" }}>Record</Text>
-          <Text style={{ top: "100vh", left: "50vw" }}>Your</Text>
-          <Text style={{ top: "150vh", left: "10vw" }}>Daily</Text>
-          <Text style={{ top: "200vh", left: "50vw" }}>Life</Text>
-          <Title>Links</Title>
-          <CustomButton
-            color="limegreen"
-            type="button"
-            onClick={onGuestLoginButton}
-            disabled={isDisabled(postState)}
-            style={{ top: "280vh", left: "10vw" }}
-            data-testid="guestLoginButton"
-          >
-            {onSubmitText(postState, "ゲストログイン")}
-          </CustomButton>
-          <br />
-          <CustomButton
-            type="button"
-            onClick={onSignUpButton}
-            style={{ top: "305vh", left: "10vw" }}
-            data-testid="signUpButton"
-          >
-            ユーザー登録
-          </CustomButton>
-          <br />
-          <CustomButton
-            type="button"
-            onClick={onAboutButton}
-            style={{ top: "330vh", left: "10vw" }}
-            data-testid="aboutButton"
-          >
-            アプリと制作者情報
-          </CustomButton>
-          <br />
+          <section>
+            <Text style={{ top: "50vh", left: "10vw" }}>Record</Text>
+            <Text style={{ top: "100vh", left: "50vw" }}>Your</Text>
+            <Text style={{ top: "150vh", left: "10vw" }}>Daily</Text>
+            <Text style={{ top: "200vh", left: "50vw" }}>Life</Text>
+          </section>
+          <section>
+            <Title>Links</Title>
+            <CustomButton
+              color="limegreen"
+              type="button"
+              onClick={onGuestLoginButton}
+              disabled={isDisabled(postState)}
+              style={{ top: "280vh", left: "10vw" }}
+              data-testid="guestLoginButton"
+            >
+              {onSubmitText(postState, "ゲストログイン")}
+            </CustomButton>
+            <br />
+            <CustomButton
+              type="button"
+              onClick={onSignUpButton}
+              style={{ top: "305vh", left: "10vw" }}
+              data-testid="signUpButton"
+            >
+              ユーザー登録
+            </CustomButton>
+            <br />
+            <CustomButton
+              type="button"
+              onClick={onAboutButton}
+              style={{ top: "330vh", left: "10vw" }}
+              data-testid="aboutButton"
+            >
+              アプリと制作者情報
+            </CustomButton>
+          </section>
         </Scroll>
       </ScrollControls>
     </Canvas>
