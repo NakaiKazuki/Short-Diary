@@ -100,7 +100,7 @@ const style = {
   flex: 1,
   fontFamily: "Comic Sans MS",
   ml: 2,
-}
+};
 
 const transition = forwardRef<
   unknown,

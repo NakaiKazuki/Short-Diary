@@ -45,11 +45,11 @@ const Title = styled.h2`
 
   @media screen and (min-width: 481px) and (max-width: 980px) {
     left: 10vw;
-    font-size: 4.5rem;;
+    font-size: 4.5rem;
   }
 
   @media screen and (max-width: 480px) {
-    font-size: 3rem;;
+    font-size: 3rem;
     left: 10vw;
   }
 

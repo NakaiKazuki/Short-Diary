@@ -83,19 +83,18 @@ const Base = styled.li`
   }
 `;
 
-const Category = styled(Base) <{ disabled: boolean }>`
+const Category = styled(Base)<{ disabled: boolean }>`
   ${({ disabled }) =>
     disabled
       ? {
-        "background-color": "limegreen",
-        "pointer-events": "none",
-        color: "white",
-      }
+          "background-color": "limegreen",
+          "pointer-events": "none",
+          color: "white",
+        }
       : { "background-color": "white" }};
 `;
 
 const Main = styled.div`
-
   @media screen and (min-width: 980px) {
     flex: 1;
     padding-left: 20vw;

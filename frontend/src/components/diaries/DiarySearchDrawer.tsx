@@ -33,7 +33,7 @@ const StyledButton = styled(BaseButton)`
   font-size: 1.2rem;
   height: 3rem;
   letter-spacing: 0.2rem;
-  margin: 1.3rem 0 ;
+  margin: 1.3rem 0;
   width: 100%;
 
   :hover {
@@ -49,7 +49,6 @@ const ActionButton = styled(StyledButton)`
     color: white;
   }
 `;
-
 
 const CloseButton = styled(StyledButton)`
   background-color: limegreen;
@@ -75,10 +74,11 @@ const styles = {
 };
 
 const style = {
-  ".css-1cafy48-MuiPickersSlideTransition-root-MuiDayCalendar-slideTransition": {
-    minHeight: "192px",
-  }
-}
+  ".css-1cafy48-MuiPickersSlideTransition-root-MuiDayCalendar-slideTransition":
+    {
+      minHeight: "192px",
+    },
+};
 
 export const DiarySearchDrawer: FC<IProps> = ({
   control,
@@ -140,7 +140,10 @@ export const DiarySearchDrawer: FC<IProps> = ({
             </ListItem>
             <Divider />
             <ListItem>
-              <CloseButton onClick={onOpenButton(false)} data-testid="closeButton">
+              <CloseButton
+                onClick={onOpenButton(false)}
+                data-testid="closeButton"
+              >
                 <CloseIcon />
               </CloseButton>
             </ListItem>

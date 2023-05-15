@@ -50,9 +50,9 @@ export const SignUp: FC = () => {
   const navigate = useNavigate();
   const [resultErrors, setErrorMessage] = useState<
     | Pick<
-      IResultErrors,
-      "name" | "email" | "password" | "password_confirmation"
-    >
+        IResultErrors,
+        "name" | "email" | "password" | "password_confirmation"
+      >
     | undefined
   >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
@@ -122,7 +122,12 @@ export const SignUp: FC = () => {
       defaultValue: "",
       autoComplete: "new-password",
       autoFocus: false,
-      rules: { required: true, minLength: 6, maxLength: 128, pattern: /^[^\s\t]+$/ },
+      rules: {
+        required: true,
+        minLength: 6,
+        maxLength: 128,
+        pattern: /^[^\s\t]+$/,
+      },
     },
     password_confirmation: {
       formLabel: (
