@@ -57,7 +57,7 @@ export const ConfirmDialog: FC<IProps> = ({
       fullWidth
       data-testid="confirmDialog"
     >
-      <DialogTitle data-testid="confirmDialogTitle">{title}</DialogTitle>
+      <DialogTitle sx={{ fontWeight: "bold" }} data-testid="confirmDialogTitle">{title}</DialogTitle>
       <DialogContent>
         <DialogContentText data-testid="confirmDialogContent">
           {contentText}

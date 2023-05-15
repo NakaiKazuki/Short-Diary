@@ -14,3 +14,4 @@ export { default as SubmitIcon } from "@mui/icons-material/Telegram";
 export { default as TwitterIcon } from "@mui/icons-material/Twitter";
 export { default as UserIcon } from "@mui/icons-material/AccountCircle";
 export { default as VisibilityIcon } from "@mui/icons-material/Visibility";
+export { default as CloseIcon } from "@mui/icons-material/Close";

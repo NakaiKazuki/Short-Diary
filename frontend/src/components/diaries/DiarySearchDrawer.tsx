@@ -16,7 +16,7 @@ import styled from "styled-components";
 import { BaseButton } from "../shared_style";
 
 // icons
-import { SearchIcon } from "../icon";
+import { SearchIcon, CloseIcon } from "../icon";
 
 // types
 import { IDiarySearchDrawerProps as IProps } from "../../types/components/diaries";
@@ -27,26 +27,44 @@ const WordSearchForm = styled.form`
   width: 100%;
 `;
 
-const Button = styled(BaseButton)`
-  background-color: white;
+const StyledButton = styled(BaseButton)`
   border: 0.0125rem solid limegreen;
-  color: limegreen;
   float: right;
   font-size: 1.2rem;
   height: 3rem;
   letter-spacing: 0.2rem;
   margin: 1.3rem 0 ;
   width: 100%;
+
+  :hover {
+    opacity: 0.8;
+  }
+`;
+const ActionButton = styled(StyledButton)`
+  background-color: white;
+  color: limegreen;
+
   :hover {
     background-color: limegreen;
     color: white;
-    opacity: 0.8;
+  }
+`;
+
+
+const CloseButton = styled(StyledButton)`
+  background-color: limegreen;
+  color: white;
+
+  :hover {
+    background-color: white;
+    color: limegreen;
   }
 `;
 
 const StyledIcon = styled(SearchIcon)`
   margin-right: 0.6rem;
 `;
+
 const styles = {
   "& .MuiPickersLayout-toolbar": {
     display: "none",
@@ -108,23 +126,23 @@ export const DiarySearchDrawer: FC<IProps> = ({
                     />
                   )}
                 />
-                <Button type="submit" data-testid="searchSubmit">
+                <ActionButton type="submit" data-testid="searchSubmit">
                   <StyledIcon />
                   検索
-                </Button>
+                </ActionButton>
               </WordSearchForm>
             </ListItem>
             <Divider />
             <ListItem>
-              <Button onClick={onClearButton} data-testid="clearButton">
+              <ActionButton onClick={onClearButton} data-testid="clearButton">
                 Clear
-              </Button>
+              </ActionButton>
             </ListItem>
             <Divider />
             <ListItem>
-              <Button onClick={onOpenButton(false)} data-testid="closeButton">
-                閉じる
-              </Button>
+              <CloseButton onClick={onOpenButton(false)} data-testid="closeButton">
+                <CloseIcon />
+              </CloseButton>
             </ListItem>
             <Divider />
           </List>
