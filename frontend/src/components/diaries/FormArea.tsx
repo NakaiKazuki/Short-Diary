@@ -161,7 +161,7 @@ export const FormArea: FC<IProps> = ({
       <FormItemWrapper data-testid="FormItem-content">
         {errors?.content && (
           <ErrorMessage data-testid="contentErrorMessage">
-            1文字以上,200文字以内で入力してください
+            1文字以上、200文字以内で入力してください
           </ErrorMessage>
         )}
         {resultErrors?.content?.map((message: string, index: number) => (
@@ -209,7 +209,7 @@ export const FormArea: FC<IProps> = ({
       <FormItemWrapper data-testid="FormItem-movie_source">
         {errors?.movie_source && (
           <ErrorMessage data-testid="movie_sourceErrorMessage">
-            YoutubeのURLを入力してください
+            Youtube動画のURLを入力してください
           </ErrorMessage>
         )}
         {resultErrors?.movie_source?.map((message: string, index: number) => (
