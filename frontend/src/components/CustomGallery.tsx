@@ -57,6 +57,7 @@ export const CustomGallery: FC<IProps> = ({ items }) => {
         disableKeyDown={false}
         showPlayButton={false}
         showFullscreenButton={false}
+        lazyLoad={true}
       />
     </Container>
   );

@@ -1,6 +1,8 @@
 import { FC, Fragment } from "react";
 import { Chip, Dialog } from "@mui/material";
 import YouTube from "react-youtube";
+import "lazysizes";
+import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 import styled from "styled-components";
 
 // components
@@ -169,7 +171,8 @@ export const DiaryDialog: FC<IProps> = ({
               <Name>Picture</Name>
               <Picture
                 src={diary.picture_url}
-                alt="日記画像"
+                alt="Lazy-loaded 日記画像"
+                className="lazyload"
                 data-testid="diaryPicture"
               />
             </Fragment>
@@ -181,6 +184,7 @@ export const DiaryDialog: FC<IProps> = ({
                 videoId={getVideoId(diary.movie_source)}
                 opts={opts}
                 onReady={onPlayerReady}
+                className="lazyload"
               />
             </Fragment>
           )}
