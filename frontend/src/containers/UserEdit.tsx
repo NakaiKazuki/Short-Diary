@@ -52,6 +52,9 @@ const Container = styled.div`
   min-height: 93.5vh;
   padding-top: 17vh;
   width: 100%;
+  @media screen and (max-width: 480px) {
+    margin-bottom: 5rem;
+  }
 `;
 
 const GuestMessage = styled.p`
