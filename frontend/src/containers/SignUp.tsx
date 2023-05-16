@@ -44,15 +44,18 @@ const Container = styled.div`
   min-height: 93.5vh;
   padding-top: 17vh;
   width: 100%;
+  @media screen and (max-width: 480px) {
+    margin-bottom: 3rem;
+  }
 `;
 
 export const SignUp: FC = () => {
   const navigate = useNavigate();
   const [resultErrors, setErrorMessage] = useState<
     | Pick<
-        IResultErrors,
-        "name" | "email" | "password" | "password_confirmation"
-      >
+      IResultErrors,
+      "name" | "email" | "password" | "password_confirmation"
+    >
     | undefined
   >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);
