@@ -12,22 +12,15 @@ export const LoggedInRoute: FC<{
 }> = ({ login, logout }) => {
   const currentUser = useRecoilValue(authAtom);
 
-  return (
-    isLoggedIn(currentUser) ?
-      <Fragment>
-        <Head
-          title={login.title}
-          type={"website"}
-        />
-        {login.jsxElement}
-      </Fragment>
-      :
-      <Fragment>
-        <Head
-          title={logout.title}
-          type={"website"}
-        />
-        {logout.jsxElement}
-      </Fragment>
+  return isLoggedIn(currentUser) ? (
+    <Fragment>
+      <Head title={login.title} type={"website"} />
+      {login.jsxElement}
+    </Fragment>
+  ) : (
+    <Fragment>
+      <Head title={logout.title} type={"website"} />
+      {logout.jsxElement}
+    </Fragment>
   );
 };
