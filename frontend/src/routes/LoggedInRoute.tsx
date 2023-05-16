@@ -6,21 +6,28 @@ import { authAtom } from "../atoms/Auth";
 
 // helpers
 import { isLoggedIn } from "../helpers";
-
 export const LoggedInRoute: FC<{
   login: { jsxElement: JSX.Element; title: string };
   logout: { jsxElement: JSX.Element; title: string };
-  type: string;
-}> = ({ login, logout, type }) => {
+}> = ({ login, logout }) => {
   const currentUser = useRecoilValue(authAtom);
 
   return (
-    <Fragment>
-      <Head
-        title={isLoggedIn(currentUser) ? login.title : logout.title}
-        type={type}
-      />
-      {isLoggedIn(currentUser) ? login.jsxElement : logout.jsxElement};
-    </Fragment>
+    isLoggedIn(currentUser) ?
+      <Fragment>
+        <Head
+          title={login.title}
+          type={"website"}
+        />
+        {login.jsxElement}
+      </Fragment>
+      :
+      <Fragment>
+        <Head
+          title={logout.title}
+          type={"website"}
+        />
+        {logout.jsxElement}
+      </Fragment>
   );
 };

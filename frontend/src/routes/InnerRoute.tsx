@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Routes, BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // routes
 import { RouteLayout } from "./RouteLayout";
@@ -22,7 +22,7 @@ import { UserEdit } from "../containers/UserEdit";
 export const InnerRoute: FC = () => {
   return (
     <Router>
-      <Routes location={location} key={location.pathname}>
+      <Routes>
         <Route path="/" element={<RouteLayout />}>
           <Route
             index
@@ -30,7 +30,6 @@ export const InnerRoute: FC = () => {
               <LoggedInRoute
                 login={{ jsxElement: <LoginHome />, title: "User Home" }}
                 logout={{ jsxElement: <LogoutHome />, title: "Home" }}
-                type="website"
               />
             }
           />
