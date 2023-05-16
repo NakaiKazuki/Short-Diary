@@ -52,12 +52,10 @@ export const CustomGallery: FC<IProps> = ({ items }) => {
   return (
     <Container data-testid="customGallery">
       <ImageGallery
-        items={items}
-        showNav={true}
         disableKeyDown={false}
-        showPlayButton={false}
+        items={items}
         showFullscreenButton={false}
-        lazyLoad={true}
+        showPlayButton={false}
       />
     </Container>
   );
