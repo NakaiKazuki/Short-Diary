@@ -22,6 +22,10 @@ const FooterWrapper = styled.footer`
   width: 99vw;
   z-index: 10;
 
+  @media screen and (max-width: 480px) {
+    position: initial;
+  }
+
   @media screen and (orientation: landscape) and (max-width: 1000px) {
     padding: 0.6rem 0;
     position: initial;

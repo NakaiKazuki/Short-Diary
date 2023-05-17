@@ -56,12 +56,12 @@ const Diary = styled(motion.li).attrs<typeof variants>(() => ({
   box-shadow: 2px 2px 4px #b7b8b9;
   height: 23vh;
   list-style: none;
-  margin: 0.5rem auto 0 auto;
+  margin: 1.5%;
   overflow: hidden;
   position: relative;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 98%;
+  width: 97%;
   :hover {
     border: 2px solid limegreen;
     box-shadow: none;

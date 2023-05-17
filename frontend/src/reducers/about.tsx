@@ -3,9 +3,11 @@ import {
   IAboutInitialState as IInitialState,
   IAboutAction as IAction,
 } from "../types/reducers";
+
 import { Profile } from "../components/about/Profile";
 import { Tools } from "../components/about/Tools";
 import { FeatureList } from "../components/about/FeatureList";
+
 export const initialState: IInitialState = {
   title: "プロフィール他",
   jsxElement: <Profile />,
