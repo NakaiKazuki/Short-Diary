@@ -53,9 +53,9 @@ export const SignUp: FC = () => {
   const navigate = useNavigate();
   const [resultErrors, setErrorMessage] = useState<
     | Pick<
-      IResultErrors,
-      "name" | "email" | "password" | "password_confirmation"
-    >
+        IResultErrors,
+        "name" | "email" | "password" | "password_confirmation"
+      >
     | undefined
   >(undefined);
   const [submitState, dispatch] = useReducer(submitReducer, initialState);

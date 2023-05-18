@@ -5,7 +5,7 @@ import { el } from "../helpers";
 
 afterEach(cleanup);
 
-import diaryPicture from "../../images/sample/diary.png";
+const diaryPicture = "images/test.png";
 
 const items = [{ original: diaryPicture }];
 
