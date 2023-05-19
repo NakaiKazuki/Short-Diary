@@ -2,7 +2,7 @@ import { FC, Fragment } from "react";
 import { useRecoilValue } from "recoil";
 import { Head } from "../Head";
 // atoms
-import { authAtom } from "../atoms/Auth";
+import { authAtom } from "../atoms";
 
 // helpers
 import { isLoggedIn } from "../helpers";

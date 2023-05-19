@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 
 // atoms
-import { contactAtom } from "../atoms/Contact";
+import { contactAtom } from "../atoms";
 
 // components
 import { BaseButton } from "../components/shared_style";
@@ -21,6 +21,10 @@ const FooterWrapper = styled.footer`
   position: fixed;
   width: 99vw;
   z-index: 10;
+
+  @media screen and (max-width: 480px) {
+    position: initial;
+  }
 
   @media screen and (orientation: landscape) and (max-width: 1000px) {
     padding: 0.6rem 0;

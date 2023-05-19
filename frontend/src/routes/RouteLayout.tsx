@@ -13,7 +13,7 @@ import { Contact } from "../containers/Contact";
 import { Footer } from "../containers/Footer";
 
 // atoms
-import { authAtom } from "../atoms/Auth";
+import { authAtom } from "../atoms";
 
 // constants
 import { HTTP_STATUS_CODE } from "../constants";
@@ -24,13 +24,11 @@ import { getCurrentUser } from "../apis/users/sessions";
 // helpers
 import { removeUserCookies, setUserCookies } from "../helpers";
 
-import BackImage from "../images/sample.jpg";
-
 const Container = styled.div`
   width: 100%;
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  background-image: url(${BackImage});
+  background-image: url("images/back.jpg");
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: cover;

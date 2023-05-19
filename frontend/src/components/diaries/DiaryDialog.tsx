@@ -2,8 +2,8 @@ import { FC, Fragment } from "react";
 import { Chip, Dialog } from "@mui/material";
 import YouTube from "react-youtube";
 import "lazysizes";
-import 'lazysizes/plugins/attrchange/ls.attrchange';
-import 'lazysizes/plugins/parent-fit/ls.parent-fit';
+import "lazysizes/plugins/attrchange/ls.attrchange";
+import "lazysizes/plugins/parent-fit/ls.parent-fit";
 import styled from "styled-components";
 
 // components

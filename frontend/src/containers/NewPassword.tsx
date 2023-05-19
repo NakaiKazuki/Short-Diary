@@ -1,23 +1,20 @@
-import { FC, useState, useReducer, Fragment } from "react";
+import { FC, useState, useReducer } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 
 // atoms
-import { messageAtom } from "../atoms/Message";
-
-// types
-import { IForm } from "../types/containers";
+import { messageAtom } from "../atoms";
 
 // components
 import {
-  FormItem,
   FormSubmit,
   FormTitle,
-  FormWrapper,
-} from "../components/users";
-import { ColorRed } from "../components/shared_style";
+  Form,
+  Password,
+  PasswordConfirmation,
+} from "../components/users/forms";
 
 // apis
 import { putNewPassword } from "../apis/users/passwords";
@@ -63,48 +60,6 @@ export const NewPassword: FC = () => {
     formState: { errors },
   } = useForm<IFormValues>();
 
-  const formInfo: Pick<IForm, "password" | "password_confirmation"> = {
-    password: {
-      formLabel: (
-        <Fragment>
-          <ColorRed>*</ColorRed>パスワード
-        </Fragment>
-      ),
-      errorsProperty: errors.password,
-      errorMessage: "6文字以上128文字以内で入力してください",
-      resultErrorProperty: resultErrors?.password,
-      apiMessagePropertyName: "パスワード",
-      nameAttribute: "password",
-      typeAttribute: "password",
-      defaultValue: "",
-      autoComplete: "new-password",
-      autoFocus: false,
-      rules: {
-        required: true,
-        minLength: 6,
-        maxLength: 128,
-        pattern: /^[^\s\t]+$/,
-      },
-    },
-    password_confirmation: {
-      formLabel: (
-        <Fragment>
-          <ColorRed>*</ColorRed>確認用パスワード
-        </Fragment>
-      ),
-      errorsProperty: errors.password_confirmation,
-      errorMessage: "パスワードと同じ内容を入力してください",
-      resultErrorProperty: resultErrors?.password_confirmation,
-      apiMessagePropertyName: "確認用パスワード",
-      nameAttribute: "password_confirmation",
-      typeAttribute: "password",
-      defaultValue: "",
-      autoComplete: "new-password",
-      autoFocus: false,
-      rules: { required: true, minLength: 6, maxLength: 128 },
-    },
-  };
-
   const params = new URLSearchParams(location.search);
   const resetPasswordToken = params.get("token");
   const headers: IHeaders = {
@@ -149,18 +104,28 @@ export const NewPassword: FC = () => {
   return (
     <Container>
       <FormTitle>PasswordReset</FormTitle>
-      <FormWrapper
-        onSubmit={handleSubmit(onSubmit)}
-        data-testid="newPasswordForm"
-      >
-        <FormItem formInfo={formInfo.password} control={control} />
-        <FormItem formInfo={formInfo.password_confirmation} control={control} />
+      <Form onSubmit={handleSubmit(onSubmit)} data-testid="newPasswordForm">
+        <Password
+          control={control}
+          autoFocus={true}
+          resultErrors={resultErrors?.password}
+          errors={errors.password}
+          required={true}
+        />
+
+        <PasswordConfirmation
+          control={control}
+          autoFocus={false}
+          resultErrors={resultErrors?.password_confirmation}
+          errors={errors.password_confirmation}
+          required={true}
+        />
 
         <FormSubmit
           isDisabled={isDisabled(submitState.postState)}
           onSubmitText={onSubmitText(submitState.postState, "Password Reset!")}
         />
-      </FormWrapper>
+      </Form>
     </Container>
   );
 };

@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, cleanup } from "@testing-library/react";
-import { FormSubmit } from "../../../components/users";
+import { FormSubmit } from "../../../components/users/forms";
 import { el } from "../../helpers";
 
 afterEach(cleanup);

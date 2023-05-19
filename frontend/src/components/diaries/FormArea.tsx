@@ -18,7 +18,7 @@ import { IFormAreaProps as IProps } from "../../types/components/diaries";
 // helper
 import { isError } from "../../helpers";
 
-const FormWrapper = styled.form`
+const Form = styled.form`
   padding: 0 10% 5% 10%;
 `;
 
@@ -95,7 +95,7 @@ export const FormArea: FC<IProps> = ({
   onFileChange,
 }) => {
   return (
-    <FormWrapper onSubmit={onSubmit} data-testid="diaryForm">
+    <Form onSubmit={onSubmit} data-testid="diaryForm">
       <FormItemWrapper data-testid="FormItem-date">
         {resultErrors?.date?.map((message: string, index: number) => (
           <ErrorMessage
@@ -274,6 +274,6 @@ export const FormArea: FC<IProps> = ({
         <StyledSubmitIcon />
         {onSubmitText}
       </Submit>
-    </FormWrapper>
+    </Form>
   );
 };

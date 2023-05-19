@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 // Head
 import { Head } from "../../Head";
-import erImage from "../../images/er.png";
-
 // css
 const Container = styled.div`
   margin-top: 3vh;
@@ -216,7 +214,7 @@ const ErBlock = (): JSX.Element => {
   return (
     <Fragment>
       <SubTitle data-testid="er">ER図</SubTitle>
-      <img src={erImage} />
+      <img src={"images/er.png"} />
     </Fragment>
   );
 };

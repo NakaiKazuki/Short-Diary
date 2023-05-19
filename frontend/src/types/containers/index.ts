@@ -16,28 +16,6 @@ interface IItemProps {
   original: string;
 }
 
-// エラーメッセージ
-interface IRurles {
-  required: boolean;
-  minLength?: number;
-  maxLength: number;
-  pattern?: RegExp;
-}
-
-interface IObject {
-  formLabel: JSX.Element | string;
-  errorsProperty: FieldError | undefined;
-  errorMessage: string;
-  resultErrorProperty: Array<string> | undefined;
-  apiMessagePropertyName: string;
-  nameAttribute: "name" | "email" | "password" | "password_confirmation";
-  typeAttribute: string;
-  defaultValue: string;
-  autoComplete: string;
-  autoFocus: boolean;
-  rules: IRurles;
-}
-
 interface IUserEditRurles {
   required?: boolean;
   minLength?: number;
@@ -156,13 +134,6 @@ export interface IErrors {
   password: string;
   password_confirmation: string;
   current_password: string;
-}
-export interface IForm {
-  name: IObject;
-  email: IObject;
-  password: IObject;
-  password_confirmation: IObject;
-  current_password: IObject;
 }
 
 export type TLinks = Array<{

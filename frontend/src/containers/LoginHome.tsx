@@ -15,8 +15,7 @@ import { YouTubeProps, YouTubeEvent, YouTubePlayer } from "react-youtube";
 import styled from "styled-components";
 
 // atoms
-import { authAtom } from "../atoms/Auth";
-import { messageAtom } from "../atoms/Message";
+import { authAtom, messageAtom } from "../atoms";
 
 // apis
 import { getHome, getDiaries } from "../apis/home";

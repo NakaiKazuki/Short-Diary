@@ -1,23 +1,24 @@
-import { FC, useState, useReducer, Fragment } from "react";
+import { FC, useState, useReducer } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 // atoms
-import { authAtom } from "../atoms/Auth";
-import { messageAtom } from "../atoms/Message";
+import { authAtom, messageAtom } from "../atoms";
 
 // components
 import {
-  FormItem,
   FormLinks,
   FormSubmit,
   FormTitle,
-  FormWrapper,
-} from "../components/users";
-
-import { ColorRed } from "../components/shared_style";
+  Form,
+  Name,
+  Email,
+  Password,
+  PasswordConfirmation,
+  CurrentPassword,
+} from "../components/users/forms";
 // apis
 import { putRegistration } from "../apis/users/registrations";
 
@@ -41,7 +42,6 @@ import {
 
 // types
 import {
-  IUserEditForm as IForm,
   IUsersFormValues as IFormValues,
   IUsersResultErrors as IResultErrors,
   TLinks,
@@ -83,92 +83,6 @@ export const UserEdit: FC = () => {
     navigate("../login", { replace: true });
     return null;
   }
-  // UserEditページのフォーム欄を表示するために必要な情報群
-  const formInfo: IForm = {
-    name: {
-      formLabel: "Name:",
-      errorsProperty: errors.name,
-      errorMessage: "1文字以上、50文字以内で入力してください",
-      resultErrorProperty: resultErrors?.name,
-      apiMessagePropertyName: "名前",
-      nameAttribute: "name",
-      typeAttribute: "text",
-      defaultValue: currentUser.name,
-      autoComplete: "username",
-      autoFocus: true,
-      rules: { maxLength: 50 },
-    },
-    email: {
-      formLabel: (
-        <Fragment>
-          <ColorRed>*</ColorRed>Email
-        </Fragment>
-      ),
-      errorsProperty: errors.email,
-      errorMessage: "255文字以内でメールアドレスを入力してください",
-      resultErrorProperty: resultErrors?.email,
-      apiMessagePropertyName: "メールアドレス",
-      nameAttribute: "email",
-      typeAttribute: "email",
-      defaultValue: currentUser.email,
-      autoComplete: "email",
-      autoFocus: false,
-      rules: {
-        required: true,
-        maxLength: 255,
-        pattern:
-          /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/,
-      },
-    },
-    password: {
-      formLabel: "新規パスワード(6文字以上):",
-      errorsProperty: errors.password,
-      errorMessage: "新しいパスワードを入力してください",
-      resultErrorProperty: resultErrors?.password,
-      apiMessagePropertyName: "パスワード",
-      nameAttribute: "password",
-      typeAttribute: "password",
-      defaultValue: "",
-      autoComplete: "new-password",
-      autoFocus: false,
-      rules: { minLength: 6, maxLength: 128, pattern: /^[^\s\t]+$/ },
-    },
-    password_confirmation: {
-      formLabel: "確認用パスワード:",
-      errorsProperty: errors.password_confirmation,
-      errorMessage: "パスワードと同じ内容を入力してください",
-      resultErrorProperty: resultErrors?.password_confirmation,
-      apiMessagePropertyName: "確認用パスワード",
-      nameAttribute: "password_confirmation",
-      typeAttribute: "password",
-      defaultValue: "",
-      autoComplete: "new-password",
-      autoFocus: false,
-      rules: { minLength: 6, maxLength: 128 },
-    },
-    current_password: {
-      formLabel: (
-        <Fragment>
-          <ColorRed>*</ColorRed>現在使用中のパスワード
-        </Fragment>
-      ),
-      errorsProperty: errors.current_password,
-      errorMessage: "現在使用中のパスワードを入力してください",
-      resultErrorProperty: resultErrors?.current_password,
-      apiMessagePropertyName: "使用中のパスワード",
-      nameAttribute: "current_password",
-      typeAttribute: "password",
-      defaultValue: "",
-      autoComplete: "current-password",
-      autoFocus: false,
-      rules: {
-        required: true,
-        minLength: 6,
-        maxLength: 128,
-        pattern: /^[^\s\t]+$/,
-      },
-    },
-  };
 
   // 送信ボタン下にあるリンクの情報
   const linkInfo: TLinks = [
@@ -216,7 +130,7 @@ export const UserEdit: FC = () => {
     <Container>
       <FormTitle>Profile Edit</FormTitle>
 
-      <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="userEditForm">
+      <Form onSubmit={handleSubmit(onSubmit)} data-testid="userEditForm">
         {resultErrors?.guest?.map((message: string, index: number) => (
           <GuestMessage
             key={`guestError-${index}`}
@@ -225,21 +139,54 @@ export const UserEdit: FC = () => {
             {message}
           </GuestMessage>
         ))}
-        <FormItem formInfo={formInfo.name} control={control} />
 
-        <FormItem formInfo={formInfo.email} control={control} />
+        <Name
+          control={control}
+          autoFocus={true}
+          defaultValue={currentUser.name}
+          resultErrors={resultErrors?.name}
+          errors={errors.name}
+          required={true}
+        />
 
-        <FormItem formInfo={formInfo.password} control={control} />
+        <Email
+          control={control}
+          autoFocus={false}
+          defaultValue={currentUser.email}
+          resultErrors={resultErrors?.email}
+          errors={errors.email}
+          required={true}
+        />
 
-        <FormItem formInfo={formInfo.password_confirmation} control={control} />
+        <Password
+          control={control}
+          autoFocus={false}
+          resultErrors={resultErrors?.password}
+          errors={errors.password}
+          required={false}
+        />
 
-        <FormItem formInfo={formInfo.current_password} control={control} />
+        <PasswordConfirmation
+          control={control}
+          autoFocus={false}
+          resultErrors={resultErrors?.password_confirmation}
+          errors={errors.password_confirmation}
+          required={false}
+        />
+
+        <CurrentPassword
+          control={control}
+          autoFocus={false}
+          resultErrors={resultErrors?.current_password}
+          errors={errors.current_password}
+          required={true}
+        />
 
         <FormSubmit
           isDisabled={isDisabled(submitState.postState)}
           onSubmitText={onSubmitText(submitState.postState, "編集する")}
         />
-      </FormWrapper>
+      </Form>
       <FormLinks linkInfo={linkInfo} />
     </Container>
   );

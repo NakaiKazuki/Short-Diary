@@ -5,8 +5,7 @@ import { Box, SwipeableDrawer, List, Divider, ListItem } from "@mui/material";
 import { Link } from "react-router-dom";
 
 // atoms
-import { drawerAtom } from "../atoms/Drawer";
-import { authAtom } from "../atoms/Auth";
+import { authAtom, drawerAtom } from "../atoms";
 
 // components
 import { BaseButton } from "../components/shared_style";

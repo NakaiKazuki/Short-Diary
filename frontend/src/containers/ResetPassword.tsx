@@ -1,24 +1,22 @@
-import { FC, useState, useReducer, Fragment } from "react";
+import { FC, useState, useReducer } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 // atoms
-import { authAtom } from "../atoms/Auth";
-import { messageAtom } from "../atoms/Message";
+import { authAtom, messageAtom } from "../atoms";
 
 // types
-import { TLinks, IForm } from "../types/containers";
+import { TLinks } from "../types/containers";
 
 // components
 import {
-  FormItem,
   FormLinks,
   FormSubmit,
   FormTitle,
-  FormWrapper,
-} from "../components/users";
-import { ColorRed } from "../components/shared_style";
+  Form,
+  Email,
+} from "../components/users/forms";
 // apis
 import { postResetPassword } from "../apis/users/passwords";
 
@@ -63,31 +61,6 @@ export const ResetPassword: FC = () => {
     formState: { errors },
   } = useForm<IFormValues>();
 
-  const formInfo: Pick<IForm, "email"> = {
-    email: {
-      formLabel: (
-        <Fragment>
-          <ColorRed>*</ColorRed>Email
-        </Fragment>
-      ),
-      errorsProperty: errors.email,
-      errorMessage: "登録したメールアドレスを入力してください",
-      resultErrorProperty: resultErrors?.email,
-      apiMessagePropertyName: "",
-      nameAttribute: "email",
-      typeAttribute: "email",
-      defaultValue: "",
-      autoComplete: "email",
-      autoFocus: true,
-      rules: {
-        required: true,
-        maxLength: 255,
-        pattern:
-          /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/,
-      },
-    },
-  };
-
   // 送信ボタン下にあるリンクの情報
 
   const linkInfo: TLinks = [
@@ -127,17 +100,21 @@ export const ResetPassword: FC = () => {
   return (
     <Container>
       <FormTitle>PasswordReset</FormTitle>
-      <FormWrapper
-        onSubmit={handleSubmit(onSubmit)}
-        data-testid="resetPasswordForm"
-      >
-        <FormItem formInfo={formInfo.email} control={control} />
+      <Form onSubmit={handleSubmit(onSubmit)} data-testid="resetPasswordForm">
+        <Email
+          control={control}
+          autoFocus={true}
+          defaultValue=""
+          resultErrors={resultErrors?.email}
+          errors={errors.email}
+          required={true}
+        />
 
         <FormSubmit
           isDisabled={isDisabled(submitState.postState)}
           onSubmitText={onSubmitText(submitState.postState, "Password Reset!")}
         />
-      </FormWrapper>
+      </Form>
       <FormLinks linkInfo={linkInfo} />
     </Container>
   );
