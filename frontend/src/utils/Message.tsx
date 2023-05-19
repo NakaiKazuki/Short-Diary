@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 
 // atoms
-import { messageAtom } from "../atoms/Message";
+import { messageAtom } from "../atoms";
 
 const Container = styled.div`
   margin-top: 10rem;

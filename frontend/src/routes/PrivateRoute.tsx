@@ -4,7 +4,7 @@ import { Head } from "../Head";
 import { useRecoilValue } from "recoil";
 
 // atoms
-import { authAtom } from "../atoms/Auth";
+import { authAtom } from "../atoms";
 
 // helpers
 import { isLoggedIn } from "../helpers";

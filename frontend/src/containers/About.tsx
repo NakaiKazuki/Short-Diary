@@ -115,16 +115,17 @@ transition.displayName = "Transition";
 export const About: FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [state, dispatch] = useReducer(aboutReducer, initialState);
-  const isDisabeld = (title: string): boolean => state.title === title;
+  const isDisabeld = (title: string): boolean => title === state.title;
 
   const hadleClick = (title: string) => {
-    if (title === state.title) return;
+    if (isDisabeld(title)) return;
+
     dispatch({ title: title });
     scroll(ref);
   };
 
   return (
-    <Container>
+    <Container ref={ref}>
       <Title data-testid="title">{state.title}</Title>
       <Contents data-testid="contents">
         <Categories data-testid="categories">

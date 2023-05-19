@@ -5,7 +5,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useSetRecoilState } from "recoil";
 import "react-image-gallery/styles/css/image-gallery.css";
 // atoms
-import { authAtom } from "../atoms/Auth";
+import { authAtom } from "../atoms";
 
 // constants
 import { HTTP_STATUS_CODE, REQUEST_STATE } from "../constants";

@@ -78,7 +78,7 @@ class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsCon
     def without_guest
       return unless current_user[:email] == 'guest@example.com'
 
-      render json: { errors: { guest: ['ゲストユーザの登録情報は編集できません。'] } }, status: :unprocessable_entity # status: 422
+      render json: { errors: { guest: ['ゲストユーザーの登録情報は編集できません。'] } }, status: :unprocessable_entity # status: 422
     end
 
     def unique_email

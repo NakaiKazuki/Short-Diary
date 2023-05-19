@@ -3,7 +3,7 @@ import { render, screen, cleanup } from "@testing-library/react";
 import { RecoilRoot } from "recoil";
 import userEvent from "@testing-library/user-event";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { authAtom } from "../../atoms/Auth";
+import { authAtom } from "../../atoms";
 import { Header } from "../../containers/Header";
 import { el } from "../helpers";
 

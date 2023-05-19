@@ -1,23 +1,23 @@
-import { FC, useState, useReducer, Fragment } from "react";
+import { FC, useState, useReducer } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 // atoms
-import { authAtom } from "../atoms/Auth";
+import { authAtom } from "../atoms";
 
 // types
-import { TLinks, IForm } from "../types/containers";
+import { TLinks } from "../types/containers";
 
 // components
 import {
-  FormItem,
-  FormLinks,
-  FormSubmit,
   FormTitle,
-  FormWrapper,
-} from "../components/users";
-
+  Form,
+  Email,
+  Password,
+  FormSubmit,
+  FormLinks,
+} from "../components/users/forms";
 // apis
 import { createSession } from "../apis/users/sessions";
 
@@ -42,9 +42,6 @@ import {
 // types
 import { IUsersFormValues as IFormValues } from "../types/containers";
 
-// css
-import { ColorRed } from "../components/shared_style";
-
 const Container = styled.div`
   min-height: 93.5vh;
   padding-top: 17vh;
@@ -64,53 +61,6 @@ export const Login: FC = () => {
     control,
     formState: { errors },
   } = useForm<IFormValues>();
-
-  const formInfo: Pick<IForm, "email" | "password"> = {
-    email: {
-      formLabel: (
-        <Fragment>
-          <ColorRed>*</ColorRed>Email
-        </Fragment>
-      ),
-      errorsProperty: errors.email,
-      errorMessage: "登録したメールアドレスを入力してください",
-      resultErrorProperty: resultErrors,
-      apiMessagePropertyName: "",
-      nameAttribute: "email",
-      typeAttribute: "email",
-      defaultValue: "",
-      autoComplete: "email",
-      autoFocus: true,
-      rules: {
-        required: true,
-        maxLength: 255,
-        pattern:
-          /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[A-Za-z0-9]+$/,
-      },
-    },
-    password: {
-      formLabel: (
-        <Fragment>
-          <ColorRed>*</ColorRed>パスワード
-        </Fragment>
-      ),
-      errorsProperty: errors.password,
-      errorMessage: "正しいパスワードを入力してください",
-      resultErrorProperty: resultErrors,
-      apiMessagePropertyName: "",
-      nameAttribute: "password",
-      typeAttribute: "password",
-      defaultValue: "",
-      autoComplete: "current-password",
-      autoFocus: false,
-      rules: {
-        required: true,
-        minLength: 6,
-        maxLength: 128,
-        pattern: /^[^\s\t]+$/,
-      },
-    },
-  };
 
   // 送信ボタン下にあるリンクの情報
   const linkInfo: TLinks = [
@@ -154,16 +104,27 @@ export const Login: FC = () => {
   return (
     <Container>
       <FormTitle>Login</FormTitle>
-      <FormWrapper onSubmit={handleSubmit(onSubmit)} data-testid="loginForm">
-        <FormItem formInfo={formInfo.email} control={control} />
-
-        <FormItem formInfo={formInfo.password} control={control} />
-
+      <Form onSubmit={handleSubmit(onSubmit)} data-testid="loginForm">
+        <Email
+          control={control}
+          autoFocus={true}
+          defaultValue=""
+          resultErrors={resultErrors}
+          errors={errors.email}
+          required={true}
+        />
+        <Password
+          control={control}
+          autoFocus={false}
+          resultErrors={resultErrors}
+          errors={errors.password}
+          required={true}
+        />
         <FormSubmit
           isDisabled={isDisabled(submitState.postState)}
           onSubmitText={onSubmitText(submitState.postState, "Login!")}
         />
-      </FormWrapper>
+      </Form>
       <FormLinks linkInfo={linkInfo} />
     </Container>
   );

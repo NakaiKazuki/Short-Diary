@@ -1,12 +1,12 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { BaseButton } from "../shared_style";
+import { BaseButton } from "../../shared_style";
 
 // icons
-import { SubmitIcon } from "../icon";
+import { SubmitIcon } from "../../icon";
 
 // types
-import { IFormSubmit as IProps } from "../../types/components/users";
+import { IFormSubmit as IProps } from "../../../types/components/users/forms";
 
 const Submit = styled(BaseButton)`
   background-color: limegreen;

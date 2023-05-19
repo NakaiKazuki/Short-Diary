@@ -5,8 +5,7 @@ import styled from "styled-components";
 import { useRecoilState } from "recoil";
 
 // atoms
-import { authAtom } from "../atoms/Auth";
-import { drawerAtom } from "../atoms/Drawer";
+import { authAtom, drawerAtom } from "../atoms";
 
 // icons
 import { MenuIcon } from "../components/icon";

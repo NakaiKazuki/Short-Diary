@@ -5,8 +5,7 @@ import userEvent from "@testing-library/user-event";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import { messageAtom } from "../../atoms/Message";
-import { authAtom } from "../../atoms/Auth";
+import { authAtom, messageAtom } from "../../atoms";
 import { UserEdit } from "../../containers/UserEdit";
 import { registration } from "../../urls";
 import { el } from "../helpers";
@@ -151,13 +150,14 @@ describe("UserEditコンポーネント", () => {
         // ApiResponse
         mockAxios.onPut(registration).reply(422, errorResult);
 
-        // 各項目に値を入力
+        // 初期値の入ってない項目に有効な値を入力
         await userEvent.type(el(formInfo[2].testId), formInfo[2].value);
         await userEvent.type(el(formInfo[3].testId), formInfo[3].value);
         await userEvent.type(el(formInfo[4].testId), formInfo[4].value);
 
         // ユーザが送信ボタンをクリック
         await userEvent.click(el("formSubmit"));
+
         // 各項目に対応したApiからのエラーメッセージが表示
         await waitFor(() => {
           expect(el(`${idNames[0]}ResultError`)).toBeTruthy();
@@ -179,7 +179,7 @@ describe("UserEditコンポーネント", () => {
       it("ゲストユーザ専用エラーメッセージ", async () => {
         mockAxios.onPut(registration).reply(422, errorResult);
 
-        // 各項目に値を入力
+        // 初期値の入ってない項目に有効な値を入力
         await userEvent.type(el(formInfo[2].testId), formInfo[2].value);
         await userEvent.type(el(formInfo[3].testId), formInfo[3].value);
         await userEvent.type(el(formInfo[4].testId), formInfo[4].value);
@@ -203,7 +203,7 @@ describe("UserEditコンポーネント", () => {
         // ApiResponse
         mockAxios.onPut(registration).reply(200, result.data, result.headers);
 
-        // 各項目に有効な値を入力
+        // 初期値の入ってない項目に有効な値を入力
         await userEvent.type(el(formInfo[2].testId), formInfo[2].value);
         await userEvent.type(el(formInfo[3].testId), formInfo[3].value);
         await userEvent.type(el(formInfo[4].testId), formInfo[4].value);
@@ -225,7 +225,7 @@ describe("UserEditコンポーネント", () => {
         // ApiResponse
         mockAxios.onPut(registration).reply(422, errorResult);
 
-        // 各項目に有効な値を入力
+        // 初期値の入ってない項目に有効な値を入力
         await userEvent.type(el(formInfo[2].testId), formInfo[2].value);
         await userEvent.type(el(formInfo[3].testId), formInfo[3].value);
         await userEvent.type(el(formInfo[4].testId), formInfo[4].value);

@@ -32,9 +32,7 @@ import { ColorRed } from "../components/shared_style";
 import { SubmitIcon } from "../components/icon";
 
 // atoms
-import { contactAtom } from "../atoms/Contact";
-import { authAtom } from "../atoms/Auth";
-import { messageAtom } from "../atoms/Message";
+import { contactAtom, authAtom, messageAtom } from "../atoms";
 import { Head } from "../Head";
 
 // reducers

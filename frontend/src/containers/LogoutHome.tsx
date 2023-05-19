@@ -2,9 +2,8 @@ import { FC, useReducer } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { motion } from "framer-motion";
 // atoms
-import { authAtom } from "../atoms/Auth";
+import { authAtom } from "../atoms";
 
 // apis
 import { newGuestSession } from "../apis/users/sessions";
@@ -23,7 +22,7 @@ import { removeUserCookies, setUserCookies } from "../helpers";
 import { CanvasContainer } from "../components/logoutHome";
 
 // css
-const LogoutHomeContainer = styled(motion.div)`
+const LogoutHomeContainer = styled.div`
   font-family: "Inter var", sans-serif;
   height: 93.5vh;
   overscroll-behavior: none;
@@ -53,13 +52,8 @@ export const LogoutHome: FC = () => {
         throw e;
       });
   };
-
   return (
-    <LogoutHomeContainer
-      exit={{ opacity: 1 }}
-      transition={{ duration: 3 }}
-      data-testid="logoutHome"
-    >
+    <LogoutHomeContainer data-testid="logoutHome">
       <CanvasContainer
         postState={submitState.postState}
         onSignUpButton={() => navigate("/signup")}

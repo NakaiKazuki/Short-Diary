@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 // types
-import { ILink, ILinks } from "../../types/components/users";
+import { ILink, ILinks } from "../../../types/components/users/forms";
 
 // css
 const LinkListWrapper = styled.div`

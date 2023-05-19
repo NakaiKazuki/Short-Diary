@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 
 // atoms
-import { contactAtom } from "../atoms/Contact";
+import { contactAtom } from "../atoms";
 
 // components
 import { BaseButton } from "../components/shared_style";

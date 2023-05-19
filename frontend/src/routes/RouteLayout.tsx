@@ -13,7 +13,7 @@ import { Contact } from "../containers/Contact";
 import { Footer } from "../containers/Footer";
 
 // atoms
-import { authAtom } from "../atoms/Auth";
+import { authAtom } from "../atoms";
 
 // constants
 import { HTTP_STATUS_CODE } from "../constants";

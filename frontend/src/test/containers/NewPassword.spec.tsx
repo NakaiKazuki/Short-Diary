@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import { MemoryRouter } from "react-router-dom";
-import { messageAtom } from "../../atoms/Message";
+import { messageAtom } from "../../atoms";
 import { NewPassword } from "../../containers/NewPassword";
 import { password } from "../../urls";
 import { el } from "../helpers";
