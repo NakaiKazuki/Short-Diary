@@ -5,8 +5,11 @@ import styled from "styled-components";
 
 //helpers
 import { scroll } from "../helpers";
+
 //types
 import { initialState, aboutReducer } from "../reducers/about";
+
+//css
 const Container = styled.div`
   margin: 0 auto 9vh auto;
   min-height: 93.5vh;
@@ -40,9 +43,8 @@ const Categories = styled.ul`
   @media screen and (max-width: 979px) {
     display: flex;
     justify-contents: center;
-    position: -webkit-sticky;
     position: sticky;
-    top: 0;
+    top: 4.5rem;
     width: 100%;
   }
 `;
@@ -80,6 +82,14 @@ const Base = styled.li`
   @media screen and (max-width: 979px) {
     display: block;
     width: 33.3%;
+  }
+
+  @media screen and (min-width: 401px) and (max-width: 480px) {
+    font-size: 0.863rem;
+  }
+
+  @media screen and (max-width: 400px) {
+    font-size: 0.823rem;
   }
 `;
 
