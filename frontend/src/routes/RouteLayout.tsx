@@ -34,11 +34,10 @@ const Container = styled.div`
   background-size: cover;
 `;
 
-const getCookie = (name: string) => Cookies.get(name);
 const isHeaders = !(
-  getCookie("access-token") &&
-  getCookie("client") &&
-  getCookie("uid")
+  Cookies.get("access-token") &&
+  Cookies.get("client") &&
+  Cookies.get("uid")
 );
 
 export const RouteLayout: FC = () => {
