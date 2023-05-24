@@ -9,6 +9,8 @@ import {
 } from "three";
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import { useIntersect } from "@react-three/drei";
+
+// types
 import { HomeTopItemProps as IItemProps } from "../../types/containers";
 
 const Item: FC<IItemProps> = ({ url, position }) => {
