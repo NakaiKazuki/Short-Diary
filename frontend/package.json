@@ -34,11 +34,11 @@
   },
   "scripts": {
     "start": "WATCHPACK_POLLING=true react-scripts start",
-    "build": "react-scripts build",
+    "build": "craco build",
     "test": "PORT=4444 react-scripts test ",
     "eject": "react-scripts eject",
     "lint": "eslint --cache --fix src/ && prettier --write src/",
-    "prod": "react-scripts build && npx serve -s build -n -p 3000"
+    "prod": "craco build && npx serve -s build -n -p 3000"
   },
   "eslintConfig": {
     "extends": [
@@ -59,6 +59,7 @@
     ]
   },
   "devDependencies": {
+    "@craco/craco": "^7.1.0",
     "@react-three/test-renderer": "^8.1.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^14.0.0",
@@ -75,6 +76,7 @@
     "@types/three": "^0.152.0",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
+    "babel-plugin-react-remove-properties": "^0.3.0",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
