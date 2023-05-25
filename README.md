@@ -119,14 +119,6 @@
 
 ###　 Docker を利用して構築。wsl2 を使用した Ubuntu 環境では動作確認済み
 
-※ 以下の例のように「docker-compose」が v1 の場合はコマンドの「docker compose」を「docker-compose」に変更してください。
-
-```zsh
-v2: docker compose build
-            ↓
-v1: docker-compose build
-```
-
 リポジトリを手元にクローンしてください。
 
 ```zsh
@@ -139,9 +131,17 @@ git clone https://github.com/NakaiKazuki/Short-Diary.git
 cd Short-Diary
 ```
 
-docker-compose が v1 の場合はコマンドの docker compose を docker-compose に変更してください。
+下記のコマンドでイメージを作成します。
+また、ここから docker-compose が v1 の場合はコマンドの docker compose の記述を docker-compose に変更してください。
+※ 以下の例のように「docker-compose」が v1 の場合はコマンドの「docker compose」を「docker-compose」に変更。
 
-その後下記のコマンドでイメージを作成します。
+```zsh
+v2: docker compose build
+            ↓
+v1: docker-compose build
+```
+
+下記のコマンドでイメージを作成します。
 
 ```zsh
 docker compose build
