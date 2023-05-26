@@ -38,7 +38,7 @@
     "test": "PORT=4444 react-scripts test ",
     "eject": "react-scripts eject",
     "lint": "eslint --cache --fix src/ && prettier --write src/",
-    "prod": "craco build && npx serve -s build -n -p 3000"
+    "prod": "react-scripts build && npx serve -s build -n -p 3000"
   },
   "eslintConfig": {
     "extends": [
