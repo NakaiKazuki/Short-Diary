@@ -32,10 +32,13 @@ const ErrorMessage = styled.p`
   margin: 0.4rem auto;
 `;
 
-const ContentCount = styled.span`
-  float: right;
-  font-size: 1rem;
-`;
+const ContentCount = styled.span<{ contentCount: number }>(
+  ({ contentCount }) => ({
+    float: "right",
+    fontSize: "1rem",
+    color: contentCount > 200 ? "red" : undefined,
+  })
+);
 
 const Picture = styled.label`
   background-color: white;
@@ -192,7 +195,10 @@ export const FormArea: FC<IProps> = ({
               fullWidth
               sx={bgcWhite}
               helperText={
-                <ContentCount data-testid="contentCount">
+                <ContentCount
+                  contentCount={contentCount}
+                  data-testid="contentCount"
+                >
                   {contentCount}/200
                 </ContentCount>
               }
